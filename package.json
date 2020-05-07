@@ -10,7 +10,13 @@
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
-    "@oclif/plugin-help": "^2.2.3"
+    "@oclif/plugin-help": "^2.2.3",
+    "babel-eslint": "^10.1.0",
+    "eslint-plugin-jest": "^23.9.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint_d": "^8.1.1",
+    "jest": "^26.0.1",
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
@@ -43,6 +49,8 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
+    "lint": "eslint_d ./src",
+    "postinstall": "node check-node-version",
     "version": "oclif-dev readme && git add README.md"
   }
 }
