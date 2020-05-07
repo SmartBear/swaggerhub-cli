@@ -1,0 +1,48 @@
+{
+  "name": "swaggerhub",
+  "description": "cli to interact with https://app.swaggerhub.com",
+  "version": "0.0.0",
+  "author": "SmartBear",
+  "bin": {
+    "swaggerhub": "./bin/run"
+  },
+  "bugs": "https://github.com/SmartBear/swaggerhub-cmd/issues",
+  "dependencies": {
+    "@oclif/command": "^1.6.1",
+    "@oclif/config": "^1.15.1",
+    "@oclif/plugin-help": "^2.2.3"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "globby": "^10.0.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/SmartBear/swaggerhub-cmd",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "ASF2.0",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "swaggerhub",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "SmartBear/swaggerhub-cmd",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
