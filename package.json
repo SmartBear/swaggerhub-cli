@@ -29,7 +29,7 @@
   "keywords": [
     "oclif"
   ],
-  "license": "MIT",
+  "license": "ASF2.0",
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
