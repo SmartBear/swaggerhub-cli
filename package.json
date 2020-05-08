@@ -1,10 +1,10 @@
 {
-  "name": "swaggerhub",
-  "description": "cli to interact with https://app.swaggerhub.com",
+  "name": "shub",
+  "description": "SwaggerHub CLI",
   "version": "0.0.0",
   "author": "SmartBear",
   "bin": {
-    "swaggerhub": "./bin/run"
+    "shub": "./bin/run"
   },
   "bugs": "https://github.com/SmartBear/swaggerhub-cmd/issues",
   "dependencies": {
@@ -38,7 +38,7 @@
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
-    "bin": "swaggerhub",
+    "bin": "shub",
     "plugins": [
       "@oclif/plugin-help"
     ]
