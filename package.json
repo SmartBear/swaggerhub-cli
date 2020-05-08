@@ -26,8 +26,8 @@
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-mocha": "^6.3.0",
     "globby": "^10.0.2",
-    "mocha": "^7.1.2",
-    "nyc": "^15.0.1"
+    "mocha": "^5.2.0",
+    "nyc": "^14.1.1"
   },
   "engines": {
     "node": ">=8.0.0"
