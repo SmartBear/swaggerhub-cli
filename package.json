@@ -14,8 +14,9 @@
     "babel-eslint": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint_d": "^8.1.1",
-    "semver": "^7.3.2",
-    "node-fetch": "^2.6.0"
+    "husky": "^4.2.5",
+    "node-fetch": "^2.6.0",
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
@@ -58,5 +59,10 @@
     "lint": "eslint_d ./src",
     "postinstall": "node check-node-version",
     "version": "oclif-dev readme && git add README.md"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run test"
+    }
   }
 }
