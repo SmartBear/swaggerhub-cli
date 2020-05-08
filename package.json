@@ -15,7 +15,11 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
-    "globby": "^10.0.2"
+    "@oclif/test": "^1.2.5",
+    "chai": "^4.2.0",
+    "globby": "^10.0.2",
+    "mocha": "^5.2.0",
+    "nyc": "^14.1.1"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -43,7 +47,7 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
-    "test": "echo NO TESTS",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "version": "oclif-dev readme && git add README.md"
   }
 }
