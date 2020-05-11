@@ -11,6 +11,8 @@
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^2.2.3",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0",
     "babel-eslint": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint_d": "^8.1.1",
