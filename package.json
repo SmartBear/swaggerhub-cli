@@ -11,12 +11,20 @@
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^2.2.3",
-    "node-fetch": "^2.6.0"
+    "babel-eslint": "^10.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint_d": "^8.1.1",
+    "husky": "^4.2.5",
+    "node-fetch": "^2.6.0",
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/test": "^1.2.5",
     "chai": "^4.2.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
+    "eslint-plugin-immutable": "^1.0.0",
+    "eslint-plugin-mocha": "^6.3.0",
     "globby": "^10.0.2",
     "mocha": "^5.2.0",
     "nyc": "^14.1.1"
@@ -48,6 +56,13 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "lint": "eslint_d ./src",
+    "postinstall": "node check-node-version",
     "version": "oclif-dev readme && git add README.md"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run test"
+    }
   }
 }

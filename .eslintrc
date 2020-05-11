@@ -1,0 +1,58 @@
+{
+  "plugins": ["node", "immutable", "chai-friendly", "mocha"],
+  "parser": "babel-eslint",
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "eslint:recommended", 
+    "plugin:node/recommended",
+    "plugin:chai-friendly/recommended",
+    "plugin:mocha/recommended"
+  ],
+  "rules": {
+    "semi": [2, "never"],
+    "strict": 0,
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "object-curly-spacing": [2, "always"],
+    "array-bracket-spacing": [2, "never"],
+    "computed-property-spacing": [2, "never"],
+    "no-unused-vars": 0,
+    "no-multi-spaces": 1,
+    "no-constant-condition": 1,
+    "camelcase": 0,
+    "no-use-before-define": [
+      2,
+      "nofunc"
+    ],
+    "no-useless-escape": 0,
+    "no-unsafe-finally": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-expressions": 2,
+    "comma-dangle": 0,
+    "arrow-spacing": "error",
+    "space-in-parens": ["error", "never"],
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "no-useless-return": "error",
+    "rest-spread-spacing": "error",
+    "keyword-spacing": ["error", { "before": true, "after": true }],
+    "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
+    "prefer-template": "error",
+    "no-var": "error",
+    "prefer-const": [
+      "error", {
+        "destructuring": "all",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "max-len": ["error", { "code": 100 }],
+    "immutable/no-let": 2,
+    "mocha/no-mocha-arrows": 0,
+    "mocha/no-setup-in-describe": 0
+  }
+}
