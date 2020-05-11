@@ -1,4 +1,4 @@
-swaggerhub
+shub
 ==========
 
 cli to interact with https://app.swaggerhub.com
@@ -15,29 +15,29 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g swaggerhub
-$ swaggerhub COMMAND
+$ npm install -g smartbear/shub
+$ shub COMMAND
 running command...
-$ swaggerhub (-v|--version|version)
-swaggerhub/0.0.0 darwin-x64 node-v12.13.0
-$ swaggerhub --help [COMMAND]
+$ shub (-v|--version|version)
+shub/0.0.0 darwin-x64 node-v12.13.0
+$ shub --help [COMMAND]
 USAGE
-  $ swaggerhub COMMAND
+  $ shub COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`swaggerhub hello`](#swaggerhub-hello)
-* [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
+* [`shub hello`](#shub-hello)
+* [`shub help [COMMAND]`](#shub-help-command)
 
-## `swaggerhub hello`
+## `shub hello`
 
 Describe the command here
 
 ```
 USAGE
-  $ swaggerhub hello
+  $ shub hello
 
 OPTIONS
   -n, --name=name  name to print
@@ -49,13 +49,13 @@ DESCRIPTION
 
 _See code: [src/commands/hello.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/hello.js)_
 
-## `swaggerhub help [COMMAND]`
+## `shub help [COMMAND]`
 
-display help for swaggerhub
+display help for shub
 
 ```
 USAGE
-  $ swaggerhub help [COMMAND]
+  $ shub help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for

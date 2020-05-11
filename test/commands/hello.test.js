@@ -1,4 +1,4 @@
-const {expect, test} = require('@oclif/test')
+const { expect, test } = require('@oclif/test')
 
 describe('hello', () => {
   test
