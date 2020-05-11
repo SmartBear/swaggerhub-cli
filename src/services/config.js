@@ -5,7 +5,6 @@ class ConfigData {
   constructor() {
     this.swaggerHubUrl = 'https://app.swaggerhub.com'
     this.apiKey = undefined
-    this.defaultOrg = undefined
   }
 }
 
@@ -16,14 +15,14 @@ class Config {
     this.configData = new ConfigData()
   }
 
-  async load() {
+  load() {
     if (fs.existsSync(this.configFile)) {
       this.configData = fs.readJSONSync(this.configFile)
     }
   }
 
-  async save() {
-    await fs.outputJson(this.configFile, this.configData, { mode: 0o600 })
+  save() {
+    fs.outputJsonSync(this.configFile, this.configData, { mode: 0o600 })
   }
 
   get swaggerHubUrl() {
@@ -40,14 +39,6 @@ class Config {
 
   set apiKey(apiKey) {
     this.configData.apiKey = apiKey
-  }
-
-  get defaultOrg() {
-    return this.configData.defaultOrg
-  }
-
-  set defaultOrg(defaultOrg) {
-    this.configData.defaultOrg = defaultOrg
   }
 }
 
