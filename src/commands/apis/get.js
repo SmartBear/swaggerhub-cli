@@ -8,8 +8,10 @@ class GetAPICommand extends Command {
   ]
 
   static flags = {
-    // can pass either --force or -f
-    json: flags.boolean({ char: 'j' })
+    json: flags.boolean({ 
+      char: 'j',
+      description: 'Returns the API in JSON format.'
+    })
   }
 
   async run() {
