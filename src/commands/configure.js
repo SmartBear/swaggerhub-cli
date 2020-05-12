@@ -9,8 +9,6 @@ class Configure extends Command {
   async run() {
     const prompts = getPrompts('swaggerHubUrl','apiKey')(getConfig())
 
-    console.log(getConfig())
-
     inquirer.prompt(prompts).then(setConfig)
   }
 }
