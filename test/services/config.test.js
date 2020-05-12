@@ -2,16 +2,10 @@ const { expect, test } = require('@oclif/test')
 const tmp = require('tmp')
 const Config = require('../../src/services/config')
 
-const ORIGINAL_API_KEY = Object.assign({}, process.env.SWAGGERHUB_API_KEY)
+const API_KEY = 'abcdef00-0000-1234-5678-97e0b583f1b9'
 
 describe('services', () => {
   describe('config', () => {
-    beforeEach(() => {
-      delete process.env.SWAGGERHUB_API_KEY
-    })
-    after(() => {
-      process.env.SWAGGERHUB_API_KEY = ORIGINAL_API_KEY
-    })
 
     test.it('returns config that was set', () => {
       const shubUrl = 'https://test.swaggerhub.com'
@@ -32,22 +26,21 @@ describe('services', () => {
       expect(config.swaggerHubUrl).to.equal(defaultSwaggerHubUrl)
     })
 
-    test.it('should return the configured API key from environmental variable', () => {
-      const apiKey = 'abcdef00-0000-1234-5678-97e0b583f1b9'
-      process.env.SWAGGERHUB_API_KEY = apiKey
-      
+    test
+    .env({ SWAGGERHUB_API_KEY: API_KEY })
+    .it('should return the configured API key from environmental variable', () => {      
       const config = new Config('')
-      expect(config.apiKey).to.equal(apiKey)
+      expect(config.apiKey).to.equal(API_KEY)
     })
 
-    test.it('should prioritise environmental variable API key', () => {
-      const fileApiKey = 'abcdef00-file-1234-5678-97e0b583f1b9'
-      const envApiKey = 'abcdef00-env1-1234-5678-97e0b583f1b9'
-      process.env.SWAGGERHUB_API_KEY = envApiKey
-      
+    test
+    .env({ SWAGGERHUB_API_KEY: API_KEY })
+    .it('should prioritise environmental variable API key', () => {
       const config = new Config('')
+      const fileApiKey = 'abcdef00-file-1234-5678-97e0b583f1b9'
       config.apiKey = fileApiKey
-      expect(config.apiKey).to.equal(envApiKey)
+      expect(config.apiKey).to.equal(API_KEY)
+      delete process.env.SWAGGERHUB_API_KEY
     })
 
     test.it('should return API key undefined from environmental variable', () => {
