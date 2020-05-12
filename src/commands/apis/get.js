@@ -1,5 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const fetch = require('node-fetch')
+const {acceptHeader, reqType} = require('../../services/http')
 
 class GetAPICommand extends Command {
 
@@ -17,8 +18,7 @@ class GetAPICommand extends Command {
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = args.identifier
-    const headers = { 'Accept': 'application/yaml' }
-    if (flags.json) headers.Accept= 'application/json'
+    const headers = acceptHeader(reqType(flags))
 
     fetch(`https://dev-api.swaggerhub.com/apis/${identifier}`, {
       headers: headers
