@@ -16,7 +16,8 @@
     "eslint_d": "^8.1.1",
     "husky": "^4.2.5",
     "node-fetch": "^2.6.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "yaml-js": "^0.2.3"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
@@ -57,7 +58,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
-    "lint": "eslint_d ./src",
+    "lint": "eslint_d ./src ./test",
     "postinstall": "node check-node-version",
     "version": "oclif-dev readme && git add README.md"
   },
