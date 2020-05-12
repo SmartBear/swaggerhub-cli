@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const fetch = require('node-fetch')
-const {acceptHeader, reqType} = require('../../services/http')
+const { acceptHeader, reqType } = require('../../services/http')
 
 class GetAPICommand extends Command {
 

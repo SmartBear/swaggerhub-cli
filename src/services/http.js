@@ -1,8 +1,8 @@
-const acceptHeader = (type) => ({
+const acceptHeader = type => ({
     'Accept': `application/${type}`
   })
   
-const reqType = ({ json }) => !!json ? 'json' : 'yaml'
+const reqType = ({ json }) => json ? 'json' : 'yaml'
 
 module.exports = {
     acceptHeader,
