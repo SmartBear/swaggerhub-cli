@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { validateObjectIdentifier } = require('../../src/services/input-validation')
+const { validateObjectIdentifier } = require('../../src/utils/input-validation')
 
 
 describe('Validate Object Identifier', () => {

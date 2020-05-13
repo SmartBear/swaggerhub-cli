@@ -1,5 +1,5 @@
 const { expect } = require('@oclif/test')
-const { acceptHeader, reqType } = require('../../src/services/http')
+const { acceptHeader, reqType } = require('../../src/utils/http')
 
 
 describe('acceptHeader returns correct headers', () => {
