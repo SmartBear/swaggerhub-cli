@@ -1,9 +1,8 @@
 const identifierRegex = new RegExp(/^.+\/.+\/.+$/)
-function validateObjectIdentifier(id){
+function validateObjectIdentifier(id) {
     return identifierRegex.test(id)
 }
 
 module.exports = {
     validateObjectIdentifier
 }
-  

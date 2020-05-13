@@ -10,7 +10,7 @@ class GetAPICommand extends Command {
   ]
 
   static flags = {
-    json: flags.boolean({ 
+    json: flags.boolean({
       char: 'j',
       description: 'Returns the API in JSON format.'
     })
@@ -28,8 +28,8 @@ class GetAPICommand extends Command {
     await fetch(`https://api.swaggerhub.com/apis/${identifier}`, {
       headers: headers
     })
-    .then(res => res.text())
-    .then(text => this.log(text))
+      .then(res => res.text())
+      .then(text => this.log(text))
   }
 }
 
