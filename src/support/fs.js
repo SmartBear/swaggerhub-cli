@@ -6,8 +6,11 @@ const readJSONSync = path => fs.readJSONSync(path)
 
 const fileExistsSync = path => fs.existsSync(path)
 
+const deleteFileSync = path => fs.unlinkSync(path)
+
 module.exports = {
   writeJSONSync,
   readJSONSync,
-  fileExistsSync
+  fileExistsSync,
+  deleteFileSync
 }
