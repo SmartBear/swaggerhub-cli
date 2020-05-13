@@ -33,23 +33,21 @@ class CreateAPICommand extends Command {
   async run() {
     const {args, flags} = this.parse(CreateAPICommand)
     const identifier = args.identifier
-    
 
     if (!validateObjectIdentifier(identifier)) {
       this.error('Identifier must match {owner}/{api_name}/{version} format', { exit : 1 })
     }
 
     const [owner, name, version] = identifier.split('/')
-
     const result = await fetch(`https://dev-api.swaggerhub.com/apis/${owner}/${name}`, {
-      headers: {Authorization : '55da1eec-8f74-4bfe-988e-9faa874b9cb8'}
+      headers: {Authorization : '<API_KEY>'}
     })
 
     if (result.status === 200) {
       this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit : 1 })
     } else if (result.status === 404) {
       var queryParams = { version: version, isPrivate:flags.visibility==='private', oas:flags.oasVersion };
-      var headers = { 'Content-Type' : 'application/yaml', Authorization : '55da1eec-8f74-4bfe-988e-9faa874b9cb8'};
+      var headers = { 'Content-Type' : 'application/yaml', Authorization : '<API_KEY>'};
       const obj = { pathParams : [owner, name], headers : headers, queryParams : queryParams, body : fs.readFileSync(flags.file) }
       postApi(obj)
     } else {
