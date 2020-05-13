@@ -9,9 +9,7 @@ const fileExistsSync = path => fs.existsSync(path)
 
 const deleteFileSync = path => fs.unlinkSync(path)
 
-const updateJSONSync = (path, update) => (
-  writeJSONSync(path, mergeDeep(readJSONSync(path), update))
-)
+const updateJSONSync = (path, update) => writeJSONSync(path, mergeDeep(readJSONSync(path), update))
 
 module.exports = {
   writeJSONSync,
