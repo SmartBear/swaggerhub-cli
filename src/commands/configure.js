@@ -2,8 +2,7 @@ const { Command } = require('@oclif/command')
 const inquirer = require('inquirer')
 
 const { getPrompts } = require('../support/inquirer')
-const { setConfig } = require('../services/actions')
-const { getConfig } = require('../services/queries')
+const { setConfig, getConfig } = require('../services/config')
 
 class Configure extends Command {
   async run() {

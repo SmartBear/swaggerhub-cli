@@ -18,6 +18,7 @@
     "fs-extra": "^9.0.0",
     "husky": "^4.2.5",
     "inquirer": "^7.1.0",
+    "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "semver": "^7.3.2"
   },
@@ -30,7 +31,8 @@
     "eslint-plugin-mocha": "^6.3.0",
     "globby": "^10.0.2",
     "mocha": "^5.2.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "tmp": "^0.1.0"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -45,7 +47,7 @@
   "keywords": [
     "oclif"
   ],
-  "license": "ASF2.0",
+  "license": "Apache 2.0",
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
@@ -65,7 +67,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
-    "lint": "eslint_d ./src",
+    "lint": "eslint_d ./src ./test",
     "postinstall": "node check-node-version",
     "version": "oclif-dev readme && git add README.md"
   },

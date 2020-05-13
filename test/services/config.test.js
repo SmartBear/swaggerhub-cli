@@ -1,79 +1,38 @@
 const { expect, test } = require('@oclif/test')
-const tmp = require('tmp')
-const Config = require('../../src/services/config')
+const { writeJSONSync, deleteFileSync, readJSONSync } = require('../../src/support/fs')
+const mock = require('../__mocks__/config')
+const isEqual = require('lodash/isEqual')
 
-const ORIGINAL_API_KEY = Object.assign({}, process.env.SWAGGERHUB_API_KEY)
+const { setConfig, getConfig } = require('../../src/services/config')
 
-describe('services', () => {
-  describe('config', () => {
-    beforeEach(() => {
-      delete process.env.SWAGGERHUB_API_KEY
-    })
-    after(() => {
-      process.env.SWAGGERHUB_API_KEY = ORIGINAL_API_KEY
-    })
+describe('config ', () => {
+  beforeEach(() => {
+    global.configFilePath = mock.configFilePath
+    writeJSONSync(mock.configFilePath, mock.config)
+  })
 
-    test.it('returns config that was set', () => {
-      const shubUrl = 'https://test.swaggerhub.com'
-      const apiKey = 'abcdef00-0000-1234-5678-97e0b583f1b9'
+  afterEach(() => {
+    delete global.configFilePath
+    deleteFileSync(mock.configFilePath)
+  })
+
+  describe('setConfig', () => {
+    test.it('it should update the contents of config file', () => {
+      const mockUpdate = {
+        ...readJSONSync(mock.configFilePath),
+        swaggerHubUrl: 'http://update.test'
+      }
       
-      const config = new Config('')
-      config.swaggerHubUrl = shubUrl
-      config.apiKey = apiKey
+      setConfig({ swaggerHubUrl: mockUpdate.swaggerHubUrl })
 
-      expect(config.swaggerHubUrl).to.equal(shubUrl)
-      expect(config.apiKey).to.equal(apiKey)
+      expect(isEqual(readJSONSync(mock.configFilePath), mockUpdate))
+        .to.equal(true)
     })
+  })
 
-    test.it('should return the default SwaggerHub URL', () => {
-      const config = new Config('')
-      const defaultSwaggerHubUrl = 'https://app.swaggerhub.com'
-      
-      expect(config.swaggerHubUrl).to.equal(defaultSwaggerHubUrl)
-    })
-
-    test.it('should return the configured API key from environmental variable', () => {
-      const apiKey = 'abcdef00-0000-1234-5678-97e0b583f1b9'
-      process.env.SWAGGERHUB_API_KEY = apiKey
-      
-      const config = new Config('')
-      expect(config.apiKey).to.equal(apiKey)
-    })
-
-    test.it('should prioritise environmental variable API key', () => {
-      const fileApiKey = 'abcdef00-file-1234-5678-97e0b583f1b9'
-      const envApiKey = 'abcdef00-env1-1234-5678-97e0b583f1b9'
-      process.env.SWAGGERHUB_API_KEY = envApiKey
-      
-      const config = new Config('')
-      config.apiKey = fileApiKey
-      expect(config.apiKey).to.equal(envApiKey)
-    })
-
-    test.it('should return API key undefined from environmental variable', () => {
-      const config = new Config('')
-      expect(config.apiKey).to.be.undefined
-    })
-
-    test.it('should return saved config', () => {
-      const tempDir = tmp.dirSync({ unsafeCleanup: true })
-      const config = new Config(tempDir.name)
-      config.load()
-      
-      const defaultSwaggerHubUrl = 'https://app.swaggerhub.com'
-      expect(config.swaggerHubUrl).to.equal(defaultSwaggerHubUrl)
-      expect(config.apiKey).to.be.undefined
-
-      const newUrl = 'https://test.swaggerhub.com'
-      const newApiKey = 'abcdef00-save-1234-5678-97e0b583f1b9'
-      config.swaggerHubUrl = newUrl
-      config.apiKey = newApiKey
-      config.save()
-
-      const loadConfig = new Config(tempDir.name)
-      loadConfig.load()
-      expect(loadConfig.swaggerHubUrl).to.equal(newUrl)
-      expect(loadConfig.apiKey).to.equal(newApiKey)
+  describe('getConfig', () => {
+    test.it('it should return the contents of config file', () => {
+      expect(isEqual(getConfig(), mock.config)).to.equal(true)
     })
   })
 })
