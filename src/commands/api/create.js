@@ -1,8 +1,7 @@
-const {Command, flags} = require('@oclif/command')
-const fetch = require('node-fetch')
+const { Command, flags } = require('@oclif/command')
 const fs = require('../../support/fs')
-const { postApi } = require('../../services/actions')
-const { validateObjectIdentifier } = require('../../services/input-validation')
+const { getApiVersions, postApi } = require('../../actions/api')
+const { validateObjectIdentifier } = require('../../utils/input-validation')
 
 class CreateAPICommand extends Command {
   
@@ -31,31 +30,35 @@ class CreateAPICommand extends Command {
   }
 
   async run() {
-    const {args, flags} = this.parse(CreateAPICommand)
+    const { args, flags } = this.parse(CreateAPICommand)
     const identifier = args.identifier
 
     if (!validateObjectIdentifier(identifier)) {
-      this.error('Identifier must match {owner}/{api_name}/{version} format', { exit : 1 })
+      console.log('in here')
+      this.error('identifier must match {owner}/{api_name}/{version} format', { exit: 1 })
     }
 
     const [owner, name, version] = identifier.split('/')
-    const result = await fetch(`https://dev-api.swaggerhub.com/apis/${owner}/${name}`, {
-      headers: {Authorization : '<API_KEY>'}
-    })
 
+    const result = await getApiVersions({ pathParams: [owner, name] })
     if (result.status === 200) {
-      this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit : 1 })
+      this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
     } else if (result.status === 404) {
-      var queryParams = { version: version, isPrivate:flags.visibility==='private', oas:flags.oasVersion };
-      var headers = { 'Content-Type' : 'application/yaml', Authorization : '<API_KEY>'};
-      const obj = { pathParams : [owner, name], headers : headers, queryParams : queryParams, body : fs.readFileSync(flags.file) }
-      postApi(obj)
+      const queryParams = { version: version, isPrivate: flags.visibility==='private', oas: flags.oasVersion }
+      const obj = { pathParams: [owner, name], queryParams: queryParams, body: fs.readFileSync(flags.file) }
+      await postApi(obj).then(result => {
+        if (result.ok) {
+          this.log(`Created API ${owner}/${name}`)
+        } else {
+          this.error('Error creating API', { exit: 1 })
+        }
+      })
     } else {
-      this.error(`Error creating API '${identifier}'`, { exit : 1 })
+      this.error(`Error creating API '${identifier}'`, { exit: 1 })
     }
   }
 }
 
-CreateAPICommand.description = `Creates API in SwaggerHub`
+CreateAPICommand.description = 'Creates API in SwaggerHub'
 
 module.exports = CreateAPICommand
