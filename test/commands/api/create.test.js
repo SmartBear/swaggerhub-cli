@@ -12,9 +12,9 @@ describe('invalid apis:create indentifier', () => {
 
   test
     .stdout()
-    .command(['api:create', 'invalid', '-f test/resources/create_api.yaml'])
-    .exit(1)
-    .it('runs api:create with invalid indentifier provided')
+    .command(['api:create', 'invalid'])
+    .exit(2)
+    .it('runs api:create with no required --file flag')
 
   test
     .stdout()
@@ -36,7 +36,7 @@ describe('invalid api:create', () => {
   })
 
   test
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(200)
     )
@@ -46,7 +46,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with API already exists')
   
   test
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(500)
     )
@@ -55,11 +55,11 @@ describe('invalid api:create', () => {
     .it('runs api:create error retrieving API')
 
   test
-    .nock('https://dev-api.swaggerhub.com:443/apis', api => api
+    .nock('https://test.swaggerhub.com:443/apis', api => api
     .get('/org/api')
     .reply(404)
     )
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=1.0.0&isPrivate=true&oas=3.0.0')
       .reply(400)
     )
@@ -81,11 +81,11 @@ describe('valid api:create', () => {
   })
 
   test
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(404)
     )
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=1.0.0&isPrivate=true&oas=3.0.0')
       .reply(201)
     )
@@ -96,11 +96,11 @@ describe('valid api:create', () => {
     })
 
     test
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(404)
     )
-    .nock('https://dev-api.swaggerhub.com/apis', api => api
+    .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=2.0.0&isPrivate=false&oas=2.0')
       .reply(201)
     )
