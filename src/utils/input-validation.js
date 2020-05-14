@@ -13,5 +13,6 @@ const getIdentifierArg = ({ identifier }) => {
 }
 
 module.exports = {
+    validateObjectIdentifier,
     getIdentifierArg
 }
