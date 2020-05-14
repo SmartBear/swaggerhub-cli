@@ -15,9 +15,9 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint_d": "^8.1.1",
     "husky": "^4.2.5",
+    "js-yaml": "^3.13.1",
     "node-fetch": "^2.6.0",
-    "semver": "^7.3.2",
-    "yaml-js": "^0.2.3"
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",

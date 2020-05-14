@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const yaml = require('yaml-js')
+const yaml = require('js-yaml')
 
 const validIdentifier = 'org1/api2/1.0.0'
 const jsonResponse = {
