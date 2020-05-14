@@ -41,7 +41,7 @@ describe('reqType returns correct type', () => {
 
 describe('authHeader', () => {
   context('authHeader(apiKey)', () => {
-    it('should return Authorization: Beaer ${apiKey}', function () {
+    it('should return Authorization: Bearer ${apiKey}', function () {
       expect(authHeader('123').Authorization).to.equal('Bearer 123')
     })
   })
