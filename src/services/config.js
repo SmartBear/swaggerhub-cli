@@ -1,5 +1,15 @@
 const { updateJSONSync, readJSONSync } = require('../support/fs')
 
+const checkUrlOverride = config => {
+  if (process.env.SWAGGERHUB_URL) {
+    return {
+      ...config,
+      swaggerHubUrl: process.env.SWAGGERHUB_URL
+    }
+  }
+  return config
+}
+
 const checkApiKeyOverride = config => {
   if (process.env.SWAGGERHUB_API_KEY) {
     return {
@@ -13,9 +23,9 @@ const checkApiKeyOverride = config => {
 const getConfig = () => {
   const { configFilePath } = global
   
-  return checkApiKeyOverride (
-    readJSONSync(configFilePath)
-  )
+  return checkUrlOverride(
+    checkApiKeyOverride(
+      readJSONSync(configFilePath)))
 }
 
 const setConfig = update => {
