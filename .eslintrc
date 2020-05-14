@@ -30,7 +30,8 @@
     "no-useless-escape": 0,
     "no-unsafe-finally": 0,
     "no-underscore-dangle": 0,
-    "no-unused-expressions": 2,
+    "no-unused-expressions": 0,
+    "chai-friendly/no-unused-expressions": 2,
     "comma-dangle": 0,
     "arrow-spacing": "error",
     "space-in-parens": ["error", "never"],
@@ -54,5 +55,13 @@
     "immutable/no-let": 2,
     "mocha/no-mocha-arrows": 0,
     "mocha/no-setup-in-describe": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.js"],
+      "rules": {
+        "immutable/no-let": 0
+      }
+    }
+  ],
 }

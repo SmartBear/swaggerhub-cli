@@ -21,7 +21,7 @@ class GetAPICommand extends Command {
     const identifier = args.identifier
     const headers = acceptHeader(reqType(flags))
 
-    if (false == validateObjectIdentifier(identifier)) {
+    if (!validateObjectIdentifier(identifier)) {
       this.error('identifier must match {owner}/{api_name}/{version} format', { exit: 1 })
     }
 
