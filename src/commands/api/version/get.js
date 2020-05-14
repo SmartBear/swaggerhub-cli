@@ -1,7 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const fetch = require('node-fetch')
-const { acceptHeader, reqType } = require('../../utils/http')
-const { validateObjectIdentifier } = require('../../utils/input-validation')
+const { acceptHeader, reqType } = require('../../../utils/http')
+const { validateObjectIdentifier } = require('../../../utils/input-validation')
 
 class GetAPICommand extends Command {
 
