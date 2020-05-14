@@ -1,5 +1,5 @@
 const { expect } = require('@oclif/test')
-const { acceptHeader, reqType } = require('../../src/utils/http')
+const { acceptHeader, reqType, authHeader } = require('../../src/utils/http')
 
 
 describe('acceptHeader returns correct headers', () => {
@@ -38,3 +38,12 @@ describe('reqType returns correct type', () => {
     })
   })
 })
+
+describe('authHeader', () => {
+  context('authHeader(apiKey)', () => {
+    it('should return Authorization: Beaer ${apiKey}', function () {
+      expect(authHeader('123').Authorization).to.equal('Bearer 123')
+    })
+  })
+})
+
