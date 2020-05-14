@@ -44,8 +44,16 @@ class CreateAPICommand extends Command {
     if (result.status === 200) {
       this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
     } else if (result.status === 404) {
-      const queryParams = { version: version, isPrivate: flags.visibility==='private', oas: flags.oasVersion }
-      const obj = { pathParams: [owner, name], queryParams: queryParams, body: fs.readFileSync(flags.file) }
+      const queryParams = { 
+        version: version, 
+        isPrivate: flags.visibility==='private', 
+        oas: flags.oasVersion 
+      }
+      const obj = { 
+        pathParams: [owner, name], 
+        queryParams: queryParams, 
+        body: fs.readFileSync(flags.file) 
+      }
       await postApi(obj).then(result => {
         if (result.ok) {
           this.log(`Created API ${owner}/${name}`)

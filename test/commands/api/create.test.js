@@ -56,7 +56,7 @@ describe('invalid api:create', () => {
 
   test
     .nock('https://dev-api.swaggerhub.com:443/apis', api => api
-    .get(`/org/api`)
+    .get('/org/api')
     .reply(404)
     )
     .nock('https://dev-api.swaggerhub.com/apis', api => api
@@ -82,7 +82,7 @@ describe('valid api:create', () => {
 
   test
     .nock('https://dev-api.swaggerhub.com/apis', api => api
-      .get(`/org/api`)
+      .get('/org/api')
       .reply(404)
     )
     .nock('https://dev-api.swaggerhub.com/apis', api => api
@@ -97,7 +97,7 @@ describe('valid api:create', () => {
 
     test
     .nock('https://dev-api.swaggerhub.com/apis', api => api
-      .get(`/org/api`)
+      .get('/org/api')
       .reply(404)
     )
     .nock('https://dev-api.swaggerhub.com/apis', api => api
@@ -105,7 +105,13 @@ describe('valid api:create', () => {
       .reply(201)
     )
     .stdout()
-    .command(['api:create', 'org/api/2.0.0', '--file=test/resources/create_api.yaml', '--visibility=public', '--oasVersion=2.0'])
+    .command([
+      'api:create', 
+      'org/api/2.0.0', 
+      '--file=test/resources/create_api.yaml', 
+      '--visibility=public', 
+      '--oasVersion=2.0'
+    ])
     .it('runs api:create with optional parameters', ctx => {
       expect(ctx.stdout).to.contains('Created API org/api')
     })

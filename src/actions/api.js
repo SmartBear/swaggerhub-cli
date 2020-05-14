@@ -10,7 +10,7 @@ const postApi = obj => {
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(auth(apiKey), {'Content-Type': 'application/yaml'}),
+    headers: mergeDeep(auth(apiKey), { 'Content-Type': 'application/yaml' }),
     method: 'POST',
     body: obj.body
   })
