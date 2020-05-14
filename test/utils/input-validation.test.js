@@ -1,5 +1,7 @@
-const { expect, test } = require('@oclif/test')
-const { validateObjectIdentifier } = require('../../src/utils/input-validation')
+const { expect } = require('@oclif/test')
+const { CLIError } = require('@oclif/errors') 
+
+const { validateObjectIdentifier, getIdentifierArg } = require('../../src/utils/input-validation')
 
 
 describe('Validate Object Identifier', () => {
@@ -34,5 +36,19 @@ describe('Validate Object Identifier', () => {
       expect(validateObjectIdentifier('owner/api')).to.equal(false)
     })
   })
+})
 
+describe('getIdentifierArg', () => {
+
+  context('valid identifier', () => {
+    it('should be returned', () => {
+      expect(getIdentifierArg({ identifier: 'owner/api/123'})).to.equal('owner/api/123')
+    })
+  })
+
+  context('invalid identifier', () => {
+    it('should be throw an exception', () => {
+      expect(() => { getIdentifierArg({ identifier: 'owner/api'})}).to.throw(CLIError)
+    })
+  })
 })
