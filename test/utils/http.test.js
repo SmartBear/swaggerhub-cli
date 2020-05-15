@@ -1,5 +1,5 @@
 const { expect } = require('@oclif/test')
-const { acceptHeader, authHeader, userAgentHeader, reqType} = require('../../src/utils/http')
+const { acceptHeader, authHeader, userAgentHeader, reqType } = require('../../src/utils/http')
 
 describe('acceptHeader returns correct headers', () => {
 
@@ -28,8 +28,8 @@ describe('authHeader', () => {
 describe('userAgentHeader', () => {
   context('userAgentHeader(userAgent)', () => {
     it('should return User-Agent: swaggerhub/1.2.3 darwin-x64 node-v13.8.0', () => {
-      userAgent = 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0';
-      expectedUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0';
+      const userAgent = 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0'
+      const expectedUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0'
       expect(userAgentHeader(userAgent, 'swaggerhub')['User-Agent']).to.equal(expectedUserAgent)
     })
   })

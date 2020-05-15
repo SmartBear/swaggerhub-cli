@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const fetch = require('node-fetch')
-const { acceptHeader, authHeader, userAgentHeader, reqType} = require('../../../utils/http')
+const { acceptHeader, authHeader, userAgentHeader, reqType } = require('../../../utils/http')
 const { getIdentifierArg } = require('../../../utils/input-validation')
 const { mergeDeep } = require('../../../utils/data-transform')
 const config = require('../../../services/config')
@@ -22,7 +22,7 @@ class GetAPICommand extends Command {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = getIdentifierArg(args)
     const { swaggerHubUrl, apiKey } = config.getConfig()
-    const { userAgent, name } = this.config;
+    const { userAgent, name } = this.config
 
     await fetch(`${swaggerHubUrl}/apis/${identifier}`, {
       headers: mergeDeep(
