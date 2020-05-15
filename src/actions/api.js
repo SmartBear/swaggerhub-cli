@@ -1,4 +1,4 @@
-const { auth, contentTypeHeader, reqType } = require('../utils/http')
+const { authHeader, contentTypeHeader } = require('../utils/http')
 const fetch = require('node-fetch')
 const { getConfig } = require('../services/config')
 const { mergeDeep } = require('../utils/data-transform')
@@ -10,7 +10,7 @@ const postApi = obj => {
   const isJson = hasJsonStructure(obj.body)
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(auth(), contentTypeHeader(isJson ? 'json':'yaml')),
+    headers: mergeDeep(authHeader(), contentTypeHeader(isJson ? 'json':'yaml')),
     method: 'POST',
     body: obj.body
   })
@@ -21,7 +21,7 @@ const getApiVersions = obj => {
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
-    headers: auth(),
+    headers: authHeader(),
   })
 }
 

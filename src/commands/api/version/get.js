@@ -23,7 +23,7 @@ class GetAPICommand extends Command {
     const identifier = getIdentifierArg(args)
 
     await fetch(`${getConfig().swaggerHubUrl}/apis/${identifier}`, {
-      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader(getConfig().apiKey))
+      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader())
     })
     .then(res => res.text())
     .then(text => this.log(text))
