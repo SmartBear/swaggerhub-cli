@@ -15,11 +15,11 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g smartbear/shub
+$ npm install -g shub
 $ shub COMMAND
 running command...
 $ shub (-v|--version|version)
-shub/0.0.0 darwin-x64 node-v12.13.0
+shub/0.0.0 darwin-x64 node-v12.13.1
 $ shub --help [COMMAND]
 USAGE
   $ shub COMMAND
@@ -28,26 +28,34 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`shub hello`](#shub-hello)
+* [`shub api:version:get [IDENTIFIER]`](#shub-apiversionget-identifier)
+* [`shub configure`](#shub-configure)
 * [`shub help [COMMAND]`](#shub-help-command)
 
-## `shub hello`
+## `shub api:version:get [IDENTIFIER]`
 
-Describe the command here
+Fetches an API version
 
 ```
 USAGE
-  $ shub hello
+  $ shub api:version:get [IDENTIFIER]
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -j, --json  Returns the API in JSON format.
 ```
 
-_See code: [src/commands/hello.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/api/version/get.js)_
+
+## `shub configure`
+
+Configure application settings
+
+```
+USAGE
+  $ shub configure
+```
+
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/configure.js)_
 
 ## `shub help [COMMAND]`
 
