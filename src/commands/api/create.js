@@ -1,7 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const fs = require('../../support/fs')
 const { getApiVersions, postApi } = require('../../actions/api')
-const { validateObjectIdentifier } = require('../../utils/input-validation')
+const { getIdentifierArg } = require('../../utils/input-validation')
 
 class CreateAPICommand extends Command {
   
@@ -31,11 +31,7 @@ class CreateAPICommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const identifier = args.identifier
-
-    if (!validateObjectIdentifier(identifier)) {
-      this.error('identifier must match {owner}/{api_name}/{version} format', { exit: 1 })
-    }
+    const identifier = getIdentifierArg(args)
 
     const [owner, name, version] = identifier.split('/')
 
