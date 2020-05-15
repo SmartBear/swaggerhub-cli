@@ -1,6 +1,5 @@
 const { expect } = require('@oclif/test')
-const { acceptHeader, reqType, authHeader } = require('../../src/utils/http')
-
+const { acceptHeader, authHeader, userAgentHeader, reqType} = require('../../src/utils/http')
 
 describe('acceptHeader returns correct headers', () => {
 
@@ -18,10 +17,28 @@ describe('acceptHeader returns correct headers', () => {
 
 })
 
+describe('authHeader', () => {
+  context('authHeader(apiKey)', () => {
+    it('should return Authorization: Bearer ${apiKey}', () => {
+      expect(authHeader('123').Authorization).to.equal('Bearer 123')
+    })
+  })
+})
+
+describe('userAgentHeader', () => {
+  context('userAgentHeader(userAgent)', () => {
+    it('should return User-Agent: swaggerhub/1.2.3 darwin-x64 node-v13.8.0', () => {
+      userAgent = 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0';
+      expectedUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0';
+      expect(userAgentHeader(userAgent, 'swaggerhub')['User-Agent']).to.equal(expectedUserAgent)
+    })
+  })
+})
+
 describe('reqType returns correct type', () => {
 
   context('reqType({json:true})', () => {
-    it('should be json', function () {
+    it('should be json', () => {
       expect(reqType({ 'json': true })).to.equal('json')
     })
   })
@@ -38,12 +55,3 @@ describe('reqType returns correct type', () => {
     })
   })
 })
-
-describe('authHeader', () => {
-  context('authHeader(apiKey)', () => {
-    it('should return Authorization: Bearer ${apiKey}', function () {
-      expect(authHeader('123').Authorization).to.equal('Bearer 123')
-    })
-  })
-})
-
