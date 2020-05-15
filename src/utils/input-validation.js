@@ -1,8 +1,18 @@
+const { CLIError } = require('@oclif/errors') 
+
 const identifierRegex = new RegExp(/^.+\/.+\/.+$/)
-function validateObjectIdentifier(id) {
-    return identifierRegex.test(id)
+
+const validateObjectIdentifier = id => identifierRegex.test(id)
+
+const getIdentifierArg = ({ identifier }) => {
+  if (!validateObjectIdentifier(identifier)) {
+    throw new CLIError('identifier must match {owner}/{api_name}/{version} format')
+  }
+
+  return identifier
 }
 
 module.exports = {
-    validateObjectIdentifier
+    validateObjectIdentifier,
+    getIdentifierArg
 }
