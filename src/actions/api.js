@@ -1,11 +1,11 @@
 const { authHeader, contentTypeHeader } = require('../utils/http')
 const fetch = require('node-fetch')
-const { getConfig } = require('../services/config')
+const config = require('../services/config')
 const { mergeDeep } = require('../utils/data-transform')
 const qs = require('querystring')
 
 const postApi = obj => {
-  const { swaggerHubUrl, apiKey } = getConfig()
+  const { swaggerHubUrl, apiKey } = config.getConfig()
   const [owner, name] = obj.pathParams
   const isJson = hasJsonStructure(obj.body)
 
@@ -17,7 +17,7 @@ const postApi = obj => {
 }
 
 const getApiVersions = obj => {
-  const { swaggerHubUrl, apiKey } = getConfig()
+  const { swaggerHubUrl, apiKey } = config.getConfig()
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
