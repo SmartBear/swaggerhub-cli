@@ -35,10 +35,10 @@ class CreateAPICommand extends Command {
 
     const [owner, name, version] = identifier.split('/')
 
-    const result = await getApiVersions({ pathParams: [owner, name] })
-    if (result.status === 200) {
+    const getApiResult = await getApiVersions({ pathParams: [owner, name] })
+    if (getApiResult.status === 200) {
       this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
-    } else if (result.status === 404) {
+    } else if (getApiResult.status === 404) {
       const queryParams = { 
         version: version, 
         isPrivate: flags.visibility==='private', 
@@ -49,22 +49,21 @@ class CreateAPICommand extends Command {
         queryParams: queryParams, 
         body: fs.readFileSync(flags.file) 
       }
-      await postApi(obj).then(result => {
-        if (result.ok) {
+      await postApi(obj).then(createApiResult => {
+        if (createApiResult.ok) {
           this.log(`Created API ${owner}/${name}`)
         } else {
-          this.error('Error creating API', { exit: 1 })
+          this.error('Error creating API')
         }
       })
     } else {
-      this.error(`Error creating API '${identifier}'`, { exit: 1 })
+      this.error(`Error creating API '${identifier}'`)
     }
   }
 }
 
 CreateAPICommand.description = `Creates API in SwaggerHub
-...
-Error if API already exists
+Creates API in SwaggerHub. Fails if API already exists
 `
 
 module.exports = CreateAPICommand

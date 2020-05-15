@@ -1,4 +1,4 @@
-shub
+swaggerhub
 ==========
 
 cli to interact with https://app.swaggerhub.com
@@ -15,50 +15,53 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g shub
-$ shub COMMAND
+$ npm install -g swaggerhub
+$ swaggerhub COMMAND
 running command...
-$ shub (-v|--version|version)
-shub/0.0.0 darwin-x64 node-v12.13.1
-$ shub --help [COMMAND]
+$ swaggerhub (-v|--version|version)
+swaggerhub/0.0.0 darwin-x64 node-v12.13.1
+$ swaggerhub --help [COMMAND]
 USAGE
-  $ shub COMMAND
+  $ swaggerhub COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`shub api:create IDENTIFIER`](#shub-apicreate-identifier)
-* [`shub api:version:get [IDENTIFIER]`](#shub-apiversionget-identifier)
-* [`shub configure`](#shub-configure)
-* [`shub help [COMMAND]`](#shub-help-command)
+* [`swaggerhub api:create IDENTIFIER`](#swaggerhub-apicreate-identifier)
+* [`swaggerhub api:version:get [IDENTIFIER]`](#swaggerhub-apiversionget-identifier)
+* [`swaggerhub configure`](#swaggerhub-configure)
+* [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 
-## `shub api:create IDENTIFIER`
+## `swaggerhub api:create IDENTIFIER`
 
 Creates API in SwaggerHub
 
 ```
 USAGE
-  $ shub api:create IDENTIFIER
+  $ swaggerhub api:create IDENTIFIER
 
 ARGUMENTS
   IDENTIFIER  Identifier for API in format OWNER/API_NAME/VERSION
 
 OPTIONS
-  -f, --file=file              (required) API yaml file to create in SwaggerHub
+  -f, --file=file              (required) API file to create in SwaggerHub
   --oasVersion=2.0|3.0.0       [default: 3.0.0] OAS Version of API
   --visibility=public|private  [default: private] Visibility of API in SwaggerHub
+
+DESCRIPTION
+  Creates API in SwaggerHub. Fails if API already exists
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/api/create.js)_
 
-## `shub api:version:get [IDENTIFIER]`
+## `swaggerhub api:version:get [IDENTIFIER]`
 
 Fetches an API version
 
 ```
 USAGE
-  $ shub api:version:get [IDENTIFIER]
+  $ swaggerhub api:version:get [IDENTIFIER]
 
 OPTIONS
   -j, --json  Returns the API in JSON format.
@@ -66,24 +69,24 @@ OPTIONS
 
 _See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/api/version/get.js)_
 
-## `shub configure`
+## `swaggerhub configure`
 
 Configure application settings
 
 ```
 USAGE
-  $ shub configure
+  $ swaggerhub configure
 ```
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/configure.js)_
 
-## `shub help [COMMAND]`
+## `swaggerhub help [COMMAND]`
 
-display help for shub
+display help for swaggerhub
 
 ```
 USAGE
-  $ shub help [COMMAND]
+  $ swaggerhub help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for

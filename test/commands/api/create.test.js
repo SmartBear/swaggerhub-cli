@@ -54,7 +54,7 @@ describe('mock get config', () => {
         .reply(500)
       )
       .command(['api:create', `${validIdentifier}`, '-f=test/resources/create_api.yaml'])
-      .exit(1)
+      .exit(2)
       .it('runs api:create error retrieving API')
 
     test
@@ -68,7 +68,7 @@ describe('mock get config', () => {
         .reply(400)
       )
       .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.yaml'])
-      .exit(1)
+      .exit(2)
       .it('runs api:create with error on saving API')
   })
 
