@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { acceptHeader, reqType, authHeader } = require('../../../utils/http')
 const { getIdentifierArg } = require('../../../utils/input-validation')
 const { mergeDeep } = require('../../../utils/data-transform')
-const { getConfig } = require('../../../services/config')
+const config = require('../../../services/config')
 
 class GetAPICommand extends Command {
 
@@ -22,8 +22,8 @@ class GetAPICommand extends Command {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = getIdentifierArg(args)
 
-    await fetch(`${getConfig().swaggerHubUrl}/apis/${identifier}`, {
-      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader(getConfig().apiKey))
+    await fetch(`${config.getConfig().swaggerHubUrl}/apis/${identifier}`, {
+      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader(config.getConfig().apiKey))
     })
     .then(res => res.text())
     .then(text => this.log(text))

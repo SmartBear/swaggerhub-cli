@@ -20,20 +20,19 @@ const checkApiKeyOverride = config => {
   return config
 }
 
-const getConfig = () => {
-  const { configFilePath } = global
-  
-  return checkUrlOverride(
-    checkApiKeyOverride(
-      readJSONSync(configFilePath)))
+const config = {
+
+  getConfig: function() {
+    const { configFilePath } = global
+    return checkUrlOverride(
+      checkApiKeyOverride(
+        readJSONSync(configFilePath)))
+  },
+
+  setConfig: function(update) {
+    const { configFilePath } = global
+    return updateJSONSync(configFilePath, update)
+  }
 }
 
-const setConfig = update => {
-  const { configFilePath } = global
-  return updateJSONSync(configFilePath, update)
-}
-
-module.exports = {
-  setConfig,
-  getConfig
-}
+module.exports = config
