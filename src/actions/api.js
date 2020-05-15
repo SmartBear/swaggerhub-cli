@@ -27,12 +27,12 @@ const getApiVersions = obj => {
 
 function hasJsonStructure(str) {
   try {
-      const result = JSON.parse(str);
-      const type = Object.prototype.toString.call(result);
+      const result = JSON.parse(str)
+      const type = Object.prototype.toString.call(result)
       return type === '[object Object]' 
-          || type === '[object Array]';
+          || type === '[object Array]'
   } catch (err) {
-      return false;
+      return false
   }
 }
 
