@@ -10,6 +10,7 @@
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
+    "@oclif/errors": "^1.2.2",
     "@oclif/plugin-help": "^2.2.3",
     "babel-eslint": "^10.1.0",
     "deep-extend": "^0.6.0",
