@@ -87,6 +87,7 @@ describe('valid api:create', () => {
     )
     .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=1.0.0&isPrivate=true&oas=3.0.0')
+      .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
     .stdout()
@@ -102,13 +103,14 @@ describe('valid api:create', () => {
     )
     .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=2.0.0&isPrivate=false&oas=2.0')
+      .matchHeader('Content-Type', 'application/json')
       .reply(201)
     )
     .stdout()
     .command([
       'api:create', 
       'org/api/2.0.0', 
-      '--file=test/resources/create_api.yaml', 
+      '--file=test/resources/create_api.json', 
       '--visibility=public', 
       '--oasVersion=2.0'
     ])

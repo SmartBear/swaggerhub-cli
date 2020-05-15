@@ -34,7 +34,6 @@ class CreateAPICommand extends Command {
     const identifier = args.identifier
 
     if (!validateObjectIdentifier(identifier)) {
-      console.log('in here')
       this.error('identifier must match {owner}/{api_name}/{version} format', { exit: 1 })
     }
 
@@ -67,6 +66,9 @@ class CreateAPICommand extends Command {
   }
 }
 
-CreateAPICommand.description = 'Creates API in SwaggerHub'
+CreateAPICommand.description = `Creates API in SwaggerHub
+...
+Error if API already exists
+`
 
 module.exports = CreateAPICommand
