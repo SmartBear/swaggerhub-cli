@@ -5,23 +5,23 @@ const { mergeDeep } = require('../utils/data-transform')
 const qs = require('querystring')
 
 const postApi = obj => {
-  const swaggerHubUrl = getConfig().swaggerHubUrl
+  const { swaggerHubUrl, apiKey } = getConfig()
   const [owner, name] = obj.pathParams
   const isJson = hasJsonStructure(obj.body)
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(authHeader(), contentTypeHeader(isJson ? 'json':'yaml')),
+    headers: mergeDeep(authHeader(apiKey), contentTypeHeader(isJson ? 'json':'yaml')),
     method: 'POST',
     body: obj.body
   })
 }
 
 const getApiVersions = obj => {
-  const swaggerHubUrl = getConfig().swaggerHubUrl
+  const { swaggerHubUrl, apiKey } = getConfig()
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
-    headers: authHeader(),
+    headers: authHeader(apiKey),
   })
 }
 

@@ -1,5 +1,3 @@
-const { getConfig } = require('../services/config')
-
 const acceptHeader = type => ({
   'Accept': `application/${type}`
 })
@@ -10,8 +8,8 @@ const contentTypeHeader = type => ({
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
-const authHeader = () => ({
-  'Authorization': `Bearer ${getConfig().apiKey}`
+const authHeader = apiKey => ({
+  'Authorization': `Bearer ${apiKey}`
 })
 
 module.exports = {
