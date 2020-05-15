@@ -4,7 +4,12 @@ const acceptHeader = type => ({
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
+const authHeader = apiKey => ({
+  'Authorization': `Bearer ${apiKey}`
+})
+
 module.exports = {
   acceptHeader,
-  reqType
+  reqType,
+  authHeader
 }

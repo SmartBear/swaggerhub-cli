@@ -16,19 +16,19 @@ describe('invalid apis:get', () => {
   test
     .stdout()
     .command(['api:version:get'])
-    .exit(1)
+    .exit(2)
     .it('runs api:version:get with no indentifier provided')
 
   test
     .stdout()
     .command(['api:version:get', 'invalid'])
-    .exit(1)
+    .exit(2)
     .it('runs api:version:get with invalid indentifier provided')
 
   test
     .stdout()
     .command(['api:version:get', 'owner/api'])
-    .exit(1)
+    .exit(2)
     .it('runs api:version:get with org/api indentifier provided')
 
 })
