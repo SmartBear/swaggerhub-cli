@@ -63,7 +63,7 @@
       "@oclif/plugin-help"
     ],
     "configDefaults": {
-      "swaggerHubUrl": "https://api.swaggerhub.com"
+      "SWAGGERHUB_URL": "https://api.swaggerhub.com"
     }
   },
   "repository": "SmartBear/swaggerhub-cmd",

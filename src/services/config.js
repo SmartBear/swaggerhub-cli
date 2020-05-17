@@ -4,7 +4,7 @@ const checkUrlOverride = config => {
   if (process.env.SWAGGERHUB_URL) {
     return {
       ...config,
-      swaggerHubUrl: process.env.SWAGGERHUB_URL
+      SWAGGERHUB_URL: process.env.SWAGGERHUB_URL
     }
   }
   return config
@@ -14,7 +14,7 @@ const checkApiKeyOverride = config => {
   if (process.env.SWAGGERHUB_API_KEY) {
     return {
       ...config,
-      apiKey: process.env.SWAGGERHUB_API_KEY
+      SWAGGERHUB_API_KEY: process.env.SWAGGERHUB_API_KEY
     }
   }
   return config

@@ -21,10 +21,10 @@ class GetAPICommand extends Command {
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = getIdentifierArg(args)
-    const { swaggerHubUrl, apiKey } = config.getConfig()
+    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
 
-    await fetch(`${swaggerHubUrl}/apis/${identifier}`, {
-      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader(apiKey))
+    await fetch(`${SWAGGERHUB_URL}/apis/${identifier}`, {
+      headers: mergeDeep(acceptHeader(reqType(flags)), authHeader(SWAGGERHUB_API_KEY))
     })
     .then(res => res.text())
     .then(text => this.log(text))

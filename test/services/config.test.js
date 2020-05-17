@@ -22,10 +22,10 @@ describe('config ', () => {
     test.it('it should update the contents of config file', () => {
       const mockUpdate = {
         ...readJSONSync(mock.configFilePath),
-        swaggerHubUrl: 'http://update.test'
+        SWAGGERHUB_URL: 'http://update.test'
       }
       
-      setConfig({ swaggerHubUrl: mockUpdate.swaggerHubUrl })
+      setConfig({ SWAGGERHUB_URL: mockUpdate.SWAGGERHUB_URL })
 
       expect(isEqual(readJSONSync(mock.configFilePath), mockUpdate))
         .to.equal(true)
@@ -40,27 +40,27 @@ describe('config ', () => {
     test
     .env({ SWAGGERHUB_URL: envShubUrl })
     .it('should return the configured SwaggerHub URL from environmental variable', () => {    
-      expect(getConfig().swaggerHubUrl).to.equal(envShubUrl)
+      expect(getConfig().SWAGGERHUB_URL).to.equal(envShubUrl)
     })
 
     test
     .env({ SWAGGERHUB_URL: envShubUrl })
     .it('should prioritise environmental variable SwaggerHub URL', () => {
-      setConfig({ apiKey: 'https://file.swaggerhub.com' })
-      expect(getConfig().swaggerHubUrl).to.equal(envShubUrl)
+      setConfig({ SWAGGERHUB_API_KEY: 'https://file.swaggerhub.com' })
+      expect(getConfig().SWAGGERHUB_URL).to.equal(envShubUrl)
     })
 
     test
     .env({ SWAGGERHUB_API_KEY: envApiKey })
     .it('should return the configured API key from environmental variable', () => {    
-        expect(getConfig().apiKey).to.equal(envApiKey)
+        expect(getConfig().SWAGGERHUB_API_KEY).to.equal(envApiKey)
     })
 
     test
     .env({ SWAGGERHUB_API_KEY: envApiKey })
     .it('should prioritise environmental variable API key', () => {
-      setConfig({ apiKey: 'abcdef00-file-1234-5678-97e0b583f1b9' })
-      expect(getConfig().apiKey).to.equal(envApiKey)
+      setConfig({ SWAGGERHUB_API_KEY: 'abcdef00-file-1234-5678-97e0b583f1b9' })
+      expect(getConfig().SWAGGERHUB_API_KEY).to.equal(envApiKey)
     })
   })
 })
