@@ -4,6 +4,17 @@ const config = require('../services/config')
 const { mergeDeep } = require('../utils/data-transform')
 const qs = require('querystring')
 
+const hasJsonStructure = str => {
+  try {
+      const result = JSON.parse(str)
+      const type = Object.prototype.toString.call(result)
+      return type === '[object Object]' 
+          || type === '[object Array]'
+  } catch (err) {
+      return false
+  }
+}
+
 const postApi = obj => {
   const { swaggerHubUrl, apiKey } = config.getConfig()
   const [owner, name] = obj.pathParams
@@ -21,19 +32,8 @@ const getApiVersions = obj => {
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
-    headers: authHeader(apiKey),
+    headers: authHeader(apiKey)
   })
-}
-
-function hasJsonStructure(str) {
-  try {
-      const result = JSON.parse(str)
-      const type = Object.prototype.toString.call(result)
-      return type === '[object Object]' 
-          || type === '[object Array]'
-  } catch (err) {
-      return false
-  }
 }
 
 module.exports = {
