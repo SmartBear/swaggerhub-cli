@@ -1,5 +1,5 @@
 const { Command, flags } = require('@oclif/command')
-const fs = require('../../support/fs')
+const { readFileSync } = require('../../support/fs')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../utils/input-validation')
 
@@ -47,7 +47,7 @@ class CreateAPICommand extends Command {
       const obj = { 
         pathParams: [owner, name], 
         queryParams: queryParams, 
-        body: fs.readFileSync(flags.file) 
+        body: readFileSync(flags.file) 
       }
       await postApi(obj).then(createApiResult => {
         if (createApiResult.ok) {
