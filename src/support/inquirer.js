@@ -1,15 +1,14 @@
 
-const swaggerHubUrl = ({ swaggerHubUrl }) => ({
-  name: 'swaggerHubUrl',
+const swaggerHubUrl = ({ SWAGGERHUB_URL }) => ({
+  name: 'SWAGGERHUB_URL',
   message: 'SwaggerHub URL:',
-  default: swaggerHubUrl
+  default: SWAGGERHUB_URL
 })
 
-const apiKey = ({ apiKey }) => ({
-  type: 'input',
-  name: 'apiKey',
+const apiKey = ({ SWAGGERHUB_API_KEY }) => ({
+  name: 'SWAGGERHUB_API_KEY',
   message: 'API Key',
-  default: apiKey || null
+  default: SWAGGERHUB_API_KEY || null
 })
 
 const questions = {

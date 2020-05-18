@@ -36,7 +36,7 @@ describe('invalid apis:get', () => {
 
 describe('valid api:version:get', () => {
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
@@ -48,7 +48,7 @@ describe('valid api:version:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
@@ -60,7 +60,7 @@ describe('valid api:version:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, yaml.dump(jsonResponse))
