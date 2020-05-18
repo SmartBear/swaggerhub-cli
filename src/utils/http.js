@@ -6,8 +6,6 @@ const contentTypeHeader = type => ({
   'Content-Type': `application/${type}`
 })
 
-const reqType = ({ json }) => json ? 'json' : 'yaml'
-
 const authHeader = apiKey => ({
   'Authorization': `Bearer ${apiKey}`
 })
