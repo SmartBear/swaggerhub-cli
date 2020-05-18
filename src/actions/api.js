@@ -11,7 +11,10 @@ const postApi = obj => {
   const isJson = hasJsonStructure(obj.body)
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(authHeader(apiKey), contentTypeHeader(isJson ? 'json':'yaml')),
+    headers: mergeDeep(
+      authHeader(apiKey),
+      contentTypeHeader(isJson ? 'json':'yaml'),
+      obj.headers),
     method: 'POST',
     body: obj.body
   })
@@ -22,7 +25,7 @@ const getApiVersions = obj => {
   const [owner, name] = obj.pathParams
 
   return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
-    headers: authHeader(apiKey)
+    headers: mergeDeep(authHeader(apiKey), obj.headers)
   })
 }
 
