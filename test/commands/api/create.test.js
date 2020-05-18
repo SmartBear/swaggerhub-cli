@@ -1,7 +1,7 @@
 const { expect, test } = require('@oclif/test')
 const config = require('../../../src/services/config')
 const validIdentifier = 'org/api/1.0.0'
-const envShubUrl = 'https://test.swaggerhub.com'
+const shubUrl = 'https://test.swaggerhub.com'
 
 describe('invalid apis:create indentifier', () => {
   test
@@ -32,7 +32,7 @@ describe('invalid apis:create indentifier', () => {
 describe('invalid api:create', () => {
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: envShubUrl }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(200)
@@ -42,7 +42,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with API already exists')
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: envShubUrl }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(500)
@@ -52,7 +52,7 @@ describe('invalid api:create', () => {
     .it('runs api:create error retrieving API')
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: envShubUrl }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
     .get('/org/api')
     .reply(404)
@@ -69,7 +69,7 @@ describe('invalid api:create', () => {
 describe('valid api:create', () => {
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: envShubUrl }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(404)
@@ -86,7 +86,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ swaggerHubUrl: envShubUrl }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
       .reply(404)

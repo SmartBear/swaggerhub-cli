@@ -6,13 +6,13 @@ const { hasJsonStructure } = require('../utils/input-validation')
 const qs = require('querystring')
 
 const postApi = obj => {
-  const { swaggerHubUrl, apiKey } = config.getConfig()
+  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
   const [owner, name] = obj.pathParams
   const isJson = hasJsonStructure(obj.body)
 
-  return fetch(`${swaggerHubUrl}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
+  return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
     headers: mergeDeep(
-      authHeader(apiKey),
+      authHeader(SWAGGERHUB_API_KEY),
       contentTypeHeader(isJson ? 'json':'yaml'),
       obj.headers),
     method: 'POST',
@@ -21,11 +21,11 @@ const postApi = obj => {
 }
 
 const getApiVersions = obj => {
-  const { swaggerHubUrl, apiKey } = config.getConfig()
+  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
   const [owner, name] = obj.pathParams
 
-  return fetch(`${swaggerHubUrl}/apis/${owner}/${name}`, {
-    headers: mergeDeep(authHeader(apiKey), obj.headers)
+  return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}`, {
+    headers: mergeDeep(authHeader(SWAGGERHUB_API_KEY), obj.headers)
   })
 }
 
