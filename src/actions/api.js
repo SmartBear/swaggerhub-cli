@@ -2,18 +2,8 @@ const { authHeader, contentTypeHeader } = require('../utils/http')
 const fetch = require('node-fetch')
 const config = require('../services/config')
 const { mergeDeep } = require('../utils/data-transform')
+const { hasJsonStructure } = require('../utils/input-validation')
 const qs = require('querystring')
-
-const hasJsonStructure = str => {
-  try {
-      const result = JSON.parse(str)
-      const type = Object.prototype.toString.call(result)
-      return type === '[object Object]' 
-          || type === '[object Array]'
-  } catch (err) {
-      return false
-  }
-}
 
 const postApi = obj => {
   const { swaggerHubUrl, apiKey } = config.getConfig()
