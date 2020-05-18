@@ -1,9 +1,7 @@
 const { Command, flags } = require('@oclif/command')
-const fetch = require('node-fetch')
-const { acceptHeader, authHeader, userAgentHeader, reqType } = require('../../../utils/http')
 const { getIdentifierArg } = require('../../../utils/input-validation')
-const { mergeDeep } = require('../../../utils/data-transform')
-const config = require('../../../services/config')
+const { getApiVersion } = require('../../../actions/api')
+const { parseResponse, checkForErrors } = require('../../../utils/command-response-handler')
 
 class GetAPICommand extends Command {
 
@@ -20,18 +18,10 @@ class GetAPICommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
-    const identifier = getIdentifierArg(args)
-    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-    const { userAgent, name } = this.config
-
-    await fetch(`${SWAGGERHUB_URL}/apis/${identifier}`, {
-      headers: mergeDeep(
-        acceptHeader(reqType(flags)),
-        authHeader(SWAGGERHUB_API_KEY),
-        userAgentHeader(userAgent, name))
-    })
-    .then(res => res.text())
-    .then(text => this.log(text))
+    await getApiVersion(this, getIdentifierArg(args), flags)
+    .then(parseResponse)
+    .then(checkForErrors)
+    .then(this.log)
   }
 }
 
