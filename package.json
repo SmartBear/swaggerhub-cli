@@ -22,6 +22,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
+    "rewire": "^5.0.0",
     "semver": "^7.3.2"
   },
   "devDependencies": {
