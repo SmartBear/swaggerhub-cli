@@ -2,7 +2,6 @@ const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('../../support/fs')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../utils/input-validation')
-const { userAgentHeader } = require('../../utils/http')
 
 class CreateAPICommand extends Command {
   
@@ -32,16 +31,11 @@ class CreateAPICommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const { userAgent, appName } = this.config
     const identifier = getIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
     const oasVersion = flags.oas === '2' ? '2.0' : '3.0.0'
-    const getApiObj = {
-      pathParams: [owner, name],
-      headers: userAgentHeader(userAgent, appName)
-    }
 
-    const getApiResult = await getApiVersions(getApiObj)
+    const getApiResult = await getApiVersions({ pathParams: [owner, name] })
     if (getApiResult.status === 200) {
       this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
     } else if (getApiResult.status === 404) {
@@ -53,7 +47,6 @@ class CreateAPICommand extends Command {
       const createApiObject = {
         pathParams: [owner, name],
         queryParams: queryParams,
-        headers: userAgentHeader(userAgent, appName),
         body: readFileSync(flags.file)
       }
       await postApi(createApiObject).then(createApiResult => {
