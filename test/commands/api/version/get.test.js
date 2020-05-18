@@ -1,5 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const yaml = require('js-yaml')
+const config = require('../../../../src/services/config')
 
 const validIdentifier = 'org1/api2/1.0.0'
 const jsonResponse = {
@@ -35,6 +36,7 @@ describe('invalid apis:get', () => {
 
 describe('valid api:version:get', () => {
   test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
@@ -46,6 +48,7 @@ describe('valid api:version:get', () => {
     })
 
   test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
@@ -57,6 +60,7 @@ describe('valid api:version:get', () => {
     })
 
   test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
       .reply(200, yaml.dump(jsonResponse))
@@ -67,4 +71,3 @@ describe('valid api:version:get', () => {
       expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
     })
 })
-

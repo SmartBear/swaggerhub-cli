@@ -1,10 +1,10 @@
 {
-  "name": "shub",
+  "name": "swaggerhub",
   "description": "SwaggerHub CLI",
   "version": "0.0.0",
   "author": "SmartBear",
   "bin": {
-    "shub": "./bin/run"
+    "swaggerhub": "./bin/run"
   },
   "bugs": "https://github.com/SmartBear/swaggerhub-cmd/issues",
   "dependencies": {
@@ -21,6 +21,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
+    "rewire": "^5.0.0",
     "semver": "^7.3.2"
   },
   "devDependencies": {
@@ -57,12 +58,12 @@
     "hooks": {
       "init": "./src/hooks/setup-config"
     },
-    "bin": "shub",
+    "bin": "swaggerhub",
     "plugins": [
       "@oclif/plugin-help"
     ],
     "configDefaults": {
-      "swaggerHubUrl": "https://api.swaggerhub.com"
+      "SWAGGERHUB_URL": "https://api.swaggerhub.com"
     }
   },
   "repository": "SmartBear/swaggerhub-cmd",
