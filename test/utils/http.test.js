@@ -14,7 +14,6 @@ describe('acceptHeader returns correct headers', () => {
       expect(acceptHeader('yaml').Accept).to.equal('application/yaml')
     })
   })
-
 })
 
 describe('authHeader', () => {
@@ -26,12 +25,9 @@ describe('authHeader', () => {
 })
 
 describe('userAgentHeader', () => {
-  context('userAgentHeader(userAgent)', () => {
-    it('should return User-Agent: swaggerhub/1.2.3 darwin-x64 node-v13.8.0', () => {
-      const userAgent = 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0'
-      const expectedUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0'
-      expect(userAgentHeader(userAgent, 'swaggerhub')['User-Agent']).to.equal(expectedUserAgent)
-    })
+  it('should return User-Agent header from config', () => {
+      global.shUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64'
+      expect(userAgentHeader()['User-Agent']).to.equal(global.shUserAgent)
   })
 })
 

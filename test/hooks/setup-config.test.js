@@ -5,7 +5,9 @@ const setupConfig = require('../../src/hooks/setup-config')
 
 const mockHookOptions = {
   config: {
-    configDir: './'
+    configDir: './',
+    userAgent: 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0',
+    name: 'swaggerhub'
   }
 }
 
@@ -29,8 +31,13 @@ describe('setup config', () => {
       expect(fileExistsSync(expectedFilePath)).to.equal(true)
     })
 
-    test.it('it should set a global variable - configFilePath', () => {
+    test.it('should set a global variable - configFilePath', () => {
       expect(global.configFilePath).to.equal(expectedFilePath)
+    })
+
+    test.it('should set a global variable - shUserAgent', () => {
+      const expectedUserAgent = 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0'
+      expect(global.shUserAgent).to.equal(expectedUserAgent)
     })
   })
 })

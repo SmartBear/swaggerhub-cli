@@ -22,13 +22,12 @@ class GetAPICommand extends Command {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = getIdentifierArg(args)
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-    const { userAgent, name } = this.config
 
     await fetch(`${SWAGGERHUB_URL}/apis/${identifier}`, {
       headers: mergeDeep(
         acceptHeader(reqType(flags)),
         authHeader(SWAGGERHUB_API_KEY),
-        userAgentHeader(userAgent, name))
+        userAgentHeader())
     })
     .then(res => res.text())
     .then(text => this.log(text))
