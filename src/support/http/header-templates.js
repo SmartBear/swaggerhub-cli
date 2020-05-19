@@ -1,24 +1,24 @@
-const jsonTemplate = require('json-templates')
+const { wrapTemplates } = require('../../utils/compositions')
 
-const accept = jsonTemplate({
+const accept = {
   'Accept': 'application/{{accept}}'
-})
+}
 
-const auth = jsonTemplate({
+const auth = {
   'Authorization': 'Bearer {{auth}}'
-})
+}
 
-const contentType = jsonTemplate({
+const contentType = {
   'Content-Type': 'application/{{contentType}}'
-})
+}
 
-const userAgent = jsonTemplate({
-  'User-Agent': '{{userAgent}}'
-})
+const userAgent = {
+  'User-Agent': '{{shUserAgent}}'
+}
 
-module.exports = {
+module.exports = wrapTemplates({
   accept,
   auth,
   contentType,
   userAgent
-}
+})
