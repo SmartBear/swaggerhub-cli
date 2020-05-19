@@ -45,7 +45,7 @@ describe('invalid api:create', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
-      .reply(500)
+      .reply(500, '{ "code": 500, "message": "Error"}')
     )
     .command(['api:create', `${validIdentifier}`, '-f=test/resources/create_api.yaml', '--oas=2'])
     .exit(2)
@@ -59,7 +59,7 @@ describe('invalid api:create', () => {
     )
     .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
-      .reply(400)
+      .reply(400, '{ "code": 400, "message": "Bad Request"}')
     )
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.yaml', '--oas=2'])
     .exit(2)
@@ -82,7 +82,7 @@ describe('valid api:create', () => {
     .stdout()
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.yaml', '--oas=3'])
     .it('runs api:create with default parameters', ctx => {
-      expect(ctx.stdout).to.contains('Created API org/api')
+      expect(ctx.stdout).to.contains('Created API org/api/1.0.0')
     })
 
   test
@@ -105,6 +105,6 @@ describe('valid api:create', () => {
       '--oas=2'
     ])
     .it('runs api:create with optional parameters', ctx => {
-      expect(ctx.stdout).to.contains('Created API org/api')
+      expect(ctx.stdout).to.contains('Created API org/api/2.0.0')
     })
 })
