@@ -1,13 +1,11 @@
 const { CLIError } = require('@oclif/errors')
 
-const parseResponse = response => {
-    return new Promise((resolve) => response.text()
-      .then((content) => resolve({
+const parseResponse = response => new Promise(resolve => response.text()
+      .then(content => resolve({
         status: response.status,
         ok: response.ok,
         content: content,
-      })));
-  }
+      })))
 
 const checkForErrors = response => {
   if (!response.ok) {
