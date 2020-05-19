@@ -1,4 +1,4 @@
-const { authHeader, contentTypeHeader } = require('../utils/http')
+const { authHeader, contentTypeHeader, userAgentHeader } = require('../utils/http')
 const fetch = require('node-fetch')
 const config = require('../services/config')
 const { mergeDeep } = require('../utils/data-transform')
@@ -11,7 +11,10 @@ const postApi = obj => {
   const isJson = hasJsonStructure(obj.body)
 
   return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(authHeader(SWAGGERHUB_API_KEY), contentTypeHeader(isJson ? 'json':'yaml')),
+    headers: mergeDeep(
+      authHeader(SWAGGERHUB_API_KEY),
+      contentTypeHeader(isJson ? 'json':'yaml'),
+      userAgentHeader()),
     method: 'POST',
     body: obj.body
   })
@@ -22,7 +25,10 @@ const getApiVersions = obj => {
   const [owner, name] = obj.pathParams
 
   return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}`, {
-    headers: authHeader(SWAGGERHUB_API_KEY)
+    headers: mergeDeep(
+      authHeader(SWAGGERHUB_API_KEY),
+      userAgentHeader()
+    )
   })
 }
 
