@@ -17,22 +17,22 @@ class CreateAPICommand extends Command {
       description: 'API file to create in SwaggerHub',
       required: true
     }),
+    oas: flags.string({
+      description: 'OAS Version of API',
+      options: ['2', '3'],
+      required: true,
+      parse: input => input === '2' ? '2.0' : '3.0.0'
+    }),
     visibility: flags.string({
       description: 'Visibility of API in SwaggerHub',
       options: ['public', 'private'],
       default: 'private'
-    }),
-    oasVersion: flags.string({
-      description: 'OAS Version of API',
-      options: ['2.0', '3.0.0'],
-      default: '3.0.0'
     })
   }
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const identifier = getIdentifierArg(args)
-
     const [owner, name, version] = identifier.split('/')
 
     const getApiResult = await getApiVersions({ pathParams: [owner, name] })
@@ -42,14 +42,14 @@ class CreateAPICommand extends Command {
       const queryParams = { 
         version: version, 
         isPrivate: flags.visibility==='private', 
-        oas: flags.oasVersion 
+        oas: flags.oas 
       }
-      const obj = { 
-        pathParams: [owner, name], 
-        queryParams: queryParams, 
-        body: readFileSync(flags.file) 
+      const createApiObject = {
+        pathParams: [owner, name],
+        queryParams: queryParams,
+        body: readFileSync(flags.file)
       }
-      await postApi(obj).then(createApiResult => {
+      await postApi(createApiObject).then(createApiResult => {
         if (createApiResult.ok) {
           this.log(`Created API ${owner}/${name}`)
         } else {

@@ -8,14 +8,17 @@ const parseResponse = response => new Promise(resolve => response.text()
       })))
 
 const checkForErrors = response => {
-  if (!response.ok) {
-    const { message } = JSON.parse(response.content)
-    throw new CLIError(message)
-  }
+  if (!response.ok) return Promise.reject(response)
+
   return response.content
 }
 
+const handleErrors = ({ content }) => {
+  const { message } = JSON.parse(content)
+  throw new CLIError(message)
+}
 module.exports = {
+    parseResponse,
     checkForErrors,
-    parseResponse
+    handleErrors
 }
