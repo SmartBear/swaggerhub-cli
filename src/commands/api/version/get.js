@@ -8,14 +8,14 @@ class GetAPICommand extends Command {
   static args = [{ 
     name: 'identifier',
     required: true,
-    description: 'Identifier for API in format OWNER/API_NAME/VERSION'
+    description: 'identifier for API in {owner}/{api_name}/{version} format'
   },
   ]
 
   static flags = {
     json: flags.boolean({
       char: 'j',
-      description: 'Returns the API in JSON format.'
+      description: 'returns the API in JSON format.'
     })
   }
 
@@ -29,6 +29,6 @@ class GetAPICommand extends Command {
   }
 }
 
-GetAPICommand.description = 'Fetches an API version'
+GetAPICommand.description = 'fetches an API version'
 
 module.exports = GetAPICommand
