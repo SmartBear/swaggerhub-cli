@@ -11,12 +11,13 @@ const initConfig = filePath => !fileExistsSync(filePath) && createConfigFile(fil
 
 const setAsGlobalPath = filePath => global.configFilePath = filePath
 
-const setAsGlobalUserAgent = ({ userAgent, name }) =>
+const setAsGlobalUserAgent = ({ userAgent, name, ...rest }) => {
   global.shUserAgent = userAgent.replace(name, `${name}-cli`)
-
-const SetupConfig = async ({ config: defaults }) => {
-  setAsGlobalUserAgent(defaults)
-  pipe(defaults)(createConfigPath, setAsGlobalPath, initConfig)
+  return rest
 }
+
+const SetupConfig = async ({ config: defaults }) => (
+  pipe(defaults)(setAsGlobalUserAgent, createConfigPath, setAsGlobalPath, initConfig)
+)
 
 module.exports = SetupConfig
