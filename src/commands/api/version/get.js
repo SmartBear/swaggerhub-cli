@@ -7,6 +7,7 @@ class GetAPICommand extends Command {
 
   static args = [{ 
     name: 'identifier',
+    required: true,
     description: 'Identifier for API in format OWNER/API_NAME/VERSION'
   },
   ]
