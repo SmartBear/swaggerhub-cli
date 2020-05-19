@@ -8,23 +8,23 @@ class CreateAPICommand extends Command {
   static args = [{ 
     name: 'identifier',
     required: true,
-    description: 'Identifier for API in format OWNER/API_NAME/VERSION'
+    description: 'identifier for API in {owner}/{api_name}/{version} format'
   }]
 
   static flags = {
     file: flags.string({
       char: 'f', 
-      description: 'API file to create in SwaggerHub',
+      description: 'file location of API to create',
       required: true
     }),
     oas: flags.string({
-      description: 'OAS Version of API',
+      description: 'OAS version of API',
       options: ['2', '3'],
       required: true,
       parse: input => input === '2' ? '2.0' : '3.0.0'
     }),
     visibility: flags.string({
-      description: 'Visibility of API in SwaggerHub',
+      description: 'visibility of API in SwaggerHub',
       options: ['public', 'private'],
       default: 'private'
     })
@@ -62,8 +62,8 @@ class CreateAPICommand extends Command {
   }
 }
 
-CreateAPICommand.description = `Creates API in SwaggerHub
-Creates API in SwaggerHub. Fails if API already exists
+CreateAPICommand.description = `creates an API
+command will fail if the API already exists.
 `
 
 module.exports = CreateAPICommand
