@@ -77,7 +77,7 @@ describe('swaggerhub errors on api:version:get', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
-      .reply(500, { message: 'Internal Server Error'})
+      .reply(500, { message: 'Internal Server Error' })
     )
     .stdout()
     .command(['api:version:get', 'org1/api2/1.0.0'])
@@ -88,7 +88,7 @@ describe('swaggerhub errors on api:version:get', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
       .get(`/${validIdentifier}`)
-      .reply(404, { message: 'Not found'})
+      .reply(404, { message: 'Not found' })
     )
     .stdout()
     .command(['api:version:get', 'org1/api2/1.0.0'])
