@@ -13,7 +13,7 @@ const jsonResponse = {
 
 }
 
-describe('invalid apis:get', () => {
+describe('invalid indentifier on apis:get', () => {
   test
     .stdout()
     .command(['api:version:get'])
@@ -34,7 +34,7 @@ describe('invalid apis:get', () => {
 
 })
 
-describe('valid api:version:get', () => {
+describe('valid identifier on api:version:get', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com:443/apis', api => api
@@ -70,4 +70,28 @@ describe('valid api:version:get', () => {
     .it('runs api:version:get and returns response in yaml format', ctx => {
       expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
     })
+})
+
+describe('swaggerhub errors on api:version:get', () => {
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com:443/apis', api => api
+      .get(`/${validIdentifier}`)
+      .reply(500, { message: 'Internal Server Error' })
+    )
+    .stdout()
+    .command(['api:version:get', 'org1/api2/1.0.0'])
+    .exit(2)
+    .it('internal server error returned by SwaggerHub, command fails')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com:443/apis', api => api
+      .get(`/${validIdentifier}`)
+      .reply(404, { message: 'Not found' })
+    )
+    .stdout()
+    .command(['api:version:get', 'org1/api2/1.0.0'])
+    .exit(2)
+    .it('not found returned by SwaggerHub, command fails')
 })
