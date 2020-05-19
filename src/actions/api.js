@@ -1,22 +1,21 @@
-const { acceptHeader, authHeader, contentTypeHeader, reqType, userAgentHeader } = require('../utils/http')
-const fetch = require('node-fetch')
+const { reqType } = require('../utils/http')
 const config = require('../services/config')
-const { mergeDeep } = require('../utils/data-transform')
 const { hasJsonStructure } = require('../utils/input-validation')
-const qs = require('querystring')
+const http = require('../support/http')
 
-const postApi = obj => {
+const postApi = ({ pathParams, queryParams, body }) => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-  const [owner, name] = obj.pathParams
-  const isJson = hasJsonStructure(obj.body)
+  const [owner, name] = pathParams
+  const isJson = hasJsonStructure(body)
 
-  return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}?${qs.stringify(obj.queryParams)}`, {
-    headers: mergeDeep(
-      authHeader(SWAGGERHUB_API_KEY),
-      contentTypeHeader(isJson ? 'json':'yaml'),
-      userAgentHeader()),
+  return http({
+    url: [SWAGGERHUB_URL, 'apis', owner, name],
+    auth: SWAGGERHUB_API_KEY,
+    userAgent: global.shUserAgent,
+    contentType: isJson ? 'json':'yaml',
     method: 'POST',
-    body: obj.body
+    query: queryParams,
+    body
   })
 }
 
@@ -24,22 +23,21 @@ const getApiVersions = obj => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
   const [owner, name] = obj.pathParams
 
-  return fetch(`${SWAGGERHUB_URL}/apis/${owner}/${name}`, {
-    headers: mergeDeep(
-      authHeader(SWAGGERHUB_API_KEY),
-      userAgentHeader()
-    )
+  return http({
+    url: [SWAGGERHUB_URL, 'apis', owner, name],
+    auth: SWAGGERHUB_API_KEY,
+    userAgent: global.shUserAgent
   })
 }
 
 const getApiVersion = (identifier, flags) => {
-
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-  return fetch(`${SWAGGERHUB_URL}/apis/${identifier}`, {
-    headers: mergeDeep(
-      acceptHeader(reqType(flags)),
-      authHeader(SWAGGERHUB_API_KEY),
-      userAgentHeader())
+
+  return http({
+    url: [SWAGGERHUB_URL, 'apis', identifier],
+    auth: SWAGGERHUB_API_KEY,
+    accept: reqType(flags),
+    userAgent: global.shUserAgent
   })
 }
 

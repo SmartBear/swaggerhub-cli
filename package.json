@@ -19,6 +19,7 @@
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
     "js-yaml": "^3.13.1",
+    "json-templates": "^3.0.0",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "rewire": "^5.0.0",
@@ -66,8 +67,12 @@
       "SWAGGERHUB_URL": "https://api.swaggerhub.com"
     },
     "topics": {
-      "api": { "description": "collection of commands to manage API's" },
-      "api:version": { "description": "commands to manage invidiual versions of API's" }
+      "api": {
+        "description": "collection of commands to manage API's"
+      },
+      "api:version": {
+        "description": "commands to manage invidiual versions of API's"
+      }
     }
   },
   "repository": "SmartBear/swaggerhub-cmd",
