@@ -7,24 +7,22 @@ const { setConfig, getConfig } = require('../../src/services/config')
 const envShubUrl = 'https://environmental.var'
 const envApiKey = 'api-key-from-env-variable'
 
-describe('config ', () => {
-  beforeEach(() => {
-    global.configFilePath = mock.configFilePath
-    writeJSONSync(mock.configFilePath, mock.config)
-  })
+const createEmptyConfigFile = () => writeJSONSync(mock.configFilePath, {})
+const createConfigFile = () => writeJSONSync(mock.configFilePath, mock.config)
 
-  afterEach(() => {
-    delete global.configFilePath
-    deleteFileSync(mock.configFilePath)
-  })
+describe('config ', () => {
+  before(() => global.configFilePath = mock.configFilePath)
+  after(() => delete global.configFilePath)
+  afterEach(() => deleteFileSync(mock.configFilePath))
 
   describe('setConfig', () => {
-    test.it('it should update the contents of config file', () => {
+    test
+    .do(createConfigFile)
+    .it('it should update the contents of config file', () => {
       const mockUpdate = {
         ...readJSONSync(mock.configFilePath),
         SWAGGERHUB_URL: 'http://update.test'
       }
-      
       setConfig({ SWAGGERHUB_URL: mockUpdate.SWAGGERHUB_URL })
 
       expect(isEqual(readJSONSync(mock.configFilePath), mockUpdate))
@@ -33,17 +31,22 @@ describe('config ', () => {
   })
 
   describe('getConfig', () => {
-    test.it('it should return the contents of config file', () => {
+    test
+    .do(createConfigFile)
+    .it('it should return the contents of config file', () => {
+      writeJSONSync(mock.configFilePath, mock.config)
       expect(isEqual(getConfig(), mock.config)).to.equal(true)
     })
 
     test
+    .do(createEmptyConfigFile)
     .env({ SWAGGERHUB_URL: envShubUrl })
-    .it('should return the configured SwaggerHub URL from environmental variable', () => {    
+    .it('should return the configured SwaggerHub URL from environmental variable', () => {
       expect(getConfig().SWAGGERHUB_URL).to.equal(envShubUrl)
     })
 
     test
+    .do(createConfigFile)
     .env({ SWAGGERHUB_URL: envShubUrl })
     .it('should prioritise environmental variable SwaggerHub URL', () => {
       setConfig({ SWAGGERHUB_API_KEY: 'https://file.swaggerhub.com' })
@@ -51,12 +54,14 @@ describe('config ', () => {
     })
 
     test
+    .do(createEmptyConfigFile)
     .env({ SWAGGERHUB_API_KEY: envApiKey })
-    .it('should return the configured API key from environmental variable', () => {    
+    .it('should return the configured API key from environmental variable', () => {
         expect(getConfig().SWAGGERHUB_API_KEY).to.equal(envApiKey)
     })
 
     test
+    .do(createConfigFile)
     .env({ SWAGGERHUB_API_KEY: envApiKey })
     .it('should prioritise environmental variable API key', () => {
       setConfig({ SWAGGERHUB_API_KEY: 'abcdef00-file-1234-5678-97e0b583f1b9' })
