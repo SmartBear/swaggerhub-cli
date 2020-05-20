@@ -13,7 +13,7 @@ const contentType = {
 }
 
 const userAgent = {
-  'User-Agent': '{{shUserAgent}}'
+  'User-Agent': '{{userAgent}}'
 }
 
 module.exports = wrapTemplates({
