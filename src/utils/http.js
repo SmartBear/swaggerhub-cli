@@ -10,10 +10,9 @@ const authHeader = apiKey => ({
   'Authorization': `Bearer ${apiKey}`
 })
 
-const userAgentHeader = (userAgent, appName) => {
-  userAgent = userAgent.replace(appName, `${appName}-cli`)
-  return { 'User-Agent': userAgent }
-}
+const userAgentHeader = () => ({
+  'User-Agent': global.shUserAgent
+})
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 

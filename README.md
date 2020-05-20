@@ -46,7 +46,7 @@ ARGUMENTS
 
 OPTIONS
   -f, --file=file              (required) API file to create in SwaggerHub
-  --oasVersion=2.0|3.0.0       [default: 3.0.0] OAS Version of API
+  --oas=2|3                    (required) OAS Version of API
   --visibility=public|private  [default: private] Visibility of API in SwaggerHub
 
 DESCRIPTION
