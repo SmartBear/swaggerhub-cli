@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { writeJSONSync, deleteFileSync, readJSONSync } = require('../../src/support/fs')
+const { readJSONSync, unlinkSync, writeJSONSync } = require('fs-extra')
 const mock = require('../__mocks__/config')
 const isEqual = require('lodash/isEqual')
 const { setConfig, getConfig } = require('../../src/services/config')
@@ -13,7 +13,7 @@ const createConfigFile = () => writeJSONSync(mock.configFilePath, mock.config)
 describe('config ', () => {
   before(() => global.configFilePath = mock.configFilePath)
   after(() => delete global.configFilePath)
-  afterEach(() => deleteFileSync(mock.configFilePath))
+  afterEach(() => unlinkSync(mock.configFilePath))
 
   describe('setConfig', () => {
     test
@@ -34,7 +34,6 @@ describe('config ', () => {
     test
     .do(createConfigFile)
     .it('it should return the contents of config file', () => {
-      writeJSONSync(mock.configFilePath, mock.config)
       expect(isEqual(getConfig(), mock.config)).to.equal(true)
     })
 

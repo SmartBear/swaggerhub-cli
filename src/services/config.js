@@ -1,29 +1,16 @@
 const { updateJSONSync, readJSONSync } = require('../support/fs')
-const { pipe } = require('../utils/compositions')
+const pick = require('lodash/pick')
 
-const checkUrlOverride = config => {
-  if (process.env.SWAGGERHUB_URL) {
-    return {
-      ...config,
-      SWAGGERHUB_URL: process.env.SWAGGERHUB_URL
-    }
-  }
-  return config
-}
+const environmentalKeys = ['SWAGGERHUB_URL', 'SWAGGERHUB_API_KEY']
 
-const checkApiKeyOverride = config => {
-  if (process.env.SWAGGERHUB_API_KEY) {
-    return {
-      ...config,
-      SWAGGERHUB_API_KEY: process.env.SWAGGERHUB_API_KEY
-    }
-  }
-  return config
-}
+const checkEnvOverrides = config => ({
+  ...config,
+  ...pick(process.env, environmentalKeys)
+})
 
 const getConfig = () => {
   const { configFilePath } = global
-  return pipe(configFilePath)(readJSONSync, checkUrlOverride, checkApiKeyOverride)
+  return checkEnvOverrides(readJSONSync(configFilePath))
 }
 
 const setConfig = update => {
