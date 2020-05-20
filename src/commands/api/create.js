@@ -53,7 +53,8 @@ class CreateAPICommand extends Command {
       await postApi(createApiObject)
       .then(parseResponse)
       .then(checkForErrors)
-      .then(() => this.log(`Created API ${identifier}`), handleErrors)
+      .then(() => this.log(`Created API ${identifier}`))
+      .catch(handleErrors)
     } else {
       handleErrors(getApiResult)
     }
