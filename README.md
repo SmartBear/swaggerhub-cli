@@ -4,8 +4,6 @@ swaggerhub
 cli to interact with https://app.swaggerhub.com
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/swaggerhub.svg)](https://npmjs.org/package/swaggerhub)
-[![License](https://img.shields.io/npm/l/swaggerhub.svg)](https://github.com/SmartBear/swaggerhub-cmd/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
