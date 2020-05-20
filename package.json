@@ -39,7 +39,7 @@
     "tmp": "^0.1.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "/bin",
@@ -66,8 +66,12 @@
       "SWAGGERHUB_URL": "https://api.swaggerhub.com"
     },
     "topics": {
-      "api": { "description": "collection of commands to manage API's" },
-      "api:version": { "description": "commands to manage invidiual versions of API's" }
+      "api": {
+        "description": "collection of commands to manage APIs"
+      },
+      "api:version": {
+        "description": "commands to manage invidiual versions of APIs"
+      }
     }
   },
   "repository": "SmartBear/swaggerhub-cmd",

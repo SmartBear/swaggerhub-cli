@@ -1,9 +1,11 @@
 const { updateJSONSync, readJSONSync } = require('../support/fs')
 const pick = require('lodash/pick')
 
+const environmentalKeys = ['SWAGGERHUB_URL', 'SWAGGERHUB_API_KEY']
+
 const checkEnvOverrides = config => ({
   ...config,
-  ...pick(process.env, Object.keys(config))
+  ...pick(process.env, environmentalKeys)
 })
 
 const getConfig = () => {
