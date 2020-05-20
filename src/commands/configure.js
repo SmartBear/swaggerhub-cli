@@ -12,5 +12,5 @@ class Configure extends Command {
   }
 }
 
-Configure.description = 'Configure application settings'
+Configure.description = 'configure application settings'
 module.exports = Configure
