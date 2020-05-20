@@ -68,10 +68,10 @@
     },
     "topics": {
       "api": {
-        "description": "collection of commands to manage API's"
+        "description": "collection of commands to manage APIs"
       },
       "api:version": {
-        "description": "commands to manage invidiual versions of API's"
+        "description": "commands to manage invidiual versions of APIs"
       }
     }
   },

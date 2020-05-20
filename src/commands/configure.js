@@ -6,7 +6,7 @@ const { setConfig, getConfig } = require('../services/config')
 
 class Configure extends Command {
   async run() {
-    const prompts = getPrompts('swaggerHubUrl','apiKey')(getConfig())
+    const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
 
     inquirer.prompt(prompts).then(setConfig)
   }
