@@ -7,7 +7,7 @@ const validateObjectIdentifier = id => identifierRegex.test(id)
 const getIdentifierArg = args => {
   const identifier = args['OWNER/API_NAME/VERSION']
   if (!validateObjectIdentifier(identifier)) {
-    throw new CLIError('identifier must match {owner}/{api_name}/{version} format')
+    throw new CLIError('Argument must match OWNER/API_NAME/VERSION format')
   }
 
   return identifier
