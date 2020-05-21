@@ -1,7 +1,28 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
 
-const { validateObjectIdentifier, getIdentifierArg } = require('../../src/utils/input-validation')
+const { validateObjectIdentifier, getIdentifierArg, reqType } = require('../../src/utils/input-validation')
+
+describe('reqType returns correct type', () => {
+
+  context('reqType({json:true})', () => {
+    it('should be json', () => {
+      expect(reqType({ 'json': true })).to.equal('json')
+    })
+  })
+
+  context('reqType({json:false})', () => {
+    it('should be yaml', () => {
+      expect(reqType({ 'json': false })).to.equal('yaml')
+    })
+  })
+
+  context('reqType({})', () => {
+    it('should be yaml', () => {
+      expect(reqType({})).to.equal('yaml')
+    })
+  })
+})
 
 
 describe('Validate Object Identifier', () => {
