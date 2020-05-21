@@ -19,6 +19,8 @@ class GetAPICommand extends Command {
 
 GetAPICommand.description = 'fetches an API version'
 
+GetAPICommand.examples = ['swaggerhub api:version:get organization/api/1.0.0 --json']
+
 GetAPICommand.flags = {
   json: flags.boolean({
     char: 'j',
