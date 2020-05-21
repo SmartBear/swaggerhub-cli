@@ -45,9 +45,9 @@ CreateAPICommand.examples = [
 ]
 
 CreateAPICommand.args = [{ 
-  name: 'identifier',
+  name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'identifier for API in {owner}/{api_name}/{version} format'
+  description: 'API version to create in SwaggerHub for owner'
 }]
 
 CreateAPICommand.flags = {

@@ -29,9 +29,9 @@ GetAPICommand.flags = {
 }
 
 GetAPICommand.args = [{ 
-  name: 'identifier',
+  name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'identifier for API in {owner}/{api_name}/{version} format'
+  description: 'API version in SwaggerHub with specified owner'
 }]
 
 module.exports = GetAPICommand
