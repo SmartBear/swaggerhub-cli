@@ -1,6 +1,5 @@
-const { reqType } = require('../utils/http')
 const config = require('../services/config')
-const { hasJsonStructure } = require('../utils/input-validation')
+const { hasJsonStructure, reqType } = require('../utils/input-validation')
 const http = require('../support/http')
 
 const postApi = ({ pathParams, queryParams, body }) => {
