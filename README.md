@@ -17,7 +17,7 @@ $ npm i -g swaggerhub-cli-0.1.1.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
-swaggerhub/0.2.0 darwin-x64 node-v12.13.0
+swaggerhub/0.1.1 darwin-x64 node-v12.13.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
@@ -54,7 +54,7 @@ EXAMPLE
   swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/api/create.js)_
 
 ## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 
@@ -74,7 +74,7 @@ EXAMPLE
   swaggerhub api:version:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/version/get.js)_
+_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/api/version/get.js)_
 
 ## `swaggerhub configure`
 
@@ -85,7 +85,7 @@ USAGE
   $ swaggerhub configure
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
