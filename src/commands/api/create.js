@@ -5,31 +5,6 @@ const { getIdentifierArg } = require('../../utils/input-validation')
 
 class CreateAPICommand extends Command {
   
-  static args = [{ 
-    name: 'identifier',
-    required: true,
-    description: 'identifier for API in {owner}/{api_name}/{version} format'
-  }]
-
-  static flags = {
-    file: flags.string({
-      char: 'f', 
-      description: 'file location of API to create',
-      required: true
-    }),
-    oas: flags.string({
-      description: 'OAS version of API',
-      options: ['2', '3'],
-      required: true,
-      parse: input => input === '2' ? '2.0' : '3.0.0'
-    }),
-    visibility: flags.string({
-      description: 'visibility of API in SwaggerHub',
-      options: ['public', 'private'],
-      default: 'private'
-    })
-  }
-
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const identifier = getIdentifierArg(args)
@@ -65,5 +40,30 @@ class CreateAPICommand extends Command {
 CreateAPICommand.description = `creates an API
 command will fail if the API already exists.
 `
+
+CreateAPICommand.args = [{ 
+  name: 'identifier',
+  required: true,
+  description: 'identifier for API in {owner}/{api_name}/{version} format'
+}]
+
+CreateAPICommand.flags = {
+  file: flags.string({
+    char: 'f', 
+    description: 'file location of API to create',
+    required: true
+  }),
+  oas: flags.string({
+    description: 'OAS version of API',
+    options: ['2', '3'],
+    required: true,
+    parse: input => input === '2' ? '2.0' : '3.0.0'
+  }),
+  visibility: flags.string({
+    description: 'visibility of API in SwaggerHub',
+    options: ['public', 'private'],
+    default: 'private'
+  })
+}
 
 module.exports = CreateAPICommand
