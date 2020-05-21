@@ -13,7 +13,7 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.0.tgz
+$ npm i -g swaggerhub-cli-0.1.1.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
