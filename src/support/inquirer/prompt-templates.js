@@ -3,7 +3,7 @@ const { wrapTemplates } = require('../../utils/compositions')
 const swaggerHubUrl = {
   name: 'SWAGGERHUB_URL',
   message: 'SwaggerHub URL:',
-  default: '{{swaggerHubUrl}}'
+  default: '{{SWAGGERHUB_URL}}'
 }
 
 const apiKey = {
