@@ -2,6 +2,7 @@ const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('../../support/fs')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../utils/input-validation')
+const { parseResponse, checkForErrors, handleErrors } = require('../../utils/command-response-handler')
 
 class CreateAPICommand extends Command {
   
@@ -10,8 +11,8 @@ class CreateAPICommand extends Command {
     const identifier = getIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
 
-    const getApiResult = await getApiVersions({ pathParams: [owner, name] })
-    if (getApiResult.status === 200) {
+    const getApiResult = await getApiVersions({ pathParams: [owner, name] }).then(parseResponse)
+    if (getApiResult.ok) {
       this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
     } else if (getApiResult.status === 404) {
       const queryParams = { 
@@ -24,15 +25,13 @@ class CreateAPICommand extends Command {
         queryParams: queryParams,
         body: readFileSync(flags.file)
       }
-      await postApi(createApiObject).then(createApiResult => {
-        if (createApiResult.ok) {
-          this.log(`Created API ${owner}/${name}`)
-        } else {
-          this.error('Error creating API')
-        }
-      })
+      await postApi(createApiObject)
+      .then(parseResponse)
+      .then(checkForErrors)
+      .then(() => this.log(`Created API ${identifier}`))
+      .catch(handleErrors)
     } else {
-      this.error(`Error creating API '${identifier}'`)
+      handleErrors(getApiResult)
     }
   }
 }
