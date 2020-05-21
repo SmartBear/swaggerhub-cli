@@ -4,7 +4,8 @@ const identifierRegex = new RegExp(/^.+\/.+\/.+$/)
 
 const validateObjectIdentifier = id => identifierRegex.test(id)
 
-const getIdentifierArg = ({ identifier }) => {
+const getIdentifierArg = args => {
+  const identifier = args['OWNER/API_NAME/VERSION']
   if (!validateObjectIdentifier(identifier)) {
     throw new CLIError('identifier must match {owner}/{api_name}/{version} format')
   }

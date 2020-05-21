@@ -1,7 +1,7 @@
 {
   "name": "swaggerhub",
   "description": "SwaggerHub CLI",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "SmartBear",
   "bin": {
     "swaggerhub": "./bin/run"
@@ -67,10 +67,10 @@
     },
     "topics": {
       "api": {
-        "description": "collection of commands to manage APIs"
+        "description": "this topic supports the management of APIs"
       },
       "api:version": {
-        "description": "commands to manage invidiual versions of APIs"
+        "description": "this topic supports the management of individual versions of APIs"
       }
     }
   },

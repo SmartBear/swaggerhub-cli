@@ -17,7 +17,7 @@ $ npm i -g swaggerhub-cli-0.1.0.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
-swaggerhub/0.0.0 darwin-x64 node-v12.13.0
+swaggerhub/0.2.0 darwin-x64 node-v12.13.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
@@ -26,21 +26,21 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`swaggerhub api:create IDENTIFIER`](#swaggerhub-apicreate-identifier)
-* [`swaggerhub api:version:get IDENTIFIER`](#swaggerhub-apiversionget-identifier)
+* [`swaggerhub api:create OWNER/API_NAME/VERSION`](#swaggerhub-apicreate-ownerapi_nameversion)
+* [`swaggerhub api:version:get OWNER/API_NAME/VERSION`](#swaggerhub-apiversionget-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 
-## `swaggerhub api:create IDENTIFIER`
+## `swaggerhub api:create OWNER/API_NAME/VERSION`
 
 creates an API
 
 ```
 USAGE
-  $ swaggerhub api:create IDENTIFIER
+  $ swaggerhub api:create OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  IDENTIFIER  identifier for API in {owner}/{api_name}/{version} format
+  OWNER/API_NAME/VERSION  API version to create in SwaggerHub for owner
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
@@ -49,26 +49,32 @@ OPTIONS
 
 DESCRIPTION
   command will fail if the API already exists.
+
+EXAMPLE
+  swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/create.js)_
 
-## `swaggerhub api:version:get IDENTIFIER`
+## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 
 fetches an API version
 
 ```
 USAGE
-  $ swaggerhub api:version:get IDENTIFIER
+  $ swaggerhub api:version:get OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  IDENTIFIER  identifier for API in {owner}/{api_name}/{version} format
+  OWNER/API_NAME/VERSION  API version in SwaggerHub for owner
 
 OPTIONS
   -j, --json  returns the API in JSON format.
+
+EXAMPLE
+  swaggerhub api:version:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/api/version/get.js)_
+_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/version/get.js)_
 
 ## `swaggerhub configure`
 
@@ -79,7 +85,7 @@ USAGE
   $ swaggerhub configure
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.0.0/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -96,7 +102,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
 <!-- commandsstop -->
 
 # Contributing

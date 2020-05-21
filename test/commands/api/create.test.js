@@ -37,7 +37,7 @@ describe('invalid api:create', () => {
       .get('/org/api')
       .reply(200)
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/create_api.yaml', '--oas=2'])
+    .command(['api:create', 'org', 'arg', '1.0.0', '-f=test/resources/create_api.yaml', '--oas=2'])
     .exit(1)
     .it('runs api:create with API already exists')
 
