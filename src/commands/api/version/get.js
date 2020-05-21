@@ -5,19 +5,7 @@ const { parseResponse, checkForErrors, handleErrors } = require('../../../utils/
 
 class GetAPICommand extends Command {
 
-  static args = [{ 
-    name: 'identifier',
-    required: true,
-    description: 'identifier for API in {owner}/{api_name}/{version} format'
-  },
-  ]
 
-  static flags = {
-    json: flags.boolean({
-      char: 'j',
-      description: 'returns the API in JSON format.'
-    })
-  }
 
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
@@ -30,5 +18,18 @@ class GetAPICommand extends Command {
 }
 
 GetAPICommand.description = 'fetches an API version'
+
+GetAPICommand.flags = {
+  json: flags.boolean({
+    char: 'j',
+    description: 'returns the API in JSON format.'
+  })
+}
+
+GetAPICommand.args = [{ 
+  name: 'identifier',
+  required: true,
+  description: 'identifier for API in {owner}/{api_name}/{version} format'
+}]
 
 module.exports = GetAPICommand
