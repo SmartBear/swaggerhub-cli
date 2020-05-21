@@ -8,11 +8,12 @@ cli to interact with https://app.swaggerhub.com
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
+* [Contributing](#contributing)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g https://cli.swaggerhub.com/swaggerhub-cli-0.1.0.tgz
+$ npm i -g swaggerhub-cli-0.1.0.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
@@ -97,3 +98,7 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 <!-- commandsstop -->
+
+# Contributing
+<!-- contributing -->
+This project is currently in active development. We may make changes to how the tool works until we mark this project as stable.
