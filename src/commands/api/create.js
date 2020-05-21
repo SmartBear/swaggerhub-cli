@@ -40,10 +40,14 @@ CreateAPICommand.description = `creates an API
 command will fail if the API already exists.
 `
 
+CreateAPICommand.examples = [
+  'swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public'
+]
+
 CreateAPICommand.args = [{ 
-  name: 'identifier',
+  name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'identifier for API in {owner}/{api_name}/{version} format'
+  description: 'API to create in SwaggerHub'
 }]
 
 CreateAPICommand.flags = {

@@ -63,13 +63,13 @@ describe('getIdentifierArg', () => {
 
   context('valid identifier', () => {
     it('should be returned', () => {
-      expect(getIdentifierArg({ identifier: 'owner/api/123' })).to.equal('owner/api/123')
+      expect(getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api/123' })).to.equal('owner/api/123')
     })
   })
 
   context('invalid identifier', () => {
     it('should be throw an exception', () => {
-      expect(() => { getIdentifierArg({ identifier: 'owner/api' })}).to.throw(CLIError)
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })}).to.throw(CLIError)
     })
   })
 })

@@ -5,8 +5,6 @@ const { parseResponse, checkForErrors, handleErrors } = require('../../../utils/
 
 class GetAPICommand extends Command {
 
-
-
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
     await getApiVersion(getIdentifierArg(args), flags)
@@ -17,7 +15,11 @@ class GetAPICommand extends Command {
   }
 }
 
-GetAPICommand.description = 'fetches an API version'
+GetAPICommand.description = `fetches an API version
+returns the API in YAML format by default
+`
+
+GetAPICommand.examples = ['swaggerhub api:version:get organization/api/1.0.0 --json']
 
 GetAPICommand.flags = {
   json: flags.boolean({
@@ -27,9 +29,9 @@ GetAPICommand.flags = {
 }
 
 GetAPICommand.args = [{ 
-  name: 'identifier',
+  name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'identifier for API in {owner}/{api_name}/{version} format'
+  description: 'API version in SwaggerHub'
 }]
 
 module.exports = GetAPICommand
