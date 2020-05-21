@@ -6,6 +6,9 @@ const { parseResponse, checkForErrors, handleErrors } = require('../../utils/com
 
 class CreateAPICommand extends Command {
   
+
+  static testing =  'testing'
+
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const identifier = getIdentifierArg(args)
