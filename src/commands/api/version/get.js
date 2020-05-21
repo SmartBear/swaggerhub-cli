@@ -15,7 +15,9 @@ class GetAPICommand extends Command {
   }
 }
 
-GetAPICommand.description = 'fetches an API version'
+GetAPICommand.description = `fetches an API version
+returns the API in YAML format by default
+`
 
 GetAPICommand.examples = ['swaggerhub api:version:get organization/api/1.0.0 --json']
 
@@ -29,7 +31,7 @@ GetAPICommand.flags = {
 GetAPICommand.args = [{ 
   name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'API version in SwaggerHub for owner'
+  description: 'API version in SwaggerHub'
 }]
 
 module.exports = GetAPICommand

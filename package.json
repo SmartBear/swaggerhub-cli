@@ -70,7 +70,7 @@
         "description": "this topic supports the management of APIs"
       },
       "api:version": {
-        "description": "this topic supports the management of individual versions of APIs"
+        "description": "this topic supports the management of individual versions of an API"
       }
     }
   },
