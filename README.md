@@ -13,11 +13,11 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g swaggerhub
+$ npm i -g swaggerhub-cli-0.1.2.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
-swaggerhub/0.1.2 darwin-x64 node-v14.1.0
+swaggerhub/0.1.2 darwin-x64 node-v12.13.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
