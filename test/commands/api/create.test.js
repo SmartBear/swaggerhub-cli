@@ -32,6 +32,11 @@ describe('invalid apis:create indentifier', () => {
 describe('invalid api:create', () => {
 
   test
+  .command(['api:create', `${validIdentifier}`, '-f=test/resources/missing_file.yaml', '--oas=2'])
+  .exit(1)
+  .it('runs api:create with file not found')
+
+  test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
       .get('/org/api')
