@@ -51,7 +51,7 @@
     "arrow-body-style": ["error", "as-needed"],
     "arrow-parens": ["error", "as-needed"],
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-    "max-len": ["error", { "code": 110 }],
+    "max-len": ["error", { "code": 120 }],
     "immutable/no-let": 2,
     "mocha/no-mocha-arrows": 0,
     "mocha/no-setup-in-describe": 0
