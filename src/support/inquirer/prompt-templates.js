@@ -8,7 +8,7 @@ const swaggerHubUrl = {
 
 const apiKey = {
   name: 'SWAGGERHUB_API_KEY',
-  message: 'API Key',
+  message: 'API Key:',
   default: '{{SWAGGERHUB_API_KEY}}'
 }
 
