@@ -13,11 +13,11 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.1.tgz
+$ npm install -g swaggerhub
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
-swaggerhub/0.1.1 darwin-x64 node-v12.13.0
+swaggerhub/0.1.2 darwin-x64 node-v14.1.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
@@ -40,7 +40,7 @@ USAGE
   $ swaggerhub api:create OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API version to create in SwaggerHub for owner
+  OWNER/API_NAME/VERSION  API to create in SwaggerHub
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
@@ -54,7 +54,7 @@ EXAMPLE
   swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/create.js)_
 
 ## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 
@@ -65,16 +65,19 @@ USAGE
   $ swaggerhub api:version:get OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API version in SwaggerHub for owner
+  OWNER/API_NAME/VERSION  API version in SwaggerHub
 
 OPTIONS
   -j, --json  returns the API in JSON format.
+
+DESCRIPTION
+  returns the API in YAML format by default
 
 EXAMPLE
   swaggerhub api:version:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/api/version/get.js)_
+_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/version/get.js)_
 
 ## `swaggerhub configure`
 
@@ -83,9 +86,15 @@ configure application settings
 ```
 USAGE
   $ swaggerhub configure
+
+DESCRIPTION
+  Enter the SwaggerHub URL - default is https://api.swaggerhub.com
+  Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settings/apiKey
+  You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config 
+  settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.1/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
