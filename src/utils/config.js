@@ -1,5 +1,5 @@
 const { readJSONSync, writeJSONSync } = require('fs-extra')
-const { mergeDeep } = require('../utils/data-transform')
+const { mergeDeep } = require('./data-transform')
 const pick = require('lodash/pick')
 
 const environmentalKeys = ['SWAGGERHUB_URL', 'SWAGGERHUB_API_KEY']
