@@ -1,4 +1,5 @@
-const { updateJSONSync, readJSONSync } = require('../support/fs')
+const { readJSONSync, writeJSONSync } = require('fs-extra')
+const { mergeDeep } = require('../utils/data-transform')
 const pick = require('lodash/pick')
 
 const environmentalKeys = ['SWAGGERHUB_URL', 'SWAGGERHUB_API_KEY']
@@ -15,7 +16,7 @@ const getConfig = () => {
 
 const setConfig = update => {
   const { configFilePath } = global
-  return updateJSONSync(configFilePath, update)
+  return writeJSONSync(configFilePath, mergeDeep(readJSONSync(configFilePath), update))
 }
 
 module.exports = {
