@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const config = require('../../../src/services/config')
+const config = require('../../../src/utils/config')
 const validIdentifier = 'org/api/1.0.0'
 const shubUrl = 'https://test.swaggerhub.com'
 

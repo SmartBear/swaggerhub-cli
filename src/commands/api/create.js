@@ -1,5 +1,5 @@
 const { Command, flags } = require('@oclif/command')
-const { readFileSync, fileExistsSync } = require('../../support/fs')
+const { readFileSync, existsSync } = require('fs-extra')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../utils/input-validation')
 const { parseResponse, checkForErrors, handleErrors } = require('../../utils/command-response-handler')
@@ -11,7 +11,7 @@ class CreateAPICommand extends Command {
     const identifier = getIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
 
-    if (!fileExistsSync(flags.file)) {
+    if (!existsSync(flags.file)) {
       this.error(`File '${flags.file}' not found`, { exit: 1 })
     }
 

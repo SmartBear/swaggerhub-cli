@@ -1,6 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const path = require('path')
-const { deleteFileSync, fileExistsSync } = require('../../src/support/fs')
+const { existsSync, unlinkSync } = require('fs-extra')
 const setupConfig = require('../../src/hooks/setup-config')
 
 const mockHookOptions = {
@@ -22,13 +22,13 @@ describe('setup config', () => {
   })
 
   afterEach(() => {
-    deleteFileSync(global.configFilePath)
+    unlinkSync(global.configFilePath)
     delete global.configFilePath
   })
 
   describe('setupConfig', () => {
     test.it('it should create a new config file if none exists', () => {
-      expect(fileExistsSync(expectedFilePath)).to.equal(true)
+      expect(existsSync(expectedFilePath)).to.equal(true)
     })
 
     test.it('should set a global variable - configFilePath', () => {

@@ -3,7 +3,7 @@ const { pipe } = require('../../src/utils/compositions')
 const mock = require('../__mocks__/config')
 const isEqual = require('lodash/isEqual')
 
-const { setConfig, getConfig } = require('../../src/services/config')
+const { setConfig, getConfig } = require('../../src/utils/config')
 
 describe('compositions ', () => {
   describe('pipe', () => {

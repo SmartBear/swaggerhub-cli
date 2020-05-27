@@ -1,13 +1,13 @@
 const path = require('path')
-const { writeJSONSync, fileExistsSync } = require('../support/fs')
+const { existsSync, outputJsonSync } = require('fs-extra')
 const { configDefaults } = require('../../package.json').oclif
 const { pipe } = require('../utils/compositions')
 
-const createConfigFile = (filePath, config) => writeJSONSync(filePath, config)
+const createConfigFile = (filePath, config) => outputJsonSync(filePath, config, { mode: 0o600 })
 
 const createConfigPath = ({ configDir }) => path.join(configDir, 'config.json')
 
-const initConfig = filePath => !fileExistsSync(filePath) && createConfigFile(filePath, configDefaults)
+const initConfig = filePath => !existsSync(filePath) && createConfigFile(filePath, configDefaults)
 
 const setAsGlobalPath = filePath => global.configFilePath = filePath
 
