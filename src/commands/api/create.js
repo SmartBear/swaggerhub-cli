@@ -1,5 +1,5 @@
 const { Command, flags } = require('@oclif/command')
-const { readFileSync } = require('../../support/fs')
+const { readFileSync } = require('fs-extra')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../utils/input-validation')
 const { parseResponse, checkForErrors, handleErrors } = require('../../utils/command-response-handler')
