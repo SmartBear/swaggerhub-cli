@@ -1,6 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const yaml = require('js-yaml')
-const config = require('../../../../src/utils/config')
+const config = require('../../../../src/support/config')
 
 const validIdentifier = 'org1/api2/1.0.0'
 const jsonResponse = {

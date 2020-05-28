@@ -1,9 +1,9 @@
 const { expect, test } = require('@oclif/test')
-const { pipe } = require('../../src/utils/compositions')
+const { pipe } = require('../../src/utils/general')
 const mock = require('../__mocks__/config')
 const isEqual = require('lodash/isEqual')
 
-const { setConfig, getConfig } = require('../../src/utils/config')
+const { setConfig, getConfig } = require('../../src/support/config')
 
 describe('compositions ', () => {
   describe('pipe', () => {

@@ -1,7 +1,7 @@
 const { Command, flags } = require('@oclif/command')
-const { getIdentifierArg } = require('../../../utils/input-validation')
+const { getIdentifierArg } = require('../../../support/command/parse-input')
 const { getApiVersion } = require('../../../actions/api')
-const { parseResponse, checkForErrors, handleErrors } = require('../../../utils/command-response-handler')
+const { parseResponse, checkForErrors, handleErrors } = require('../../../support/command/response-handler')
 
 class GetAPICommand extends Command {
 

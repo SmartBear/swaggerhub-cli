@@ -17,6 +17,7 @@ const handleErrors = ({ content }) => {
   const { message } = JSON.parse(content)
   throw new CLIError(message)
 }
+
 module.exports = {
     parseResponse,
     checkForErrors,

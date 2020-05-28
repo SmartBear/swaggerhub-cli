@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { wrapTemplates } = require('../../src/utils/compositions')
+const { wrapTemplates } = require('../../src/utils/general')
 const isEqual = require('lodash/isEqual')
 const rewire = require('rewire')
 

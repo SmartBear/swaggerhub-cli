@@ -1,4 +1,4 @@
-const { wrapTemplates } = require('../../utils/compositions')
+const { wrapTemplates } = require('../../utils/general')
 
 const swaggerHubUrl = {
   name: 'SWAGGERHUB_URL',
