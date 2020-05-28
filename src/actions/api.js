@@ -1,4 +1,4 @@
-const config = require('../support/config')
+const config = require('../config')
 const { reqType } = require('../support/command/parse-input')
 const { hasJsonStructure } = require('../utils/general')
 const http = require('../support/http')
