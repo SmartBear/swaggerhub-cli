@@ -1,7 +1,7 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
 
-const { validateObjectIdentifier, getIdentifierArg, reqType } = require('../../src/utils/input-validation')
+const { validateObjectIdentifier, getIdentifierArg, reqType } = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {
 

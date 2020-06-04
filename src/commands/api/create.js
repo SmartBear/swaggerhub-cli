@@ -1,8 +1,8 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApiVersions, postApi } = require('../../actions/api')
-const { getIdentifierArg } = require('../../utils/input-validation')
-const { parseResponse, checkForErrors, handleErrors } = require('../../utils/command-response-handler')
+const { getIdentifierArg } = require('../../support/command/parse-input')
+const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
 class CreateAPICommand extends Command {
   

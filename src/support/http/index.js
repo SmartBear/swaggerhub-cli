@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const qs = require('querystring')
 const headerTemplates = require('./header-templates')
 
-const { pipe } = require('../../utils/compositions')
+const { pipe } = require('../../utils/general')
 const pick = require('lodash/pick')
 const omit = require('lodash/omit')
 

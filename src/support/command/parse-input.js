@@ -13,22 +13,10 @@ const getIdentifierArg = args => {
   return identifier
 }
 
-const hasJsonStructure = str => {
-  try {
-    const result = JSON.parse(str)
-    const type = Object.prototype.toString.call(result)
-    return type === '[object Object]'
-      || type === '[object Array]'
-  } catch (err) {
-    return false
-  }
-}
-
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
 module.exports = {
   validateObjectIdentifier,
   getIdentifierArg,
-  hasJsonStructure,
   reqType
 }

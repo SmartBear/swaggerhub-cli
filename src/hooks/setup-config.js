@@ -1,7 +1,7 @@
 const path = require('path')
 const { existsSync, outputJsonSync } = require('fs-extra')
 const { configDefaults } = require('../../package.json').oclif
-const { pipe } = require('../utils/compositions')
+const { pipe } = require('../utils/general')
 
 const createConfigFile = (filePath, config) => outputJsonSync(filePath, config, { mode: 0o600 })
 
