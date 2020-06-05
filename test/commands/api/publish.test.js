@@ -6,7 +6,7 @@ describe('valid api:publish', () => {
   test
   .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
   .nock('https://test.swaggerhub.com/apis', api => api
-    .put('/org/api/1.0.0/settings/lifecycle', { published: true})
+    .put('/org/api/1.0.0/settings/lifecycle', { published: true })
     .reply(200)
   )
   .stdout()
