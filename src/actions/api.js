@@ -3,6 +3,19 @@ const { reqType } = require('../support/command/parse-input')
 const { hasJsonStructure } = require('../utils/general')
 const http = require('../support/http')
 
+const putApi = ({ pathParams, body }) => {
+  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+
+  return http({
+    url: [SWAGGERHUB_URL, 'apis', ...pathParams],
+    auth: SWAGGERHUB_API_KEY,
+    userAgent: global.shUserAgent,
+    contentType: 'json',
+    method: 'PUT',
+    body
+  })
+}
+
 const postApi = ({ pathParams, queryParams, body }) => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
   const [owner, name] = pathParams
@@ -32,5 +45,6 @@ const getApiVersion = (identifier, flags) => {
 
 module.exports = {
   getApiVersion,
+  putApi,
   postApi
 }
