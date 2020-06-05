@@ -1,0 +1,5 @@
+    openapi: 3.0.0
+servers: []
+  info:
+description: This is a simple API
+  version: "1.0.0"
