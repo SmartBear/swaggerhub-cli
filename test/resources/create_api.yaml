@@ -1,33 +1,29 @@
-openapi: 3.0.0
-servers: []
+swagger: '2.0'
 info:
-  description: This is a simple API
-  version: "1.0.0"
-  title: Simple Inventory API
-tags:
-  - name: admins
+  description: "String"
+  version: "1.0.1"
+  title: Swagger Petstore
+  termsOfService: http://swagger.io/terms/
+host: petstore.swagger.io
+basePath: /v2
+schemes:
+- http
 paths:
-  /inventory:
+  /pet:
     post:
       tags:
-        - admins
-      summary: adds an inventory item
-      operationId: addInventory
+      - pet
+      summary: Add a new pet to the store.
+      operationId: addPet
+      parameters:
+      - in: body
+        name: body
+        description: Pet object that needs to be added to the store
+        required: true
+        schema:
+          $ref: '#/definitions/Pet'
       responses:
-        '201':
-          description: item created
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InventoryItem'
-components:
-  schemas:
-    InventoryItem:
-      type: object
-      required:
-        - id
-      properties:
-        id:
-          type: string
-          format: uuid
+        405:
+          description: Error
+          schema:
+            $ref: https://dev-api.swaggerhub.com/domains/CW-EnterpriseOrg/Domainsaa/1.0.0#/definitions/ErrorModel

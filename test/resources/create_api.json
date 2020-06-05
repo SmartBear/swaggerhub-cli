@@ -3,7 +3,7 @@
     "servers": [],
     "info": {
        "description": "This is a simple API",
-       "version": "1.0.0",
+       "version": "2.0.0",
        "title": "Simple Inventory API"
     },
     "tags": [

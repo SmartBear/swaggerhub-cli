@@ -45,7 +45,6 @@ describe('Validate Object Identifier', () => {
     })
   })
 
-
   context('testing invalid owner/api/version idenfitier', () => {
     it('should be false', function () {
       expect(validateObjectIdentifier('invalid_id/')).to.equal(false)
@@ -53,23 +52,41 @@ describe('Validate Object Identifier', () => {
   })
 
   context('testing owner/api idenfitier', () => {
+    it('should be true', () => {
+      expect(validateObjectIdentifier('owner/api')).to.equal(true)
+    })
+  })
+
+  context('testing owner/api/version/extra/slashes idenfitier', () => {
     it('should be false', () => {
-      expect(validateObjectIdentifier('owner/api')).to.equal(false)
+      expect(validateObjectIdentifier('owner/api/version/extra/slashes')).to.equal(false)
     })
   })
 })
 
 describe('getIdentifierArg', () => {
 
-  context('valid identifier', () => {
+  context('valid version identifier', () => {
     it('should be returned', () => {
       expect(getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api/123' })).to.equal('owner/api/123')
     })
   })
 
+  context('valid identifier', () => {
+    it('should be returned', () => {
+      expect(getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })).to.equal('owner/api')
+    })
+  })
+
   context('invalid identifier', () => {
-    it('should be throw an exception', () => {
-      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })}).to.throw(CLIError)
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api/version/extra' })}).to.throw(CLIError)
+    })
+  })
+
+  context('invalid identifier with version required', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' }, true)}).to.throw(CLIError)
     })
   })
 })
