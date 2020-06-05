@@ -27,6 +27,7 @@ USAGE
 # Commands
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/VERSION`](#swaggerhub-apicreate-ownerapi_nameversion)
+* [`swaggerhub api:publish OWNER/API_NAME/VERSION`](#swaggerhub-apipublish-ownerapi_nameversion)
 * [`swaggerhub api:version:get OWNER/API_NAME/VERSION`](#swaggerhub-apiversionget-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
@@ -55,6 +56,23 @@ EXAMPLE
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/create.js)_
+
+## `swaggerhub api:publish OWNER/API_NAME/VERSION`
+
+publish an API version
+
+```
+USAGE
+  $ swaggerhub api:publish OWNER/API_NAME/VERSION
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION  API to publish
+
+EXAMPLE
+  swaggerhub api:publish organization/api/1.0.0
+```
+
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/publish.js)_
 
 ## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 
