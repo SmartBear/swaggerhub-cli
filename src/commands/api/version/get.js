@@ -7,7 +7,7 @@ class GetAPICommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
-    await getApiVersion(getIdentifierArg(args, true), flags)
+    await getApiVersion(getIdentifierArg(args), flags)
     .then(parseResponse)
     .then(checkForErrors)
     .then(this.log)

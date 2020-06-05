@@ -9,7 +9,7 @@ class CreateAPICommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const [owner, name, version] = getIdentifierArg(args).split('/')
+    const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
     const versionToCreate = this.getVersion(version, definition)
