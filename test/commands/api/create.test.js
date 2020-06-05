@@ -32,7 +32,7 @@ describe('invalid api:create file issues', () => {
   test
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('Ensure it is valid YAML!')
+      expect(ctx.message).to.contain('Ensure the definition is valid.')
     })
     .it('runs api:create with incorrectly formatted file')
 
