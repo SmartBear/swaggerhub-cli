@@ -28,6 +28,7 @@ USAGE
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/VERSION`](#swaggerhub-apicreate-ownerapi_nameversion)
 * [`swaggerhub api:publish OWNER/API_NAME/VERSION`](#swaggerhub-apipublish-ownerapi_nameversion)
+* [`swaggerhub api:setdefault OWNER/API_NAME/VERSION`](#swaggerhub-apisetdefault-ownerapi_nameversion)
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish-ownerapi_nameversion)
 * [`swaggerhub api:version:get OWNER/API_NAME/VERSION`](#swaggerhub-apiversionget-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
@@ -56,7 +57,7 @@ EXAMPLE
   swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/create.js)_
 
 ## `swaggerhub api:publish OWNER/API_NAME/VERSION`
 
@@ -73,7 +74,24 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/publish.js)_
+
+## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
+
+set the default version of an API
+
+```
+USAGE
+  $ swaggerhub api:setdefault OWNER/API_NAME/VERSION
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION  API version to set as default
+
+EXAMPLE
+  swaggerhub api:setdefault organization/api/2.0.0
+```
+
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
 
@@ -90,7 +108,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 
@@ -113,7 +131,7 @@ EXAMPLE
   swaggerhub api:version:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/version/get.js)_
+_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/version/get.js)_
 
 ## `swaggerhub configure`
 
@@ -130,7 +148,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
