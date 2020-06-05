@@ -3,12 +3,12 @@ const config = require('../../../src/config')
 const validIdentifier = 'org/api/1.0.0'
 const shubUrl = 'https://test.swaggerhub.com'
 
-describe('invalid apis:create indentifier', () => {
+describe('invalid apis:create identifier', () => {
   test
     .stdout()
     .command(['api:create'])
     .exit(2)
-    .it('runs api:create with no indentifier provided')
+    .it('runs api:create with no identifier provided')
 
   test
     .stdout()
@@ -26,7 +26,7 @@ describe('invalid apis:create indentifier', () => {
     .stdout()
     .command(['api:create', 'owner/api', '-f=test/resources/create_api.yaml', '--oas=2'])
     .exit(2)
-    .it('runs api:create with org/api indentifier provided')
+    .it('runs api:create with org/api identifier provided')
 })
  
 describe('invalid api:create', () => {
