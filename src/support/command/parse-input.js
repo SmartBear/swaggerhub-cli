@@ -1,7 +1,7 @@
 const { CLIError } = require('@oclif/errors')
 
-const identifierRegex = new RegExp(/^[0-9a-zA-Z_\-.]+\/[0-9a-zA-Z_\-.]+(\/[0-9a-zA-Z_\-.]+)?$/)
-const requiredVersionRegex = new RegExp(/^[0-9a-zA-Z_\-.]+\/[0-9a-zA-Z_\-.]+\/[0-9a-zA-Z_\-.]+$/)
+const identifierRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?$/)
+const requiredVersionRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+\/[\w\-.]+$/)
 
 const validateObjectIdentifier = id => requiredVersionRegex.test(id)
 
