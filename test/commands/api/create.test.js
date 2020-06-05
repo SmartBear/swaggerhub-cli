@@ -5,19 +5,16 @@ const shubUrl = 'https://test.swaggerhub.com'
 
 describe('invalid api:create command issues', () => {
   test
-    .stdout()
     .command(['api:create'])
     .exit(2)
     .it('runs api:create with no identifier provided')
 
   test
-    .stdout()
     .command(['api:create', 'invalid'])
     .exit(2)
     .it('runs api:create with no required --file flag')
 
   test
-    .stdout()
     .command(['api:create', 'owner', '-f=test/resources/create_api.yaml'])
     .exit(2)
     .it('runs api:create with org identifier provided')
@@ -33,7 +30,6 @@ describe('invalid api:create file issues', () => {
     .it('runs api:create with file not found')
 
   test
-    .stderr()
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Ensure it is valid YAML!')
@@ -41,12 +37,18 @@ describe('invalid api:create file issues', () => {
     .it('runs api:create with incorrectly formatted file')
 
   test
-    .stderr()
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/missing_oas_version.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Cannot determine OAS version from file')
     })
     .it('runs api:create with file missing OAS Version')
+
+    test
+    .command(['api:create', 'org/api', '--file=test/resources/missing_version.yaml'])
+    .catch(ctx => {
+      expect(ctx.message).to.contain('Cannot determine version to create from file')
+    })
+    .it('runs api:create with file missing version')
 })
 
 describe('invalid api:create', () => {

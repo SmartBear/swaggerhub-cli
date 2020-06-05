@@ -1,7 +1,6 @@
 swagger: '2.0'
 info:
   description: "String"
-  version: "1.0.1"
   title: Swagger Petstore
   termsOfService: http://swagger.io/terms/
 host: petstore.swagger.io

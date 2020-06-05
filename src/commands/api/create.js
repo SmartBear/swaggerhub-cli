@@ -11,8 +11,11 @@ class CreateAPICommand extends Command {
     const { args, flags } = this.parse(CreateAPICommand)
     const [owner, name, version] = getIdentifierArg(args).split('/')
     const definition = parseDefinition(flags.file)
-    const versionToCreate = this.getVersion(version, definition)
     const oas = getOasVersion(definition)
+    const versionToCreate = this.getVersion(version, definition)
+    if (!versionToCreate) {
+      this.error('Cannot determine version to create from file', { exit: 1 })
+    }
 
     const getApiResult = await getApiVersion(`${owner}/${name}`, flags).then(parseResponse)
     if (getApiResult.ok) {
@@ -58,7 +61,9 @@ class CreateAPICommand extends Command {
 }
 
 CreateAPICommand.description = `creates an API/API version
-if user does not specify version of API to create, version from file will be created
+if API does not exist, a new API will be created
+if API does exist but version does not, a new version of the API will be created
+if user does not specify the version of API as an argument, the version from the file will be created
 command will fail if the API version already exists.
 `
 

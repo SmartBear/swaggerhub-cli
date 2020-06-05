@@ -13,11 +13,11 @@ cli to interact with https://app.swaggerhub.com
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.2.tgz
+$ npm install -g swaggerhub
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
-swaggerhub/0.1.2 darwin-x64 node-v12.13.0
+swaggerhub/0.1.2 darwin-x64 node-v14.1.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
@@ -33,7 +33,7 @@ USAGE
 
 ## `swaggerhub api:create OWNER/API_NAME/VERSION`
 
-creates an API
+creates an API/API version
 
 ```
 USAGE
@@ -44,14 +44,17 @@ ARGUMENTS
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
-  --oas=2|3                    (required) OAS version of API
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
-  command will fail if the API already exists.
+  if API does not exist, a new API will be created
+  if API does exist but version does not, a new version of the API will be created
+  if user does not specify the version of API as an argument, the version from the file will be created
+  command will fail if the API version already exists.
 
-EXAMPLE
-  swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
+EXAMPLES
+  swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public
+  swaggerhub api:create organization/api --file api.yaml
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/create.js)_
