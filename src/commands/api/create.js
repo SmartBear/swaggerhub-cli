@@ -60,11 +60,9 @@ class CreateAPICommand extends Command {
   }
 }
 
-CreateAPICommand.description = `creates an API/API version
-if API does not exist, a new API will be created
-if API does exist but version does not, a new version of the API will be created
-if user does not specify the version of API as an argument, the version from the file will be created
-command will fail if the API version already exists.
+CreateAPICommand.description = `creates a new API / API version
+The API version from the file will be used unless the version is specified in the command argument.
+An error will occur if the API version already exists.
 `
 
 CreateAPICommand.examples = [

@@ -35,7 +35,7 @@ const parseDefinition = fileName => {
     const file = readFileSync(fileName)
     return hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file)
   } catch (e) {
-    throw new CLIError(`There was a problem with parsing ${fileName}. Ensure it is valid YAML! ${e}`)
+    throw new CLIError(`There was a problem with parsing ${fileName}. Ensure the definition is valid. ${e}`)
   }
 }
 

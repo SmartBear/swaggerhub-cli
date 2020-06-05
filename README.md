@@ -34,7 +34,7 @@ USAGE
 
 ## `swaggerhub api:create OWNER/API_NAME/VERSION`
 
-creates an API/API version
+creates a new API / API version
 
 ```
 USAGE
@@ -48,10 +48,8 @@ OPTIONS
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
-  if API does not exist, a new API will be created
-  if API does exist but version does not, a new version of the API will be created
-  if user does not specify the version of API as an argument, the version from the file will be created
-  command will fail if the API version already exists.
+  The API version from the file will be used unless the version is specified in the command argument.
+  An error will occur if the API version already exists.
 
 EXAMPLES
   swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public
@@ -92,7 +90,7 @@ OPTIONS
   -j, --json  returns the API in JSON format.
 
 DESCRIPTION
-  returns the API in YAML format by default
+  Returns the API in YAML format by default.
 
 EXAMPLE
   swaggerhub api:version:get organization/api/1.0.0 --json

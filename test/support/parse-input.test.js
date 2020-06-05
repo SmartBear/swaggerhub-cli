@@ -72,6 +72,18 @@ describe('getIdentifierArg', () => {
     })
   })
 
+  context('invalid identifier with space', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api name/version' })}).to.throw(CLIError)
+    })
+  })
+
+  context('invalid identifier with space and no version', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api name' }, false)}).to.throw(CLIError)
+    })
+  })
+
   context('invalid identifier with version required', () => {
     it('should throw an exception', () => {
       expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })}).to.throw(CLIError)
