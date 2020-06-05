@@ -60,7 +60,7 @@ class CreateAPICommand extends Command {
   }
 }
 
-CreateAPICommand.description = `creates a new API / API version
+CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file
 The API version from the file will be used unless the version is specified in the command argument.
 An error will occur if the API version already exists.
 `

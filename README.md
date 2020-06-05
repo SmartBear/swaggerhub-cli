@@ -34,7 +34,7 @@ USAGE
 
 ## `swaggerhub api:create OWNER/API_NAME/VERSION`
 
-creates a new API / API version
+creates a new API / API version from a YAML/JSON file
 
 ```
 USAGE
