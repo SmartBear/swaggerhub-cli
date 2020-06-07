@@ -1,17 +1,13 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
 const { getIdentifierArg } = require('../../../support/command/parse-input')
 const { getApiVersion } = require('../../../actions/api')
-const { parseResponse, checkForErrors, handleErrors } = require('../../../support/command/response-handler')
+const BaseCommand = require('../../../support/command/base-command')
 
-class GetAPICommand extends Command {
+class GetAPICommand extends BaseCommand {
 
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
-    await getApiVersion(getIdentifierArg(args), flags)
-    .then(parseResponse)
-    .then(checkForErrors)
-    .then(this.log)
-    .catch(handleErrors)
+    await this.execute(() => getApiVersion(getIdentifierArg(args), flags), this.log)
   }
 }
 
@@ -25,13 +21,10 @@ GetAPICommand.flags = {
   json: flags.boolean({
     char: 'j',
     description: 'returns the API in JSON format.'
-  })
+  }),
+  ...BaseCommand.flags
 }
 
-GetAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API version in SwaggerHub'
-}]
+GetAPICommand.args = BaseCommand.args
 
 module.exports = GetAPICommand

@@ -42,10 +42,11 @@ USAGE
   $ swaggerhub api:create OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to create in SwaggerHub
+  OWNER/API_NAME/VERSION  API identifier
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
+  -h, --help                   show CLI help
   --oas=2|3                    (required) OAS version of API
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
@@ -67,7 +68,10 @@ USAGE
   $ swaggerhub api:publish OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to publish
+  OWNER/API_NAME/VERSION  API identifier
+
+OPTIONS
+  -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
@@ -84,7 +88,10 @@ USAGE
   $ swaggerhub api:unpublish OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to unpublish
+  OWNER/API_NAME/VERSION  API identifier
+
+OPTIONS
+  -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
@@ -101,9 +108,10 @@ USAGE
   $ swaggerhub api:version:get OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API version in SwaggerHub
+  OWNER/API_NAME/VERSION  API identifier
 
 OPTIONS
+  -h, --help  show CLI help
   -j, --json  returns the API in JSON format.
 
 DESCRIPTION

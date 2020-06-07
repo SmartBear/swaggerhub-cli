@@ -1,10 +1,11 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApiVersions, postApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { parseResponse, handleErrors } = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
-class CreateAPICommand extends Command {
+class CreateAPICommand extends BaseCommand {
   
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
@@ -25,11 +26,7 @@ class CreateAPICommand extends Command {
         queryParams: queryParams,
         body: readFileSync(flags.file)
       }
-      await postApi(createApiObject)
-      .then(parseResponse)
-      .then(checkForErrors)
-      .then(() => this.log(`Created API ${identifier}`))
-      .catch(handleErrors)
+      await this.execute(() => postApi(createApiObject), () => this.log(`Created API ${identifier}`))
     } else {
       handleErrors(getApiResult)
     }
@@ -43,12 +40,6 @@ command will fail if the API already exists.
 CreateAPICommand.examples = [
   'swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public'
 ]
-
-CreateAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API to create in SwaggerHub'
-}]
 
 CreateAPICommand.flags = {
   file: flags.string({
@@ -66,7 +57,10 @@ CreateAPICommand.flags = {
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private'],
     default: 'private'
-  })
+  }),
+  ...BaseCommand.flags
 }
+
+CreateAPICommand.args = BaseCommand.args
 
 module.exports = CreateAPICommand
