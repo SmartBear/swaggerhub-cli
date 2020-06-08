@@ -36,13 +36,13 @@ const getOasVersion = definition => {
 }
 
 const getVersion = (definition, version) => {
-  if (!version && definition.info.version) {
+  if (version) {
+    return version
+  }
+  if (definition.info.version) {
     return definition.info.version
   } 
-  if (!version && !definition.info.version) {
-    throw new CLIError('Cannot determine version from file')
-  }
-  return version
+  throw new CLIError('Cannot determine version from file')
 }
 
 const parseDefinition = (fileName, version) => {

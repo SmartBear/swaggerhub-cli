@@ -11,9 +11,9 @@ class CreateAPICommand extends Command {
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const { oas, parsedVersion } = parseDefinition(flags.file, version)
 
-    const getApiResult = await getApiVersion(`${owner}/${name}`, flags).then(parseResponse)
+    const getApiResult = await getApiVersion(`${owner}/${name}`, true).then(parseResponse)
     if (getApiResult.ok) {
-      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${parsedVersion}`, flags).then(parseResponse)
+      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${parsedVersion}`, true).then(parseResponse)
       if (getApiVersionResult.ok) {
         this.error(`API version '${owner}/${name}/${parsedVersion}' already exists in SwaggerHub`, { exit: 1 })
       } else if (getApiVersionResult.status === 404) {

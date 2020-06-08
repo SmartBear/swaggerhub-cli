@@ -10,7 +10,7 @@ class UpdateAPICommand extends Command {
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const { parsedVersion } = parseDefinition(flags.file, version)
 
-    await getApiVersion(`${owner}/${name}/${parsedVersion}`, flags)
+    await getApiVersion(`${owner}/${name}/${parsedVersion}`, true)
     .then(parseResponse)
     .then(checkForErrors)
     .then(() => this.updateApi(owner, name, parsedVersion, flags))
@@ -33,15 +33,14 @@ class UpdateAPICommand extends Command {
   }
 }
 
-
 UpdateAPICommand.description = `update an API version
 The API version from the file will be used unless the version is specified in the command argument.
 An error will occur if the API version does not exist.
 `
 
 UpdateAPICommand.examples = [
-  'swaggerhub api:update organization/api/1.0.0 --file api.yaml',
-  'swaggerhub api:update organization/api --file api.json'
+  'swaggerhub api:update organization/api --file api.yaml',
+  'swaggerhub api:update organization/api/1.0.0 --file api.json'
 ]
 
 UpdateAPICommand.args = [{
@@ -55,7 +54,7 @@ UpdateAPICommand.flags = {
     char: 'f', 
     description: 'file location of API to update',
     required: true
-  }),
+  })
 }
 
 module.exports = UpdateAPICommand
