@@ -15,13 +15,12 @@ describe('invalid api:create command issues', () => {
     .it('runs api:create with no required --file flag')
 
   test
-    .command(['api:create', 'owner', '-f=test/resources/create_api.yaml'])
+    .command(['api:create', 'owner', '-f=test/resources/valid_api.yaml'])
     .exit(2)
     .it('runs api:create with org identifier provided')
 })
 
 describe('invalid api:create file issues', () => {
-
   test
     .command(['api:create', `${validIdentifier}`, '-f=test/resources/missing_file.yaml'])
     .catch(ctx => {
@@ -46,13 +45,12 @@ describe('invalid api:create file issues', () => {
     test
     .command(['api:create', 'org/api', '--file=test/resources/missing_version.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('Cannot determine version to create from file')
+      expect(ctx.message).to.contain('Cannot determine version from file')
     })
     .it('runs api:create with file missing version')
 })
 
 describe('invalid api:create', () => {
-
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -63,7 +61,7 @@ describe('invalid api:create', () => {
       .get('/org/api/1.0.0')
       .reply(200)
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/create_api.yaml'])
+    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain(`API version '${validIdentifier}' already exists in SwaggerHub`)
     })
@@ -75,7 +73,7 @@ describe('invalid api:create', () => {
       .get('/org/api')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/create_api.yaml'])
+    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
     .exit(2)
     .it('runs api:create with error retrieving APIs')
 
@@ -89,7 +87,7 @@ describe('invalid api:create', () => {
       .get('/org/api/1.0.0')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.json'])
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
     .exit(2)
     .it('runs api:create with error on retrieving API version')
 
@@ -103,13 +101,12 @@ describe('invalid api:create', () => {
       .post('/org/api?version=1.0.0&isPrivate=true&oas=3.0.0')
       .reply(400, '{ "code": 400, "message": "Bad Request"}')
     )
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.json'])
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
     .exit(2)
     .it('runs api:create with error on saving API')
 })
 
 describe('valid api:create', () => {
-
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -122,7 +119,7 @@ describe('valid api:create', () => {
       .reply(201)
     )
     .stdout()
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/create_api.yaml'])
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'')
     })
@@ -142,7 +139,7 @@ describe('valid api:create', () => {
     .command([
       'api:create', 
       'org/api/2.0.0', 
-      '--file=test/resources/create_api.json', 
+      '--file=test/resources/valid_api.json', 
       '--visibility=public'
     ])
     .it('runs api:create with json file', ctx => {
@@ -151,7 +148,6 @@ describe('valid api:create', () => {
 })
 
 describe('valid create new version with api:create', () => {
-
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -168,7 +164,7 @@ describe('valid create new version with api:create', () => {
       .reply(201)
     )
     .stdout()
-    .command(['api:create', 'org/api', '--file=test/resources/create_api.yaml'])
+    .command(['api:create', 'org/api', '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file reading version from file', ctx => {
       expect(ctx.stdout).to.contains('Created version 1.0.1 of API \'org/api\'')
     })
@@ -191,7 +187,7 @@ describe('valid create new version with api:create', () => {
     .command([
       'api:create', 
       'org/api', 
-      '--file=test/resources/create_api.json', 
+      '--file=test/resources/valid_api.json', 
       '--visibility=public'
     ])
     .it('runs api:create with json file reading version from file', ctx => {

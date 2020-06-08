@@ -1,8 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApiVersion, postApi } = require('../../actions/api')
-const { parseDefinition, getOasVersion } = require('../../utils/general')
-const { getIdentifierArg } = require('../../support/command/parse-input')
+const { getIdentifierArg, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
 class CreateAPICommand extends Command {
@@ -10,35 +9,23 @@ class CreateAPICommand extends Command {
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
-    const definition = parseDefinition(flags.file)
-    const oas = getOasVersion(definition)
-    const versionToCreate = this.getVersion(version, definition)
-    if (!versionToCreate) {
-      this.error('Cannot determine version to create from file', { exit: 1 })
-    }
+    const { oas, parsedVersion } = parseDefinition(flags.file, version)
 
     const getApiResult = await getApiVersion(`${owner}/${name}`, flags).then(parseResponse)
     if (getApiResult.ok) {
-      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${versionToCreate}`, flags).then(parseResponse)
+      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${parsedVersion}`, flags).then(parseResponse)
       if (getApiVersionResult.ok) {
-        this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
+        this.error(`API version '${owner}/${name}/${parsedVersion}' already exists in SwaggerHub`, { exit: 1 })
       } else if (getApiVersionResult.status === 404) {
-        await this.createApi(owner, name, versionToCreate, oas, flags, `Created version ${versionToCreate} of API '${owner}/${name}'`)
+        await this.createApi(owner, name, parsedVersion, oas, flags, `Created version ${parsedVersion} of API '${owner}/${name}'`)
       } else {
         handleErrors(getApiVersionResult)
       }
     } else if (getApiResult.status === 404) {
-      await this.createApi(owner, name, versionToCreate, oas, flags, `Created API '${owner}/${name}'`)
+      await this.createApi(owner, name, parsedVersion, oas, flags, `Created API '${owner}/${name}'`)
     } else {
       handleErrors(getApiResult)
     }
-  }
-
-  getVersion(version, definition) {
-    if (!version) {
-      return definition.info.version
-    }
-    return version
   }
 
   async createApi(owner, name, version, oas, flags, successMessage) {
@@ -71,7 +58,7 @@ CreateAPICommand.examples = [
 ]
 
 CreateAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
+  name: 'OWNER/API_NAME/[VERSION]',
   required: true,
   description: 'API to create in SwaggerHub'
 }]
