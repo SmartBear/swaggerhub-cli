@@ -1,6 +1,6 @@
 const { CLIError } = require('@oclif/errors')
 
-const identifierRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?$/)
+const versionOptionalRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?$/)
 const requiredVersionRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+\/[\w\-.]+$/)
 
 const validateObjectIdentifier = id => requiredVersionRegex.test(id)
@@ -12,7 +12,7 @@ const getIdentifierArg = (args, versionRequired=true) => {
       throw new CLIError('Argument must match OWNER/API_NAME/VERSION format')
     }
   } else {
-    if (!identifierRegex.test(identifier)) {
+    if (!versionOptionalRegex.test(identifier)) {
       throw new CLIError('Argument must match OWNER/API_NAME/[VERSION] format')
     }
   }
