@@ -13,7 +13,7 @@ class BaseCommand extends Command {
 }
 
 BaseCommand.flags = {
-  help: flags.help({ char: 'h'})
+  help: flags.help({ char: 'h' })
 }
 
 BaseCommand.args = [{ 
