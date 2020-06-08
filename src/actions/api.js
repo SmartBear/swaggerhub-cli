@@ -32,17 +32,6 @@ const postApi = ({ pathParams, queryParams, body }) => {
   })
 }
 
-const getApiVersions = obj => {
-  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-  const [owner, name] = obj.pathParams
-
-  return http({
-    url: [SWAGGERHUB_URL, 'apis', owner, name],
-    auth: SWAGGERHUB_API_KEY,
-    userAgent: global.shUserAgent
-  })
-}
-
 const getApiVersion = (identifier, flags) => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
 
@@ -56,7 +45,6 @@ const getApiVersion = (identifier, flags) => {
 
 module.exports = {
   getApiVersion,
-  getApiVersions,
   putApi,
   postApi
 }

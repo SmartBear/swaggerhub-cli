@@ -16,7 +16,7 @@ class GetAPICommand extends Command {
 }
 
 GetAPICommand.description = `fetches an API version
-returns the API in YAML format by default
+Returns the API in YAML format by default.
 `
 
 GetAPICommand.examples = ['swaggerhub api:version:get organization/api/1.0.0 --json']

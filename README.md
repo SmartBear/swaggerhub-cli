@@ -35,7 +35,7 @@ USAGE
 
 ## `swaggerhub api:create OWNER/API_NAME/VERSION`
 
-creates an API
+creates a new API / API version from a YAML/JSON file
 
 ```
 USAGE
@@ -46,14 +46,15 @@ ARGUMENTS
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
-  --oas=2|3                    (required) OAS version of API
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
-  command will fail if the API already exists.
+  The API version from the file will be used unless the version is specified in the command argument.
+  An error will occur if the API version already exists.
 
-EXAMPLE
-  swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public
+EXAMPLES
+  swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public
+  swaggerhub api:create organization/api --file api.yaml
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.1.2/src/commands/api/create.js)_
@@ -107,7 +108,7 @@ OPTIONS
   -j, --json  returns the API in JSON format.
 
 DESCRIPTION
-  returns the API in YAML format by default
+  Returns the API in YAML format by default.
 
 EXAMPLE
   swaggerhub api:version:get organization/api/1.0.0 --json
