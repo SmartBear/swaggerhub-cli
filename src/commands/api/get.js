@@ -39,7 +39,7 @@ GetAPICommand.examples = [
 ]
 
 GetAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
+  name: 'OWNER/API_NAME/[VERSION]',
   required: true,
   description: 'SwaggerHub API to fetch'
 }]

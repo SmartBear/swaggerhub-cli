@@ -54,11 +54,11 @@ describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api/1.0.0')
+      .head('/org/api/1.0.0')
       .reply(200)
     )
     .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
@@ -70,7 +70,7 @@ describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
     .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
@@ -80,11 +80,11 @@ describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api/1.0.0')
+      .head('/org/api/1.0.0')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
@@ -94,7 +94,7 @@ describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -110,7 +110,7 @@ describe('valid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -127,7 +127,7 @@ describe('valid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -151,11 +151,11 @@ describe('valid create new version with api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api/1.0.1')
+      .head('/org/api/1.0.1')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
@@ -172,11 +172,11 @@ describe('valid create new version with api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .head('/org/api')
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api/2.0.0')
+      .head('/org/api/2.0.0')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
