@@ -20,35 +20,32 @@ class CreateAPICommand extends Command {
       .catch(handleErrors)
   }
 
-  async tryCreateApi({ flags, path, oas, versionToCreate }) {
-    const isNameAvailable = await this.checkApiName(path)
+  async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
+    const isNameAvailable = await this.checkApiName(apiPath)
     
     if (isNameAvailable) {
-      const [owner, name, version = versionToCreate] = path.split('/')
-      return this.createApi(owner, name, version, oas, flags, successMessage(path.split('/')))
+      const [owner, name, version = versionToCreate] = apiPath.split('/')
+      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath.split('/')))
         .then(() => true)
     }
     
     return Promise.resolve(isNameAvailable)
   }
 
-  async tryCreateApiVersion({ path, version, ...args }) {
-    return this.tryCreateApi({ ...args, path: `${path}/${version}` })
+  async tryCreateApiVersion({ apiPath, version, ...args }) {
+    return this.tryCreateApi({ ...args, apiPath: `${apiPath}/${version}` })
   }
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const path = getIdentifierArg(args, false)
-    const [owner, name, version] = path.split('/')
+    const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
-    const versionToCreate = getVersion(definition, version)
-
-    console.log('>>>', path)
+    const versionToCreate = version || getVersion(definition)
 
     const argsObj = {
       flags,
-      path: [owner, name].join('/'),
+      apiPath: [owner, name].join('/'),
       oas, 
       versionToCreate 
     }
@@ -61,21 +58,17 @@ class CreateAPICommand extends Command {
   }
 
   async createApi(owner, name, version, oas, flags, successMessage) {
-    const queryParams = { 
-      version: version, 
-      isPrivate: flags.visibility==='private', 
-      oas: oas 
-    }
-    const createApiObject = {
-      pathParams: [owner, name],
-      queryParams: queryParams,
-      body: readFileSync(flags.file)
-    }
-    return await postApi(createApiObject)
-    .then(parseResponse)
-    .then(checkForErrors)
-    .then(() => this.log(successMessage))
-    .catch(handleErrors)
+    const isPrivate = flags.visibility === 'private'
+    
+    return await postApi({
+        pathParams: [owner, name],
+        queryParams: { version, isPrivate, oas },
+        body: readFileSync(flags.file)
+      })
+      .then(parseResponse)
+      .then(checkForErrors)
+      .then(() => this.log(successMessage))
+      .catch(handleErrors)
   }
 }
 
