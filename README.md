@@ -24,7 +24,7 @@ $ swaggerhub configure
 ? SwaggerHub URL: https://api.swaggerhub.com
 ? API Key: <your-api-key>
 ```
-These values can be set using the environmental keys: SWAGGERHUB_URL / SWAGGERHUB_API_KEY
+These values can be set using the environmental keys: SWAGGERHUB_URL / SWAGGERHUB_API_KEY  
 Swaggerhub URL defaults to "https://api.swaggerhub.com"
 <!-- setupstop -->
 # Usage
