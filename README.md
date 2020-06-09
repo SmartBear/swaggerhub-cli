@@ -10,10 +10,26 @@ cli to interact with https://app.swaggerhub.com
 * [Commands](#commands)
 * [Contributing](#contributing)
 <!-- tocstop -->
+# Installation
+<!-- install -->
+```sh-session
+$ npm i -g swaggerhub-cli-0.1.2.tgz
+```
+<!-- installstop -->
+# Setup
+<!-- setup -->
+```sh-session
+$ swaggerhub configure
+? SwaggerHub URL: https://api.swaggerhub.com
+? API Key: <your-api-key>
+```
+SwaggerHub URL defaults to the SaaS version, `https://api.swaggerhub.com`. For SwaggerHub On-Premise, use `http(s)://SERVER/v1`.
+
+Alternatively, these values can be set using the `SWAGGERHUB_URL` and `SWAGGERHUB_API_KEY` environment variables. These take precedence over config values.
+<!-- setupstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.2.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
