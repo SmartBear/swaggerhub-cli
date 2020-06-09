@@ -8,6 +8,8 @@ const parseResponse = response => new Promise(resolve => response.text()
       })))
 
 const checkForErrors = response => {
+  if (response.status === 404) return Promise.resolve(response)
+
   if (!response.ok) return Promise.reject(response)
 
   return response.content
