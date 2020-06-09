@@ -10,10 +10,26 @@ cli to interact with https://app.swaggerhub.com
 * [Commands](#commands)
 * [Contributing](#contributing)
 <!-- tocstop -->
+# Installation
+<!-- install -->
+```sh-session
+$ npm i -g swaggerhub-cli-0.1.2.tgz
+
+```
+<!-- installstop -->
+# Setup
+<!-- setup -->
+```sh-session
+$ swaggerhub configure
+? SwaggerHub URL: https://api.swaggerhub.com
+? API Key: <your-api-key>
+```
+These values can be set using the environmental keys: SWAGGERHUB_URL / SWAGGERHUB_API_KEY
+Swaggerhub URL defaults to "https://api.swaggerhub.com"
+<!-- setupstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.2.tgz
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub (-v|--version|version)
