@@ -1,8 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApiVersion, postApi } = require('../../actions/api')
-const { parseDefinition, getOasVersion } = require('../../utils/general')
-const { getIdentifierArg } = require('../../support/command/parse-input')
+const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
 class CreateAPICommand extends Command {
@@ -12,14 +11,11 @@ class CreateAPICommand extends Command {
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
-    const versionToCreate = this.getVersion(version, definition)
-    if (!versionToCreate) {
-      this.error('Cannot determine version to create from file', { exit: 1 })
-    }
+    const versionToCreate = getVersion(definition, version)
 
-    const getApiResult = await getApiVersion(`${owner}/${name}`, flags).then(parseResponse)
+    const getApiResult = await getApiVersion(`${owner}/${name}`, true).then(parseResponse)
     if (getApiResult.ok) {
-      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${versionToCreate}`, flags).then(parseResponse)
+      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${versionToCreate}`, true).then(parseResponse)
       if (getApiVersionResult.ok) {
         this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
       } else if (getApiVersionResult.status === 404) {
@@ -32,13 +28,6 @@ class CreateAPICommand extends Command {
     } else {
       handleErrors(getApiResult)
     }
-  }
-
-  getVersion(version, definition) {
-    if (!version) {
-      return definition.info.version
-    }
-    return version
   }
 
   async createApi(owner, name, version, oas, flags, successMessage) {
@@ -71,7 +60,7 @@ CreateAPICommand.examples = [
 ]
 
 CreateAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
+  name: 'OWNER/API_NAME/[VERSION]',
   required: true,
   description: 'API to create in SwaggerHub'
 }]

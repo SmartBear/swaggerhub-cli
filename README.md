@@ -26,24 +26,25 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`swaggerhub api:create OWNER/API_NAME/VERSION`](#swaggerhub-apicreate-ownerapi_nameversion)
+* [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate-ownerapi_nameversion)
 * [`swaggerhub api:publish OWNER/API_NAME/VERSION`](#swaggerhub-apipublish-ownerapi_nameversion)
 * [`swaggerhub api:setdefault OWNER/API_NAME/VERSION`](#swaggerhub-apisetdefault-ownerapi_nameversion)
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish-ownerapi_nameversion)
+* [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate-ownerapi_nameversion)
 * [`swaggerhub api:version:get OWNER/API_NAME/VERSION`](#swaggerhub-apiversionget-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 
-## `swaggerhub api:create OWNER/API_NAME/VERSION`
+## `swaggerhub api:create OWNER/API_NAME/[VERSION]`
 
 creates a new API / API version from a YAML/JSON file
 
 ```
 USAGE
-  $ swaggerhub api:create OWNER/API_NAME/VERSION
+  $ swaggerhub api:create OWNER/API_NAME/[VERSION]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to create in SwaggerHub
+  OWNER/API_NAME/[VERSION]  API to create in SwaggerHub
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
@@ -110,6 +111,31 @@ EXAMPLE
 ```
 
 _See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/unpublish.js)_
+
+## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
+
+update an API version
+
+```
+USAGE
+  $ swaggerhub api:update OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  API to update in SwaggerHub
+
+OPTIONS
+  -f, --file=file  (required) file location of API to update
+
+DESCRIPTION
+  The API version from the file will be used unless the version is specified in the command argument.
+  An error will occur if the API version does not exist.
+
+EXAMPLES
+  swaggerhub api:update organization/api/1.0.0 --file api.yaml
+  swaggerhub api:update organization/api --file api.json
+```
+
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/update.js)_
 
 ## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
 

@@ -62,7 +62,7 @@ describe('getIdentifierArg', () => {
 
   context('valid identifier', () => {
     it('should be returned', () => {
-      expect(getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' }, false)).to.equal('owner/api')
+      expect(getIdentifierArg({ 'OWNER/API_NAME/[VERSION]': 'owner/api' }, false)).to.equal('owner/api')
     })
   })
 
@@ -80,7 +80,7 @@ describe('getIdentifierArg', () => {
 
   context('invalid identifier with space and no version', () => {
     it('should throw an exception', () => {
-      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api name' }, false)}).to.throw(CLIError)
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/[VERSION]': 'owner/api name' }, false)}).to.throw(CLIError)
     })
   })
 
