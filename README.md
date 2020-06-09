@@ -23,8 +23,9 @@ $ swaggerhub configure
 ? SwaggerHub URL: https://api.swaggerhub.com
 ? API Key: <your-api-key>
 ```
-These values can be set using the environmental keys: SWAGGERHUB_URL / SWAGGERHUB_API_KEY  
-SwaggerHub URL defaults to "https://api.swaggerhub.com"
+SwaggerHub URL defaults to the SaaS version, `https://api.swaggerhub.com`. For SwaggerHub On-Premise, use `http(s)://SERVER/v1`.
+
+Alternatively, these values can be set using the `SWAGGERHUB_URL` and `SWAGGERHUB_API_KEY` environment variables. These take precedence over config values.
 <!-- setupstop -->
 # Usage
 <!-- usage -->
