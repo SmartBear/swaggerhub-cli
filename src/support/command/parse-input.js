@@ -25,42 +25,37 @@ const getIdentifierArg = (args, versionRequired=true) => {
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
-const getOasVersion = definition => {
-  if (definition.swagger) {
-    return definition.swagger
-  } 
-  if (definition.openapi) {
-    return definition.openapi
-  } 
-  throw new CLIError('Cannot determine OAS version from file')
+const getOasVersion = ({ swagger, openapi }) => {
+  if (!swagger && !openapi) {
+    throw new CLIError('Cannot determine OAS version from file')
+  }
+  return swagger || openapi
 }
 
 const getVersion = (definition, version) => {
-  if (version) {
-    return version
+  if (!version && !definition.info.version) {
+    throw new CLIError('Cannot determine version from file')
   }
-  if (definition.info.version) {
-    return definition.info.version
-  } 
-  throw new CLIError('Cannot determine version from file')
+  return version || definition.info.version
 }
 
-const parseDefinition = (fileName, version) => {
+const parseDefinition = fileName => {
   if (!existsSync(fileName)) {
     throw new CLIError(`File '${fileName}' not found`)
   }
   try {
     const file = readFileSync(fileName)
-    const definition = hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file)
-    return { definition: definition, oas: getOasVersion(definition), parsedVersion: getVersion(definition, version) }
+    return hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file) 
   } catch (e) {
     throw new CLIError(`There was a problem with parsing ${fileName}. Ensure the definition is valid. ${e}`)
   }
 }
 
 module.exports = {
-  validateObjectIdentifier,
   getIdentifierArg,
+  getOasVersion,
+  getVersion,
+  parseDefinition,
   reqType,
-  parseDefinition
+  validateObjectIdentifier
 }

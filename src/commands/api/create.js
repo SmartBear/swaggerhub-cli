@@ -1,7 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApiVersion, postApi } = require('../../actions/api')
-const { getIdentifierArg, parseDefinition } = require('../../support/command/parse-input')
+const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
 class CreateAPICommand extends Command {
@@ -9,20 +9,22 @@ class CreateAPICommand extends Command {
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
-    const { oas, parsedVersion } = parseDefinition(flags.file, version)
+    const definition = parseDefinition(flags.file)
+    const oas = getOasVersion(definition)
+    const versionToCreate = getVersion(definition, version)
 
     const getApiResult = await getApiVersion(`${owner}/${name}`, true).then(parseResponse)
     if (getApiResult.ok) {
-      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${parsedVersion}`, true).then(parseResponse)
+      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${versionToCreate}`, true).then(parseResponse)
       if (getApiVersionResult.ok) {
-        this.error(`API version '${owner}/${name}/${parsedVersion}' already exists in SwaggerHub`, { exit: 1 })
+        this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
       } else if (getApiVersionResult.status === 404) {
-        await this.createApi(owner, name, parsedVersion, oas, flags, `Created version ${parsedVersion} of API '${owner}/${name}'`)
+        await this.createApi(owner, name, versionToCreate, oas, flags, `Created version ${versionToCreate} of API '${owner}/${name}'`)
       } else {
         handleErrors(getApiVersionResult)
       }
     } else if (getApiResult.status === 404) {
-      await this.createApi(owner, name, parsedVersion, oas, flags, `Created API '${owner}/${name}'`)
+      await this.createApi(owner, name, versionToCreate, oas, flags, `Created API '${owner}/${name}'`)
     } else {
       handleErrors(getApiResult)
     }
