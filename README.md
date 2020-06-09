@@ -14,7 +14,6 @@ cli to interact with https://app.swaggerhub.com
 <!-- install -->
 ```sh-session
 $ npm i -g swaggerhub-cli-0.1.2.tgz
-
 ```
 <!-- installstop -->
 # Setup
@@ -25,7 +24,7 @@ $ swaggerhub configure
 ? API Key: <your-api-key>
 ```
 These values can be set using the environmental keys: SWAGGERHUB_URL / SWAGGERHUB_API_KEY  
-Swaggerhub URL defaults to "https://api.swaggerhub.com"
+SwaggerHub URL defaults to "https://api.swaggerhub.com"
 <!-- setupstop -->
 # Usage
 <!-- usage -->
