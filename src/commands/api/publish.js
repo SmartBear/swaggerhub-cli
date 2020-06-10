@@ -16,7 +16,7 @@ class PublishCommand extends Command {
     }
     await putApi(publishApi)
     .then(parseResponse)
-    .then(checkForErrors({ errOn404: true }))
+    .then(checkForErrors())
     .then(() => this.log(`Published API ${identifier}`))
     .catch(handleErrors)
   }

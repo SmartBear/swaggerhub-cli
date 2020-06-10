@@ -15,7 +15,7 @@ class SetDefaultCommand extends Command {
     }
     await putApi(setDefault)
     .then(parseResponse)
-    .then(checkForErrors({ errOn404: true }))
+    .then(checkForErrors())
     .then(() => this.log(`Default version of ${owner}/${name} set to ${version}`))
     .catch(handleErrors)
   }

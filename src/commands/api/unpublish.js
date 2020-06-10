@@ -15,7 +15,7 @@ class UnpublishCommand extends Command {
     }
     await putApi(unpublishApi)
     .then(parseResponse)
-    .then(checkForErrors({ errOn404: true }))
+    .then(checkForErrors())
     .then(() => this.log(`Unpublished API ${identifier}`))
     .catch(handleErrors)
   }

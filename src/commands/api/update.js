@@ -13,7 +13,7 @@ class UpdateAPICommand extends Command {
 
     await getApiVersion(`${owner}/${name}/${versionToUpdate}`, true)
       .then(parseResponse)
-      .then(checkForErrors({ errOn404: true }))
+      .then(checkForErrors())
       .then(() => this.updateApi(owner, name, versionToUpdate, flags))
       .catch(handleErrors)
   }
@@ -27,7 +27,7 @@ class UpdateAPICommand extends Command {
         body: readFileSync(flags.file)
       })
       .then(parseResponse)
-      .then(checkForErrors({ errOn404: true }))
+      .then(checkForErrors())
       .then(() => this.log(`Updated API '${owner}/${name}/${version}'`))
   }
 }
