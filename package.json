@@ -78,7 +78,7 @@
   },
   "repository": "SmartBear/swaggerhub-cmd",
   "scripts": {
-    "github-release": "release-it -VV --config ./release/.release-it.json",
+    "github-release": "release-it -VV --config ./release-github/.release-it.json",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
