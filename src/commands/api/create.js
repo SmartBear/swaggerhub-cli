@@ -15,7 +15,7 @@ class CreateAPICommand extends Command {
   async checkApiName(path) {
     return getApiVersion(path, true)
       .then(parseResponse)
-      .then(checkForErrors({ errOn404: false }))
+      .then(checkForErrors())
       .then(isApiNameAvailable)
       .catch(handleErrors)
   }
@@ -66,7 +66,7 @@ class CreateAPICommand extends Command {
         body: readFileSync(flags.file)
       })
       .then(parseResponse)
-      .then(checkForErrors())
+      .then(checkForErrors({ errOn404: true }))
       .then(() => this.log(successMessage))
       .catch(handleErrors)
   }
