@@ -1,4 +1,4 @@
-swaggerhub
+SwaggerHub CLI
 ==========
 
 cli to interact with https://app.swaggerhub.com
