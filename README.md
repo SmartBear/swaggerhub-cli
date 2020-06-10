@@ -6,18 +6,17 @@ cli to interact with https://app.swaggerhub.com
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 <!-- toc -->
+* [Installation](#installation)
+* [Setup](#setup)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Installation
-<!-- install -->
 ```sh-session
 $ npm i -g swaggerhub-cli-0.1.2.tgz
 ```
-<!-- installstop -->
 # Setup
-<!-- setup -->
 ```sh-session
 $ swaggerhub configure
 ? SwaggerHub URL: https://api.swaggerhub.com
@@ -26,9 +25,7 @@ $ swaggerhub configure
 SwaggerHub URL defaults to the SaaS version, `https://api.swaggerhub.com`. For SwaggerHub On-Premise, use `http(s)://SERVER/v1`.
 
 Alternatively, these values can be set using the `SWAGGERHUB_URL` and `SWAGGERHUB_API_KEY` environment variables. These take precedence over config values.
-<!-- setupstop -->
 # Usage
-<!-- usage -->
 ```sh-session
 $ swaggerhub COMMAND
 running command...
@@ -39,7 +36,6 @@ USAGE
   $ swaggerhub COMMAND
 ...
 ```
-<!-- usagestop -->
 # Commands
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate-ownerapi_nameversion)
@@ -140,15 +136,16 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to update in SwaggerHub
 
 OPTIONS
-  -f, --file=file  (required) file location of API to update
+  -f, --file=file              (required) file location of API to update
+  --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
   An error will occur if the API version does not exist.
 
 EXAMPLES
-  swaggerhub api:update organization/api/1.0.0 --file api.yaml
-  swaggerhub api:update organization/api --file api.json
+  swaggerhub api:update organization/api --file api.yaml
+  swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/update.js)_
