@@ -1,7 +1,6 @@
 {
   "hooks": {
     "before:bump": [
-      "./release-github/check-for-breaking-changes.sh ${latestVersion} ${version}",
       "npm test"
     ],
     "after:bump": ["npm run build"],
