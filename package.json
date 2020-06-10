@@ -143,6 +143,7 @@
   },
   "repository": "SmartBear/swaggerhub-cmd",
   "scripts": {
+    "build": "run-p --aggregate-output build-core build-bundle build-standalone build-stylesheets",
     "github-release": "release-it -VV --config ./release-github/.release-it.json",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
