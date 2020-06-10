@@ -12,14 +12,13 @@ class GetAPICommand extends Command {
     .then(parseResponse)
     .then(checkForErrors)
     .then(versionResponse)
-    .then(version => [...identifier, version])
     .catch(handleErrors)
   }
 
   async run() {    
     const { args, flags } = this.parse(GetAPICommand)
-    const identifierArg = getIdentifierArg(args, false).split('/')
-    const identifier = (identifierArg.length === 2) ? await this.getDefaultVersion(identifierArg) : identifierArg
+    const identifier = getIdentifierArg(args, false).split('/')
+    identifier[2] = identifier[2] || await this.getDefaultVersion(identifier)
 
     await getApi(identifier, flags)
     .then(parseResponse)
