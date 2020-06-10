@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { headApi, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
@@ -13,9 +13,9 @@ class CreateAPICommand extends Command {
     const oas = getOasVersion(definition)
     const versionToCreate = getVersion(definition, version)
 
-    const getApiResult = await headApi([owner, name]).then(parseResponse)
+    const getApiResult = await getApi([owner, name]).then(parseResponse)
     if (getApiResult.ok) {
-      const getApiVersionResult = await headApi([owner, name, versionToCreate]).then(parseResponse)
+      const getApiVersionResult = await getApi([owner, name, versionToCreate]).then(parseResponse)
       if (getApiVersionResult.ok) {
         this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
       } else if (getApiVersionResult.status === 404) {

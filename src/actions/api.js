@@ -43,20 +43,8 @@ const postApi = ({ pathParams, queryParams, body }) => {
   })
 }
 
-const headApi = pathParams => {
-  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-
-  return http({
-    url: [SWAGGERHUB_URL, 'apis', ...pathParams],
-    auth: SWAGGERHUB_API_KEY,
-    method: 'HEAD',
-    userAgent: global.shUserAgent
-  })
-}
-
 module.exports = {
   getApi,
   putApi,
-  postApi,
-  headApi
+  postApi
 }

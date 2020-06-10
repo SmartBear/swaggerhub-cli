@@ -3,22 +3,23 @@ const { getIdentifierArg } = require('../../support/command/parse-input')
 const { getApi } = require('../../actions/api')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
+const versionResponse = content => JSON.parse(content).version
+
 class GetAPICommand extends Command {
 
-  async run() {    
-    const { args, flags } = this.parse(GetAPICommand)    
-    const identifier = getIdentifierArg(args, false).split('/')
+  async getDefaultVersion(identifier) {
+    return getApi([...identifier, 'settings', 'default'])
+    .then(parseResponse)
+    .then(checkForErrors)
+    .then(versionResponse)
+    .then(version => [...identifier, version])
+    .catch(handleErrors)
+  }
 
-    if (identifier.length == 2) {
-      // Get default version of API
-      const getVersion = await getApi([...identifier, 'settings', 'default'], true).then(parseResponse)
-      if (getVersion.ok) {
-        const defaultVersion = JSON.parse(getVersion.content).version
-        identifier.push(defaultVersion)
-      } else {
-        handleErrors(getVersion)
-      }
-    }
+  async run() {    
+    const { args, flags } = this.parse(GetAPICommand)
+    const identifierArg = getIdentifierArg(args, false).split('/')
+    const identifier = (identifierArg.length === 2) ? await this.getDefaultVersion(identifierArg) : identifierArg
 
     await getApi(identifier, flags)
     .then(parseResponse)
