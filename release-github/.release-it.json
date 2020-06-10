@@ -4,7 +4,7 @@
       "npm test"
     ],
     "after:bump": ["npm run build"],
-    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release/.version"
+    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release-github/.version"
   },
   "git": {
     "requireUpstream": false,
