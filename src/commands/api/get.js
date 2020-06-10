@@ -28,7 +28,7 @@ class GetAPICommand extends Command {
   }
 }
 
-GetAPICommand.description = `fetches an API version
+GetAPICommand.description = `fetches an API definition
 When VERSION is not included in the argument, the default version will be returned.
 Returns the API in YAML format by default.
 `
