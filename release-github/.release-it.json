@@ -1,11 +1,5 @@
 {
-  "hooks": {
-    "before:bump": [
-      "echo BEFORE BUMP SECTION ACTION" 
-    ],
-    "after:bump": ["npm run build"],
-    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release-github/.version"
-  },
+  "hooks": {},
   "git": {
     "requireUpstream": false,
     "changelog": "./release-github/get-changelog.sh",
