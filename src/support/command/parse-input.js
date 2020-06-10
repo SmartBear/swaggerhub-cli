@@ -33,7 +33,7 @@ const getOasVersion = ({ swagger, openapi }) => {
 }
 
 const getVersion = definition => {
-  if (!definition.info.version) {
+  if (!definition.info || !definition.info.version) {
     throw new CLIError('Cannot determine version from file')
   }
   return definition.info.version
