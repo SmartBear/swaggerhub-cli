@@ -9,7 +9,7 @@ class GetAPICommand extends Command {
     const { args, flags } = this.parse(GetAPICommand)
     await getApiVersion(getIdentifierArg(args), flags)
     .then(parseResponse)
-    .then(checkForErrors())
+    .then(checkForErrors({ errOn404: true }))
     .then(this.log)
     .catch(handleErrors)
   }

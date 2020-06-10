@@ -7,7 +7,7 @@ const parseResponse = response => new Promise(resolve => response.text()
         content: content,
       })))
 
-const checkForErrors = ({ errOn404 = true } = {}) => response => {
+const checkForErrors = ({ errOn404 = false } = {}) => response => {
   if (!errOn404 && response.status === 404) return Promise.resolve(response)
 
   if (!response.ok) return Promise.reject(response)
