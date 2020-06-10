@@ -18,9 +18,13 @@ class UpdateAPICommand extends Command {
   }
 
   async updateApi(owner, name, version, flags) {
+    const queryParams = { 
+      version: version, 
+      isPrivate: flags.visibility==='private'
+    }
     const updateApiObject = {
       pathParams: [owner, name],
-      queryParams: { version },
+      queryParams: queryParams,
       body: readFileSync(flags.file)
     }
     return await postApi(updateApiObject)
@@ -51,6 +55,11 @@ UpdateAPICommand.flags = {
     char: 'f', 
     description: 'file location of API to update',
     required: true
+  }),
+  visibility: flags.string({
+    description: 'visibility of API in SwaggerHub',
+    options: ['public', 'private'],
+    default: 'private'
   })
 }
 

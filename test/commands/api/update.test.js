@@ -71,7 +71,7 @@ describe('invalid api:update', () => {
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .post('/org/api?version=1.0.0')
+      .post('/org/api?version=1.0.0&isPrivate=true')
       .reply(400, '{"code": 400, "message": "Bad Request"}')
     )
     .command(['api:update', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
@@ -87,7 +87,7 @@ describe('valid api:update', () => {
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .post('/org/api?version=1.0.0')
+      .post('/org/api?version=1.0.0&isPrivate=true')
       .reply(200)
     )
     .stdout()
@@ -104,13 +104,30 @@ describe('valid api:update', () => {
       .reply(200)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .post('/org/api?version=2.0.0')
+      .post('/org/api?version=2.0.0&isPrivate=true')
       .reply(200)
     )
     .stdout()
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json'])
 
     .it('runs api:update with JSON file, version read from file', ctx => {
+      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .get('/org/api/2.0.0')
+      .reply(200)
+    )
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .post('/org/api?version=2.0.0&isPrivate=false')
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility=public'])
+
+    .it('runs api:update to set API public', ctx => {
       expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'')
     })
 })
