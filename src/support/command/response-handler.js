@@ -7,8 +7,8 @@ const parseResponse = response => new Promise(resolve => response.text()
         content: content,
       })))
 
-const checkForErrors = response => {
-  if (response.status === 404) return Promise.resolve(response)
+const checkForErrors = ({ errOn404 = true } = {}) => response => {
+  if (!errOn404 && response.status === 404) return Promise.resolve(response)
 
   if (!response.ok) return Promise.reject(response)
 
@@ -21,7 +21,7 @@ const handleErrors = ({ content }) => {
 }
 
 module.exports = {
-    parseResponse,
-    checkForErrors,
-    handleErrors
+  parseResponse,
+  checkForErrors,
+  handleErrors
 }
