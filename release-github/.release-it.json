@@ -16,7 +16,6 @@
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
-    "tokenRef": "7f4811a8cb89c63c3c3bedf620b159e43cc0fca5",
     "draft": true
   },
   "plugins": {
