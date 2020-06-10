@@ -1,15 +1,15 @@
 {
   "hooks": {
     "before:bump": [
-      "./release/check-for-breaking-changes.sh ${latestVersion} ${version}",
+      "./release-github/check-for-breaking-changes.sh ${latestVersion} ${version}",
       "npm test"
     ],
     "after:bump": ["npm run build"],
-    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release/.version"
+    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release-github/.version"
   },
   "git": {
     "requireUpstream": false,
-    "changelog": "./release/get-changelog.sh",
+    "changelog": "./release-github/get-changelog.sh",
     "commitMessage": "release: v${version}",
     "tagName": "v${version}",
     "push": false
