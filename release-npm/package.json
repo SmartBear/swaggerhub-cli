@@ -1,0 +1,13 @@
+{
+  "name": "swaggerhub-cli",
+  "version": "$$VERSION",
+  "main": "index.js",
+  "repository": "git@github.com:smartbear/swaggerhub-cmd.git",
+  "contributors": [
+    "(in alphabetical order)",
+    "Jonathan Parrilla <jonathan.parrilla@outlook.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {}
+}
