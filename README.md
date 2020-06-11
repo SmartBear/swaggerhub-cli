@@ -3,7 +3,7 @@ SwaggerHub CLI
 
 cli to interact with https://app.swaggerhub.com
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io) ![Build SwaggerHub CLI](https://github.com/SmartBear/swaggerhub-cmd/workflows/Build%20SwaggerHub%20CLI/badge.svg)
 
 <!-- toc -->
 * [Installation](#installation)
