@@ -4,7 +4,7 @@
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
-    "releaseNotes": "./release-github/get-changelog.sh"
+    "releaseNotes": "./release-github/get-changelog.sh",
     "draft": true
   },
   "plugins": {
