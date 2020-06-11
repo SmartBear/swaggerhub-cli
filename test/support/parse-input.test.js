@@ -1,7 +1,8 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
 
-const { validateObjectIdentifier, getIdentifierArg, reqType } = require('../../src/support/command/parse-input')
+const { validateObjectIdentifier, getIdentifierArg,
+reqType, parseDefinition } = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {
 
@@ -87,6 +88,20 @@ describe('getIdentifierArg', () => {
   context('invalid identifier with version required', () => {
     it('should throw an exception', () => {
       expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })}).to.throw(CLIError)
+    })
+  })
+})
+
+describe('parseDefinition', () => {
+  context('call parseDefinition with not existent file', () => {
+    it('should throw an exception', () => {
+      expect(() => { parseDefinition('test/resources/missing_file.yaml')}).to.throw(CLIError)
+    })
+  })
+
+  context('call parseDefinition with empty file', () => {
+    it('should throw an exception', () => {
+      expect(() => { parseDefinition('test/resources/empty.yaml')}).to.throw(CLIError)
     })
   })
 })
