@@ -1,5 +1,7 @@
 # Deploy `swaggerhub-cli` to npm.
 
+#comment
+
 # Parameter Expansion: http://stackoverflow.com/questions/6393551/what-is-the-meaning-of-0-in-a-bash-script
 cd "${0%/*}"
 
