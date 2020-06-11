@@ -7,7 +7,6 @@
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
     "releaseNotes": "./release-github/get-changelog.sh",
-    "tokenRef": "$GITHUB_TOKEN",
     "draft": true
   },
   "plugins": {
