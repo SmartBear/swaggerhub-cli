@@ -9,7 +9,7 @@
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
-    "draft": true
+    "draft": false
   },
   "plugins": {
     "@release-it/conventional-changelog": {
