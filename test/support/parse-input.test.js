@@ -93,7 +93,7 @@ describe('getIdentifierArg', () => {
 })
 
 describe('parseDefinition', () => {
-  context('call parseDefinition with not existent file', () => {
+  context('call parseDefinition with nonexistent file', () => {
     it('should throw an exception', () => {
       expect(() => { parseDefinition('test/resources/missing_file.yaml')}).to.throw(CLIError)
     })
