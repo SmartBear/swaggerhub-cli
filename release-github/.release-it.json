@@ -1,7 +1,10 @@
 {
   "hooks": {},
   "git": {
-    "requireUpstream": false
+    "requireUpstream": false,
+    "commitMessage": "release: ${version}",
+    "tagName": "${version}",
+    "push": false
   },
   "github": {
     "release": true,
