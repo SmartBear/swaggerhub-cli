@@ -2,6 +2,7 @@
   "hooks": {},
   "git": {
     "requireUpstream": false,
+    "changelog": "./release-github/get-changelog.sh",
     "commitMessage": "release: ${version}",
     "tagName": "${version}",
     "push": false
@@ -9,8 +10,6 @@
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
-    "releaseNotes": "./release-github/get-changelog.sh",
-    "skipChecks": true,
     "draft": true
   },
   "plugins": {
