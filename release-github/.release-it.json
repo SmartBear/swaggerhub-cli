@@ -1,21 +1,10 @@
 {
-  "hooks": {
-    "before:bump": [
-      "npm test"
-    ],
-    "after:bump": ["npm run build"],
-    "after:release": "export GIT_TAG=v${version} && echo GIT_TAG=v${version} > release-github/.version"
-  },
-  "git": {
-    "requireUpstream": false,
-    "changelog": "./release-github/get-changelog.sh",
-    "commitMessage": "release: v${version}",
-    "tagName": "v${version}",
-    "push": false
-  },
+  "hooks": {},
+  "git": {},
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
+    "releaseNotes": "./release-github/get-changelog.sh"
     "draft": true
   },
   "plugins": {
