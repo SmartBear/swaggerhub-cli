@@ -39,11 +39,11 @@ USAGE
 # Commands
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate-ownerapi_nameversion)
+* [`swaggerhub api:get OWNER/API_NAME/[VERSION]`](#swaggerhub-apiget-ownerapi_nameversion)
 * [`swaggerhub api:publish OWNER/API_NAME/VERSION`](#swaggerhub-apipublish-ownerapi_nameversion)
 * [`swaggerhub api:setdefault OWNER/API_NAME/VERSION`](#swaggerhub-apisetdefault-ownerapi_nameversion)
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish-ownerapi_nameversion)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate-ownerapi_nameversion)
-* [`swaggerhub api:version:get OWNER/API_NAME/VERSION`](#swaggerhub-apiversionget-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 
@@ -72,6 +72,31 @@ EXAMPLES
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/create.js)_
+
+## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
+
+fetches an API definition
+
+```
+USAGE
+  $ swaggerhub api:get OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  SwaggerHub API to fetch
+
+OPTIONS
+  -j, --json  returns the API in JSON format.
+
+DESCRIPTION
+  When VERSION is not included in the argument, the default version will be returned.
+  Returns the API in YAML format by default.
+
+EXAMPLES
+  swaggerhub api:get organization/api
+  swaggerhub api:get organization/api/1.0.0 --json
+```
+
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish OWNER/API_NAME/VERSION`
 
@@ -149,29 +174,6 @@ EXAMPLES
 ```
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/update.js)_
-
-## `swaggerhub api:version:get OWNER/API_NAME/VERSION`
-
-fetches an API version
-
-```
-USAGE
-  $ swaggerhub api:version:get OWNER/API_NAME/VERSION
-
-ARGUMENTS
-  OWNER/API_NAME/VERSION  API version in SwaggerHub
-
-OPTIONS
-  -j, --json  returns the API in JSON format.
-
-DESCRIPTION
-  Returns the API in YAML format by default.
-
-EXAMPLE
-  swaggerhub api:version:get organization/api/1.0.0 --json
-```
-
-_See code: [src/commands/api/version/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.0/src/commands/api/version/get.js)_
 
 ## `swaggerhub configure`
 

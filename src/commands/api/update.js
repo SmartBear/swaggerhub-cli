@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApiVersion, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
@@ -10,7 +10,7 @@ class UpdateAPICommand extends Command {
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const versionToUpdate = getVersion(parseDefinition(flags.file), version)
 
-    await getApiVersion(`${owner}/${name}/${versionToUpdate}`, true)
+    await getApi([owner, name, versionToUpdate], true)
     .then(parseResponse)
     .then(checkForErrors)
     .then(() => this.updateApi(owner, name, versionToUpdate, flags))
@@ -18,9 +18,9 @@ class UpdateAPICommand extends Command {
   }
 
   async updateApi(owner, name, version, flags) {
-    const queryParams = { 
-      version: version, 
-      isPrivate: flags.visibility==='private'
+    const queryParams = {
+      version: version,
+      isPrivate: flags.visibility === 'private'
     }
     const updateApiObject = {
       pathParams: [owner, name],
