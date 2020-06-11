@@ -5,6 +5,8 @@ cli to interact with https://app.swaggerhub.com
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
+![Node.js CI](https://github.com/SmartBear/swaggerhub-cmd/workflows/Node.js%20CI/badge.svg?branch=OP-10616-Jenkins)
+
 <!-- toc -->
 * [Installation](#installation)
 * [Setup](#setup)
