@@ -1,6 +1,11 @@
 {
   "hooks": {},
-  "git": {},
+  "git": {
+    "changelog": "./release-github/get-changelog.sh",
+    "commitMessage": "release: ${version}",
+    "tagName": "${version}",
+    "push": false
+  },
   "github": {
     "release": true,
     "releaseName": "SwaggerHub CLI %s Released!",
