@@ -25,6 +25,8 @@ const getIdentifierArg = (args, versionRequired=true) => {
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
+const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
+
 const getOasVersion = ({ swagger, openapi }) => {
   if (!swagger && !openapi) {
     throw new CLIError('Cannot determine OAS version from file')
@@ -57,5 +59,6 @@ module.exports = {
   getVersion,
   parseDefinition,
   reqType,
+  resolvedParam,
   validateObjectIdentifier
 }

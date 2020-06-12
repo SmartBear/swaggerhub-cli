@@ -1,15 +1,15 @@
 const config = require('../config')
-const { reqType } = require('../support/command/parse-input')
 const { hasJsonStructure } = require('../utils/general')
 const http = require('../support/http')
 
-const getApi = (pathParams, json = true) => {
+const getApi = (pathParams, queryParams, accept = 'json') => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
 
   return http({
     url: [SWAGGERHUB_URL, 'apis', ...pathParams],
     auth: SWAGGERHUB_API_KEY,
-    accept: reqType(json),
+    accept: accept,
+    query: queryParams,
     userAgent: global.shUserAgent
   })
 }

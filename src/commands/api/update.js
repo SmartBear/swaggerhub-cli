@@ -10,7 +10,7 @@ class UpdateAPICommand extends Command {
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const versionToUpdate = getVersion(parseDefinition(flags.file), version)
 
-    await getApi([owner, name, versionToUpdate], true)
+    await getApi([owner, name, versionToUpdate])
     .then(parseResponse)
     .then(checkForErrors)
     .then(() => this.updateApi(owner, name, versionToUpdate, flags))
