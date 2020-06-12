@@ -1,27 +1,40 @@
 const { CLIError } = require('@oclif/errors')
+const { hasJsonStructure } = require('../../utils/general')
 
 const parseResponse = response => new Promise(resolve => response.text()
-      .then(content => resolve({
-        status: response.status,
-        ok: response.ok,
-        content: content,
-      })))
+  .then(content => resolve({
+    status: response.status,
+    ok: response.ok,
+    content: content,
+  })))
 
 const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
-  if (resolveStatus.includes(response.status)) return Promise.resolve(response)
+  if (resolveStatus.includes(response.status) || response.ok) {
+    return Promise.resolve(response)
+  }
 
-  if (!response.ok) return Promise.reject(response)
-
-  return response.content
+  return Promise.reject(response)
 }
 
-const handleErrors = ({ content }) => {
-  const { message } = JSON.parse(content)
-  throw new CLIError(message)
+const getResponseContent = ({ content }) => content 
+  ? Promise.resolve(content) 
+  : Promise.reject('No content field provided')
+
+const parseResponseError = ({ content }) => !!content && hasJsonStructure(content)
+  ? JSON.parse(content).message
+  : 'Unknown Error'
+
+const handleErrors = error => {
+  const cliError = (error instanceof Error === true)
+    ? error
+    : parseResponseError(error)
+
+  throw new CLIError(cliError)
 }
 
 module.exports = {
   parseResponse,
   checkForErrors,
+  getResponseContent,
   handleErrors
 }
