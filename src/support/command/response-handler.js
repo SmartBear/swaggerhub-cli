@@ -18,9 +18,9 @@ const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
 
 const getResponseContent = ({ content }) => content 
   ? Promise.resolve(content) 
-  : Promise.reject('No content field provided')
+  : Promise.reject(new Error('No content field provided'))
 
-const parseResponseError = ({ content }) => !!content && hasJsonStructure(content)
+const parseResponseError = ({ content }) => hasJsonStructure(content)
   ? JSON.parse(content).message
   : 'Unknown Error'
 
