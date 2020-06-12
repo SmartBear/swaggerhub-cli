@@ -11,7 +11,7 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    # PACKAGE ARTIFACT
+    # SET UP ENVIRONMENT
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -21,6 +21,7 @@ jobs:
     - name: get-npm-version
       id: package-version
       uses: martinbeentjes/npm-get-version-action@master
+    # PACKAGE APPLICATION
     - run: npm install
     - run: npm pack
     # PUSH TO AWS S3 BUCKET
