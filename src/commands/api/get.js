@@ -1,5 +1,5 @@
 const { Command, flags } = require('@oclif/command')
-const { getIdentifierArg } = require('../../support/command/parse-input')
+const { getIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { getApi } = require('../../actions/api')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
@@ -15,12 +15,14 @@ class GetAPICommand extends Command {
     .catch(handleErrors)
   }
 
-  async run() {    
+  async run() {
     const { args, flags } = this.parse(GetAPICommand)
     const identifier = getIdentifierArg(args, false).split('/')
     identifier[2] = identifier[2] || await this.getDefaultVersion(identifier)
+    const queryParams = resolvedParam(flags)
+    const requestType = reqType(flags)
 
-    await getApi(identifier, flags)
+    await getApi(identifier, queryParams, requestType)
     .then(parseResponse)
     .then(checkForErrors)
     .then(this.log)
@@ -48,6 +50,10 @@ GetAPICommand.flags = {
   json: flags.boolean({
     char: 'j',
     description: 'returns the API in JSON format.'
+  }),
+  resolved: flags.boolean({
+    char: 'r',
+    description: 'gets the resolved API definition.'
   })
 }
 
