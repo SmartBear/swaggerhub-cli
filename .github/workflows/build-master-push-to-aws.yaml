@@ -3,7 +3,7 @@
 name: Build Master & Push to AWS 
 on:
   push:
-    branches: [ master ]
+    branches: [ OP-10616 ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +25,8 @@ jobs:
     - run: npm pack
     # PUSH TO AWS S3 BUCKET
     - uses: chrislennon/action-aws-cli@v1.1
-    - run: aws s3 cp swaggerhub-*.tgz s3://swaggerhub-cli/swaggerhub-cli-${{ steps.package-version.outputs.current-version}}.tgz --acl public-read
+    #- run: aws s3 cp swaggerhub-*.tgz s3://swaggerhub-cli/swaggerhub-cli-${{ steps.package-version.outputs.current-version}}.tgz --acl public-read
+    - run: aws s3 cp swaggerhub-*.tgz s3://swaggerhub-cli/swaggerhub-cli-JonnyGrylls.tgz --acl public-read
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
