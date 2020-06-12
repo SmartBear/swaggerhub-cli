@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApiVersion, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
@@ -11,9 +11,9 @@ const successMessage = ([owner, name, version]) => !version
   : `Created version ${version} of API '${owner}/${name}'`
 
 class CreateAPICommand extends Command {
-
+  
   async checkApiName(path) {
-    return getApiVersion(path, true)
+    return getApi(path, true)
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus: [404] }))
       .then(isApiNameAvailable)

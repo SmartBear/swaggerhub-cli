@@ -1,6 +1,6 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApiVersion, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
@@ -11,7 +11,7 @@ class UpdateAPICommand extends Command {
     const definition = parseDefinition(flags.file)
     const versionToUpdate = version || getVersion(definition)
 
-    await getApiVersion(`${owner}/${name}/${versionToUpdate}`, true)
+    await getApi(`${owner}/${name}/${versionToUpdate}`, true)
       .then(parseResponse)
       .then(checkForErrors())
       .then(() => this.updateApi(owner, name, versionToUpdate, flags))
