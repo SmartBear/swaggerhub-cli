@@ -11,17 +11,16 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    # GRAB CURRENT RELEASE VERSION
-    - name: get-npm-version
-      id: package-version
-      uses: martinbeentjes/npm-get-version-action@master
-    - run: echo ${{ steps.package-version.outputs.current-version }}
     # PACKAGE ARTIFACT
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    # GRAB CURRENT RELEASE VERSION
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
     - run: npm install
     - run: npm pack
     # PUSH TO AWS S3 BUCKET
