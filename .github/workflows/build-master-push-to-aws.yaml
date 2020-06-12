@@ -3,7 +3,7 @@
 name: Build Master & Push to AWS 
 on:
   push:
-    branches: [ OP-10616 ]
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
