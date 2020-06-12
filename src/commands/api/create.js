@@ -15,7 +15,7 @@ class CreateAPICommand extends Command {
   async checkApiName(path) {
     return getApiVersion(path, true)
       .then(parseResponse)
-      .then(checkForErrors({ errOn404: false }))
+      .then(checkForErrors({ resolveStatus: [404] }))
       .then(isApiNameAvailable)
       .catch(handleErrors)
   }
