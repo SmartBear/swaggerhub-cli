@@ -13,7 +13,7 @@ const successMessage = ([owner, name, version]) => !version
 class CreateAPICommand extends Command {
   
   async checkApiName(path) {
-    return getApi(path, true)
+    return getApi(path)
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus: [404] }))
       .then(isApiNameAvailable)
@@ -24,8 +24,8 @@ class CreateAPICommand extends Command {
     const isNameAvailable = await this.checkApiName(apiPath)
     
     if (isNameAvailable) {
-      const [owner, name, version = versionToCreate] = apiPath.split('/')
-      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath.split('/')))
+      const [owner, name, version = versionToCreate] = apiPath
+      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath))
         .then(() => true)
     }
     
@@ -33,7 +33,7 @@ class CreateAPICommand extends Command {
   }
 
   async tryCreateApiVersion({ apiPath, version, ...args }) {
-    return this.tryCreateApi({ ...args, apiPath: `${apiPath}/${version}` })
+    return this.tryCreateApi({ ...args, apiPath: [...apiPath, version] })
   }
 
   async run() {
@@ -45,7 +45,7 @@ class CreateAPICommand extends Command {
 
     const argsObj = {
       flags,
-      apiPath: [owner, name].join('/'),
+      apiPath: [owner, name],
       oas, 
       versionToCreate 
     }

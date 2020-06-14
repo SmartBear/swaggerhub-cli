@@ -10,7 +10,7 @@ class GetAPICommand extends Command {
   async getDefaultVersion(identifier) {
     return getApi([...identifier, 'settings', 'default'])
     .then(parseResponse)
-    .then(checkForErrors)
+    .then(checkForErrors())
     .then(getResponseContent)
     .then(versionResponse)
     .catch(handleErrors)
@@ -25,7 +25,8 @@ class GetAPICommand extends Command {
 
     await getApi(identifier, queryParams, requestType)
     .then(parseResponse)
-    .then(checkForErrors)
+    .then(checkForErrors())
+    .then(getResponseContent)
     .then(this.log)
     .catch(handleErrors)
   }

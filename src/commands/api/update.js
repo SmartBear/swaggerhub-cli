@@ -11,7 +11,7 @@ class UpdateAPICommand extends Command {
     const definition = parseDefinition(flags.file)
     const versionToUpdate = version || getVersion(definition)
 
-    await getApi(`${owner}/${name}/${versionToUpdate}`, true)
+    await getApi([owner, name, versionToUpdate])
       .then(parseResponse)
       .then(checkForErrors())
       .then(() => this.updateApi(owner, name, versionToUpdate, flags))
