@@ -1,7 +1,12 @@
 const { Command, flags } = require('@oclif/command')
 const { getIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { getApi } = require('../../actions/api')
-const { parseResponse, checkForErrors, handleErrors, getResponseContent } = require('../../support/command/response-handler')
+const { 
+  parseResponse, 
+  checkForErrors, 
+  handleErrors, 
+  getResponseContent 
+} = require('../../support/command/response-handler')
 
 const versionResponse = content => JSON.parse(content).version
 
