@@ -1,7 +1,12 @@
 const { Command, flags } = require('@oclif/command')
 const { getIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { getApi } = require('../../actions/api')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { 
+  parseResponse, 
+  checkForErrors, 
+  handleErrors, 
+  getResponseContent 
+} = require('../../support/command/response-handler')
 
 const versionResponse = content => JSON.parse(content).version
 
@@ -10,7 +15,8 @@ class GetAPICommand extends Command {
   async getDefaultVersion(identifier) {
     return getApi([...identifier, 'settings', 'default'])
     .then(parseResponse)
-    .then(checkForErrors)
+    .then(checkForErrors())
+    .then(getResponseContent)
     .then(versionResponse)
     .catch(handleErrors)
   }
@@ -24,7 +30,8 @@ class GetAPICommand extends Command {
 
     await getApi(identifier, queryParams, requestType)
     .then(parseResponse)
-    .then(checkForErrors)
+    .then(checkForErrors())
+    .then(getResponseContent)
     .then(this.log)
     .catch(handleErrors)
   }

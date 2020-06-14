@@ -8,29 +8,27 @@ class UpdateAPICommand extends Command {
   async run() {
     const { args, flags } = this.parse(UpdateAPICommand)
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
-    const versionToUpdate = getVersion(parseDefinition(flags.file), version)
+    const definition = parseDefinition(flags.file)
+    const versionToUpdate = version || getVersion(definition)
 
     await getApi([owner, name, versionToUpdate])
-    .then(parseResponse)
-    .then(checkForErrors)
-    .then(() => this.updateApi(owner, name, versionToUpdate, flags))
-    .catch(handleErrors)
+      .then(parseResponse)
+      .then(checkForErrors())
+      .then(() => this.updateApi(owner, name, versionToUpdate, flags))
+      .catch(handleErrors)
   }
 
   async updateApi(owner, name, version, flags) {
-    const queryParams = {
-      version: version,
-      isPrivate: flags.visibility === 'private'
-    }
-    const updateApiObject = {
-      pathParams: [owner, name],
-      queryParams: queryParams,
-      body: readFileSync(flags.file)
-    }
-    return await postApi(updateApiObject)
-    .then(parseResponse)
-    .then(checkForErrors)
-    .then(() => this.log(`Updated API '${owner}/${name}/${version}'`))
+    const isPrivate = flags.visibility === 'private'
+    
+    return await postApi({
+        pathParams: [owner, name],
+        queryParams: { version, isPrivate },
+        body: readFileSync(flags.file)
+      })
+      .then(parseResponse)
+      .then(checkForErrors())
+      .then(() => this.log(`Updated API '${owner}/${name}/${version}'`))
   }
 }
 
