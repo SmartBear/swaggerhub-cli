@@ -11,6 +11,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -19,5 +26,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: SwaggerHub CLI Release ${{ github.ref }}
-          body: 
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
           draft: false
+          prerelease: false
