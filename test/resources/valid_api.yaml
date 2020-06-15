@@ -1,0 +1,20 @@
+swagger: '2.0'
+info:
+  description: "String"
+  version: "1.0.1"
+  title: Swagger Petstore
+  termsOfService: http://swagger.io/terms/
+host: petstore.swagger.io
+basePath: /v2
+schemes:
+- http
+paths:
+  /pet:
+    post:
+      tags:
+      - pet
+      summary: Add a new pet to the store.
+      operationId: addPet
+      responses:
+        405:
+          description: Error

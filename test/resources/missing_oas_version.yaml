@@ -1,0 +1,4 @@
+servers: []
+info:
+  description: This is a simple API
+  title: Simple Inventory API

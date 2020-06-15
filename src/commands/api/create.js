@@ -1,51 +1,96 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApiVersions, postApi } = require('../../actions/api')
-const { getIdentifierArg } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { getApi, postApi } = require('../../actions/api')
+const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
+const {
+  parseResponse,
+  checkForErrors,
+  handleErrors,
+  removeUpgradeLinkIfLimitsReached
+} = require('../../support/command/response-handler')
+
+const isApiNameAvailable = response => response.status === 404
+
+const successMessage = ([owner, name, version]) => !version 
+  ? `Created API '${owner}/${name}'`
+  : `Created version ${version} of API '${owner}/${name}'`
 
 class CreateAPICommand extends Command {
   
+  async checkApiName(path) {
+    return getApi(path)
+      .then(parseResponse)
+      .then(checkForErrors({ resolveStatus: [403, 404] }))
+      .then(removeUpgradeLinkIfLimitsReached)
+      .then(isApiNameAvailable)
+      .catch(handleErrors)
+  }
+
+  async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
+    const isNameAvailable = await this.checkApiName(apiPath)
+    
+    if (isNameAvailable) {
+      const [owner, name, version = versionToCreate] = apiPath
+      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath))
+        .then(() => true)
+    }
+    
+    return Promise.resolve(isNameAvailable)
+  }
+
+  async tryCreateApiVersion({ apiPath, version, ...args }) {
+    return this.tryCreateApi({ ...args, apiPath: [...apiPath, version] })
+  }
+
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const identifier = getIdentifierArg(args)
-    const [owner, name, version] = identifier.split('/')
+    const [owner, name, version] = getIdentifierArg(args, false).split('/')
+    const definition = parseDefinition(flags.file)
+    const oas = getOasVersion(definition)
+    const versionToCreate = version || getVersion(definition)
 
-    const getApiResult = await getApiVersions({ pathParams: [owner, name] }).then(parseResponse)
-    if (getApiResult.ok) {
-      this.error(`API '${owner}/${name}' already exists in SwaggerHub`, { exit: 1 })
-    } else if (getApiResult.status === 404) {
-      const queryParams = { 
-        version: version, 
-        isPrivate: flags.visibility==='private', 
-        oas: flags.oas 
-      }
-      const createApiObject = {
-        pathParams: [owner, name],
-        queryParams: queryParams,
-        body: readFileSync(flags.file)
-      }
-      await postApi(createApiObject)
-      .then(parseResponse)
-      .then(checkForErrors)
-      .then(() => this.log(`Created API ${identifier}`))
-      .catch(handleErrors)
-    } else {
-      handleErrors(getApiResult)
+    const argsObj = {
+      flags,
+      apiPath: [owner, name],
+      oas, 
+      versionToCreate 
     }
+
+    return (
+      await this.tryCreateApi(argsObj) ||
+      await this.tryCreateApiVersion({ ...argsObj, version: versionToCreate }) ||
+      this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
+    )
+  }
+
+  async createApi(owner, name, version, oas, flags, successMessage) {
+    const isPrivate = flags.visibility === 'private'
+    
+    return await postApi({
+        pathParams: [owner, name],
+        queryParams: { version, isPrivate, oas },
+        body: readFileSync(flags.file)
+      })
+      .then(parseResponse)
+      .then(checkForErrors({ resolveStatus: [403] }))
+      .then(removeUpgradeLinkIfLimitsReached)
+      .then(() => this.log(successMessage))
+      .catch(handleErrors)
   }
 }
 
-CreateAPICommand.description = `creates an API
-command will fail if the API already exists.
+CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file
+The API version from the file will be used unless the version is specified in the command argument.
+An error will occur if the API version already exists.
 `
 
 CreateAPICommand.examples = [
-  'swaggerhub api:create organization/api/1.0.0 --file api.yaml --oas 3 --visibility public'
+  'swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public',
+  'swaggerhub api:create organization/api --file api.yaml'
 ]
 
 CreateAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
+  name: 'OWNER/API_NAME/[VERSION]',
   required: true,
   description: 'API to create in SwaggerHub'
 }]
@@ -55,12 +100,6 @@ CreateAPICommand.flags = {
     char: 'f', 
     description: 'file location of API to create',
     required: true
-  }),
-  oas: flags.string({
-    description: 'OAS version of API',
-    options: ['2', '3'],
-    required: true,
-    parse: input => input === '2' ? '2.0' : '3.0.0'
   }),
   visibility: flags.string({
     description: 'visibility of API in SwaggerHub',

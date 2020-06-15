@@ -8,37 +8,35 @@ const {
   removeUpgradeLinkIfLimitsReached
 } = require('../../support/command/response-handler')
 
-class PublishCommand extends Command {
-  
+class SetDefaultCommand extends Command {
   async run() {
-    const { args } = this.parse(PublishCommand)
+    const { args } = this.parse(SetDefaultCommand)
     const identifier = getIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
 
-    const publishApi = {
-      pathParams: [owner, name, version, 'settings', 'lifecycle'],
-      body: JSON.stringify({ published: true })
+    const setDefault = {
+      pathParams: [owner, name, 'settings', 'default'],
+      body: JSON.stringify({ version: version })
     }
-    await putApi(publishApi)
+    await putApi(setDefault)
     .then(parseResponse)
     .then(checkForErrors({ resolveStatus: [403] }))
     .then(removeUpgradeLinkIfLimitsReached)
-    .then(() => this.log(`Published API ${identifier}`))
+    .then(() => this.log(`Default version of ${owner}/${name} set to ${version}`))
     .catch(handleErrors)
   }
 }
 
-PublishCommand.description = `publish an API version
-`
+SetDefaultCommand.description = 'set the default version of an API'
 
-PublishCommand.examples = [
-  'swaggerhub api:publish organization/api/1.0.0'
+SetDefaultCommand.examples = [
+  'swaggerhub api:setdefault organization/api/2.0.0'
 ]
 
-PublishCommand.args = [{ 
+SetDefaultCommand.args = [{ 
   name: 'OWNER/API_NAME/VERSION',
   required: true,
-  description: 'API to publish'
+  description: 'API version to set as default'
 }]
 
-module.exports = PublishCommand
+module.exports = SetDefaultCommand

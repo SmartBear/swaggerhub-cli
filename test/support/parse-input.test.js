@@ -1,7 +1,8 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
 
-const { validateObjectIdentifier, getIdentifierArg, reqType } = require('../../src/support/command/parse-input')
+const { validateObjectIdentifier, getIdentifierArg,
+reqType, parseDefinition } = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {
 
@@ -45,31 +46,62 @@ describe('Validate Object Identifier', () => {
     })
   })
 
-
   context('testing invalid owner/api/version idenfitier', () => {
     it('should be false', function () {
       expect(validateObjectIdentifier('invalid_id/')).to.equal(false)
-    })
-  })
-
-  context('testing owner/api idenfitier', () => {
-    it('should be false', () => {
-      expect(validateObjectIdentifier('owner/api')).to.equal(false)
     })
   })
 })
 
 describe('getIdentifierArg', () => {
 
-  context('valid identifier', () => {
+  context('valid version identifier', () => {
     it('should be returned', () => {
       expect(getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api/123' })).to.equal('owner/api/123')
     })
   })
 
+  context('valid identifier', () => {
+    it('should be returned', () => {
+      expect(getIdentifierArg({ 'OWNER/API_NAME/[VERSION]': 'owner/api' }, false)).to.equal('owner/api')
+    })
+  })
+
   context('invalid identifier', () => {
-    it('should be throw an exception', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api/version/extra' })}).to.throw(CLIError)
+    })
+  })
+
+  context('invalid identifier with space', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api name/version' })}).to.throw(CLIError)
+    })
+  })
+
+  context('invalid identifier with space and no version', () => {
+    it('should throw an exception', () => {
+      expect(() => { getIdentifierArg({ 'OWNER/API_NAME/[VERSION]': 'owner/api name' }, false)}).to.throw(CLIError)
+    })
+  })
+
+  context('invalid identifier with version required', () => {
+    it('should throw an exception', () => {
       expect(() => { getIdentifierArg({ 'OWNER/API_NAME/VERSION': 'owner/api' })}).to.throw(CLIError)
+    })
+  })
+})
+
+describe('parseDefinition', () => {
+  context('call parseDefinition with nonexistent file', () => {
+    it('should throw an exception', () => {
+      expect(() => { parseDefinition('test/resources/missing_file.yaml')}).to.throw(CLIError)
+    })
+  })
+
+  context('call parseDefinition with empty file', () => {
+    it('should throw an exception', () => {
+      expect(() => { parseDefinition('test/resources/empty.yaml')}).to.throw(CLIError)
     })
   })
 })
