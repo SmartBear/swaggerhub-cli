@@ -1,51 +1,74 @@
 const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApiVersion, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
 
+const isApiNameAvailable = response => response.status === 404
+
+const successMessage = ([owner, name, version]) => !version 
+  ? `Created API '${owner}/${name}'`
+  : `Created version ${version} of API '${owner}/${name}'`
+
 class CreateAPICommand extends Command {
+  
+  async checkApiName(path) {
+    return getApi(path)
+      .then(parseResponse)
+      .then(checkForErrors({ resolveStatus: [404] }))
+      .then(isApiNameAvailable)
+      .catch(handleErrors)
+  }
+
+  async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
+    const isNameAvailable = await this.checkApiName(apiPath)
+    
+    if (isNameAvailable) {
+      const [owner, name, version = versionToCreate] = apiPath
+      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath))
+        .then(() => true)
+    }
+    
+    return Promise.resolve(isNameAvailable)
+  }
+
+  async tryCreateApiVersion({ apiPath, version, ...args }) {
+    return this.tryCreateApi({ ...args, apiPath: [...apiPath, version] })
+  }
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
-    const versionToCreate = getVersion(definition, version)
+    const versionToCreate = version || getVersion(definition)
 
-    const getApiResult = await getApiVersion(`${owner}/${name}`, true).then(parseResponse)
-    if (getApiResult.ok) {
-      const getApiVersionResult = await getApiVersion(`${owner}/${name}/${versionToCreate}`, true).then(parseResponse)
-      if (getApiVersionResult.ok) {
-        this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
-      } else if (getApiVersionResult.status === 404) {
-        await this.createApi(owner, name, versionToCreate, oas, flags, `Created version ${versionToCreate} of API '${owner}/${name}'`)
-      } else {
-        handleErrors(getApiVersionResult)
-      }
-    } else if (getApiResult.status === 404) {
-      await this.createApi(owner, name, versionToCreate, oas, flags, `Created API '${owner}/${name}'`)
-    } else {
-      handleErrors(getApiResult)
+    const argsObj = {
+      flags,
+      apiPath: [owner, name],
+      oas, 
+      versionToCreate 
     }
+
+    return (
+      await this.tryCreateApi(argsObj) ||
+      await this.tryCreateApiVersion({ ...argsObj, version: versionToCreate }) ||
+      this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
+    )
   }
 
   async createApi(owner, name, version, oas, flags, successMessage) {
-    const queryParams = { 
-      version: version, 
-      isPrivate: flags.visibility==='private', 
-      oas: oas 
-    }
-    const createApiObject = {
-      pathParams: [owner, name],
-      queryParams: queryParams,
-      body: readFileSync(flags.file)
-    }
-    return await postApi(createApiObject)
-    .then(parseResponse)
-    .then(checkForErrors)
-    .then(() => this.log(successMessage))
-    .catch(handleErrors)
+    const isPrivate = flags.visibility === 'private'
+    
+    return await postApi({
+        pathParams: [owner, name],
+        queryParams: { version, isPrivate, oas },
+        body: readFileSync(flags.file)
+      })
+      .then(parseResponse)
+      .then(checkForErrors())
+      .then(() => this.log(successMessage))
+      .catch(handleErrors)
   }
 }
 

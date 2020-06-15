@@ -2,36 +2,39 @@ const { CLIError } = require('@oclif/errors')
 const { hasJsonStructure } = require('../../utils/general')
 
 const parseResponse = response => new Promise(resolve => response.text()
-      .then(content => resolve({
-        status: response.status,
-        ok: response.ok,
-        content: content,
-      })))
+  .then(content => resolve({
+    status: response.status,
+    ok: response.ok,
+    content: content,
+  })))
 
-const checkForErrors = response => {
-  if (!response.ok) return Promise.reject(response)
-
-  return response.content
-}
-
-const parseContent = content => {
-  const { message, error } = JSON.parse(content)
-  return message || error
-}
-
-const replaceLink = error => error.replace(/[.].*::upgrade-link::/, '. You may need to upgrade your current plan.')
-
-const handleErrors = ({ content }) => {
-  const error = parseContent(content)
-  if (hasJsonStructure(error)) {
-    handleErrors({ content: error })
+const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
+  if (resolveStatus.includes(response.status) || response.ok) {
+    return Promise.resolve(response)
   }
 
-  throw new CLIError(replaceLink(error))
+  return Promise.reject(response)
+}
+
+const getResponseContent = ({ content }) => content || Promise.reject(
+  new Error('No content field provided')
+)
+
+const parseResponseError = ({ content }) => hasJsonStructure(content)
+  ? JSON.parse(content).message
+  : 'Unknown Error'
+
+const handleErrors = error => {
+  const cliError = (error instanceof Error === true)
+    ? error
+    : parseResponseError(error)
+
+  throw new CLIError(cliError)
 }
 
 module.exports = {
-    parseResponse,
-    checkForErrors,
-    handleErrors
+  parseResponse,
+  checkForErrors,
+  getResponseContent,
+  handleErrors
 }

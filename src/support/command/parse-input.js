@@ -25,6 +25,8 @@ const getIdentifierArg = (args, versionRequired=true) => {
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
+const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
+
 const getOasVersion = ({ swagger, openapi }) => {
   if (!swagger && !openapi) {
     throw new CLIError('Cannot determine OAS version from file')
@@ -32,11 +34,11 @@ const getOasVersion = ({ swagger, openapi }) => {
   return swagger || openapi
 }
 
-const getVersion = (definition, version) => {
-  if (!version && !definition.info.version) {
+const getVersion = definition => {
+  if (!definition.info || !definition.info.version) {
     throw new CLIError('Cannot determine version from file')
   }
-  return version || definition.info.version
+  return definition.info.version
 }
 
 const parseDefinition = fileName => {
@@ -60,5 +62,6 @@ module.exports = {
   getVersion,
   parseDefinition,
   reqType,
+  resolvedParam,
   validateObjectIdentifier
 }
