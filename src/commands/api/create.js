@@ -2,7 +2,7 @@ const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { parseResponse, checkForErrors, handleErrors, replaceLink } = require('../../support/command/response-handler')
 
 const isApiNameAvailable = response => response.status === 404
 
@@ -15,7 +15,8 @@ class CreateAPICommand extends Command {
   async checkApiName(path) {
     return getApi(path)
       .then(parseResponse)
-      .then(checkForErrors({ resolveStatus: [404] }))
+      .then(checkForErrors({ resolveStatus: [403, 404] }))
+      .then(replaceLink)
       .then(isApiNameAvailable)
       .catch(handleErrors)
   }
@@ -66,7 +67,8 @@ class CreateAPICommand extends Command {
         body: readFileSync(flags.file)
       })
       .then(parseResponse)
-      .then(checkForErrors())
+      .then(checkForErrors({ resolveStatus: [403] }))
+      .then(replaceLink)
       .then(() => this.log(successMessage))
       .catch(handleErrors)
   }

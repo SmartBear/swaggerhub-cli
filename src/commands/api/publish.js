@@ -1,7 +1,7 @@
 const { Command, flags } = require('@oclif/command')
 const { putApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { parseResponse, checkForErrors, handleErrors, replaceLink } = require('../../support/command/response-handler')
 
 class PublishCommand extends Command {
   
@@ -16,7 +16,8 @@ class PublishCommand extends Command {
     }
     await putApi(publishApi)
     .then(parseResponse)
-    .then(checkForErrors())
+    .then(checkForErrors({ resolveStatus: [403] }))
+    .then(replaceLink)
     .then(() => this.log(`Published API ${identifier}`))
     .catch(handleErrors)
   }

@@ -2,7 +2,7 @@ const { Command, flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors } = require('../../support/command/response-handler')
+const { parseResponse, checkForErrors, handleErrors, replaceLink } = require('../../support/command/response-handler')
 
 class UpdateAPICommand extends Command {
   async run() {
@@ -13,7 +13,8 @@ class UpdateAPICommand extends Command {
 
     await getApi([owner, name, versionToUpdate])
       .then(parseResponse)
-      .then(checkForErrors())
+      .then(checkForErrors({ resolveStatus: [403] }))
+      .then(replaceLink)
       .then(() => this.updateApi(owner, name, versionToUpdate, flags))
       .catch(handleErrors)
   }
