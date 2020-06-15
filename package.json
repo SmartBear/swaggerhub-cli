@@ -73,7 +73,8 @@
       "api:version": {
         "description": "this topic supports the management of individual versions of an API"
       }
-    }
+    },
+    "helpClass": "./src/help"
   },
   "repository": "SmartBear/swaggerhub-cmd",
   "scripts": {
