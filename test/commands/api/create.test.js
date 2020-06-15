@@ -94,16 +94,34 @@ describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock('https://test.swaggerhub.com/apis', api => api
-      .get('/org/api')
+      .get('/orgNotExist/api')
       .reply(404)
     )
     .nock('https://test.swaggerhub.com/apis', api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=3.0.0')
-      .reply(400, '{ "code": 400, "message": "Bad Request"}')
+      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=3.0.0')
+      .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
-    .exit(2)
-    .it('runs api:create with error on saving API')
+    .command(['api:create', 'orgNotExist/api/1.0.0', '--file=test/resources/valid_api.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Object doesn\'t exist')
+    })
+    .it('runs api:create with org that doesn\'t exist')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .get('/org/overLimitApi')
+      .reply(404)
+    )
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .post('/org/overLimitApi?version=1.0.0&isPrivate=true&oas=3.0.0')
+      .reply(403, '{"code":403,"message":"You have reached the limit of APIs. To upgrade click here ::upgrade-link::"}')
+    )
+    .command(['api:create', 'org/overLimitApi/1.0.0', '--file=test/resources/valid_api.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('You have reached the limit of APIs. You may need to upgrade your current plan.')
+    })
+    .it('runs api:create with org that doesn\'t exist')
 })
 
 describe('valid api:create', () => {

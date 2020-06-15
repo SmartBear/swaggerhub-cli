@@ -45,8 +45,11 @@ const parseDefinition = fileName => {
   if (!existsSync(fileName)) {
     throw new CLIError(`File '${fileName}' not found`)
   }
+  const file = readFileSync(fileName)
+  if (file.length === 0) {
+    throw new CLIError(`File '${fileName}' is empty`)
+  }
   try {
-    const file = readFileSync(fileName)
     return hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file) 
   } catch (e) {
     throw new CLIError(`There was a problem with parsing ${fileName}. Ensure the definition is valid. ${e}`)

@@ -72,7 +72,7 @@ describe('invalid api:update', () => {
     )
     .nock('https://test.swaggerhub.com/apis', api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
-      .reply(400, '{"code": 400, "message": "Bad Request"}')
+      .reply(400, '{"code": 400, "error": "Bad Request"}')
     )
     .command(['api:update', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
     .exit(2)
