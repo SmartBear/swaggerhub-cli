@@ -1,4 +1,4 @@
-name: Release SwaggerHub CLI on GitHub
+name: Release - SwaggerHub CLI on GitHub
 on:
   push:
     # Sequence of patterns matched against refs/tags
