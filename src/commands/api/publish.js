@@ -1,14 +1,8 @@
-const { Command, flags } = require('@oclif/command')
 const { putApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const {
-  parseResponse,
-  checkForErrors,
-  handleErrors,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
-class PublishCommand extends Command {
+class PublishCommand extends BaseCommand {
   
   async run() {
     const { args } = this.parse(PublishCommand)
@@ -19,12 +13,9 @@ class PublishCommand extends Command {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: true })
     }
-    await putApi(publishApi)
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: [403] }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(() => this.log(`Published API ${identifier}`))
-    .catch(handleErrors)
+    await this.execute(
+      () => putApi(publishApi), 
+      () => this.log(`Published API ${identifier}`))
   }
 }
 
@@ -35,10 +26,8 @@ PublishCommand.examples = [
   'swaggerhub api:publish organization/api/1.0.0'
 ]
 
-PublishCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API to publish'
-}]
+PublishCommand.args = BaseCommand.args
+
+PublishCommand.flags = BaseCommand.flags
 
 module.exports = PublishCommand

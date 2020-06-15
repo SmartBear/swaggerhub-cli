@@ -1,14 +1,8 @@
-const { Command, flags } = require('@oclif/command')
 const { putApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const {
-  parseResponse,
-  checkForErrors,
-  handleErrors,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
-class SetDefaultCommand extends Command {
+class SetDefaultCommand extends BaseCommand {
   async run() {
     const { args } = this.parse(SetDefaultCommand)
     const identifier = getIdentifierArg(args)
@@ -18,12 +12,9 @@ class SetDefaultCommand extends Command {
       pathParams: [owner, name, 'settings', 'default'],
       body: JSON.stringify({ version: version })
     }
-    await putApi(setDefault)
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: [403] }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(() => this.log(`Default version of ${owner}/${name} set to ${version}`))
-    .catch(handleErrors)
+    await this.execute(
+      () => putApi(setDefault), 
+      () => this.log(`Default version of ${owner}/${name} set to ${version}`))
   }
 }
 
@@ -33,10 +24,8 @@ SetDefaultCommand.examples = [
   'swaggerhub api:setdefault organization/api/2.0.0'
 ]
 
-SetDefaultCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API version to set as default'
-}]
+SetDefaultCommand.args = BaseCommand.args
+
+SetDefaultCommand.flags = BaseCommand.flags
 
 module.exports = SetDefaultCommand

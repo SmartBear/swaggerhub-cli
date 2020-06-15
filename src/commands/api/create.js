@@ -1,13 +1,8 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
-const {
-  parseResponse,
-  checkForErrors,
-  handleErrors,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
 
@@ -15,15 +10,10 @@ const successMessage = ([owner, name, version]) => !version
   ? `Created API '${owner}/${name}'`
   : `Created version ${version} of API '${owner}/${name}'`
 
-class CreateAPICommand extends Command {
+class CreateAPICommand extends BaseCommand {
   
   async checkApiName(path) {
-    return getApi(path)
-      .then(parseResponse)
-      .then(checkForErrors({ resolveStatus: [403, 404] }))
-      .then(removeUpgradeLinkIfLimitsReached)
-      .then(isApiNameAvailable)
-      .catch(handleErrors)
+    return this.execute(() => getApi(path), isApiNameAvailable, [403, 404])
   }
 
   async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
@@ -65,17 +55,15 @@ class CreateAPICommand extends Command {
 
   async createApi(owner, name, version, oas, flags, successMessage) {
     const isPrivate = flags.visibility === 'private'
-    
-    return await postApi({
-        pathParams: [owner, name],
-        queryParams: { version, isPrivate, oas },
-        body: readFileSync(flags.file)
-      })
-      .then(parseResponse)
-      .then(checkForErrors({ resolveStatus: [403] }))
-      .then(removeUpgradeLinkIfLimitsReached)
-      .then(() => this.log(successMessage))
-      .catch(handleErrors)
+    const createApiObj = {
+      pathParams: [owner, name],
+      queryParams: { version, isPrivate, oas },
+      body: readFileSync(flags.file)
+    }
+
+    return await this.execute(
+      () => postApi(createApiObj), 
+      () => this.log(successMessage))
   }
 }
 
@@ -105,7 +93,8 @@ CreateAPICommand.flags = {
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private'],
     default: 'private'
-  })
+  }),
+  ...BaseCommand.flags
 }
 
 module.exports = CreateAPICommand

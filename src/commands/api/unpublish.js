@@ -1,14 +1,8 @@
-const { Command, flags } = require('@oclif/command')
 const { putApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const {
-  parseResponse,
-  checkForErrors,
-  handleErrors,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
-class UnpublishCommand extends Command {
+class UnpublishCommand extends BaseCommand {
   async run() {
     const { args } = this.parse(UnpublishCommand)
     const identifier = getIdentifierArg(args)
@@ -18,12 +12,9 @@ class UnpublishCommand extends Command {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: false })
     }
-    await putApi(unpublishApi)
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: [403] }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(() => this.log(`Unpublished API ${identifier}`))
-    .catch(handleErrors)
+    await this.execute(
+      () => putApi(unpublishApi), 
+      () => this.log(`Unpublished API ${identifier}`))
   }
 }
 
@@ -34,10 +25,8 @@ UnpublishCommand.examples = [
   'swaggerhub api:unpublish organization/api/1.0.0'
 ]
 
-UnpublishCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API to unpublish'
-}]
+UnpublishCommand.args = BaseCommand.args
+
+UnpublishCommand.flags = BaseCommand.flags
 
 module.exports = UnpublishCommand
