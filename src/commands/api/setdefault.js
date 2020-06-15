@@ -1,7 +1,12 @@
 const { Command, flags } = require('@oclif/command')
 const { putApi } = require('../../actions/api')
 const { getIdentifierArg } = require('../../support/command/parse-input')
-const { parseResponse, checkForErrors, handleErrors, replaceLink } = require('../../support/command/response-handler')
+const {
+  parseResponse,
+  checkForErrors,
+  handleErrors,
+  removeUpgradeLinkIfLimitsReached
+} = require('../../support/command/response-handler')
 
 class SetDefaultCommand extends Command {
   async run() {
@@ -16,7 +21,7 @@ class SetDefaultCommand extends Command {
     await putApi(setDefault)
     .then(parseResponse)
     .then(checkForErrors({ resolveStatus: [403] }))
-    .then(replaceLink)
+    .then(removeUpgradeLinkIfLimitsReached)
     .then(() => this.log(`Default version of ${owner}/${name} set to ${version}`))
     .catch(handleErrors)
   }

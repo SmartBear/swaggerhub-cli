@@ -6,7 +6,7 @@ const {
   checkForErrors, 
   handleErrors, 
   getResponseContent,
-  replaceLink
+  removeUpgradeLinkIfLimitsReached
 } = require('../../support/command/response-handler')
 
 const versionResponse = content => JSON.parse(content).version
@@ -17,7 +17,7 @@ class GetAPICommand extends Command {
     return getApi([...identifier, 'settings', 'default'])
     .then(parseResponse)
     .then(checkForErrors({ resolveStatus: [403] }))
-    .then(replaceLink)
+    .then(removeUpgradeLinkIfLimitsReached)
     .then(getResponseContent)
     .then(versionResponse)
     .catch(handleErrors)
@@ -33,7 +33,7 @@ class GetAPICommand extends Command {
     await getApi(identifier, queryParams, requestType)
     .then(parseResponse)
     .then(checkForErrors({ resolveStatus: [403] }))
-    .then(replaceLink)
+    .then(removeUpgradeLinkIfLimitsReached)
     .then(getResponseContent)
     .then(this.log)
     .catch(handleErrors)
