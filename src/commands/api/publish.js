@@ -13,9 +13,10 @@ class PublishCommand extends BaseCommand {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: true })
     }
-    await this.execute(
-      () => putApi(publishApi), 
-      () => this.log(`Published API ${identifier}`))
+    await this.executeHttp({
+      execute: () => putApi(publishApi), 
+      onSuccess: () => this.log(`Published API ${identifier}`)
+    })
   }
 }
 

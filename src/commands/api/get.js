@@ -1,26 +1,19 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
 const { getIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
+const { pipeAsync } = require('../../utils/general')
 const { getApi } = require('../../actions/api')
-const { 
-  parseResponse, 
-  checkForErrors, 
-  handleErrors, 
-  getResponseContent,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const { getResponseContent } = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
 const versionResponse = content => JSON.parse(content).version
 
-class GetAPICommand extends Command {
+class GetAPICommand extends BaseCommand {
 
   async getDefaultVersion(identifier) {
-    return getApi([...identifier, 'settings', 'default'])
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: [403] }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(getResponseContent)
-    .then(versionResponse)
-    .catch(handleErrors)
+    return this.executeHttp({
+      execute: () => getApi([...identifier, 'settings', 'default']),
+      onSuccess: response => pipeAsync(response)(getResponseContent, versionResponse)
+    })
   }
 
   async run() {
@@ -30,13 +23,10 @@ class GetAPICommand extends Command {
     const queryParams = resolvedParam(flags)
     const requestType = reqType(flags)
 
-    await getApi(identifier, queryParams, requestType)
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: [403] }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(getResponseContent)
-    .then(this.log)
-    .catch(handleErrors)
+    await this.executeHttp({
+      execute: () => getApi(identifier, queryParams, requestType),
+      onSuccess: response => pipeAsync(response)(getResponseContent, this.log)
+    })
   }
 }
 
@@ -64,7 +54,8 @@ GetAPICommand.flags = {
   resolved: flags.boolean({
     char: 'r',
     description: 'gets the resolved API definition.'
-  })
+  }),
+  ...BaseCommand.flags
 }
 
 module.exports = GetAPICommand

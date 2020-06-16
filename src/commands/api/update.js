@@ -11,9 +11,10 @@ class UpdateAPICommand extends BaseCommand {
     const definition = parseDefinition(flags.file)
     const versionToUpdate = version || getVersion(definition)
 
-    await this.execute(
-      () => getApi([owner, name, versionToUpdate]), 
-      () => this.updateApi(owner, name, versionToUpdate, flags))
+    await this.executeHttp({
+      execute: () => getApi([owner, name, versionToUpdate]), 
+      onSuccess: () => this.updateApi(owner, name, versionToUpdate, flags)
+    })
   }
 
   async updateApi(owner, name, version, flags) {
@@ -24,9 +25,10 @@ class UpdateAPICommand extends BaseCommand {
       body: readFileSync(flags.file)
     }
 
-    return await this.execute(
-      () => postApi(updateApiObj), 
-      () => this.log(`Updated API '${owner}/${name}/${version}'`))
+    return await this.executeHttp({
+      execute: () => postApi(updateApiObj), 
+      onSuccess: () => this.log(`Updated API '${owner}/${name}/${version}'`)
+    })
   }
 }
 

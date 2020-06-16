@@ -13,7 +13,11 @@ const successMessage = ([owner, name, version]) => !version
 class CreateAPICommand extends BaseCommand {
   
   async checkApiName(path) {
-    return this.execute(() => getApi(path), isApiNameAvailable, [403, 404])
+    return this.executeHttp({
+      execute: () => getApi(path),
+      onSuccess: isApiNameAvailable,
+      options: { resolveStatus: [403, 404] }
+    })
   }
 
   async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
@@ -61,9 +65,10 @@ class CreateAPICommand extends BaseCommand {
       body: readFileSync(flags.file)
     }
 
-    return await this.execute(
-      () => postApi(createApiObj), 
-      () => this.log(successMessage))
+    return await this.executeHttp({
+      execute: () => postApi(createApiObj), 
+      onSuccess: () => this.log(successMessage)
+    })
   }
 }
 

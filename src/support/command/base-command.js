@@ -1,4 +1,5 @@
 const { Command, flags } = require('@oclif/command')
+const { pipeAsync } = require('../../utils/general')
 const {
   parseResponse,
   checkForErrors,
@@ -8,13 +9,14 @@ const {
 
 class BaseCommand extends Command {
   
-  execute(apiCall, success, resolveStatus = [403]) {
-    return apiCall()
-    .then(parseResponse)
-    .then(checkForErrors({ resolveStatus: resolveStatus }))
-    .then(removeUpgradeLinkIfLimitsReached)
-    .then(success)
-    .catch(handleErrors)
+  executeHttp({ execute, onSuccess, onFail = handleErrors, options = { resolveStatus: [403] } }) {
+    return pipeAsync()(
+      execute, 
+      parseResponse, 
+      checkForErrors({ resolveStatus: options.resolveStatus }), 
+      removeUpgradeLinkIfLimitsReached, 
+      onSuccess)
+      .catch(onFail)
   }
 }
 

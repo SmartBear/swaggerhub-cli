@@ -12,9 +12,10 @@ class UnpublishCommand extends BaseCommand {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: false })
     }
-    await this.execute(
-      () => putApi(unpublishApi), 
-      () => this.log(`Unpublished API ${identifier}`))
+    await this.executeHttp({
+      execute: () => putApi(unpublishApi), 
+      onSuccess: () => this.log(`Unpublished API ${identifier}`)
+    })
   }
 }
 

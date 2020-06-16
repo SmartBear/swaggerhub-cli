@@ -12,9 +12,10 @@ class SetDefaultCommand extends BaseCommand {
       pathParams: [owner, name, 'settings', 'default'],
       body: JSON.stringify({ version: version })
     }
-    await this.execute(
-      () => putApi(setDefault), 
-      () => this.log(`Default version of ${owner}/${name} set to ${version}`))
+    await this.executeHttp({
+      execute: () => putApi(setDefault), 
+      onSuccess: () => this.log(`Default version of ${owner}/${name} set to ${version}`)
+    })
   }
 }
 
