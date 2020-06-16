@@ -4,7 +4,6 @@ name: Pull Requests - SwaggerHub CLI
 on:
   pull_request:
     branches: [ master ]
-    types: [edited, opened, synchronize, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
