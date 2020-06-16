@@ -12,7 +12,7 @@ class GetAPICommand extends BaseCommand {
   async getDefaultVersion(identifier) {
     return this.executeHttp({
       execute: () => getApi([...identifier, 'settings', 'default']),
-      onSuccess: response => pipeAsync(response)(getResponseContent, versionResponse)
+      onSuccess: pipeAsync(getResponseContent, versionResponse)
     })
   }
 
@@ -25,7 +25,7 @@ class GetAPICommand extends BaseCommand {
 
     await this.executeHttp({
       execute: () => getApi(identifier, queryParams, requestType),
-      onSuccess: response => pipeAsync(response)(getResponseContent, this.log)
+      onSuccess: pipeAsync(getResponseContent, this.log)
     })
   }
 }

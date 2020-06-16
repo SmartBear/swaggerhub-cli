@@ -10,12 +10,12 @@ const {
 class BaseCommand extends Command {
   
   executeHttp({ execute, onSuccess, onFail = handleErrors, options = { resolveStatus: [403] } }) {
-    return pipeAsync()(
-      execute, 
-      parseResponse, 
-      checkForErrors({ resolveStatus: options.resolveStatus }), 
-      removeUpgradeLinkIfLimitsReached, 
-      onSuccess)
+    return pipeAsync(
+      execute,
+      parseResponse,
+      checkForErrors({ resolveStatus: options.resolveStatus }),
+      removeUpgradeLinkIfLimitsReached,
+      onSuccess)()
       .catch(onFail)
   }
 }
