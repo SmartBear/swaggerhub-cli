@@ -3,7 +3,7 @@ const {
   parseResponse,
   checkForErrors,
   handleErrors,
-  removeUpgradeLinkIfLimitsReached
+  filterResponseMessaging
 } = require('../../support/command/response-handler')
 
 class BaseCommand extends Command {
@@ -12,7 +12,7 @@ class BaseCommand extends Command {
     return execute()
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus: options.resolveStatus }))
-      .then(removeUpgradeLinkIfLimitsReached)
+      .then(filterResponseMessaging)
       .then(onSuccess)
       .catch(onFail)
   }
