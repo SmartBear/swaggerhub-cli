@@ -1,17 +1,18 @@
 SwaggerHub CLI
-==========
+==============
 
-cli to interact with https://app.swaggerhub.com
-
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+A command-line interface for SwaggerHub API (https://api.swaggerhub.com). Supports SwaggerHub SaaS and On-Premise.
 
 <!-- toc -->
+* [Requirements](#requirements)
 * [Installation](#installation)
 * [Setup](#setup)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Contributing](#contributing)
 <!-- tocstop -->
+# Requirements
+Node.js 10 or later.
 # Installation
 ```sh-session
 $ npm i -g swaggerhub-cli-0.1.2.tgz
