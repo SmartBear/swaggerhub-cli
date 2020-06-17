@@ -61,6 +61,7 @@ ARGUMENTS
 
 OPTIONS
   -f, --file=file              (required) file location of API to create
+  -h, --help                   show CLI help
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
@@ -72,7 +73,7 @@ EXAMPLES
   swaggerhub api:create organization/api --file api.yaml
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/create.js)_
 
 ## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
 
@@ -86,6 +87,7 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  SwaggerHub API to fetch
 
 OPTIONS
+  -h, --help      show CLI help
   -j, --json      returns the API in JSON format.
   -r, --resolved  gets the resolved API definition.
 
@@ -98,7 +100,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish OWNER/API_NAME/VERSION`
 
@@ -109,13 +111,16 @@ USAGE
   $ swaggerhub api:publish OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to publish
+  OWNER/API_NAME/VERSION  API identifier
+
+OPTIONS
+  -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
 
@@ -126,13 +131,16 @@ USAGE
   $ swaggerhub api:setdefault OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API version to set as default
+  OWNER/API_NAME/VERSION  API identifier
+
+OPTIONS
+  -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
 
@@ -143,13 +151,16 @@ USAGE
   $ swaggerhub api:unpublish OWNER/API_NAME/VERSION
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to unpublish
+  OWNER/API_NAME/VERSION  API identifier
+
+OPTIONS
+  -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
 
@@ -164,6 +175,7 @@ ARGUMENTS
 
 OPTIONS
   -f, --file=file              (required) file location of API to update
+  -h, --help                   show CLI help
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
@@ -175,7 +187,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/update.js)_
 
 ## `swaggerhub configure`
 
@@ -192,7 +204,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.2/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
