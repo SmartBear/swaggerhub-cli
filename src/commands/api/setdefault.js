@@ -1,11 +1,11 @@
 const { putApi } = require('../../actions/api')
-const { getIdentifierArg } = require('../../support/command/parse-input')
+const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
 class SetDefaultCommand extends BaseCommand {
   async run() {
     const { args } = this.parse(SetDefaultCommand)
-    const identifier = getIdentifierArg(args)
+    const identifier = getApiIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
 
     const setDefault = {

@@ -1,12 +1,12 @@
-const { putApi } = require('../../actions/api')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { putDomain } = require('../../actions/domain')
+const { getDomainIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
   
   async run() {
     const { args } = this.parse(PublishCommand)
-    const identifier = getApiIdentifierArg(args)
+    const identifier = getDomainIdentifierArg(args)
     const [owner, name, version] = identifier.split('/')
 
     const publish = {
@@ -14,20 +14,24 @@ class PublishCommand extends BaseCommand {
       body: JSON.stringify({ published: true })
     }
     await this.executeHttp({
-      execute: () => putApi(publish), 
-      onSuccess: () => this.log(`Published API ${identifier}`),
+      execute: () => putDomain(publish), 
+      onSuccess: () => this.log(`Published domain ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }
 }
 
-PublishCommand.description = 'publish an API version'
+PublishCommand.description = 'publish a domain version'
 
 PublishCommand.examples = [
-  'swaggerhub api:publish organization/api/1.0.0'
+  'swaggerhub domain:publish organization/domain/1.0.0'
 ]
 
-PublishCommand.args = BaseCommand.args
+PublishCommand.args = [{ 
+  name: 'OWNER/DOMAIN_NAME/VERSION',
+  required: true,
+  description: 'Domain identifier'
+}]
 
 PublishCommand.flags = BaseCommand.flags
 
