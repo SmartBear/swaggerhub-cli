@@ -108,19 +108,22 @@ describe('getDomainIdentifierArg', () => {
 
   context('invalid identifier', () => {
     it('should throw an exception', () => {
-      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain/version/extra' })}).to.throw(CLIError)
+      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain/version/extra' })})
+        .to.throw(CLIError)
     })
   })
 
   context('invalid identifier with space', () => {
     it('should throw an exception', () => {
-      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain name/version' })}).to.throw(CLIError)
+      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain name/version' })})
+        .to.throw(CLIError)
     })
   })
 
   context('invalid identifier with space and no version', () => {
     it('should throw an exception', () => {
-      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/[VERSION]': 'owner/domain name' }, false)}).to.throw(CLIError)
+      expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/[VERSION]': 'owner/domain name' }, false)})
+        .to.throw(CLIError)
     })
   })
 
