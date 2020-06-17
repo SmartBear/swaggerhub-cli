@@ -16,7 +16,7 @@ const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
   return Promise.reject(response)
 }
 
-const removeUpgradeLinkIfLimitsReached = response => {
+const filterResponseMessaging = response => {
   if (response.status === 403) {
     response.content = response.content.replace(/[.].*::upgrade-link::/, '. You may need to upgrade your current plan.')
     return Promise.reject(response)
@@ -54,5 +54,5 @@ module.exports = {
   checkForErrors,
   getResponseContent,
   handleErrors,
-  removeUpgradeLinkIfLimitsReached
+  filterResponseMessaging
 }

@@ -1,40 +1,36 @@
-const { Command, flags } = require('@oclif/command')
+const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../actions/api')
 const { getIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
-const {
-  parseResponse,
-  checkForErrors,
-  handleErrors,
-  removeUpgradeLinkIfLimitsReached
-} = require('../../support/command/response-handler')
+const BaseCommand = require('../../support/command/base-command')
 
-class UpdateAPICommand extends Command {
+class UpdateAPICommand extends BaseCommand {
   async run() {
     const { args, flags } = this.parse(UpdateAPICommand)
     const [owner, name, version] = getIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const versionToUpdate = version || getVersion(definition)
 
-    await getApi([owner, name, versionToUpdate])
-      .then(parseResponse)
-      .then(checkForErrors({ resolveStatus: [403] }))
-      .then(removeUpgradeLinkIfLimitsReached)
-      .then(() => this.updateApi(owner, name, versionToUpdate, flags))
-      .catch(handleErrors)
+    await this.executeHttp({
+      execute: () => getApi([owner, name, versionToUpdate]), 
+      onSuccess: () => this.updateApi(owner, name, versionToUpdate, flags),
+      options: { resolveStatus: [403] }
+    })
   }
 
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
-    
-    return await postApi({
-        pathParams: [owner, name],
-        queryParams: { version, isPrivate },
-        body: readFileSync(flags.file)
-      })
-      .then(parseResponse)
-      .then(checkForErrors())
-      .then(() => this.log(`Updated API '${owner}/${name}/${version}'`))
+    const updateApiObj = {
+      pathParams: [owner, name],
+      queryParams: { version, isPrivate },
+      body: readFileSync(flags.file)
+    }
+
+    return await this.executeHttp({
+      execute: () => postApi(updateApiObj), 
+      onSuccess: () => this.log(`Updated API '${owner}/${name}/${version}'`),
+      options: { resolveStatus: [403] }
+    })
   }
 }
 
@@ -64,7 +60,8 @@ UpdateAPICommand.flags = {
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private'],
     default: 'private'
-  })
+  }),
+  ...BaseCommand.flags
 }
 
 module.exports = UpdateAPICommand
