@@ -67,7 +67,8 @@ class CreateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(createApiObj), 
-      onSuccess: () => this.log(successMessage)
+      onSuccess: () => this.log(successMessage),
+      options: { resolveStatus: [403] }
     })
   }
 }

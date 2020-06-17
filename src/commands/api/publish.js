@@ -15,7 +15,8 @@ class PublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putApi(publishApi), 
-      onSuccess: () => this.log(`Published API ${identifier}`)
+      onSuccess: () => this.log(`Published API ${identifier}`),
+      options: { resolveStatus: [403] }
     })
   }
 }
