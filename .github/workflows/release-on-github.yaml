@@ -2,8 +2,10 @@ name: Release - SwaggerHub CLI on GitHub
 on:
   push:
     # Sequence of patterns matched against refs/tags
-     tags:
-       - 'v*' 
+#      tags:
+#        - 'v*' 
+      branches:
+        - OP-10665
 jobs:
   build:
     name: Create Release
