@@ -37,7 +37,8 @@ jobs:
       - name: generate_tag_range_changelog
         run: | 
           echo ${{ github.event.label.name }}
-          changelog="$(generate-changelog --tag v0.2.3..v0.2.4 $* --file -)"
+          echo ${{ github.event.comment.body }}
+          changelog="$(generate-changelog --tag ${{ github.event.comment.body }} $* --file -)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
