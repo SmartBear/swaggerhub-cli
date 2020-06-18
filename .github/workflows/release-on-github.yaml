@@ -3,9 +3,9 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
      tags:
-       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-#      branches:
-#        - OP-10665
+       - 'v0.2.4' 
+     branches:
+       - OP-10665
 jobs:
   build:
     name: Create Release
