@@ -20,7 +20,8 @@ jobs:
       - name: fetch_tags
         run: |
           git tag --list
-          git fetch --prune --unshallow --tags
+          git fetch --prune --tags
+          git tag --list
         id: fetch_tags
         
       # npm install changelog
@@ -31,7 +32,7 @@ jobs:
       # Generate a changelog from a tag range, parse and set as outputs.
       - name: generate_tag_range_changelog
         run: | 
-          changelog="$(generate-changelog --tag v0.2.4..v0.2.5)"
+          changelog="$(generate-changelog --tag v0.2.3..v0.2.4)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
