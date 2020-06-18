@@ -18,13 +18,13 @@ jobs:
 
       # npm install changelog
       - name: run_npm_install_changelog
-        run: sudo npm i generate-changelog -D
+        run: sudo npm i generate-changelog -g
         id: run_npm_install_changelog
 
       # Generate a changelog from a tag range, parse and set as outputs.
       - name: generate_tag_range_changelog
         run: | 
-          changelog="$(/usr/local/bin/generate-changelog --tag v0.2.4..v0.2.5)"
+          changelog="$(generate-changelog --tag v0.2.4..v0.2.5)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
