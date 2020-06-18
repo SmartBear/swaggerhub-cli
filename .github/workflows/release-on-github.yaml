@@ -1,11 +1,6 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
-  push:
-    # Sequence of patterns matched against refs/tags
-#      tags:
-#        - 'v*' 
-#       branches:
-#         - OP-10665
+  # This will be trigger if the PR label == gen_release 
   pull_request:
     types:
       - labeled
@@ -20,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # fetch all tags
+      # fetch all tags to the github ubuntu node
       - name: fetch_tags
         run: |
           git tag --list
