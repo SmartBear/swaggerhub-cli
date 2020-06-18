@@ -24,7 +24,7 @@ jobs:
       # Generate a changelog from a tag range, parse and set as outputs.
       - name: generate_tag_range_changelog
         run: | 
-          changelog="$(changelog --tag v0.2.4..v0.2.5)
+          changelog="$(changelog --tag v0.2.4..v0.2.5)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
