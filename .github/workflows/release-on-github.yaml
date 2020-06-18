@@ -41,7 +41,7 @@ jobs:
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$changelog"
-          tag_package_json="$(cat package.json | jq .version)"
+          tag_package_json="v$(cat package.json | jq --raw-output .version)"
           echo "::set-output name=tag_package_json::$tag_package_json"
           echo ${tag_package_json}
         id: generate_tag_range_changelog
@@ -53,8 +53,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: SwaggerHub CLI Release ${{ github.ref }}
+          tag_name: ${{ steps.generate_tag_range_changelog.outputs.tag_package_json }}
+          release_name: SwaggerHub CLI Release ${{ steps.generate_tag_range_changelog.outputs.tag_package_json }}
           body: |
             ${{ steps.generate_tag_range_changelog.outputs.changelog }}
           draft: true # Allow swaggerhub-cli team approve the release notes before making public. 
