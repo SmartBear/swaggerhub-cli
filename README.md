@@ -73,7 +73,7 @@ EXAMPLES
   swaggerhub api:create organization/api --file api.yaml
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/create.js)_
 
 ## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
 
@@ -100,7 +100,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish OWNER/API_NAME/VERSION`
 
@@ -120,7 +120,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
 
@@ -140,7 +140,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
 
@@ -160,7 +160,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
 
@@ -187,7 +187,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/update.js)_
 
 ## `swaggerhub configure`
 
@@ -204,7 +204,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cmd/blob/v0.2.3/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/configure.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -226,5 +226,5 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1
 
 # Contributing
 <!-- contributing -->
-The SwaggerHub CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have a feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cmd/issues) and let us know.
+The SwaggerHub CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have a feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues) and let us know.
 <!-- contributingstop -->
