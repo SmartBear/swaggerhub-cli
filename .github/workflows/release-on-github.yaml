@@ -3,9 +3,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
      tags:
-       - 'v0.2.4' 
-     branches:
-       - OP-10665
+       - 'v*' 
 jobs:
   build:
     name: Create Release
@@ -15,11 +13,28 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
+#       - name: changelog
+#         uses: scottbrenner/generate-changelog-action@master
+#         id: Changelog
+#         env:
+#           REPO: ${{ github.repository }}
+
+      # npm install changelog
+      - name: run_npm_install_changelog
+        run: npm i generate-changelog -g
+        id: run_npm_install_changelog
+
+      # Generate a changelog from a tag range, parse and set as outputs.
+      - name: generate_tag_range_changelog
+        run: | 
+          changelog="$(changelog --tag v0.2.4..v0.2.5)
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$changelog"
+        id: generate_tag_range_changelog
+
+      # Create release in github
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -29,6 +44,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: SwaggerHub CLI Release ${{ github.ref }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
+            ${{ steps.generate_tag_range_changelog.outputs.changelog }}
           draft: true # Allow swaggerhub-cli team approve the release notes before making public. 
           prerelease: false
