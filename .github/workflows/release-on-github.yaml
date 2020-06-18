@@ -16,6 +16,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      # fetch all tags
+      - name: fetch_tags
+        run: |
+          git tag --list
+          git fetch --prune --unshallow --tags
+        id: fetch_tags
+        
       # npm install changelog
       - name: run_npm_install_changelog
         run: sudo npm i generate-changelog -g
