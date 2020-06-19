@@ -31,10 +31,13 @@ jobs:
       # Generate a changelog from a tag range, parse and set as outputs.
       - name: generate_tag_range_changelog
         run: | 
+          # Find the next tag and tag prior/current(assumes new tag is created)
           version_tag_release="v$(cat package.json | jq --raw-output .version)"
-          version_tag_current="git describe --tags --abbrev=0"
+          version_tag_current="git describe --abbrev=0 --tags ${version_tag_release}^"
           echo "::set-output name=tag_package_json::$version_tag_release"
           echo "Current:${version_tag_current} / Release:${version_tag_release}"
+
+          # Generate the changelog from above tags:
           #changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
           changelog="$(generate-changelog --tag ${version_tag_current}..${version_tag_release} $* --file -)"
           changelog="${changelog//'%'/'%25'}"
