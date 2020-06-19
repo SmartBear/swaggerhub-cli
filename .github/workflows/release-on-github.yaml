@@ -31,14 +31,16 @@ jobs:
       # Generate a changelog from a tag range, parse and set as outputs.
       - name: generate_tag_range_changelog
         run: | 
-          changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
+          version_tag_release="v$(cat package.json | jq --raw-output .version)"
+          version_tag_current="git describe --tags --abbrev=0"
+          echo "::set-output name=tag_package_json::$version_tag_release"
+          echo "Current:${version_tag_current} / Release:${version_tag_release}"
+          #changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
+          changelog="$(generate-changelog --tag ${version_tag_current}..${version_tag_release} $* --file -)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$changelog"
-          tag_package_json="v$(cat package.json | jq --raw-output .version)"
-          echo "::set-output name=tag_package_json::$tag_package_json"
-          echo ${tag_package_json}
         id: generate_tag_range_changelog
 
       # Create release in github
