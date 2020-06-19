@@ -28,18 +28,20 @@ jobs:
         run: sudo npm i generate-changelog -g
         id: run_npm_install_changelog
 
-      # Generate a changelog from a tag range, parse and set as outputs.
-      - name: generate_tag_range_changelog
+      # Get current tag and release tag
+      - name: generate_tag_vars
         run: | 
-          # Find the next tag and tag prior/current(assumes new tag is created)
           version_tag_release="v$(cat package.json | jq --raw-output .version)"
-          version_tag_current="git describe --abbrev=0 --tags ${version_tag_release}^"
-          echo "::set-output name=tag_package_json::$version_tag_release"
+          version_tag_current="git describe --abbrev=0 --tags ${version_tag_release}^" # This gets the tag(accross all branches) prior to version_tag_release via '^'
+          echo "::set-output name=version_tag_release::$version_tag_release"
+          echo "::set-output name=version_tag_current::$version_tag_current"
           echo "Current:${version_tag_current} / Release:${version_tag_release}"
 
-          # Generate the changelog from above tags:
-          #changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
-          changelog="$(generate-changelog --tag ${version_tag_current}..${version_tag_release} $* --file -)"
+      # Generate a changelog from a tag range, parse and set as outputs.
+      # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
+      - name: generate_tag_range_changelog
+        run: | 
+          changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.version_tag_current }}..${{ steps.generate_tag_vars.outputs.version_tag_release }} $* --file -)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
@@ -53,8 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.generate_tag_range_changelog.outputs.tag_package_json }}
-          release_name: SwaggerHub CLI Release ${{ steps.generate_tag_range_changelog.outputs.tag_package_json }}
+          tag_name: ${{ steps.generate_tag_vars.outputs.version_tag_release }}
+          release_name: SwaggerHub CLI Release ${{ steps.generate_tag_vars.outputs.version_tag_release }}
           body: |
             ${{ steps.generate_tag_range_changelog.outputs.changelog }}
           draft: true # Allow swaggerhub-cli team approve the release notes before making public. 
