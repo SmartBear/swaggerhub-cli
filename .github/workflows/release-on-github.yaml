@@ -1,20 +1,12 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
-  # Below pull_request or tag push will trigger this pipeline.
-
-  # This pipeline can be triggered on new PRs if the label used == gen_release
-  pull_request:
-    types:
-      - labeled
-
-  # This pipeline can be triggered by creating a tag locally and pushing(git tag <TAG_NAME>; git tags --push)
+  # This pipeline will be triggered by creating a tag locally and pushing(git tag <TAG_NAME>; git tags --push)
   push:
     tags:
       - 'v*'
 jobs:
   build:
     name: Create Release
-    if: github.event.label.name == 'gen_release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
