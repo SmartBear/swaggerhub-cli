@@ -38,11 +38,14 @@ jobs:
         run: |
           version_tag_release="v$(cat package.json | jq --raw-output .version)"
           version_tag_current="$(git describe --abbrev=0 --tags ${version_tag_release}^)"
-          tag_diff="${version_tag_release}..${version_tag_current}"
+          tag_diff="${version_tag_current}..${version_tag_release}"
+          echo ${tag_diff}
+          echo $tag_diff
           echo "::set-output name=version_tag_release::$version_tag_release"
           echo "::set-output name=version_tag_current::$version_tag_current"
           echo "::set-output name=tagdiffoutput::${tagdiff}"
           echo "Current:${version_tag_current} / Release:${version_tag_release}"
+        id: generate_tag_vars
 
 #      # Basic check to find the new release tag, exit if not found.
 #      - name: verify_release_tag_exists
@@ -58,8 +61,6 @@ jobs:
         run: |
           echo ${{ steps.generate_tag_vars.outputs.tagdiffoutput }}
           generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tagdiffoutput }} $* --file - > output_diff
-          cat output_diff
-          #changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file -)"
           changelog="$(cat output_diff)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
