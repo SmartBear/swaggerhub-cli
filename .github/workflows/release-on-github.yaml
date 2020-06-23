@@ -1,12 +1,12 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
   # This pipeline will be triggered by creating a tag locally and pushing(git tag <TAG_NAME>; git tags --push)
-#   push:
-#     tags:
-#       - 'v*'
-  release:
-    types: # This configuration does not affect the page_build event above
-      - created
+  push:
+    tags:
+      - 'v*'
+#   release:
+#     types: # This configuration does not affect the page_build event above
+#       - created
 jobs:
   build:
     name: Create Release
