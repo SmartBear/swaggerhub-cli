@@ -56,7 +56,10 @@ jobs:
       # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
       - name: generate_tag_range_changelog
         run: |
-          changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file -)"
+          generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file - > output_diff
+          cat output_diff
+          #changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file -)"
+          changelog="$(cat output_diff)"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
