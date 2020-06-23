@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Create Release
-    if: github.event.label.name == 'gen_release'
+#    if: github.event.label.name == 'gen_release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
