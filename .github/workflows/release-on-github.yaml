@@ -1,12 +1,10 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
-  # This pipeline will be triggered by creating a tag locally and pushing(git tag <TAG_NAME>; git tags --push)
+  # Trigger pipeline/github-actions on new tags pushed from local repo.
+  #     e.g, git tag v1.2.3 ; git push --tags
   push:
     tags:
       - 'v*'
-#   release:
-#     types: # This configuration does not affect the page_build event above
-#       - created
 jobs:
   build:
     name: Create Release
@@ -36,16 +34,19 @@ jobs:
       - name: generate_tag_vars
         run: |
           version_tag_release="v$(cat package.json | jq --raw-output .version)"
-          version_tag_current="git describe --abbrev=0 --tags ${version_tag_release}^"
+          version_tag_current="$(git describe --abbrev=0 --tags ${version_tag_release}^)"
+          tagdiff="${version_tag_current}..${version_tag_release}"
           echo "::set-output name=version_tag_release::$version_tag_release"
           echo "::set-output name=version_tag_current::$version_tag_current"
+          echo "::set-output name=tagdiffoutput::${tagdiff}"
           echo "Current:${version_tag_current} / Release:${version_tag_release}"
+        id: generate_tag_vars
 
       # Generate a changelog from a tag range, parse and set as an output.
       # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
       - name: generate_tag_range_changelog
         run: |
-          changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.version_tag_current }}..${{ steps.generate_tag_vars.outputs.version_tag_release }} $* --file -)"
+          changelog=$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tagdiffoutput }} $* --file -)
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
