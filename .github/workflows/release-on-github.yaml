@@ -1,9 +1,10 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
+  # Trigger pipeline/github-actions on new tags pushed from local repo.
+  #     e.g, git tag v1.2.3 ; git push --tags
   push:
-    # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'v*'
 jobs:
   build:
     name: Create Release
@@ -13,20 +14,55 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
+
+      # fetch all tags to the github ubuntu node
+      - name: fetch_tags
+        run: |
+          git tag --list
+          git fetch --prune --tags
+          git tag --list
+        id: fetch_tags
+
+      # npm install changelog
+      - name: run_npm_install_changelog
+        run: sudo npm i generate-changelog -g
+        id: run_npm_install_changelog
+
+      # Get current tag and release tag.
+      # Release tag comes from package.json.
+      # Current tag is the tag prior to release tag.
+      - name: generate_tag_vars
+        run: |
+          version_tag_release="v$(cat package.json | jq --raw-output .version)"
+          version_tag_current="$(git describe --abbrev=0 --tags ${version_tag_release}^)"
+          tagdiff="${version_tag_current}..${version_tag_release}"
+          echo "::set-output name=version_tag_release::$version_tag_release"
+          echo "::set-output name=version_tag_current::$version_tag_current"
+          echo "::set-output name=tagdiffoutput::${tagdiff}"
+          echo "Current:${version_tag_current} / Release:${version_tag_release}"
+        id: generate_tag_vars
+
+      # Generate a changelog from a tag range, parse and set as an output.
+      # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
+      - name: generate_tag_range_changelog
+        run: |
+          changelog=$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tagdiffoutput }} $* --file -)
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$changelog"
+        id: generate_tag_range_changelog
+
+      # Create release in github
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: SwaggerHub CLI Release ${{ github.ref }}
+          tag_name: ${{ steps.generate_tag_vars.outputs.version_tag_release }}
+          release_name: SwaggerHub CLI Release ${{ steps.generate_tag_vars.outputs.version_tag_release }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
-          draft: false
+            ${{ steps.generate_tag_range_changelog.outputs.changelog }}
+          draft: true # Allow swaggerhub-cli team approve the release notes before making public.
           prerelease: false

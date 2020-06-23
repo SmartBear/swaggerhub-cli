@@ -1,5 +1,5 @@
 const { flags } = require('@oclif/command')
-const { getIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
+const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { pipeAsync } = require('../../utils/general')
 const { getApi } = require('../../actions/api')
 const { getResponseContent } = require('../../support/command/response-handler')
@@ -19,7 +19,7 @@ class GetAPICommand extends BaseCommand {
 
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
-    const identifier = getIdentifierArg(args, false).split('/')
+    const identifier = getApiIdentifierArg(args, false).split('/')
     identifier[2] = identifier[2] || await this.getDefaultVersion(identifier)
     const queryParams = resolvedParam(flags)
     const requestType = reqType(flags)

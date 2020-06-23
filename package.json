@@ -1,12 +1,12 @@
 {
   "name": "swaggerhub",
   "description": "SwaggerHub CLI",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "author": "SmartBear",
   "bin": {
     "swaggerhub": "./bin/run"
   },
-  "bugs": "https://github.com/SmartBear/swaggerhub-cmd/issues",
+  "bugs": "https://github.com/SmartBear/swaggerhub-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
@@ -48,7 +48,7 @@
     "/oclif.manifest.json",
     "/src"
   ],
-  "homepage": "https://github.com/SmartBear/swaggerhub-cmd",
+  "homepage": "https://github.com/SmartBear/swaggerhub-cli",
   "keywords": [
     "oclif"
   ],
@@ -70,13 +70,13 @@
       "api": {
         "description": "this topic supports the management of APIs"
       },
-      "api:version": {
-        "description": "this topic supports the management of individual versions of an API"
+      "domain": {
+        "description": "this topic supports the management of Domains"
       }
     },
     "helpClass": "./src/help"
   },
-  "repository": "SmartBear/swaggerhub-cmd",
+  "repository": "SmartBear/swaggerhub-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",

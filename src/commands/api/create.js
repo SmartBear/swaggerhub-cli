@@ -1,7 +1,7 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../actions/api')
-const { getIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
+const { getApiIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
@@ -38,7 +38,7 @@ class CreateAPICommand extends BaseCommand {
 
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
-    const [owner, name, version] = getIdentifierArg(args, false).split('/')
+    const [owner, name, version] = getApiIdentifierArg(args, false).split('/')
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
     const versionToCreate = version || getVersion(definition)
