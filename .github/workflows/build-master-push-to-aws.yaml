@@ -4,7 +4,7 @@ name: Build Master - Upload to AWS S3
 on:
   release:
     types:
-      - created
+      - published
 jobs:
   build:
     runs-on: ubuntu-latest
