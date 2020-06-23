@@ -23,9 +23,10 @@ jobs:
           git tag --list
         id: fetch_tags
 
+      # TODO: Move below personal repo under smartbear github org.
       # npm install changelog
       - name: run_npm_install_changelog
-        run: sudo npm i generate-changelog -g
+        run: sudo npm i -g https://github.com/Rody-Kirwan/generate-changelog
         id: run_npm_install_changelog
 
       # Get current tag and release tag.
