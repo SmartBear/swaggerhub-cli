@@ -41,22 +41,23 @@ jobs:
           tag_diff="${version_tag_release}..${version_tag_current}"
           echo "::set-output name=version_tag_release::$version_tag_release"
           echo "::set-output name=version_tag_current::$version_tag_current"
-          echo "::set-output name=tag_diff_output::${tag_diff}"
+          echo "::set-output name=tagdiffoutput::${tagdiff}"
           echo "Current:${version_tag_current} / Release:${version_tag_release}"
 
-      # Basic check to find the new release tag, exit if not found.
-      - name: verify_release_tag_exists
-        run: |
-          git tag --list > /tmp/tag_lst
-          if ! grep ${{ steps.generate_tag_vars.outputs.version_tag_release }} /tmp/tag_lst; then
-            echo "Unable to find tag ${{ steps.generate_tag_vars.outputs.version_tag_release }} from 'git tags'"
-            exit; fi
+#      # Basic check to find the new release tag, exit if not found.
+#      - name: verify_release_tag_exists
+#        run: |
+#          git tag --list > /tmp/tag_lst
+#          if ! grep ${{ steps.generate_tag_vars.outputs.version_tag_release }} /tmp/tag_lst; then
+#            echo "Unable to find tag ${{ steps.generate_tag_vars.outputs.version_tag_release }} from 'git tags'"
+#            exit; fi
 
       # Generate a changelog from a tag range, parse and set as an output.
       # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
       - name: generate_tag_range_changelog
         run: |
-          generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file - > output_diff
+          echo ${{ steps.generate_tag_vars.outputs.tagdiffoutput }}
+          generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tagdiffoutput }} $* --file - > output_diff
           cat output_diff
           #changelog="$(generate-changelog --tag ${{ steps.generate_tag_vars.outputs.tag_diff_output }} $* --file -)"
           changelog="$(cat output_diff)"
