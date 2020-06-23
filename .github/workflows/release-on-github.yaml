@@ -1,9 +1,12 @@
 name: Release - SwaggerHub CLI on GitHub
 on:
   # This will be trigger if the PR label == gen_release
-  pull_request:
-    types:
-      - labeled
+#   pull_request:
+#     types:
+#       - labeled
+  push:
+    tags:
+      - 'v*'
 jobs:
   build:
     name: Create Release
