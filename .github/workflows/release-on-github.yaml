@@ -37,7 +37,7 @@ jobs:
       - name: generate_tag_vars
         run: |
           version_tag_release="v$(cat package.json | jq --raw-output .version)"
-          version_tag_current="git describe --abbrev=0 --tags ${version_tag_release}^"
+          version_tag_current="$(git describe --abbrev=0 --tags ${version_tag_release}^)"
           tag_diff="${version_tag_release}..${version_tag_current}"
           echo "::set-output name=version_tag_release::$version_tag_release"
           echo "::set-output name=version_tag_current::$version_tag_current"
