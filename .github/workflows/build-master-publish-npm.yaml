@@ -13,13 +13,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Create an npm rc file on the filesystem
+      - name: create_npmrc_file
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+        id: create_npmrc_file
+
       # npm install from package-lock.json(npm ci(Continuous Integration))
       - name: npm_ci
         run: npm ci
         id: npm_ci
 
-      # TODO: Remove --access restricted --dry-run once testing is complete.
       # npm publish
       - name: npm_publish
         run: npm publish --access restricted
         id: npm_publish
+
