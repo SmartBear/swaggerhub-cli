@@ -1,0 +1,25 @@
+name: Build Master - Publish npm
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # npm install from package-lock.json(npm ci(Continuous Integration))
+      - name: npm_ci
+        run: npm ci
+        id: npm_ci
+
+      # TODO: Remove --access restricted --dry-run once testing is complete.
+      # npm publish
+      - name: npm_publish
+        run: npm publish --access restricted --dry-run
+        id: npm_publish
