@@ -13,10 +13,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Create an npm rc file on the filesystem
-      - name: create_npmrc_file
-        run: echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}' > .npmrc
-        id: create_npmrc_file
+      # Set the npm config
+      - name: set_npm_config
+        run: npm config set '//registry.npmjs.org/:_authToken' ${{ secrets.NPM_TOKEN }}
+        id: set_npm_config
 
       # npm install from package-lock.json(npm ci(Continuous Integration))
       - name: npm_ci
