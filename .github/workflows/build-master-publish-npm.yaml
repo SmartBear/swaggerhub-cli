@@ -18,7 +18,8 @@ jobs:
         run: npm ci
         id: npm_ci
 
+      # TODO: Remove --access restricted --dry-run once testing is complete.
       # npm publish
       - name: npm_publish
-        run: npm publish
+        run: npm publish --access restricted --dry-run
         id: npm_publish
