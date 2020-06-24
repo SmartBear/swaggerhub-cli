@@ -25,6 +25,6 @@ jobs:
 
       # npm publish
       - name: npm_publish
-        run: npm publish --access restricted
+        run: npm publish
         id: npm_publish
 
