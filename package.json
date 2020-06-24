@@ -79,7 +79,7 @@
   "repository": "SmartBear/swaggerhub-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "prepack": "oclif-dev manifest",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "lint": "eslint_d ./src ./test",
     "postinstall": "node ./src/check-node-version",
