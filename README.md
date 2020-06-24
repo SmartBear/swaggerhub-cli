@@ -11,22 +11,22 @@ A command-line interface for SwaggerHub API (https://api.swaggerhub.com). Suppor
 * [Commands](#commands)
 * [Contributing](#contributing)
 <!-- tocstop -->
-# Requirements
+## Requirements
 Node.js 10 or later.
-# Installation
+## Installation
 ```sh-session
-$ npm i -g swaggerhub-cli-0.1.2.tgz
+$ npm i -g swaggerhub-cli
 ```
-# Setup
+## Setup
 ```sh-session
 $ swaggerhub configure
 ? SwaggerHub URL: https://api.swaggerhub.com
 ? API Key: <your-api-key>
 ```
-SwaggerHub URL defaults to the SaaS version, `https://api.swaggerhub.com`. For SwaggerHub On-Premise, use `http(s)://SERVER/v1`.
+SwaggerHub URL defaults to the SaaS version, `https://api.swaggerhub.com`. The URL can be reset using the **configure** command
 
 Alternatively, these values can be set using the `SWAGGERHUB_URL` and `SWAGGERHUB_API_KEY` environment variables. These take precedence over config values.
-# Usage
+## Usage
 ```sh-session
 $ swaggerhub COMMAND
 running command...
@@ -37,7 +37,7 @@ USAGE
   $ swaggerhub COMMAND
 ...
 ```
-# Commands
+## Commands
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate-ownerapi_nameversion)
 * [`swaggerhub api:get OWNER/API_NAME/[VERSION]`](#swaggerhub-apiget-ownerapi_nameversion)
@@ -48,7 +48,7 @@ USAGE
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 
-## `swaggerhub api:create OWNER/API_NAME/[VERSION]`
+### swaggerhub api:create
 
 creates a new API / API version from a YAML/JSON file
 
@@ -75,7 +75,7 @@ EXAMPLES
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/create.js)_
 
-## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
+### swaggerhub api:get
 
 fetches an API definition
 
@@ -102,7 +102,7 @@ EXAMPLES
 
 _See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/get.js)_
 
-## `swaggerhub api:publish OWNER/API_NAME/VERSION`
+### swaggerhub api:publish
 
 publish an API version
 
@@ -122,7 +122,7 @@ EXAMPLE
 
 _See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/publish.js)_
 
-## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
+### swaggerhub api:setdefault
 
 set the default version of an API
 
@@ -142,7 +142,7 @@ EXAMPLE
 
 _See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/setdefault.js)_
 
-## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
+### swaggerhub api:unpublish
 
 unpublish an API version
 
@@ -162,7 +162,7 @@ EXAMPLE
 
 _See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/unpublish.js)_
 
-## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
+### swaggerhub api:update
 
 update an API version
 
@@ -189,7 +189,7 @@ EXAMPLES
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/api/update.js)_
 
-## `swaggerhub configure`
+### swaggerhub configure
 
 configure application settings
 
@@ -206,7 +206,7 @@ DESCRIPTION
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.3/src/commands/configure.js)_
 
-## `swaggerhub help [COMMAND]`
+### swaggerhub help [COMMAND]
 
 display help for swaggerhub
 
@@ -224,7 +224,7 @@ OPTIONS
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
 <!-- commandsstop -->
 
-# Contributing
+## Contributing
 <!-- contributing -->
 The SwaggerHub CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have a feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues) and let us know.
 <!-- contributingstop -->
