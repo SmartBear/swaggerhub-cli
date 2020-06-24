@@ -1,7 +1,7 @@
 {
   "name": "swaggerhub-cli",
   "description": "SwaggerHub CLI",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "author": "SmartBear",
   "bin": {
     "swaggerhub": "./bin/run"
@@ -79,11 +79,10 @@
   "repository": "SmartBear/swaggerhub-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "prepack": "oclif-dev manifest",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "lint": "eslint_d ./src ./test",
-    "postinstall": "node ./src/check-node-version",
-    "version": "oclif-dev readme && git add README.md"
+    "postinstall": "node ./src/check-node-version"
   },
   "husky": {
     "hooks": {
