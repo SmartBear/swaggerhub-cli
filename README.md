@@ -20,8 +20,8 @@ $ npm i -g swaggerhub-cli
 ## Setup
 The SwaggerHub CLI can be configured through environment variables or through the [`swaggerhub configure`](#swaggerhub-configure) command. The CLI will look for the following environment variables.
 
-* `SWAGGERHUB_API_KEY` (required) – **Important: please keep this key secure**. This is the SwaggerHub API key the CLI will use for authentication. An API key may be [generated from the user settings page in SwaggerHub](https://app.swaggerhub.com/settings/apiKey).
-* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com/`) – Customers with on-premise installations can set to point to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a backslash). 
+* `SWAGGERHUB_API_KEY` (required) – **Important: keep this key secure.** This is the SwaggerHub API key the CLI will use for authentication. You can find your API key on the [user settings page](https://app.swaggerhub.com/settings/apiKey) in SwaggerHub.
+* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com/`) – Customers with on-premise installations need to point this to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a backslash). 
 
 Alernatively, you can use the `swaggerhub configure` command to create a configuration file for the CLI to use. This command will walk you through the steps to set up the necessary configurations.
 
