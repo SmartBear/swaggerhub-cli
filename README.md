@@ -31,7 +31,7 @@ $ swaggerhub configure
 ? API Key: <your-api-key>
 ```
 
-Environment variables will take precedence over the configuration file created by this command.
+Environment variables take precedence over the configuration file created by this command.
 ## Usage
 ```sh-session
 $ swaggerhub COMMAND
