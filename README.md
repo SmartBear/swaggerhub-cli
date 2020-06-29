@@ -81,7 +81,7 @@ EXAMPLES
   swaggerhub api:create organization/api --file api.yaml
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/create.js)_
 
 ## `swaggerhub api:get`
 
@@ -108,7 +108,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -128,7 +128,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -148,7 +148,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -168,7 +168,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
@@ -195,7 +195,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/update.js)_
 
 ## `swaggerhub configure`
 
@@ -212,7 +212,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/configure.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -232,7 +232,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -252,7 +252,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.7/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
