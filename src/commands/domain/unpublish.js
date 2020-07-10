@@ -1,4 +1,4 @@
-const { putDomain } = require('../../actions/domain')
+const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 

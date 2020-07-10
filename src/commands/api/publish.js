@@ -1,4 +1,4 @@
-const { putApi } = require('../../actions/api')
+const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 

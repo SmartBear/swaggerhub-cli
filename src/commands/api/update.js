@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApi, postApi } = require('../../actions/api')
+const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
