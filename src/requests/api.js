@@ -9,8 +9,7 @@ const getApi = (pathParams, queryParams, accept = 'json') => {
     url: [SWAGGERHUB_URL, 'apis', ...pathParams],
     auth: SWAGGERHUB_API_KEY,
     accept: accept,
-    query: queryParams,
-    userAgent: global.shUserAgent
+    query: queryParams
   })
 }
 
@@ -20,7 +19,6 @@ const putApi = ({ pathParams, body }) => {
   return http({
     url: [SWAGGERHUB_URL, 'apis', ...pathParams],
     auth: SWAGGERHUB_API_KEY,
-    userAgent: global.shUserAgent,
     contentType: 'json',
     method: 'PUT',
     body
@@ -35,7 +33,6 @@ const postApi = ({ pathParams, queryParams, body }) => {
   return http({
     url: [SWAGGERHUB_URL, 'apis', owner, name],
     auth: SWAGGERHUB_API_KEY,
-    userAgent: global.shUserAgent,
     contentType: isJson ? 'json' : 'yaml',
     method: 'POST',
     query: queryParams,

@@ -1,6 +1,7 @@
 const fetch = require('node-fetch')
 const qs = require('querystring')
 const headerTemplates = require('./header-templates')
+const defaultHeaders = require('./default-headers')
 
 const { pipe } = require('../../utils/general')
 const pick = require('lodash/pick')
@@ -28,7 +29,10 @@ const parseHeaders = options => {
 
   return {
     ...filteredOptions,
-    headers: buildHeaders(headerOptions)
+    headers: {
+      ...defaultHeaders,
+      ...buildHeaders(headerOptions)
+    }
   }
 }
 
