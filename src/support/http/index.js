@@ -26,11 +26,11 @@ const parseUrl = ({ url, query, ...rest }) => ({
 const parseHeaders = options => {
   const headerOptions = pick(options, Object.keys(headerTemplates))
   const filteredOptions = omit(options, Object.keys(headerTemplates))
-
+  
   return {
     ...filteredOptions,
     headers: {
-      ...defaultHeaders,
+      ...defaultHeaders(),
       ...buildHeaders(headerOptions)
     }
   }

@@ -1,7 +1,3 @@
-const userAgent = {
+module.exports = () => ({
   'User-Agent': global.shUserAgent
-}
-
-module.exports = {
-  userAgent
-}
+})

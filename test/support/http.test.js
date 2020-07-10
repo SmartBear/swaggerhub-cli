@@ -5,8 +5,11 @@ const mockUrl = 'https://test.http.com'
 const mockApiKey = 'mock-api-key-1234'
 const mockReqBody = { test: '123', id: 'test' }
 const mockReqQuery = mockReqBody
+const mockUserAgent = 'mockUserAgent'
 
 describe('http', () => {
+  before(() => global.shUserAgent = mockUserAgent)
+  after(() => delete global.shUserAgent)
   describe('default function', () => {
     test
       .nock(mockUrl, api => api
@@ -28,22 +31,15 @@ describe('http', () => {
         .matchHeader('authorization', `Bearer ${mockApiKey}`)
         .matchHeader('content-type', 'application/json')
         .matchHeader('accept', 'application/json')
+        .matchHeader('user-agent', mockUserAgent)
         .reply(200)
       )
-      .it('should create valid http headers from the provided options', async () => {
-        const expectedHeaders = {
-          'accept': 'application/json',
-          'content-type': 'application/json',
-          'authorization': `Bearer ${mockApiKey}`
-        }
-
-        return await http({
-          url: [mockUrl, 'headers'],
-          accept: 'json',
-          contentType: 'json',
-          auth: mockApiKey
-        })
-    })
+      .it('should create valid http headers from the provided options', async () => await http({
+        url: [mockUrl, 'headers'],
+        accept: 'json',
+        contentType: 'json',
+        auth: mockApiKey
+      }))
     test
       .nock(mockUrl, api => api
         .get('/query')
