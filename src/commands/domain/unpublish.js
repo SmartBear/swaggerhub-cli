@@ -15,7 +15,7 @@ class UnpublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onSuccess: () => this.log(`Unpublished domain ${identifier}`),
+      onResolve: () => this.log(`Unpublished domain ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }
