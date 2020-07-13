@@ -1,7 +1,8 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
-const { getApiIdentifierArg, getOasVersion, getVersion, parseDefinition } = require('../../support/command/parse-input')
+const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
