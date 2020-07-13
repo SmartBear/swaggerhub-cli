@@ -14,7 +14,7 @@ class UnpublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putApi(unpublish), 
-      onSuccess: () => this.log(`Unpublished API ${identifier}`),
+      onResolve: () => this.log(`Unpublished API ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }

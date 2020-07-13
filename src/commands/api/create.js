@@ -15,7 +15,7 @@ class CreateAPICommand extends BaseCommand {
   async checkApiName(path) {
     return this.executeHttp({
       execute: () => getApi(path),
-      onSuccess: isApiNameAvailable,
+      onResolve: isApiNameAvailable,
       options: { resolveStatus: [403, 404] }
     })
   }
@@ -67,7 +67,7 @@ class CreateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(createApiObj), 
-      onSuccess: () => this.log(successMessage),
+      onResolve: () => this.log(successMessage),
       options: { resolveStatus: [403] }
     })
   }

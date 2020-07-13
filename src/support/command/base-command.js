@@ -8,13 +8,13 @@ const {
 
 class BaseCommand extends Command {
   
-  executeHttp({ execute, onSuccess, onFail = handleErrors, options: { resolveStatus = [] } }) {
+  executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {
     return execute()
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus }))
       .then(filterResponseMessaging)
-      .then(onSuccess)
-      .catch(onFail)
+      .then(onResolve)
+      .catch(onReject)
   }
 }
 

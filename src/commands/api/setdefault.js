@@ -14,7 +14,7 @@ class SetDefaultCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putApi(setDefault), 
-      onSuccess: () => this.log(`Default version of ${owner}/${name} set to ${version}`),
+      onResolve: () => this.log(`Default version of ${owner}/${name} set to ${version}`),
       options: { resolveStatus: [403] }
     })
   }

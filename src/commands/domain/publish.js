@@ -15,7 +15,7 @@ class PublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onSuccess: () => this.log(`Published domain ${identifier}`),
+      onResolve: () => this.log(`Published domain ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }

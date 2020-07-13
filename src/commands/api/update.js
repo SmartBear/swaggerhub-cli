@@ -13,7 +13,7 @@ class UpdateAPICommand extends BaseCommand {
 
     await this.executeHttp({
       execute: () => getApi([owner, name, versionToUpdate]), 
-      onSuccess: () => this.updateApi(owner, name, versionToUpdate, flags),
+      onResolve: () => this.updateApi(owner, name, versionToUpdate, flags),
       options: { resolveStatus: [403] }
     })
   }
@@ -28,7 +28,7 @@ class UpdateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
-      onSuccess: () => this.log(`Updated API '${owner}/${name}/${version}'`),
+      onResolve: () => this.log(`Updated API '${owner}/${name}/${version}'`),
       options: { resolveStatus: [403] }
     })
   }
