@@ -1,9 +1,5 @@
 const { expect, test } = require('@oclif/test')
 const { pipe } = require('../../src/utils/general')
-const mock = require('../resources/config')
-const isEqual = require('lodash/isEqual')
-
-const { setConfig, getConfig } = require('../../src/config')
 
 describe('compositions ', () => {
   describe('pipe', () => {
@@ -12,7 +8,7 @@ describe('compositions ', () => {
       const trebleIt = x => x * 3
       const quadrupleIt = x => x * 4
 
-      const output = pipe(1)(doubleIt, trebleIt, quadrupleIt)
+      const output = pipe(doubleIt, trebleIt, quadrupleIt)(1)
       
       expect(output).to.equal(24)
     })

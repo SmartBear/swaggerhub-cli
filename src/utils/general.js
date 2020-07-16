@@ -1,11 +1,13 @@
 const deepExtend = require('deep-extend')
 const jsonTemplate = require('json-templates')
 
-const pipe = val => (...fns) => (
+const pipe = (...fns) => val => (
   fns.reduce((acc, currentFn) => currentFn(acc), val)
 )
 
-const pipeAsync = (...fns) => val => fns.reduce((chain, func) => chain.then(func), Promise.resolve(val))
+const pipeAsync = (...fns) => val => (
+  fns.reduce((chain, func) => chain.then(func), Promise.resolve(val))
+)
 
 const wrapTemplates = templates => Object.keys(templates)
   .reduce((obj, key) => ({
