@@ -1,4 +1,5 @@
 const { CLIError } = require('@oclif/errors')
+const { errorMsg } = require('../../template-strings')
 
 const versionOptionalRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?$/)
 const requiredVersionRegex = new RegExp(/^[\w\-.]+\/[\w\-.]+\/[\w\-.]+$/)
@@ -8,11 +9,11 @@ const validateObjectIdentifier = id => requiredVersionRegex.test(id)
 const getIdentifierArg = (versionRequired, format, identifier) => {
   if (versionRequired) {
     if (!validateObjectIdentifier(identifier)) {
-      throw new CLIError(`Argument must match ${format} format`)
+      throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
     }
   } else {
     if (!versionOptionalRegex.test(identifier)) {
-      throw new CLIError(`Argument must match ${format} format`)
+      throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
     }
   }
   return identifier

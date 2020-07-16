@@ -1,5 +1,7 @@
 const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { infoMsg } = require('../../template-strings')
+
 const BaseCommand = require('../../support/command/base-command')
 
 class SetDefaultCommand extends BaseCommand {
@@ -12,9 +14,10 @@ class SetDefaultCommand extends BaseCommand {
       pathParams: [owner, name, 'settings', 'default'],
       body: JSON.stringify({ version: version })
     }
+    
     await this.executeHttp({
       execute: () => putApi(setDefault), 
-      onResolve: () => this.log(`Default version of ${owner}/${name} set to ${version}`),
+      onResolve: () => this.log(infoMsg.setDefaultApi({ owner, name, version })),
       options: { resolveStatus: [403] }
     })
   }

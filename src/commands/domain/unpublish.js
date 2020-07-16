@@ -1,5 +1,7 @@
 const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg } = require('../../support/command/parse-input')
+const { infoMsg } = require('../../template-strings')
+
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
@@ -13,9 +15,10 @@ class UnpublishCommand extends BaseCommand {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: false })
     }
+    
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: () => this.log(`Unpublished domain ${identifier}`),
+      onResolve: () => this.log(infoMsg.unpublishedDomainVersion({ identifier })),
       options: { resolveStatus: [403] }
     })
   }

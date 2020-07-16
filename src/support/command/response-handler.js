@@ -1,5 +1,6 @@
 const { CLIError } = require('@oclif/errors')
 const { hasJsonStructure } = require('../../utils/general')
+const { errorMsg } = require('../../template-strings')
 
 const parseResponse = response => new Promise(resolve => response.text()
   .then(content => resolve({
@@ -18,14 +19,14 @@ const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
 
 const filterResponseMessaging = response => {
   if (response.status === 403) {
-    response.content = response.content.replace(/[.].*::upgrade-link::/, '. You may need to upgrade your current plan.')
+    response.content = response.content.replace(/[.].*::upgrade-link::/, `. ${errorMsg.upgradePlan()}`)
     return Promise.reject(response)
   }
   return Promise.resolve(response)
 }
 
 const getResponseContent = ({ content }) => content || Promise.reject(
-  new Error('No content field provided')
+  new Error(errorMsg.noContentField())
 )
 
 const parseContent = content => {
@@ -35,7 +36,7 @@ const parseContent = content => {
 
 const parseResponseError = ({ content }) => hasJsonStructure(content)
   ? parseContent(content)
-  : 'Unknown Error'
+  : errorMsg.unknown()
 
 const handleErrors = error => {
   const cliError = (error instanceof Error === true)

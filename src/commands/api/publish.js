@@ -1,5 +1,7 @@
 const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { infoMsg } = require('../../template-strings')
+
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
@@ -13,9 +15,10 @@ class PublishCommand extends BaseCommand {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: true })
     }
+    
     await this.executeHttp({
       execute: () => putApi(publish), 
-      onResolve: () => this.log(`Published API ${identifier}`),
+      onResolve: () => this.log(infoMsg.publishedApiVersion({ identifier })),
       options: { resolveStatus: [403] }
     })
   }

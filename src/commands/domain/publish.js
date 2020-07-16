@@ -1,5 +1,7 @@
 const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg } = require('../../support/command/parse-input')
+const { infoMsg } = require('../../template-strings')
+
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
@@ -13,9 +15,10 @@ class PublishCommand extends BaseCommand {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: true })
     }
+    
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: () => this.log(`Published domain ${identifier}`),
+      onResolve: () => this.log(infoMsg.publishedDomainVersion({ identifier })),
       options: { resolveStatus: [403] }
     })
   }
