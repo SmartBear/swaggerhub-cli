@@ -1,11 +1,11 @@
 const { expect, test } = require('@oclif/test')
 const config = require('../../../src/config')
-const shubUrl = 'https://test.swaggerhub.com'
+const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid domain:unpublish', () => {
   test
   .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock('https://test.swaggerhub.com/domains', domain => domain
+  .nock('https://test-api.swaggerhub.com/domains', domain => domain
     .put('/org/domain/1.0.0/settings/lifecycle', { published: false })
     .reply(200)
   )
@@ -34,7 +34,7 @@ describe('invalid domains:unpublish', () => {
 
   test
   .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock('https://test.swaggerhub.com/domains', domain => domain
+  .nock('https://test-api.swaggerhub.com/domains', domain => domain
     .put('/org/domain/1.2.3/settings/lifecycle')
     .reply(404, '{ "code": 404, "message": "Unknown domain org/domain:1.2.3"}')
   )
