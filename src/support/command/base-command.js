@@ -5,18 +5,10 @@ const {
   handleErrors,
   filterResponseMessaging
 } = require('../../support/command/response-handler')
-const { CLIError } = require('@oclif/errors')
-const { getConfig } = require('../../config')
-
 
 class BaseCommand extends Command {
 
   executeHttp({ execute, onSuccess, onFail = handleErrors, options: { resolveStatus = [] } }) {
-    const { SWAGGERHUB_URL } = getConfig()
-    if (SWAGGERHUB_URL !== 'https://api.swaggerhub.com' || !SWAGGERHUB_URL.endsWith('/v1')) {
-      throw new CLIError('SwaggerHub URL validation failed.')
-    }
-
     return execute()
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus }))
