@@ -7,7 +7,6 @@ const putDomain = ({ pathParams, body }) => {
   return http({
     url: [SWAGGERHUB_URL, 'domains', ...pathParams],
     auth: SWAGGERHUB_API_KEY,
-    userAgent: global.shUserAgent,
     contentType: 'json',
     method: 'PUT',
     body

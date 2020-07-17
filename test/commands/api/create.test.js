@@ -212,3 +212,27 @@ describe('valid create new version with api:create', () => {
       expect(ctx.stdout).to.contains('Created version 2.0.0 of API \'org/api\'')
     })
 })
+
+describe('valid create new version with api:create using invalid swaggerhub url', () => {
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl+'/v1' }))
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .get('/org/api')
+      .reply(200)
+    )
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .get('/org/api/1.0.1')
+      .reply(404)
+    )
+    .nock('https://test.swaggerhub.com/apis', api => api
+      .post('/org/api?version=1.0.1&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .stdout()
+    .command(['api:create', 'org/api', '--file=test/resources/valid_api.yaml'])
+    .it('runs api:create with yaml file reading version from file', ctx => {
+      expect(ctx.stdout).to.contains('Created version 1.0.1 of API \'org/api\'')
+    })
+
+})

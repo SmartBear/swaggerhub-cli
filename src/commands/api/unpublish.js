@@ -1,4 +1,4 @@
-const { putApi } = require('../../actions/api')
+const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
@@ -14,7 +14,7 @@ class UnpublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putApi(unpublish), 
-      onSuccess: () => this.log(`Unpublished API ${identifier}`),
+      onResolve: () => this.log(`Unpublished API ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }

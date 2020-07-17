@@ -1,8 +1,12 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
-
-const { validateObjectIdentifier, getApiIdentifierArg, getDomainIdentifierArg,
-reqType, parseDefinition } = require('../../src/support/command/parse-input')
+const { parseDefinition } = require('../../src/utils/oas')
+const { 
+  validateObjectIdentifier, 
+  getApiIdentifierArg, 
+  getDomainIdentifierArg,
+  reqType 
+} = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {
 

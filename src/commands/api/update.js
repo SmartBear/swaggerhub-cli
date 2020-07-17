@@ -1,7 +1,8 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApi, postApi } = require('../../actions/api')
-const { getApiIdentifierArg, getVersion, parseDefinition } = require('../../support/command/parse-input')
+const { getApi, postApi } = require('../../requests/api')
+const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
 
 class UpdateAPICommand extends BaseCommand {
@@ -13,7 +14,7 @@ class UpdateAPICommand extends BaseCommand {
 
     await this.executeHttp({
       execute: () => getApi([owner, name, versionToUpdate]), 
-      onSuccess: () => this.updateApi(owner, name, versionToUpdate, flags),
+      onResolve: () => this.updateApi(owner, name, versionToUpdate, flags),
       options: { resolveStatus: [403] }
     })
   }
@@ -28,7 +29,7 @@ class UpdateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
-      onSuccess: () => this.log(`Updated API '${owner}/${name}/${version}'`),
+      onResolve: () => this.log(`Updated API '${owner}/${name}/${version}'`),
       options: { resolveStatus: [403] }
     })
   }

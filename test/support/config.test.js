@@ -1,6 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const { readJSONSync, unlinkSync, writeJSONSync } = require('fs-extra')
-const mock = require('../__mocks__/config')
+const mock = require('../resources/config')
 const isEqual = require('lodash/isEqual')
 const { setConfig, getConfig, isURLValid } = require('../../src/config')
 
