@@ -215,7 +215,7 @@ describe('valid create new version with api:create', () => {
 
 describe('valid create new version with api:create using invalid swaggerhub url', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl+'/v1' }))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: `${shubUrl}/v1` }))
     .stdout()
     .command(['api:create', 'org/api', '--file=test/resources/valid_api.yaml'])
     .exit(2)

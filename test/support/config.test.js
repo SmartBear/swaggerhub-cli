@@ -9,7 +9,7 @@ const envApiKey = 'api-key-from-env-variable'
 
 const createEmptyConfigFile = () => writeJSONSync(mock.configFilePath, {})
 const createConfigFile = () => writeJSONSync(mock.configFilePath, mock.config)
-const createConfigFileWithConfig = (config) => writeJSONSync(mock.configFilePath, config)
+const createConfigFileWithConfig = config => writeJSONSync(mock.configFilePath, config)
 
 describe('config ', () => {
   before(() => global.configFilePath = mock.configFilePath)
@@ -71,41 +71,40 @@ describe('config ', () => {
 
   describe('isURLValid', () => {
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'https://api.swaggerhub.com'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .it('it should return true when using saas api url', () => {
       expect(isURLValid()).to.equal(true)
     })
 
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'https://test-api.swaggerhub.com'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://test-api.swaggerhub.com' }))
     .it('it should return true when using lower envs api url', () => {
       expect(isURLValid()).to.equal(true)
     })
 
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'http://api.swaggerhub.com'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://api.swaggerhub.com' }))
     .it('it should return true when using http', () => {
       expect(isURLValid()).to.equal(true)
     })
 
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'http://api.swaggerhub.com/apis'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://api.swaggerhub.com/apis' }))
     .it('it should return false when incorrect saas url', () => {
       expect(isURLValid()).to.equal(false)
     })
 
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'http://api.swaggerhub.com/v1'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://api.swaggerhub.com/v1' }))
     .it('it should return false when using saas with /v1 path', () => {
       expect(isURLValid()).to.equal(false)
     })
 
     test
-    .do(() => createConfigFileWithConfig({SWAGGERHUB_URL:'http://myorg.swaggerhub.com/v1'}))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://myorg.swaggerhub.com/v1' }))
     .it('it should return true when using on-premise with /v1 path', () => {
       expect(isURLValid()).to.equal(true)
     })
-
   })
   
 })

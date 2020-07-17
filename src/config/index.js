@@ -19,10 +19,10 @@ const setConfig = update => {
   return writeJSONSync(configFilePath, mergeDeep(readJSONSync(configFilePath), update))
 }
 
-
 const isURLValid = () => {
   const { SWAGGERHUB_URL } = getConfig()
-  return SWAGGERHUB_URL.endsWith('api.swaggerhub.com') || (!SWAGGERHUB_URL.includes('api.swaggerhub.com') && SWAGGERHUB_URL.endsWith('/v1'))
+  return SWAGGERHUB_URL.endsWith('api.swaggerhub.com') ||
+   (!SWAGGERHUB_URL.includes('api.swaggerhub.com') && SWAGGERHUB_URL.endsWith('/v1'))
 }
 
 module.exports = {
