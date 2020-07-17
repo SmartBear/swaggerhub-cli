@@ -1,4 +1,4 @@
-const { putDomain } = require('../../actions/domain')
+const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
@@ -15,7 +15,7 @@ class PublishCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onSuccess: () => this.log(`Published domain ${identifier}`),
+      onResolve: () => this.log(`Published domain ${identifier}`),
       options: { resolveStatus: [403] }
     })
   }

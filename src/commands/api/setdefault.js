@@ -1,4 +1,4 @@
-const { putApi } = require('../../actions/api')
+const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
@@ -14,7 +14,7 @@ class SetDefaultCommand extends BaseCommand {
     }
     await this.executeHttp({
       execute: () => putApi(setDefault), 
-      onSuccess: () => this.log(`Default version of ${owner}/${name} set to ${version}`),
+      onResolve: () => this.log(`Default version of ${owner}/${name} set to ${version}`),
       options: { resolveStatus: [403] }
     })
   }
