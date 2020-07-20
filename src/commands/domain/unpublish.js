@@ -5,11 +5,6 @@ const { infoMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
-
-  logSuccessMessage = data => {
-    const message = infoMsg.unpublishedDomainVersion(data)
-    return () => this.log(message)
-  }
   
   async run() {
     const { args } = this.parse(UnpublishCommand)
@@ -23,7 +18,7 @@ class UnpublishCommand extends BaseCommand {
     
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: this.logSuccessMessage({ requestedDomainPath }),
+      onResolve: this.logCommandSuccess({ requestedDomainPath }),
       options: { resolveStatus: [403] }
     })
   }

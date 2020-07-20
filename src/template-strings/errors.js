@@ -1,7 +1,7 @@
 const { wrapTemplates } = require('../utils/general')
 
 const errorMsg = {
-  apiVersionExists: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
+  ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
 
   argsMustMatchFormat: 'Argument must match {{format}} format',
 

@@ -1,21 +1,21 @@
 const { wrapTemplates } = require('../utils/general')
 
 const infoMsg = {
-  createdApi: 'Created API \'{{owner}}/{{name}}\'',
+  ApiCreate: 'Created API \'{{owner}}/{{name}}\'',
 
   createdApiVersion: 'Created version {{version}} of API \'{{owner}}/{{name}}\'',
 
-  publishedApiVersion: 'Published API {{apiPath}}',
+  ApiPublish: 'Published API {{apiPath}}',
 
-  publishedDomainVersion: 'Published domain {{requestedDomainPath}}',
+  DomainPublish: 'Published domain {{requestedDomainPath}}',
 
-  setDefaultApi: 'Default version of {{owner}}/{{name}} set to {{version}}',
+  ApiSetdefault: 'Default version of {{owner}}/{{name}} set to {{version}}',
 
-  updatedApiVersion: 'Updated API \'{{owner}}/{{name}}/{{version}}\'',
+  ApiUpdate: 'Updated API \'{{owner}}/{{name}}/{{version}}\'',
 
-  unpublishedApiVersion: 'Unpublished API {{apiPath}}',
+  ApiUnpublish: 'Unpublished API {{apiPath}}',
 
-  unpublishedDomainVersion: 'Unpublished domain {{requestedDomainPath}}',
+  DomainUnpublish: 'Unpublished domain {{requestedDomainPath}}',
 }
 
 module.exports = wrapTemplates({
