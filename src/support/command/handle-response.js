@@ -44,7 +44,7 @@ const handleErrors = error => {
     : parseResponseError(error)
 
   if (hasJsonStructure(cliError)) {
-    handleErrors({ content: cliError })
+    return handleErrors({ content: cliError })
   }
 
   throw new CLIError(cliError)

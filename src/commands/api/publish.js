@@ -35,7 +35,11 @@ PublishCommand.examples = [
   'swaggerhub api:publish organization/api/1.0.0'
 ]
 
-PublishCommand.args = BaseCommand.args
+PublishCommand.args = [{ 
+  name: 'OWNER/API_NAME/VERSION',
+  required: true,
+  description: 'API identifier'
+}]
 
 PublishCommand.flags = BaseCommand.flags
 

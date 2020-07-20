@@ -35,7 +35,12 @@ UnpublishCommand.examples = [
   'swaggerhub api:unpublish organization/api/1.0.0'
 ]
 
-UnpublishCommand.args = BaseCommand.args
+UnpublishCommand.args = [{ 
+  name: 'OWNER/API_NAME/VERSION',
+  required: true,
+  description: 'API identifier'
+}]
+
 UnpublishCommand.flags = BaseCommand.flags
 
 module.exports = UnpublishCommand

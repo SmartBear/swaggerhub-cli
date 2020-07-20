@@ -36,7 +36,11 @@ SetDefaultCommand.examples = [
   'swaggerhub api:setdefault organization/api/2.0.0'
 ]
 
-SetDefaultCommand.args = BaseCommand.args
+SetDefaultCommand.args = [{ 
+  name: 'OWNER/API_NAME/VERSION',
+  required: true,
+  description: 'API identifier'
+}]
 
 SetDefaultCommand.flags = BaseCommand.flags
 
