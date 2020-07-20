@@ -1,11 +1,11 @@
 const { Command, flags } = require('@oclif/command')
+const { isURLValid } = require('../../config')
 const {
   parseResponse,
   checkForErrors,
   handleErrors,
   filterResponseMessaging
-} = require('../../support/command/response-handler')
-const { isURLValid } = require('../../config')
+} = require('./handle-response')
 
 class BaseCommand extends Command {
 
@@ -27,11 +27,5 @@ class BaseCommand extends Command {
 BaseCommand.flags = {
   help: flags.help({ char: 'h' })
 }
-
-BaseCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API identifier'
-}]
 
 module.exports = BaseCommand

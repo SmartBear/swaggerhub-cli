@@ -33,7 +33,7 @@ class UpdateAPICommand extends BaseCommand {
     const { args, flags } = this.parse(UpdateAPICommand)
     const definition = parseDefinition(flags.file)
     const apiVersion = getVersion(definition)
-    const requestedApiPath = getApiIdentifierArg(args, false)
+    const requestedApiPath = getApiIdentifierArg(args)
     const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
 
     await this.executeHttp({
