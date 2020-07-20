@@ -1,16 +1,25 @@
 const { wrapTemplates } = require('../utils/general')
 
 const errorMsg = {
-  apiVersionExists: 'API version \'{{owner}}/{{name}}/{{versionToCreate}}\' already exists in SwaggerHub',
+  apiVersionExists: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
+
   argsMustMatchFormat: 'Argument must match {{format}} format',
-  upgradePlan: 'You may need to upgrade your current plan.',
-  noContentField: 'No content field provided',
-  unknown: 'Unknown Error',
+
+  cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',
+
   cannotParseOasVersion: 'Cannot determine OAS version from file',
+
   cannotParseVersion: 'Cannot determine version from file',
-  fileNotFound: 'File \'{{fileName}}\' not found',
+
+  noContentField: 'No content field provided',
+  
   fileIsEmpty: 'File \'{{fileName}}\' is empty',
-  cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}'
+
+  fileNotFound: 'File \'{{fileName}}\' not found',
+
+  upgradePlan: 'You may need to upgrade your current plan.',
+
+  unknown: 'Unknown Error',
 }
 
 module.exports = wrapTemplates({

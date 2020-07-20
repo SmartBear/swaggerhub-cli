@@ -31,6 +31,8 @@ const getDomainIdentifierArg = (args, versionRequired = true) => {
   return getIdentifierArg(versionRequired, format, identifier)
 }
 
+const splitPathParams = path => path.split('/').filter(Boolean)
+
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
 const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
@@ -38,6 +40,7 @@ const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
 module.exports = {
   getApiIdentifierArg,
   getDomainIdentifierArg,
+  splitPathParams,
   reqType,
   resolvedParam,
   validateObjectIdentifier

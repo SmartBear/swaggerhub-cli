@@ -1,13 +1,20 @@
 const { flags } = require('@oclif/command')
-const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
-const { pipeAsync } = require('../../utils/general')
+const { getApiIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
+const { pipeAsync, from } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/response-handler')
 const BaseCommand = require('../../support/command/base-command')
 
-const versionResponse = content => JSON.parse(content).version
+function versionResponse(content) {
+  return JSON.parse(content).version
+}
 
 class GetAPICommand extends BaseCommand {
+
+  logApiDefinition = response => {
+    const definition = getResponseContent(response)
+    this.log(definition)
+  }
 
   async getDefaultVersion(identifier) {
     return this.executeHttp({
@@ -17,16 +24,21 @@ class GetAPICommand extends BaseCommand {
     })
   }
 
+  async ensureVersion([owner, name, version]) {
+    const apiVersion = version || await this.getDefaultVersion([owner, name])
+    return [owner, name, apiVersion]
+  }
+
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
-    const identifier = getApiIdentifierArg(args, false).split('/')
-    identifier[2] = identifier[2] || await this.getDefaultVersion(identifier)
-    const queryParams = resolvedParam(flags)
-    const requestType = reqType(flags)
+    const requestedApiPath = getApiIdentifierArg(args, false)
+    const requestedPathParams = splitPathParams(requestedApiPath)
+    const pathParams = await this.ensureVersion(requestedPathParams)
+    const [queryParams, requestType] = from(flags)(resolvedParam, reqType)
 
     await this.executeHttp({
-      execute: () => getApi(identifier, queryParams, requestType),
-      onResolve: pipeAsync(getResponseContent, this.log),
+      execute: () => getApi(pathParams, queryParams, requestType),
+      onResolve: this.logApiDefinition,
       options: { resolveStatus: [403] }
     })
   }
