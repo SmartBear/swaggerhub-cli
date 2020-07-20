@@ -12,7 +12,7 @@ class BaseCommand extends Command {
   executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {
 
     if (!isURLValid()) {
-      this.error('Verify SwaggerHub URL is correct')
+      this.error('Please validate that configured SwaggerHub URL is correct.')
     } 
 
     return execute()

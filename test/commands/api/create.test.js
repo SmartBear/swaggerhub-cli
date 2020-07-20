@@ -53,11 +53,11 @@ describe('invalid api:create file issues', () => {
 describe('invalid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
     )
@@ -69,7 +69,7 @@ describe('invalid api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
@@ -79,11 +79,11 @@ describe('invalid api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
@@ -93,11 +93,11 @@ describe('invalid api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/orgNotExist/api')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=3.0.0')
       .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
@@ -109,11 +109,11 @@ describe('invalid api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/overLimitApi')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/overLimitApi?version=1.0.0&isPrivate=true&oas=3.0.0')
       .reply(403, '{"code":403,"message":"You have reached the limit of APIs. To upgrade click here ::upgrade-link::"}')
     )
@@ -127,11 +127,11 @@ describe('invalid api:create', () => {
 describe('valid api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
@@ -144,11 +144,11 @@ describe('valid api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=false&oas=3.0.0')
       .matchHeader('Content-Type', 'application/json')
       .reply(201)
@@ -168,15 +168,15 @@ describe('valid api:create', () => {
 describe('valid create new version with api:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.1')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.1&isPrivate=true&oas=2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
@@ -189,15 +189,15 @@ describe('valid create new version with api:create', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(404)
     )
-    .nock('https://test-api.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=false&oas=3.0.0')
       .reply(201)
     )
