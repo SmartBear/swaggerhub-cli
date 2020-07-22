@@ -17,7 +17,7 @@ const setAsGlobalUserAgent = ({ userAgent, name, ...rest }) => {
 }
 
 const SetupConfig = async ({ config: defaults }) => (
-  pipe(defaults)(setAsGlobalUserAgent, createConfigPath, setAsGlobalPath, initConfig)
+  pipe(setAsGlobalUserAgent, createConfigPath, setAsGlobalPath, initConfig)(defaults)
 )
 
 module.exports = SetupConfig

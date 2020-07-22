@@ -39,5 +39,5 @@ const parseHeaders = options => {
 const request = ({ url, ...options }) => fetch(url, options)
 
 module.exports = options => (
-  pipe(options)(parseQuery, parseUrl, parseHeaders, request)
+  pipe(parseQuery, parseUrl, parseHeaders, request)(options)
 )
