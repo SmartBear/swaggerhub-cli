@@ -6,7 +6,7 @@ const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
 
-  logSuccessMessage = data => {
+  logSuccessMessage(data) {
     const message = infoMsg.publishedDomainVersion(data)
     return () => this.log(message)
   }

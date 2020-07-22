@@ -6,7 +6,7 @@ const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
   
-  logSuccessMessage = data => {
+  logSuccessMessage(data) {
     const message = infoMsg.unpublishedApiVersion(data)
     return () => this.log(message)
   }

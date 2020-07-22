@@ -5,10 +5,13 @@ const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
 
-  logSuccessMessage = apiPath => {
+
+  logSuccessMessage(apiPath) {
     const message = infoMsg.publishedApiVersion({ apiPath })
     return () => this.log(message)
   }
+
+
   
   async run() {
     const { args } = this.parse(PublishCommand)

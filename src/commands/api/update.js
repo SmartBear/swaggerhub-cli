@@ -9,7 +9,7 @@ const BaseCommand = require('../../support/command/base-command')
 
 class UpdateAPICommand extends BaseCommand {
 
-  logSuccessMessage = data => {
+  logSuccessMessage(data) {
     const message = infoMsg.updatedApiVersion(data)
     return () => this.log(message)
   }

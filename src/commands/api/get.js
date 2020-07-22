@@ -8,8 +8,13 @@ const BaseCommand = require('../../support/command/base-command')
 const versionResponse = content => JSON.parse(content).version
 
 class GetAPICommand extends BaseCommand {
+  constructor(...props) {
+    super(...props)
 
-  logApiDefinition = response => {
+    this.logApiDefinition = this.logApiDefinition.bind(this)
+  }
+
+  logApiDefinition(response) {
     const definition = getResponseContent(response)
     this.log(definition)
   }

@@ -5,7 +5,7 @@ const BaseCommand = require('../../support/command/base-command')
 
 class SetDefaultCommand extends BaseCommand {
   
-  logSuccessMessage = data => {
+  logSuccessMessage(data) {
     const message = infoMsg.setDefaultApi(data)
     return () => this.log(message)
   }
