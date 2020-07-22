@@ -1,8 +1,6 @@
 const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { infoMsg } = require('../../template-strings')
-
-
 const BaseCommand = require('../../support/command/base-command')
 
 class SetDefaultCommand extends BaseCommand {
