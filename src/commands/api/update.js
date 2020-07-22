@@ -3,7 +3,6 @@ const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
-const { from, wrapFn } = require('../../utils/general')
 const { infoMsg } = require('../../template-strings')
 
 const BaseCommand = require('../../support/command/base-command')
@@ -18,7 +17,7 @@ class UpdateAPICommand extends BaseCommand {
   async run() {
     const { args, flags } = this.parse(UpdateAPICommand)
     const definition = parseDefinition(flags.file)
-    const apiVersion = from(definition)(getVersion)
+    const apiVersion = getVersion(definition)
     const requestedApiPath = getApiIdentifierArg(args, false)
     const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
 
