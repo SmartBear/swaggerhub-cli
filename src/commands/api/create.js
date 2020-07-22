@@ -43,6 +43,21 @@ class CreateAPICommand extends BaseCommand {
     })
   }
 
+  async createApi([owner, name, version], oas, flags, successMessage) {
+    const isPrivate = flags.visibility === 'private'
+    const createApiObj = {
+      pathParams: [owner, name],
+      queryParams: { version, isPrivate, oas },
+      body: readFileSync(flags.file)
+    }
+
+    return await this.executeHttp({
+      execute: () => postApi(createApiObj), 
+      onResolve: () => this.log(successMessage),
+      options: { resolveStatus: [403] }
+    })
+  }
+
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const definition = parseDefinition(flags.file)
@@ -70,20 +85,6 @@ class CreateAPICommand extends BaseCommand {
     }
   }
 
-  async createApi([owner, name, version], oas, flags, successMessage) {
-    const isPrivate = flags.visibility === 'private'
-    const createApiObj = {
-      pathParams: [owner, name],
-      queryParams: { version, isPrivate, oas },
-      body: readFileSync(flags.file)
-    }
-
-    return await this.executeHttp({
-      execute: () => postApi(createApiObj), 
-      onResolve: () => this.log(successMessage),
-      options: { resolveStatus: [403] }
-    })
-  }
 }
 
 CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file

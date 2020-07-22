@@ -5,9 +5,7 @@ const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/response-handler')
 const BaseCommand = require('../../support/command/base-command')
 
-function versionResponse(content) {
-  return JSON.parse(content).version
-}
+const versionResponse = content => JSON.parse(content).version
 
 class GetAPICommand extends BaseCommand {
 
