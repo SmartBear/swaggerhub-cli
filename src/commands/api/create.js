@@ -3,13 +3,15 @@ const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
+const { errorMsg, infoMsg } = require('../../template-strings')
+
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
 
 const successMessage = ([owner, name, version]) => !version 
-  ? `Created API '${owner}/${name}'`
-  : `Created version ${version} of API '${owner}/${name}'`
+  ? infoMsg.createdApi({ owner, name })
+  : infoMsg.createdApiVersion({ owner, name, version })
 
 class CreateAPICommand extends BaseCommand {
   
@@ -54,7 +56,10 @@ class CreateAPICommand extends BaseCommand {
     return (
       await this.tryCreateApi(argsObj) ||
       await this.tryCreateApiVersion({ ...argsObj, version: versionToCreate }) ||
-      this.error(`API version '${owner}/${name}/${versionToCreate}' already exists in SwaggerHub`, { exit: 1 })
+      this.error(
+        errorMsg.apiVersionExists({ owner, name, versionToCreate }), 
+        { exit: 1 }
+      )
     )
   }
 
