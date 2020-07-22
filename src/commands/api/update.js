@@ -14,20 +14,6 @@ class UpdateAPICommand extends BaseCommand {
     return () => this.log(message)
   }
 
-  async run() {
-    const { args, flags } = this.parse(UpdateAPICommand)
-    const definition = parseDefinition(flags.file)
-    const apiVersion = getVersion(definition)
-    const requestedApiPath = getApiIdentifierArg(args, false)
-    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
-
-    await this.executeHttp({
-      execute: () => getApi([owner, name, version]), 
-      onResolve: () => this.updateApi(owner, name, version, flags),
-      options: { resolveStatus: [403] }
-    })
-  }
-
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
     const updateApiObj = {
@@ -39,6 +25,20 @@ class UpdateAPICommand extends BaseCommand {
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
       onResolve: this.logSuccessMessage({ owner, name, version }),
+      options: { resolveStatus: [403] }
+    })
+  }
+
+  async run() {
+    const { args, flags } = this.parse(UpdateAPICommand)
+    const definition = parseDefinition(flags.file)
+    const apiVersion = getVersion(definition)
+    const requestedApiPath = getApiIdentifierArg(args, false)
+    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
+
+    await this.executeHttp({
+      execute: () => getApi([owner, name, version]), 
+      onResolve: () => this.updateApi(owner, name, version, flags),
       options: { resolveStatus: [403] }
     })
   }

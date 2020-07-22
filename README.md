@@ -207,6 +207,7 @@ USAGE
 
 DESCRIPTION
   Enter the SwaggerHub URL - default is https://api.swaggerhub.com
+  Customers with on-premise installations need to point this to their on-premise API, which is http(s)://{swaggerhub-host}/v1
   Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settings/apiKey
   You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config 
   settings.

@@ -1,8 +1,6 @@
 const { putApi } = require('../../requests/api')
-const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
+const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { infoMsg } = require('../../template-strings')
-const { pipeAsync } = require('../../utils/general')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
