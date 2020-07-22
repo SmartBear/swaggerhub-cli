@@ -1,7 +1,7 @@
 const { expect, test } = require('@oclif/test')
 const config = require('../../../src/config')
 const validIdentifier = 'org/api/1.0.0'
-const shubUrl = 'https://test.swaggerhub.com'
+const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('invalid api:update command issues', () => {
   test
@@ -46,7 +46,7 @@ describe('invalid api:update file issues', () => {
 describe('invalid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown API org/api/1.0.0"}')
     )
@@ -56,7 +56,7 @@ describe('invalid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(500, '{"code": 500, "message": "Error"}')
     )
@@ -66,11 +66,11 @@ describe('invalid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
     )
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
       .reply(400, '{"code": 400, "error": "Bad Request"}')
     )
@@ -82,11 +82,11 @@ describe('invalid api:update', () => {
 describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
     )
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
       .reply(200)
     )
@@ -99,11 +99,11 @@ describe('valid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
     )
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=true')
       .reply(200)
     )
@@ -116,11 +116,11 @@ describe('valid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
     )
-    .nock('https://test.swaggerhub.com/apis', api => api
+    .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=false')
       .reply(200)
     )

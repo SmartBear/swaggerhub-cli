@@ -1,11 +1,11 @@
 const { expect, test } = require('@oclif/test')
 const config = require('../../../src/config')
-const shubUrl = 'https://test.swaggerhub.com'
+const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid api:publish', () => {
   test
   .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock('https://test.swaggerhub.com/apis', api => api
+  .nock(`${shubUrl}/apis`, api => api
     .put('/org/api/1.0.0/settings/lifecycle', { published: true })
     .reply(200)
   )
@@ -34,7 +34,7 @@ describe('invalid apis:publish', () => {
 
   test
   .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock('https://test.swaggerhub.com/apis', api => api
+  .nock(`${shubUrl}/apis`, api => api
     .put('/org/api/1.2.3/settings/lifecycle')
     .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.2.3"}')
   )

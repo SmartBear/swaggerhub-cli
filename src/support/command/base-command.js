@@ -5,10 +5,16 @@ const {
   handleErrors,
   filterResponseMessaging
 } = require('../../support/command/response-handler')
+const { isURLValid } = require('../../config')
 
 class BaseCommand extends Command {
-  
+
   executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {
+
+    if (!isURLValid()) {
+      this.error('Please verify that the configured SwaggerHub URL is correct.')
+    } 
+
     return execute()
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus }))
