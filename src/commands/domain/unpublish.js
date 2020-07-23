@@ -1,15 +1,20 @@
 const { putDomain } = require('../../requests/domain')
-const { getDomainIdentifierArg } = require('../../support/command/parse-input')
+const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { infoMsg } = require('../../template-strings')
 
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
+
+  logSuccessMessage(data) {
+    const message = infoMsg.unpublishedDomainVersion(data)
+    return () => this.log(message)
+  }
   
   async run() {
     const { args } = this.parse(UnpublishCommand)
-    const identifier = getDomainIdentifierArg(args)
-    const [owner, name, version] = identifier.split('/')
+    const requestedDomainPath = getDomainIdentifierArg(args)
+    const [owner, name, version] = splitPathParams(requestedDomainPath)
 
     const publish = {
       pathParams: [owner, name, version, 'settings', 'lifecycle'],
@@ -18,7 +23,7 @@ class UnpublishCommand extends BaseCommand {
     
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: () => this.log(infoMsg.unpublishedDomainVersion({ identifier })),
+      onResolve: this.logSuccessMessage({ requestedDomainPath }),
       options: { resolveStatus: [403] }
     })
   }

@@ -9,6 +9,10 @@ const pipeAsync = (...fns) => val => (
   fns.reduce((chain, func) => chain.then(func), Promise.resolve(val))
 )
 
+const from = val => (...fns) => (
+  fns.length > 1 ? fns.map(fn => fn(val)) : fns[0](val)
+)
+
 const wrapTemplates = templates => Object.keys(templates)
   .reduce((obj, key) => ({
   [key]: jsonTemplate(templates[key]),
@@ -33,5 +37,6 @@ module.exports = {
   mergeDeep,
   wrapTemplates,
   pipe,
+  from,
   pipeAsync
 }

@@ -5,19 +5,24 @@ const { infoMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
+  
+  logSuccessMessage(data) {
+    const message = infoMsg.unpublishedApiVersion(data)
+    return () => this.log(message)
+  }
+
   async run() {
     const { args } = this.parse(UnpublishCommand)
-    const identifier = getApiIdentifierArg(args)
-    const [owner, name, version] = identifier.split('/')
+    const apiPath = getApiIdentifierArg(args)
 
     const unpublish = {
-      pathParams: [owner, name, version, 'settings', 'lifecycle'],
+      pathParams: [apiPath, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: false })
     }
     
     await this.executeHttp({
       execute: () => putApi(unpublish), 
-      onResolve: () => this.log(infoMsg.unpublishedApiVersion({ identifier })),
+      onResolve: this.logSuccessMessage({ apiPath }),
       options: { resolveStatus: [403] }
     })
   }

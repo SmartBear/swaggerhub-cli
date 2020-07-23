@@ -1,10 +1,10 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { from } = require('../../utils/general')
+const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
 const { errorMsg, infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
@@ -23,47 +23,27 @@ class CreateAPICommand extends BaseCommand {
     })
   }
 
-  async tryCreateApi({ flags, apiPath, oas, versionToCreate }) {
-    const isNameAvailable = await this.checkApiName(apiPath)
+  async tryCreateApi({ path, version, oas, flags }) {
+    const isNameAvailable = await this.checkApiName(path)
+    const pathHasVersion = path.length === 3
+    const fullPath = pathHasVersion ? path : [...path, version]
     
     if (isNameAvailable) {
-      const [owner, name, version = versionToCreate] = apiPath
-      return this.createApi(owner, name, version, oas, flags, successMessage(apiPath))
-        .then(() => true)
+      await this.createApi(fullPath, oas, flags, successMessage(path))
+      return true
     }
     
-    return Promise.resolve(isNameAvailable)
+    return isNameAvailable
   }
 
-  async tryCreateApiVersion({ apiPath, version, ...args }) {
-    return this.tryCreateApi({ ...args, apiPath: [...apiPath, version] })
+  async tryCreateApiVersion({ path, ...args }) {
+    return this.tryCreateApi({ 
+      path: [...path, args.version],
+      ...args
+    })
   }
 
-  async run() {
-    const { args, flags } = this.parse(CreateAPICommand)
-    const [owner, name, version] = getApiIdentifierArg(args, false).split('/')
-    const definition = parseDefinition(flags.file)
-    const oas = getOasVersion(definition)
-    const versionToCreate = version || getVersion(definition)
-
-    const argsObj = {
-      flags,
-      apiPath: [owner, name],
-      oas, 
-      versionToCreate 
-    }
-
-    return (
-      await this.tryCreateApi(argsObj) ||
-      await this.tryCreateApiVersion({ ...argsObj, version: versionToCreate }) ||
-      this.error(
-        errorMsg.apiVersionExists({ owner, name, versionToCreate }), 
-        { exit: 1 }
-      )
-    )
-  }
-
-  async createApi(owner, name, version, oas, flags, successMessage) {
+  async createApi([owner, name, version], oas, flags, successMessage) {
     const isPrivate = flags.visibility === 'private'
     const createApiObj = {
       pathParams: [owner, name],
@@ -77,6 +57,34 @@ class CreateAPICommand extends BaseCommand {
       options: { resolveStatus: [403] }
     })
   }
+
+  async run() {
+    const { args, flags } = this.parse(CreateAPICommand)
+    const definition = parseDefinition(flags.file)
+    const [oas, apiVersion] = from(definition)(getOasVersion, getVersion)
+    const requestedApiPath = getApiIdentifierArg(args, false)
+    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
+
+    const argsObj = {
+      path: [owner, name],
+      version,
+      flags,
+      oas
+    }
+
+    const createdApi = (
+      await this.tryCreateApi(argsObj) || 
+      await this.tryCreateApiVersion(argsObj)
+    )
+
+    if (!createdApi) {
+      return this.error(
+        errorMsg.apiVersionExists({ owner, name, version }), 
+        { exit: 1 }
+      )
+    }
+  }
+
 }
 
 CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file

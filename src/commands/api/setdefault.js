@@ -1,23 +1,28 @@
 const { putApi } = require('../../requests/api')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class SetDefaultCommand extends BaseCommand {
+  
+  logSuccessMessage(data) {
+    const message = infoMsg.setDefaultApi(data)
+    return () => this.log(message)
+  }
+
   async run() {
     const { args } = this.parse(SetDefaultCommand)
-    const identifier = getApiIdentifierArg(args)
-    const [owner, name, version] = identifier.split('/')
+    const apiPath = getApiIdentifierArg(args)
+    const [owner, name, version] = splitPathParams(apiPath)
 
     const setDefault = {
       pathParams: [owner, name, 'settings', 'default'],
-      body: JSON.stringify({ version: version })
+      body: JSON.stringify({ version })
     }
     
     await this.executeHttp({
       execute: () => putApi(setDefault), 
-      onResolve: () => this.log(infoMsg.setDefaultApi({ owner, name, version })),
+      onResolve: this.logSuccessMessage({ owner, name, version }),
       options: { resolveStatus: [403] }
     })
   }
