@@ -62,7 +62,7 @@ class CreateAPICommand extends BaseCommand {
     const { args, flags } = this.parse(CreateAPICommand)
     const definition = parseDefinition(flags.file)
     const [oas, apiVersion] = from(definition)(getOasVersion, getVersion)
-    const requestedApiPath = getApiIdentifierArg(args, false)
+    const requestedApiPath = getApiIdentifierArg(args)
     const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
 
     const argsObj = {
