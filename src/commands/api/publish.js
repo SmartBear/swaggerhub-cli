@@ -1,18 +1,8 @@
 const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
-const { infoMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
-
-
-  logSuccessMessage(apiPath) {
-    const message = infoMsg.publishedApiVersion({ apiPath })
-    return () => this.log(message)
-  }
-
-
-  
   async run() {
     const { args } = this.parse(PublishCommand)
     const apiPath = getApiIdentifierArg(args)
@@ -24,7 +14,7 @@ class PublishCommand extends BaseCommand {
     
     await this.executeHttp({
       execute: () => putApi(publish), 
-      onResolve: this.logSuccessMessage(apiPath),
+      onResolve: this.logCommandSuccess({ apiPath }),
       options: { resolveStatus: [403] }
     })
   }

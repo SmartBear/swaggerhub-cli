@@ -21,6 +21,12 @@ const wrapTemplates = templates => Object.keys(templates)
 
 const mergeDeep = (...args) => deepExtend({}, ...args)
 
+const capitalise = str => (
+  `${str.charAt(0).toUpperCase()}${str.slice(1)}`
+)
+
+const isError = error => error instanceof Error === true
+
 const hasJsonStructure = str => {
   try {
     const result = JSON.parse(str)
@@ -34,6 +40,8 @@ const hasJsonStructure = str => {
 
 module.exports = {
   hasJsonStructure,
+  isError,
+  capitalise,
   mergeDeep,
   wrapTemplates,
   pipe,

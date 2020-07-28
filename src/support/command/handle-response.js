@@ -1,5 +1,5 @@
 const { CLIError } = require('@oclif/errors')
-const { hasJsonStructure } = require('../../utils/general')
+const { hasJsonStructure, isError } = require('../../utils/general')
 const { errorMsg } = require('../../template-strings')
 
 const parseResponse = response => new Promise(resolve => response.text()
@@ -39,7 +39,7 @@ const parseResponseError = ({ content }) => hasJsonStructure(content)
   : errorMsg.unknown()
 
 const handleErrors = error => {
-  const cliError = (error instanceof Error === true)
+  const cliError = isError(error)
     ? error
     : parseResponseError(error)
 

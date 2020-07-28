@@ -3,17 +3,10 @@ const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
-const { infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class UpdateAPICommand extends BaseCommand {
-
-  logSuccessMessage(data) {
-    const message = infoMsg.updatedApiVersion(data)
-    return () => this.log(message)
-  }
-
+  
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
     const updateApiObj = {
@@ -24,7 +17,7 @@ class UpdateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
-      onResolve: this.logSuccessMessage({ owner, name, version }),
+      onResolve: this.logCommandSuccess({ owner, name, version }),
       options: { resolveStatus: [403] }
     })
   }

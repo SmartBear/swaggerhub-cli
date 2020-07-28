@@ -1,15 +1,8 @@
 const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
-
-  logSuccessMessage(data) {
-    const message = infoMsg.publishedDomainVersion(data)
-    return () => this.log(message)
-  }
   
   async run() {
     const { args } = this.parse(PublishCommand)
@@ -23,7 +16,7 @@ class PublishCommand extends BaseCommand {
     
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: this.logSuccessMessage({ requestedDomainPath }),
+      onResolve: this.logCommandSuccess({ requestedDomainPath }),
       options: { resolveStatus: [403] }
     })
   }

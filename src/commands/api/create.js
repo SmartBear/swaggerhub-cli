@@ -4,14 +4,9 @@ const { getApi, postApi } = require('../../requests/api')
 const { from } = require('../../utils/general')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
-const { errorMsg, infoMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
-
-const successMessage = ([owner, name, version]) => !version 
-  ? infoMsg.createdApi({ owner, name })
-  : infoMsg.createdApiVersion({ owner, name, version })
 
 class CreateAPICommand extends BaseCommand {
   
@@ -29,7 +24,7 @@ class CreateAPICommand extends BaseCommand {
     const fullPath = pathHasVersion ? path : [...path, version]
     
     if (isNameAvailable) {
-      await this.createApi(fullPath, oas, flags, successMessage(path))
+      await this.createApi(fullPath, oas, flags, pathHasVersion)
       return true
     }
     
@@ -43,17 +38,22 @@ class CreateAPICommand extends BaseCommand {
     })
   }
 
-  async createApi([owner, name, version], oas, flags, successMessage) {
+  async createApi([owner, name, version], oas, flags, pathHasVersion) {
     const isPrivate = flags.visibility === 'private'
+
     const createApiObj = {
       pathParams: [owner, name],
       queryParams: { version, isPrivate, oas },
       body: readFileSync(flags.file)
     }
 
+    if (pathHasVersion) {
+      this.logCommandSuccess = this.setSuccessMessage('createdApiVersion')
+    }
+
     return await this.executeHttp({
       execute: () => postApi(createApiObj), 
-      onResolve: () => this.log(successMessage),
+      onResolve: this.logCommandSuccess({ owner, name, version }),
       options: { resolveStatus: [403] }
     })
   }
@@ -78,10 +78,9 @@ class CreateAPICommand extends BaseCommand {
     )
 
     if (!createdApi) {
-      return this.error(
-        errorMsg.apiVersionExists({ owner, name, version }), 
-        { exit: 1 }
-      )
+      return this.throwCommandError({
+        owner, name, version 
+      })()
     }
   }
 

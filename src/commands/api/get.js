@@ -5,7 +5,9 @@ const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
 
-const versionResponse = content => JSON.parse(content).version
+function versionResponse(content) {
+  return JSON.parse(content).version
+}
 
 class GetAPICommand extends BaseCommand {
   constructor(...props) {
