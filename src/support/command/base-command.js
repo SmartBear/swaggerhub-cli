@@ -17,9 +17,9 @@ const idToCapitalCase = id => id.split(':')
 class BaseCommand extends Command {
   constructor(...props) {
     super(...props)
-    const errMsgKey = idToCapitalCase(this.id)
-    this.logCommandSuccess = this.setSuccessMessage(errMsgKey)
-    this.throwCommandError = this.setErrorMessage(errMsgKey)
+    const msgKey = idToCapitalCase(this.id)
+    this.logCommandSuccess = this.setSuccessMessage(msgKey)
+    this.throwCommandError = this.setErrorMessage(msgKey)
   }
 
   setSuccessMessage = type => data => {
