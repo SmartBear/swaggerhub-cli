@@ -3,25 +3,10 @@ const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
-const { from } = require('../../utils/general')
 const BaseCommand = require('../../support/command/base-command')
 
 class UpdateAPICommand extends BaseCommand {
-
-  async run() {
-    const { args, flags } = this.parse(UpdateAPICommand)
-    const definition = parseDefinition(flags.file)
-    const apiVersion = from(definition)(getVersion)
-    const requestedApiPath = getApiIdentifierArg(args)
-    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
-
-    await this.executeHttp({
-      execute: () => getApi([owner, name, version]), 
-      onResolve: () => this.updateApi(owner, name, version, flags),
-      options: { resolveStatus: [403] }
-    })
-  }
-
+  
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
     const updateApiObj = {
@@ -33,6 +18,20 @@ class UpdateAPICommand extends BaseCommand {
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
       onResolve: this.logCommandSuccess({ owner, name, version }),
+      options: { resolveStatus: [403] }
+    })
+  }
+
+  async run() {
+    const { args, flags } = this.parse(UpdateAPICommand)
+    const definition = parseDefinition(flags.file)
+    const apiVersion = getVersion(definition)
+    const requestedApiPath = getApiIdentifierArg(args)
+    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
+
+    await this.executeHttp({
+      execute: () => getApi([owner, name, version]), 
+      onResolve: () => this.updateApi(owner, name, version, flags),
       options: { resolveStatus: [403] }
     })
   }

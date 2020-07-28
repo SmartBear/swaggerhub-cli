@@ -4,12 +4,12 @@ const { getApi, postApi } = require('../../requests/api')
 const { from } = require('../../utils/general')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
-const { errorMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
 
 const isApiNameAvailable = response => response.status === 404
 
 class CreateAPICommand extends BaseCommand {
+  
   async checkApiName(path) {
     return this.executeHttp({
       execute: () => getApi(path),
@@ -35,6 +35,26 @@ class CreateAPICommand extends BaseCommand {
     return this.tryCreateApi({ 
       path: [...path, args.version],
       ...args
+    })
+  }
+
+  async createApi([owner, name, version], oas, flags, pathHasVersion) {
+    const isPrivate = flags.visibility === 'private'
+
+    const createApiObj = {
+      pathParams: [owner, name],
+      queryParams: { version, isPrivate, oas },
+      body: readFileSync(flags.file)
+    }
+
+    if (pathHasVersion) {
+      this.logCommandSuccess = this.setSuccessMessage('createdApiVersion')
+    }
+
+    return await this.executeHttp({
+      execute: () => postApi(createApiObj), 
+      onResolve: this.logCommandSuccess({ owner, name, version }),
+      options: { resolveStatus: [403] }
     })
   }
 
@@ -64,25 +84,6 @@ class CreateAPICommand extends BaseCommand {
     }
   }
 
-  async createApi([owner, name, version], oas, flags, pathHasVersion) {
-    const isPrivate = flags.visibility === 'private'
-
-    const createApiObj = {
-      pathParams: [owner, name],
-      queryParams: { version, isPrivate, oas },
-      body: readFileSync(flags.file)
-    }
-
-    if (pathHasVersion) {
-      this.logCommandSuccess = this.setSuccessMessage('createdApiVersion')
-    }
-
-    return await this.executeHttp({
-      execute: () => postApi(createApiObj), 
-      onResolve: this.logCommandSuccess({ owner, name, version }),
-      options: { resolveStatus: [403] }
-    })
-  }
 }
 
 CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file

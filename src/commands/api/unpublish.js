@@ -1,15 +1,12 @@
 const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
-const { from, wrapFn } = require('../../utils/general')
-const { infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
   
   async run() {
     const { args } = this.parse(UnpublishCommand)
-    const apiPath = from(args)(getApiIdentifierArg)
+    const apiPath = getApiIdentifierArg(args)
 
     const unpublish = {
       pathParams: [apiPath, 'settings', 'lifecycle'],

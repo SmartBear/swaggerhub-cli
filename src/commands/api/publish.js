@@ -3,7 +3,6 @@ const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
 class PublishCommand extends BaseCommand {
-  
   async run() {
     const { args } = this.parse(PublishCommand)
     const apiPath = getApiIdentifierArg(args)

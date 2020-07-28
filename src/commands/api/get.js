@@ -10,6 +10,16 @@ function versionResponse(content) {
 }
 
 class GetAPICommand extends BaseCommand {
+  constructor(...props) {
+    super(...props)
+
+    this.logApiDefinition = this.logApiDefinition.bind(this)
+  }
+
+  logApiDefinition(response) {
+    const definition = getResponseContent(response)
+    this.log(definition)
+  }
 
   logApiDefinition = response => {
     const definition = getResponseContent(response)

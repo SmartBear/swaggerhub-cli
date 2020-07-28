@@ -1,7 +1,8 @@
 const { Command, flags } = require('@oclif/command')
-const { pipe, capitalise } = require('../../utils/general')
+const { capitalise } = require('../../utils/general')
 const { infoMsg, errorMsg } = require('../../template-strings')
 
+const { isURLValid } = require('../../config')
 const {
   parseResponse,
   checkForErrors,
@@ -32,6 +33,11 @@ class BaseCommand extends Command {
   }
   
   executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {
+
+    if (!isURLValid()) {
+      this.error('Please verify that the configured SwaggerHub URL is correct.')
+    } 
+
     return execute()
       .then(parseResponse)
       .then(checkForErrors({ resolveStatus }))

@@ -1,7 +1,5 @@
 const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { infoMsg } = require('../../template-strings')
-
 const BaseCommand = require('../../support/command/base-command')
 
 class UnpublishCommand extends BaseCommand {
