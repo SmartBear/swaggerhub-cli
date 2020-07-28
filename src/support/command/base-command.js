@@ -18,18 +18,26 @@ class BaseCommand extends Command {
   constructor(...props) {
     super(...props)
     const msgKey = idToCapitalCase(this.id)
+    
+    this.setSuccessMessage = this.setSuccessMessage.bind(this)
+    this.setErrorMessage = this.setErrorMessage.bind(this)
+
     this.logCommandSuccess = this.setSuccessMessage(msgKey)
     this.throwCommandError = this.setErrorMessage(msgKey)
   }
 
-  setSuccessMessage = type => data => {
-    const message = !!infoMsg[type] && infoMsg[type](data)
-    return () => this.log(message)
+  setSuccessMessage(type) {
+    return data => {
+      const message = !!infoMsg[type] && infoMsg[type](data)
+      return () => this.log(message)
+    }
   }
 
-  setErrorMessage = type => data => {
-    const message = !!errorMsg[type] && errorMsg[type](data)
-    return () => this.error(message, { exit: 1 })
+  setErrorMessage(type) {
+    return data => {
+      const message = !!errorMsg[type] && errorMsg[type](data)
+      return () => this.error(message, { exit: 1 })
+    }
   }
   
   executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {

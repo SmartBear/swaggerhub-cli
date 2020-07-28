@@ -21,11 +21,6 @@ class GetAPICommand extends BaseCommand {
     this.log(definition)
   }
 
-  logApiDefinition = response => {
-    const definition = getResponseContent(response)
-    this.log(definition)
-  }
-
   async getDefaultVersion(identifier) {
     return this.executeHttp({
       execute: () => getApi([...identifier, 'settings', 'default']),
