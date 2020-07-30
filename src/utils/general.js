@@ -38,8 +38,14 @@ const hasJsonStructure = str => {
   }
 }
 
+const prettyPrintJSON = str => {
+  const result = JSON.parse(str)
+  return JSON.stringify(result, null, 2)
+}
+
 module.exports = {
   hasJsonStructure,
+  prettyPrintJSON,
   isError,
   capitalise,
   mergeDeep,
