@@ -1,13 +1,17 @@
-const { Command } = require('@oclif/command')
+const BaseCommand = require('../support/command/base-command')
 const inquirer = require('inquirer')
 const { getPrompts } = require('../support/inquirer')
 const { setConfig, getConfig } = require('../config')
 
-class ConfigureCommand extends Command {
+class ConfigureCommand extends BaseCommand {
   async run() {
     const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
+    const { configDir } = this.config
 
-    inquirer.prompt(prompts).then(setConfig)
+    inquirer.prompt(prompts)
+      .then(setConfig)
+      .then(this.logCommandSuccess({ configDir }))
+      .catch(console.log)
   }
 }
 
