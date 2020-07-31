@@ -9,7 +9,7 @@ const errorMsg = {
 
   cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',
 
-  cannotParseOasVersion: 'Cannot determine OAS versio n from file',
+  cannotParseOasVersion: 'Cannot determine OAS version from file',
 
   cannotParseVersion: 'Cannot determine version from file',
 
