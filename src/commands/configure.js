@@ -11,7 +11,7 @@ class ConfigureCommand extends BaseCommand {
     inquirer.prompt(prompts)
       .then(setConfig)
       .then(this.logCommandSuccess({ configDir }))
-      .catch(console.log)
+      .catch(this.throwCommandError({ configDir }))
   }
 }
 

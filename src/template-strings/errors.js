@@ -3,11 +3,13 @@ const { wrapTemplates } = require('../utils/general')
 const errorMsg = {
   ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
 
+  Configure: 'Failed to write config to {{configDir}}',
+
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
   cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',
 
-  cannotParseOasVersion: 'Cannot determine OAS version from file',
+  cannotParseOasVersion: 'Cannot determine OAS versio n from file',
 
   cannotParseVersion: 'Cannot determine version from file',
 

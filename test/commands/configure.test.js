@@ -11,3 +11,13 @@ describe('successful configuration', () => {
       expect(ctx.stdout).to.contains(`Config saved to ${ctx.config.configDir}`)
     })
 })
+
+describe('failed configuration', () => {
+    test
+    .stub(inquirer, 'prompt', async () => Promise.reject())
+    .stdout()
+    .command(['configure'])
+    .it('should log the attempted file location', ctx => {
+      expect(ctx.stdout).to.contains(`Failed to write config to ${ctx.config.configDir}`)
+    })
+})
