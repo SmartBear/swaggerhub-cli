@@ -1,4 +1,4 @@
-const { readJSONSync, writeJSONSync } = require('fs-extra')
+const fse = require('fs-extra') // We're not using {readSyncJSON, ...} expansion, since we want to mock it.
 const { mergeDeep } = require('../utils/general')
 const pick = require('lodash/pick')
 
@@ -11,12 +11,12 @@ const checkEnvOverrides = config => ({
 
 const getConfig = () => {
   const { configFilePath } = global
-  return checkEnvOverrides(readJSONSync(configFilePath))
+  return checkEnvOverrides(fse.readJSONSync(configFilePath))
 }
 
 const setConfig = update => {
   const { configFilePath } = global
-  return writeJSONSync(configFilePath, mergeDeep(readJSONSync(configFilePath), update))
+  return fse.writeJSONSync(configFilePath, mergeDeep(fse.readJSONSync(configFilePath), update))
 }
 
 const isURLValid = () => {

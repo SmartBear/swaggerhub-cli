@@ -1,5 +1,6 @@
 const { expect, test } = require('@oclif/test')
-const { readJSONSync, unlinkSync, writeJSONSync } = require('fs-extra')
+const { readJSONSync, removeSync, writeJSONSync } = require('fs-extra')
+const fse = require('fs-extra')
 const mock = require('../resources/config')
 const isEqual = require('lodash/isEqual')
 const { setConfig, getConfig, isURLValid } = require('../../src/config')
@@ -14,7 +15,9 @@ const createConfigFileWithConfig = config => writeJSONSync(mock.configFilePath, 
 describe('config ', () => {
   before(() => global.configFilePath = mock.configFilePath)
   after(() => delete global.configFilePath)
-  afterEach(() => unlinkSync(mock.configFilePath))
+  afterEach(() => {
+    removeSync(mock.configFilePath) // Will fail silently if file doesn't exist.
+  })
 
   describe('setConfig', () => {
     test
@@ -29,6 +32,24 @@ describe('config ', () => {
       expect(isEqual(readJSONSync(mock.configFilePath), mockUpdate))
         .to.equal(true)
     })
+
+    test
+      .stub(fse, 'readJSONSync', () => {
+        throw new Error('Failed to read')
+      })
+      .do(setConfig)
+      .catch(err => expect(err.message).to.match(/failed to read/i))
+      .it('should throw an error if it fails to read the file.')
+
+
+    test
+      .stub(fse, 'readJSONSync', () => ({}))
+      .stub(fse, 'writeJSONSync', () => {
+        throw new Error('Failed to write')
+      })
+      .do(setConfig)
+      .catch(err => expect(err.message).to.match(/failed to write/i))
+      .it('should throw an error if it fails to write the file')
   })
 
   describe('getConfig', () => {
@@ -106,5 +127,5 @@ describe('config ', () => {
       expect(isURLValid()).to.equal(true)
     })
   })
-  
+
 })
