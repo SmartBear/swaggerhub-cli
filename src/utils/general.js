@@ -1,5 +1,6 @@
 const deepExtend = require('deep-extend')
 const jsonTemplate = require('json-templates')
+const getIn = require('lodash/get')
 
 const pipe = (...fns) => val => (
   fns.reduce((acc, currentFn) => currentFn(acc), val)
@@ -38,6 +39,19 @@ const hasJsonStructure = str => {
   }
 }
 
+const jsonPointerToArray = jsonPointer => jsonPointer.split('/')
+      .slice(1)
+      .map(token => (
+        token
+          .replace('~1', '/')
+          .replace('~0', '~')
+      ))
+
+const getJsonPointer = (obj, jsonPointer) => {
+  const path = jsonPointerToArray(jsonPointer)
+  return getIn(obj, path)
+}
+
 module.exports = {
   hasJsonStructure,
   isError,
@@ -46,5 +60,7 @@ module.exports = {
   wrapTemplates,
   pipe,
   from,
-  pipeAsync
+  pipeAsync,
+  getJsonPointer,
+  jsonPointerToArray,
 }
