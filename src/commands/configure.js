@@ -7,8 +7,8 @@ class ConfigureCommand extends BaseCommand {
   async run() {
     const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
     const { configDir } = this.config
-
-    inquirer.prompt(prompts)
+    
+    return inquirer.prompt(prompts)
       .then(setConfig)
       .then(this.logCommandSuccess({ configDir }))
       .catch(this.throwCommandError({ configDir }))
@@ -22,3 +22,4 @@ Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settin
 You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config settings.
 `
 module.exports = ConfigureCommand
+
