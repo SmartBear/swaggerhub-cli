@@ -8,7 +8,7 @@ describe('successful configuration', () => {
     .stdout()
     .command(['configure'])
     .it('runs sets up config and logs the location of the file', ctx => {
-      expect(ctx.stdout).to.contains(`Config saved to ${ctx.config.configDir}/config.json`)
+      expect(ctx.stdout).to.contains(`Saved "config.json" to ${ctx.config.configDir}`)
     })
 })
 
@@ -16,6 +16,6 @@ describe('failed configuration', () => {
   test
     .stub(inquirer, 'prompt', () => Promise.reject())
     .command(['configure'])
-    .catch(err => expect(err.message).to.contain('Failed to write config to')) 
+    .catch(err => expect(err.message).to.contain('Failed to write "config.json" to')) 
     .it('fails to setup the config and throws an error message')
 })
