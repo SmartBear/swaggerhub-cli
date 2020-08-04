@@ -12,6 +12,7 @@
     "@oclif/config": "^1.15.1",
     "@oclif/errors": "^1.2.2",
     "@oclif/plugin-help": "^3.0.1",
+    "@oclif/plugin-plugins": "^1.9.0",
     "deep-extend": "^0.6.0",
     "fs-extra": "^9.0.0",
     "inquirer": "^7.1.0",
@@ -61,7 +62,8 @@
     },
     "bin": "swaggerhub",
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
     ],
     "configDefaults": {
       "SWAGGERHUB_URL": "https://api.swaggerhub.com"
