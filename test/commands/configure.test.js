@@ -8,7 +8,7 @@ describe('successful configuration', () => {
     .stdout()
     .command(['configure'])
     .it('runs sets up config and logs the location of the file', ctx => {
-      expect(ctx.stdout).to.contains(`Config saved to ${ctx.config.configDir}`)
+      expect(ctx.stdout).to.contains(`Config saved to ${ctx.config.configDir}/config.json`)
     })
 })
 

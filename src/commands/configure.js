@@ -6,12 +6,12 @@ const { setConfig, getConfig } = require('../config')
 class ConfigureCommand extends BaseCommand {
   async run() {
     const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
-    const { configDir } = this.config
+    const configFilePath = `${this.config.configDir}/config.json`
     
     return inquirer.prompt(prompts)
       .then(setConfig)
-      .then(this.logCommandSuccess({ configDir }))
-      .catch(this.throwCommandError({ configDir }))
+      .then(this.logCommandSuccess({ configFilePath }))
+      .catch(this.throwCommandError({ configFilePath }))
   }
 }
 
