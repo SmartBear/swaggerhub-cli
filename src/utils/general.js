@@ -52,6 +52,7 @@ const getJsonPointer = (obj, jsonPointer) => {
     return obj
   const path = jsonPointerToArray(jsonPointer)
   return getIn(obj, path)
+}
 
 const prettyPrintJSON = str => {
   const result = JSON.parse(str)
