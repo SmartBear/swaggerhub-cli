@@ -52,10 +52,15 @@ const getJsonPointer = (obj, jsonPointer) => {
     return obj
   const path = jsonPointerToArray(jsonPointer)
   return getIn(obj, path)
+
+const prettyPrintJSON = str => {
+  const result = JSON.parse(str)
+  return JSON.stringify(result, null, 2)
 }
 
 module.exports = {
   hasJsonStructure,
+  prettyPrintJSON,
   isError,
   capitalise,
   mergeDeep,

@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { pipe, getJsonPointer, jsonPointerToArray } = require('../../src/utils/general')
+const { pipe, getJsonPointer, jsonPointerToArray, prettyPrintJSON } = require('../../src/utils/general')
 
 describe('utils/general ', () => {
 
@@ -49,4 +49,14 @@ describe('utils/general ', () => {
   })
 
 
+})
+
+describe('prettyPrintJSON', () => {
+  test.it('should format a json string with new lines and indentation', () => {
+    const str = '{"a":true,"b":{"c":1,"d":"2"}}'
+
+    const output = prettyPrintJSON(str)
+    
+    expect(output).to.equal('{\n  "a": true,\n  "b": {\n    "c": 1,\n    "d": "2"\n  }\n}')
+  })
 })
