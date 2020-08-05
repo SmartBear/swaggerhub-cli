@@ -12,7 +12,7 @@ const errorMsg = {
   cannotParseVersion: 'Cannot determine version from file',
 
   noContentField: 'No content field provided',
-  
+
   fileIsEmpty: 'File \'{{fileName}}\' is empty',
 
   fileNotFound: 'File \'{{fileName}}\' not found',
@@ -20,6 +20,8 @@ const errorMsg = {
   upgradePlan: 'You may need to upgrade your current plan.',
 
   unknown: 'Unknown Error',
+
+  failedToFindJsonPointer: "Failed to find JSON Pointer '{{jsonPointer}}' in defintion '{{fileName}}'"
 }
 
 module.exports = wrapTemplates({

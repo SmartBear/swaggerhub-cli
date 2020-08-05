@@ -55,6 +55,8 @@ USAGE
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish-ownerdomain_nameversion)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish-ownerdomain_nameversion)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
+* [`swaggerhub read`](#swaggerhub-read)
+* [`swaggerhub read:version`](#swaggerhub-readversion)
 
 ## `swaggerhub api:create`
 
@@ -271,6 +273,47 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+
+## `swaggerhub read`
+
+Read a local YAML/JSON file and output the contents.
+Typically used to read the "version" of an API definition.
+
+```
+USAGE
+  $ swaggerhub read
+
+OPTIONS
+  -f, --file=file(.yaml|.json)  The file to read in
+  -p, --path=<JSON Pointer>  What to print out (in raw format), this uses [JSON Pointer](https://tools.ietf.org/html/rfc6901) format. Example '#/info/version'
+
+DESCRIPTION
+  ...
+  Reads a local file and outputs the contents.
+  Useful if you add the --path flag to specify what path you wish to output.
+  
+  For more advance json parsing, consider using `swaggerhub` in conjunction with the powerful [JQ cli tool](https://github.com/stedolan/jq)
+```
+
+_See code: [src/commands/read.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/read.js)_
+
+## `swaggerhub read:version`
+
+Describe the command here
+
+```
+USAGE
+  $ swaggerhub read:version
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/read/version.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/read/version.js)_
 <!-- commandsstop -->
 
 ## Contributing

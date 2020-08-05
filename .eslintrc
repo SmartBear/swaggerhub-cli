@@ -7,7 +7,7 @@
     "mocha": true
   },
   "extends": [
-    "eslint:recommended", 
+    "eslint:recommended",
     "plugin:node/recommended",
     "plugin:chai-friendly/recommended",
     "plugin:mocha/recommended"
@@ -63,5 +63,5 @@
         "immutable/no-let": 0
       }
     }
-  ],
+  ]
 }
