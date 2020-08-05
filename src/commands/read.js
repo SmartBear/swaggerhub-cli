@@ -13,14 +13,27 @@ class ReadCommand extends BaseCommand {
     const data = parseDefinition(FILE)
     const jsonPointer = flags['json-pointer']
     const raw = flags.raw
+
+    const stringValue = this.getStringValue({
+      fileName: FILE,
+      jsonPointer,
+      isRaw: raw
+    })
+
+    // So that it doesn't output an extra "\n"
+    process.stdout.write(stringValue)
+  }
+
+  getStringValue({ fileName, jsonPointer, isRaw }) {
+    const data = parseDefinition(fileName)
     const value = getJsonPointer(data, jsonPointer)
 
     if (typeof value === 'undefined')
-      throw new CLIError(errorMsg.failedToFindJsonPointer({ jsonPointer, fileName: FILE }))
+      throw new CLIError(errorMsg.failedToFindJsonPointer({ jsonPointer, fileName }))
 
-    // So that it doesn't output an extra "\n"
-    process.stdout.write(stringifyValue(value, raw))
+    return stringifyValue(value, isRaw)
   }
+
 }
 
 function stringifyValue(value, isRaw=false) {
@@ -36,7 +49,7 @@ function stringifyValue(value, isRaw=false) {
   return `${value}`
 }
 
-ReadCommand.description = `Describe the command here
+ReadCommand.description = `Read local file and output contents
 ...
   Reads a local file and outputs the contents.
   Useful if you add the --path flag to specify what path you wish to output.
@@ -61,7 +74,7 @@ ReadCommand.flags = {
 ReadCommand.args = [{
   name: 'FILE',
   required: true,
-  description: 'file location of API to read'
+  description: 'file location of API/Domain to read'
 }]
 
 ReadCommand.examples = [

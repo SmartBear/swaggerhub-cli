@@ -1,20 +1,35 @@
-const {Command, flags} = require('@oclif/command')
+const {flags} = require('@oclif/command')
+const BaseCommand = require('../../support/command/base-command')
+const ReadCommand = require('../read.js')
 
-class VersionCommand extends Command {
+class VersionCommand extends BaseCommand {
   async run() {
-    const {flags} = this.parse(VersionCommand)
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from /home/josh/projects/swaggerhub-cli/src/commands/read/version.js`)
+    const {args} = this.parse(VersionCommand)
+    return ReadCommand.run([args.FILE, '--raw', '--json-pointer=/info/version'])
   }
 }
 
-VersionCommand.description = `Describe the command here
+VersionCommand.description = `Output /info/version from local file
 ...
-Extra documentation goes here
+Reads a local file and outputs the /info/version.
+
+Is an alias for:  swaggerhub read FILE --raw --json-pointer=/info/version
+See the "read" command.
 `
 
 VersionCommand.flags = {
-  name: flags.string({char: 'n', description: 'name to print'}),
+  ...BaseCommand.flags
 }
+
+VersionCommand.args = [{
+  name: 'FILE',
+  required: true,
+  description: 'file location of API/Domain to read'
+}]
+
+VersionCommand.examples = [
+  'swaggerhub read:version api.yaml',
+]
+
 
 module.exports = VersionCommand
