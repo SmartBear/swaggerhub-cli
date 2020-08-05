@@ -48,6 +48,8 @@ const jsonPointerToArray = jsonPointer => jsonPointer.split('/')
       ))
 
 const getJsonPointer = (obj, jsonPointer) => {
+  if (jsonPointer === '/')
+    return obj
   const path = jsonPointerToArray(jsonPointer)
   return getIn(obj, path)
 }

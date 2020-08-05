@@ -36,4 +36,17 @@ describe('utils/general ', () => {
     })
   })
 
+
+  describe('getJsonPointer', () => {
+    test.it('should return the root value with path = "/"', () => {
+      const output = getJsonPointer({ info: { version: '1.2.3' } }, '/')
+      expect(output).to.eql({
+        info: {
+          version: '1.2.3'
+        }
+      })
+    })
+  })
+
+
 })

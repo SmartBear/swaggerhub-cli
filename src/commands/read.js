@@ -12,14 +12,28 @@ class ReadCommand extends BaseCommand {
     const { FILE } = args
     const data = parseDefinition(FILE)
     const jsonPointer = flags['json-pointer']
+    const raw = flags.raw
     const value = getJsonPointer(data, jsonPointer)
 
-    if(typeof value === 'undefined')
+    if (typeof value === 'undefined')
       throw new CLIError(errorMsg.failedToFindJsonPointer({ jsonPointer, fileName: FILE }))
 
     // So that it doesn't output an extra "\n"
-    process.stdout.write(`${value}`)
+    process.stdout.write(stringifyValue(value, raw))
   }
+}
+
+function stringifyValue(value, isRaw=false) {
+  // Not raw? Then just stringify
+  if (!isRaw)
+    return JSON.stringify(value, null, 2)
+
+  // Not good "raw" value for collections (or null)
+  if (typeof value === 'object' || Array.isArray(value))
+    return JSON.stringify(value, null, 2)
+
+  // number | string | boolean
+  return `${value}`
 }
 
 ReadCommand.description = `Describe the command here
@@ -35,6 +49,11 @@ ReadCommand.flags = {
     char: 'p',
     description: 'JSON Pointer to filter output by',
     required: true
+  }),
+  ['raw']: flags.boolean({
+    char: 'r',
+    description: 'Output scalars as raw values.\n\nObjects and Arrays will be output as JSON.',
+    required: false
   }),
   ...BaseCommand.flags
 }

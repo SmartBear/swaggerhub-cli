@@ -8,10 +8,19 @@ describe('read', () => {
   test
     .stdout()
     .stub(fse, 'existsSync', path => path === FAKE_FILE)
-    .stub(fse, 'readFileSync', () => 'one: 1')
+    .stub(fse, 'readFileSync', () => 'one: hello')
     .command(['read', FAKE_FILE, '-p=/one'])
-    .it('should return the value pointed to by the JSON Pointer', ctx => {
-      expect(ctx.stdout).to.equal('1')
+    .it('should return the (string) JSON value pointed to by the JSON Pointer', ctx => {
+      expect(ctx.stdout).to.equal('"hello"')
+    })
+
+  test
+    .stdout()
+    .stub(fse, 'existsSync', path => path === FAKE_FILE)
+    .stub(fse, 'readFileSync', () => 'one: 1')
+    .command(['read', FAKE_FILE, '-p=/'])
+    .it('should return the (object) JSON value pointed to by the JSON Pointer', ctx => {
+      expect(ctx.stdout).to.equal('{\n  "one": 1\n}')
     })
 
   test
@@ -52,5 +61,27 @@ describe('read', () => {
     .command(['read', FAKE_FILE, '-p=/three'])
     .catch(err => expect(err.message).to.include('Failed to find JSON Pointer'))
     .it('should output JSON for objects')
+
+  describe('--raw', () => {
+
+    test
+      .stdout()
+      .stub(fse, 'existsSync', path => path === FAKE_FILE)
+      .stub(fse, 'readFileSync', () => 'one: 1.2.3')
+      .command(['read', FAKE_FILE, '-p=/one', '-r'])
+      .it('should output no quotes around value (string)', ctx => {
+        expect(ctx.stdout).to.equal('1.2.3')
+      })
+
+    test
+      .stdout()
+      .stub(fse, 'existsSync', path => path === FAKE_FILE)
+      .stub(fse, 'readFileSync', () => 'one: 1.2.3')
+      .command(['read', FAKE_FILE, '-p=/', '-r'])
+      .it('should output JSON for object values', ctx => {
+        expect(ctx.stdout).to.equal('{\n  "one": "1.2.3"\n}')
+      })
+
+  })
 
 })
