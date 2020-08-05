@@ -282,17 +282,21 @@ Typically used to read the "version" of an API definition.
 
 ```
 USAGE
-  $ swaggerhub read
+  $ swaggerhub read FILE --json-pointer=<JSON Pointer>
+
+ARGUMENTS
+  FILE  file location of API/Domain to read
 
 OPTIONS
-  -f, --file=file(.yaml|.json)  The file to read in
-  -p, --path=<JSON Pointer>  What to print out (in raw format), this uses [JSON Pointer](https://tools.ietf.org/html/rfc6901) format. Example '#/info/version'
+  -p, --json-pointer=<JSON Pointer>  What to print out, this uses [JSON Pointer](https://tools.ietf.org/html/rfc6901) format. Example '#/info/version'
+  -r, --raw  If set, do NOT print quotes around strings
+  
 
 DESCRIPTION
   ...
   Reads a local file and outputs the contents.
   Useful if you add the --path flag to specify what path you wish to output.
-  
+
   For more advance json parsing, consider using `swaggerhub` in conjunction with the powerful [JQ cli tool](https://github.com/stedolan/jq)
 ```
 
@@ -304,14 +308,14 @@ Describe the command here
 
 ```
 USAGE
-  $ swaggerhub read:version
+  $ swaggerhub read:version FILE
 
-OPTIONS
-  -n, --name=name  name to print
+ARGUMENTS
+  FILE  file location of API/Domain to read
 
 DESCRIPTION
   ...
-  Extra documentation goes here
+  An alias for "read --raw --json-pointer=/info/version"
 ```
 
 _See code: [src/commands/read/version.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/read/version.js)_
