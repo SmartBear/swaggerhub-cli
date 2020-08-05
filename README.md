@@ -9,6 +9,7 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Setup](#setup)
 * [Usage](#usage)
 * [Commands](#commands)
+* [Plugins](#plugins)
 * [Contributing](#contributing)
 <!-- tocstop -->
 ## Requirements
@@ -272,6 +273,43 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
 <!-- commandsstop -->
+
+## Plugins
+
+The SwaggerHub CLI supports plugins via the [oclif plugin](https://oclif.io/docs/plugins) infrastructure.
+
+To install a plugin
+
+```sh-session
+$ swaggerhub plugins:install <github-url>
+```
+
+To list other options related to plugins
+
+```sh-session
+$ swaggerhub plugins --help
+```
+
+An example plugin used for fetching popular [JSON Schema](https://json-schema.org/) files, can be found here:  [https://github.com/ponelat/swaggerhub-cli-plugin-schema](https://github.com/ponelat/swaggerhub-cli-plugin-schema)
+
+Example usage
+
+```sh-session
+$ swaggerhub plugins:install https://github.com/ponelat/swaggerhub-cli-plugin-schema
+$ swaggerhub schema:list
+  angular-cli-json
+  ansible
+  apple-app-site-association
+  appsscript-json
+  #...
+$ swaggerhub schema:get ansible
+  {
+    "description": "Auto-Generated JSON Schema for Ansible-stable 2.9 (https://github.com/shaded-enmity/ansible-schema-generator)",
+    "title": "Ansible 2.9",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+  # ...
+```
 
 ## Contributing
 <!-- contributing -->

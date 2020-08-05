@@ -36,7 +36,7 @@ describe('valid identifier on api:get', () => {
   .stdout()
   .command(['api:get', 'org1/api2/1.0.0', '--json'])
   .it('runs api:get --json and returns response in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse))
+    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
   })
 
   test
@@ -48,7 +48,7 @@ describe('valid identifier on api:get', () => {
   .stdout()
   .command(['api:get', 'org1/api2/1.0.0', '-j'])
   .it('runs api:get -j and returns response in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse))
+    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
   })
 
   test
@@ -92,7 +92,7 @@ describe('valid identifier on api:get', () => {
   .stdout()
   .command(['api:get', 'org1/api2', '-j'])
   .it('runs api:get to return default API version in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse))
+    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
   })
 
   test
@@ -132,7 +132,7 @@ describe('valid identifier on api:get', () => {
   .stdout()
   .command(['api:get', 'org1/api2/1.0.0', '-jr'])
   .it('runs api:get -jr to return resolved definition', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse))
+    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
   })
 })
 
