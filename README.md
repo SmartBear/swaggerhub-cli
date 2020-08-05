@@ -288,7 +288,7 @@ ARGUMENTS
   FILE  file location of API/Domain to read
 
 OPTIONS
-  -p, --json-pointer=<JSON Pointer>  What to print out, this uses [JSON Pointer](https://tools.ietf.org/html/rfc6901) format. Example '#/info/version'
+  -p, --json-pointer=<JSON Pointer>  What to print out, this uses [JSON Pointer](https://tools.ietf.org/html/rfc6901) format. Example '/info/version'
   -r, --raw  If set, do NOT print quotes around strings
   
 
