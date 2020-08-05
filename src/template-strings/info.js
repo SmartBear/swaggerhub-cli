@@ -17,7 +17,7 @@ const infoMsg = {
 
   DomainUnpublish: 'Unpublished domain {{requestedDomainPath}}',
 
-  Configure: 'Saved "config.json" to {{configDir}}'
+  Configure: 'Saved config to {{configFilePath}}'
 }
 
 module.exports = wrapTemplates({

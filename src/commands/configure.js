@@ -1,3 +1,4 @@
+const path = require('path')
 const BaseCommand = require('../support/command/base-command')
 const inquirer = require('inquirer')
 const { getPrompts } = require('../support/inquirer')
@@ -7,11 +8,12 @@ class ConfigureCommand extends BaseCommand {
   async run() {
     const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
     const { configDir } = this.config
+    const configFilePath = [...configDir.split(path.sep), 'config.json'].join(path.sep)
     
     return inquirer.prompt(prompts)
       .then(setConfig)
-      .then(this.logCommandSuccess({ configDir }))
-      .catch(this.throwCommandError({ configDir }))
+      .then(this.logCommandSuccess({ configFilePath }))
+      .catch(this.throwCommandError({ configFilePath }))
   }
 }
 
