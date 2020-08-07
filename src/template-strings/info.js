@@ -16,6 +16,8 @@ const infoMsg = {
   ApiUnpublish: 'Unpublished API {{apiPath}}',
 
   DomainUnpublish: 'Unpublished domain {{requestedDomainPath}}',
+
+  Configure: 'Saved config to {{configFilePath}}'
 }
 
 module.exports = wrapTemplates({
