@@ -3,6 +3,8 @@ const { wrapTemplates } = require('../utils/general')
 const errorMsg = {
   ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
 
+  Configure: 'Failed to write config to {{configFilePath}}',
+
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
   cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',
