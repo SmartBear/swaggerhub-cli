@@ -98,7 +98,7 @@ ARGUMENTS
 OPTIONS
   -h, --help      show CLI help
   -j, --json      returns the API in JSON format.
-  -r, --resolved  gets the resolved API definition.
+  -r, --resolved  gets the resolved API definition (supported in v1.25+). 
 
 DESCRIPTION
   When VERSION is not included in the argument, the default version will be returned.

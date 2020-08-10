@@ -18,7 +18,7 @@ class GetAPICommand extends BaseCommand {
 
   logApiDefinition(response) {
     const definition = getResponseContent(response)
-    
+
     this.log(hasJsonStructure(definition)
       ? prettyPrintJSON(definition)
       : definition
@@ -63,7 +63,7 @@ GetAPICommand.examples = [
   'swaggerhub api:get organization/api/1.0.0 --json'
 ]
 
-GetAPICommand.args = [{ 
+GetAPICommand.args = [{
   name: 'OWNER/API_NAME/[VERSION]',
   required: true,
   description: 'SwaggerHub API to fetch'
@@ -76,7 +76,7 @@ GetAPICommand.flags = {
   }),
   resolved: flags.boolean({
     char: 'r',
-    description: 'gets the resolved API definition.'
+    description: 'gets the resolved API definition (supported in v1.25+). '
   }),
   ...BaseCommand.flags
 }
