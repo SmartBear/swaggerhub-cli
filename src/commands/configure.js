@@ -1,13 +1,19 @@
-const { Command } = require('@oclif/command')
+const path = require('path')
+const BaseCommand = require('../support/command/base-command')
 const inquirer = require('inquirer')
 const { getPrompts } = require('../support/inquirer')
 const { setConfig, getConfig } = require('../config')
 
-class ConfigureCommand extends Command {
+class ConfigureCommand extends BaseCommand {
   async run() {
     const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
-
-    inquirer.prompt(prompts).then(setConfig)
+    const { configDir } = this.config
+    const configFilePath = [...configDir.split(path.sep), 'config.json'].join(path.sep)
+    
+    return inquirer.prompt(prompts)
+      .then(setConfig)
+      .then(this.logCommandSuccess({ configFilePath }))
+      .catch(this.throwCommandError({ configFilePath }))
   }
 }
 
@@ -18,3 +24,4 @@ Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settin
 You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config settings.
 `
 module.exports = ConfigureCommand
+
