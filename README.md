@@ -56,6 +56,11 @@ USAGE
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish-ownerdomain_nameversion)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish-ownerdomain_nameversion)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
+* [`swaggerhub plugins`](#swaggerhub-plugins)
+* [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
+* [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
+* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall-plugin)
+* [`swaggerhub plugins:update`](#swaggerhub-pluginsupdate)
 
 ## `swaggerhub api:create`
 
@@ -82,7 +87,7 @@ EXAMPLES
   swaggerhub api:create organization/api --file api.yaml
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/create.js)_
 
 ## `swaggerhub api:get`
 
@@ -98,7 +103,7 @@ ARGUMENTS
 OPTIONS
   -h, --help      show CLI help
   -j, --json      returns the API in JSON format.
-  -r, --resolved  gets the resolved API definition (supported in v1.25+). 
+  -r, --resolved  gets the resolved API definition (supported in v1.25+).
 
 DESCRIPTION
   When VERSION is not included in the argument, the default version will be returned.
@@ -109,7 +114,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -129,7 +134,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -149,7 +154,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -169,7 +174,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
@@ -196,7 +201,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/update.js)_
 
 ## `swaggerhub configure`
 
@@ -206,15 +211,19 @@ configure application settings
 USAGE
   $ swaggerhub configure
 
+OPTIONS
+  -h, --help  show CLI help
+
 DESCRIPTION
   Enter the SwaggerHub URL - default is https://api.swaggerhub.com
-  Customers with on-premise installations need to point this to their on-premise API, which is http(s)://{swaggerhub-host}/v1
+  Customers with on-premise installations need to point this to their on-premise API, which is 
+  http(s)://{swaggerhub-host}/v1
   Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settings/apiKey
   You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config 
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/configure.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -234,7 +243,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -254,7 +263,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -272,6 +281,123 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+
+## `swaggerhub plugins`
+
+list installed plugins
+
+```
+USAGE
+  $ swaggerhub plugins
+
+OPTIONS
+  --core  show core plugins
+
+EXAMPLE
+  $ swaggerhub plugins
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/index.ts)_
+
+## `swaggerhub plugins:install PLUGIN...`
+
+installs a plugin into the CLI
+
+```
+USAGE
+  $ swaggerhub plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to install
+
+OPTIONS
+  -f, --force    yarn install with force flag
+  -h, --help     show CLI help
+  -v, --verbose
+
+DESCRIPTION
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+ALIASES
+  $ swaggerhub plugins:add
+
+EXAMPLES
+  $ swaggerhub plugins:install myplugin
+  $ swaggerhub plugins:install https://github.com/someuser/someplugin
+  $ swaggerhub plugins:install someuser/someplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/install.ts)_
+
+## `swaggerhub plugins:link PLUGIN`
+
+links a plugin into the CLI for development
+
+```
+USAGE
+  $ swaggerhub plugins:link PLUGIN
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+
+DESCRIPTION
+  Installation of a linked plugin will override a user-installed or core plugin.
+
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  command will override the user-installed or core plugin implementation. This is useful for development work.
+
+EXAMPLE
+  $ swaggerhub plugins:link myplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/link.ts)_
+
+## `swaggerhub plugins:uninstall PLUGIN...`
+
+removes a plugin from the CLI
+
+```
+USAGE
+  $ swaggerhub plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+
+ALIASES
+  $ swaggerhub plugins:unlink
+  $ swaggerhub plugins:remove
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/uninstall.ts)_
+
+## `swaggerhub plugins:update`
+
+update installed plugins
+
+```
+USAGE
+  $ swaggerhub plugins:update
+
+OPTIONS
+  -h, --help     show CLI help
+  -v, --verbose
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
 ## Plugins
