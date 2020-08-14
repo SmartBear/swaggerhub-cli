@@ -82,7 +82,7 @@ EXAMPLES
   swaggerhub api:create organization/api --file api.yaml
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/create.js)_
 
 ## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
 
@@ -109,7 +109,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish OWNER/API_NAME/VERSION`
 
@@ -129,7 +129,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
 
@@ -149,7 +149,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
 
@@ -169,7 +169,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
 
@@ -196,7 +196,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/update.js)_
 
 ## `swaggerhub api:validate`
 
@@ -236,7 +236,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/configure.js)_
 
 ## `swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`
 
@@ -256,7 +256,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`
 
@@ -276,7 +276,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -333,15 +333,18 @@ DESCRIPTION
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
   $ swaggerhub plugins:add
 
 EXAMPLES
-  $ swaggerhub plugins:install myplugin 
+
+
+  $ swaggerhub plugins:install myplugin
   $ swaggerhub plugins:install https://github.com/someuser/someplugin
   $ swaggerhub plugins:install someuser/someplugin
 ```
@@ -365,8 +368,8 @@ OPTIONS
 
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
