@@ -5,11 +5,11 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 
 <!-- toc -->
 * [Requirements](#requirements)
-* [Installation](#installation)	
-* [Setup](#setup)	
-* [Usage](#usage)	
-* [Commands](#commands)	
-* [Plugins](#plugins)	
+* [Installation](#installation)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Plugins](#plugins)
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Requirements
@@ -63,7 +63,7 @@ USAGE
 * [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall-plugin)
 * [`swaggerhub plugins:update`](#swaggerhub-pluginsupdate)
 
-# `swaggerhub api:create`
+## `swaggerhub api:create`
 
 creates a new API / API version from a YAML/JSON file
 
@@ -90,7 +90,7 @@ EXAMPLES
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/create.js)_
 
-# `swaggerhub api:get`
+## `swaggerhub api:get`
 
 fetches an API definition
 
@@ -117,7 +117,7 @@ EXAMPLES
 
 _See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/get.js)_
 
-# `swaggerhub api:publish`
+## `swaggerhub api:publish`
 
 publish an API version
 
@@ -137,7 +137,7 @@ EXAMPLE
 
 _See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/publish.js)_
 
-# `swaggerhub api:setdefault`
+## `swaggerhub api:setdefault`
 
 set the default version of an API
 
@@ -157,7 +157,7 @@ EXAMPLE
 
 _See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/setdefault.js)_
 
-# `swaggerhub api:unpublish`
+## `swaggerhub api:unpublish`
 
 unpublish an API version
 
@@ -177,7 +177,7 @@ EXAMPLE
 
 _See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/unpublish.js)_
 
-# `swaggerhub api:update`
+## `swaggerhub api:update`
 
 update an API version
 
@@ -204,7 +204,7 @@ EXAMPLES
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/update.js)_
 
-# `swaggerhub api:validate`
+## `swaggerhub api:validate`
 
 get validation result of an API version
 
@@ -224,7 +224,7 @@ DESCRIPTION
 
 _See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/validate.js)_
 
-# `swaggerhub configure`
+## `swaggerhub configure`
 
 configure application settings
 
@@ -246,7 +246,7 @@ DESCRIPTION
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/configure.js)_
 
-# `swaggerhub domain:publish`
+## `swaggerhub domain:publish`
 
 publish a domain version
 
@@ -266,7 +266,7 @@ EXAMPLE
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/publish.js)_
 
-# `swaggerhub domain:unpublish`
+## `swaggerhub domain:unpublish`
 
 unpublish a domain version
 
@@ -286,7 +286,7 @@ EXAMPLE
 
 _See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/unpublish.js)_
 
-# `swaggerhub help [COMMAND]`
+## `swaggerhub help [COMMAND]`
 
 display help for swaggerhub
 
@@ -303,7 +303,7 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
 
-# `swaggerhub plugins`
+## `swaggerhub plugins`
 
 list installed plugins
 
@@ -320,7 +320,7 @@ EXAMPLE
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/index.ts)_
 
-# `swaggerhub plugins:install PLUGIN...`
+## `swaggerhub plugins:install PLUGIN...`
 
 installs a plugin into the CLI
 
@@ -342,7 +342,7 @@ DESCRIPTION
   Installation of a user-installed plugin will override a core plugin.
 
   e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
@@ -356,7 +356,7 @@ EXAMPLES
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/install.ts)_
 
-# `swaggerhub plugins:link PLUGIN`
+## `swaggerhub plugins:link PLUGIN`
 
 links a plugin into the CLI for development
 
@@ -374,7 +374,7 @@ OPTIONS
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
@@ -383,7 +383,7 @@ EXAMPLE
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/link.ts)_
 
-# `swaggerhub plugins:uninstall PLUGIN...`
+## `swaggerhub plugins:uninstall PLUGIN...`
 
 removes a plugin from the CLI
 
@@ -405,7 +405,7 @@ ALIASES
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/uninstall.ts)_
 
-# `swaggerhub plugins:update`
+## `swaggerhub plugins:update`
 
 update installed plugins
 
