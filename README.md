@@ -46,7 +46,7 @@ USAGE
 * [`swaggerhub api:setdefault OWNER/API_NAME/VERSION`](#swaggerhub-apisetdefault-ownerapi_nameversion)
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish-ownerapi_nameversion)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate-ownerapi_nameversion)
-* [`swaggerhub api:validate`](#swaggerhub-apivalidate)
+* [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish-ownerdomain_nameversion)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish-ownerdomain_nameversion)
@@ -57,7 +57,7 @@ USAGE
 * [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall-plugin)
 * [`swaggerhub plugins:update`](#swaggerhub-pluginsupdate)
 
-## `swaggerhub api:create OWNER/API_NAME/[VERSION]`
+## `swaggerhub api:create`
 
 creates a new API / API version from a YAML/JSON file
 
@@ -84,7 +84,7 @@ EXAMPLES
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/create.js)_
 
-## `swaggerhub api:get OWNER/API_NAME/[VERSION]`
+## `swaggerhub api:get`
 
 fetches an API definition
 
@@ -111,7 +111,7 @@ EXAMPLES
 
 _See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/get.js)_
 
-## `swaggerhub api:publish OWNER/API_NAME/VERSION`
+## `swaggerhub api:publish`
 
 publish an API version
 
@@ -131,7 +131,7 @@ EXAMPLE
 
 _See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/publish.js)_
 
-## `swaggerhub api:setdefault OWNER/API_NAME/VERSION`
+## `swaggerhub api:setdefault`
 
 set the default version of an API
 
@@ -151,7 +151,7 @@ EXAMPLE
 
 _See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/setdefault.js)_
 
-## `swaggerhub api:unpublish OWNER/API_NAME/VERSION`
+## `swaggerhub api:unpublish`
 
 unpublish an API version
 
@@ -171,7 +171,7 @@ EXAMPLE
 
 _See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/unpublish.js)_
 
-## `swaggerhub api:update OWNER/API_NAME/[VERSION]`
+## `swaggerhub api:update`
 
 update an API version
 
@@ -200,21 +200,23 @@ _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-
 
 ## `swaggerhub api:validate`
 
-Describe the command here
+get validation result of an API version
 
 ```
 USAGE
-  $ swaggerhub api:validate
+  $ swaggerhub api:validate OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  SwaggerHub API to fetch
 
 OPTIONS
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  The API version is required. An error will occur if the API version does not exist.
 ```
 
-_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.8/src/commands/api/validate.js)_
+_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/validate.js)_
 
 ## `swaggerhub configure`
 
@@ -238,7 +240,7 @@ DESCRIPTION
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/configure.js)_
 
-## `swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`
+## `swaggerhub domain:publish`
 
 publish a domain version
 
@@ -258,7 +260,7 @@ EXAMPLE
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/domain/publish.js)_
 
-## `swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`
+## `swaggerhub domain:unpublish`
 
 unpublish a domain version
 
@@ -333,18 +335,15 @@ DESCRIPTION
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
   $ swaggerhub plugins:add
 
 EXAMPLES
-
-
-  $ swaggerhub plugins:install myplugin
+  $ swaggerhub plugins:install myplugin 
   $ swaggerhub plugins:install https://github.com/someuser/someplugin
   $ swaggerhub plugins:install someuser/someplugin
 ```
@@ -368,8 +367,8 @@ OPTIONS
 
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
 
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE

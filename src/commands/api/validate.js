@@ -9,7 +9,6 @@ class ValidateCommand extends BaseCommand {
     const { args } = this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
-    this.log(validPath)
     const validationResult = await this.getValidationResult(validPath)
     // eslint-disable-next-line immutable/no-let
     let hasCritical = false
@@ -19,7 +18,9 @@ class ValidateCommand extends BaseCommand {
             return `${err.line}: \t${err.severity} \t${err.description}`
           })
           .join('\n')
-    if (validationResult.validation.length) this.log('line \tseverity \tdescription\n')
+    if (validationResult.validation.length) {
+      this.log('line \tseverity \tdescription\n')
+    }
     this.log(validationResultsStr)
     
     if (hasCritical) this.exit(1)
