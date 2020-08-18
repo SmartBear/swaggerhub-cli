@@ -63,6 +63,15 @@ describe('invalid api:validate', () => {
   .command(['api:validate', apiPath])
   .exit(2)
   .it('an error is returned when user has no permission to access API')
+
+  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
+    .reply(404, { message: 'Unknown API org1/api2' })
+  )
+  .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
+  .exit(2)
+  .it('not found returned when fetching default version of API')
 })
 
 describe('valid api:validation', () => {
@@ -77,6 +86,24 @@ describe('valid api:validation', () => {
   .command(['api:validate', apiPath])
   .exit(0)
   .it('should return empty result as there is no error', ctx => {
+    expect(ctx.stdout).to.contains('')
+  })
+
+  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .nock('https://api.swaggerhub.com/apis', api => api
+    .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
+    .reply(200, { version: apiPath.substring(apiPath.lastIndexOf('/')+1) })
+  )
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(200, {
+      validation: []
+    })
+  )
+  .stdout()
+  .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
+  .exit(0)
+  .it('should resolve version and return empty result as there is no error', ctx => {
     expect(ctx.stdout).to.contains('')
   })
 })
