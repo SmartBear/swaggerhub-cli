@@ -44,7 +44,7 @@ class ValidateCommand extends BaseCommand {
   }
 }
 
-ValidateCommand.description = `get validation result of an API version
+ValidateCommand.description = `get validation result for an API version
 An error will occur if the API version does not exist.
 `
 
