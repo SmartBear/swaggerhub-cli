@@ -1,13 +1,9 @@
 const { flags } = require('@oclif/command')
 const { getApiIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
-const { pipeAsync, from, hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
+const { from, hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
-
-function versionResponse(content) {
-  return JSON.parse(content).version
-}
 
 class GetAPICommand extends BaseCommand {
   constructor(...props) {
@@ -23,14 +19,6 @@ class GetAPICommand extends BaseCommand {
       ? prettyPrintJSON(definition)
       : definition
     )
-  }
-
-  async getDefaultVersion(identifier) {
-    return this.executeHttp({
-      execute: () => getApi([...identifier, 'settings', 'default']),
-      onResolve: pipeAsync(getResponseContent, versionResponse),
-      options: { resolveStatus: [403] }
-    })
   }
 
   async ensureVersion([owner, name, version]) {

@@ -12,13 +12,13 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Plugins](#plugins)
 * [Contributing](#contributing)
 <!-- tocstop -->
-## Requirements
+# Requirements
 Node.js 10 or later.
-## Installation
+# Installation
 ```sh-session
 $ npm i -g swaggerhub-cli
 ```
-## Setup
+# Setup
 The SwaggerHub CLI can be configured through environment variables or through the [`swaggerhub configure`](#swaggerhub-configure) command. The CLI will look for the following environment variables.
 
 * `SWAGGERHUB_API_KEY` (required) – **Important: keep this key secure.** This is the SwaggerHub API key the CLI will use for authentication. You can find your API key on the [user settings page](https://app.swaggerhub.com/settings/apiKey) in SwaggerHub.
@@ -33,7 +33,7 @@ $ swaggerhub configure
 ```
 
 Environment variables take precedence over the configuration file created by this command.
-## Usage
+# Usage
 ```sh-session
 $ swaggerhub COMMAND
 running command...
@@ -44,7 +44,7 @@ USAGE
   $ swaggerhub COMMAND
 ...
 ```
-## Commands
+# Commands
 <!-- commands -->
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate-ownerapi_nameversion)
 * [`swaggerhub api:get OWNER/API_NAME/[VERSION]`](#swaggerhub-apiget-ownerapi_nameversion)
@@ -52,6 +52,7 @@ USAGE
 * [`swaggerhub api:setdefault OWNER/API_NAME/VERSION`](#swaggerhub-apisetdefault-ownerapi_nameversion)
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish-ownerapi_nameversion)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate-ownerapi_nameversion)
+* [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate-ownerapi_nameversion)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish-ownerdomain_nameversion)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish-ownerdomain_nameversion)
@@ -203,6 +204,26 @@ EXAMPLES
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/update.js)_
 
+## `swaggerhub api:validate`
+
+get validation result of an API version
+
+```
+USAGE
+  $ swaggerhub api:validate OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  SwaggerHub API to fetch
+
+OPTIONS
+  -h, --help  show CLI help
+
+DESCRIPTION
+  The API version is required. An error will occur if the API version does not exist.
+```
+
+_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/validate.js)_
+
 ## `swaggerhub configure`
 
 configure application settings
@@ -320,7 +341,7 @@ DESCRIPTION
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
   will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
   the CLI without the need to patch and update the whole CLI.
 
@@ -328,7 +349,7 @@ ALIASES
   $ swaggerhub plugins:add
 
 EXAMPLES
-  $ swaggerhub plugins:install myplugin
+  $ swaggerhub plugins:install myplugin 
   $ swaggerhub plugins:install https://github.com/someuser/someplugin
   $ swaggerhub plugins:install someuser/someplugin
 ```
@@ -400,7 +421,7 @@ OPTIONS
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
-## Plugins
+# Plugins
 
 The SwaggerHub CLI supports plugins via the [oclif plugin](https://oclif.io/docs/plugins) infrastructure.
 
@@ -437,7 +458,7 @@ $ swaggerhub schema:get ansible
   # ...
 ```
 
-## Contributing
+# Contributing
 <!-- contributing -->
 The SwaggerHub CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have a feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues) and let us know.
 <!-- contributingstop -->
