@@ -45,13 +45,21 @@ class ValidateCommand extends BaseCommand {
 }
 
 ValidateCommand.description = `get validation result for an API version
+When VERSION is not included in the argument, the default version will be validated.
 An error will occur if the API version does not exist.
 `
+
+ValidateCommand.examples = [
+  'swaggerhub api:validate organization/api/1.0.0',
+  'swaggerhub api:validate organization/api'
+]
 
 ValidateCommand.args = [{
   name: 'OWNER/API_NAME/[VERSION]',
   required: true,
-  description: 'SwaggerHub API to fetch'
+  description: 'API Identifier'
 }]
+
+ValidateCommand.flags = BaseCommand.flags
 
 module.exports = ValidateCommand
