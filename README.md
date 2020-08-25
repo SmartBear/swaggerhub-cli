@@ -206,20 +206,25 @@ _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-
 
 ## `swaggerhub api:validate`
 
-get validation result of an API version
+get validation result for an API version
 
 ```
 USAGE
   $ swaggerhub api:validate OWNER/API_NAME/[VERSION]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  SwaggerHub API to fetch
+  OWNER/API_NAME/[VERSION]  API Identifier
 
 OPTIONS
   -h, --help  show CLI help
 
 DESCRIPTION
-  The API version is required. An error will occur if the API version does not exist.
+  When VERSION is not included in the argument, the default version will be validated.
+  An error will occur if the API version does not exist.
+
+EXAMPLES
+  swaggerhub api:validate organization/api/1.0.0
+  swaggerhub api:validate organization/api
 ```
 
 _See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.9/src/commands/api/validate.js)_
