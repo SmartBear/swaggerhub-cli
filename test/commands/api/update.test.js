@@ -77,6 +77,62 @@ describe('invalid api:update', () => {
     .command(['api:update', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
     .exit(2)
     .it('runs api:update with error on updating API')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/1.0.0')
+      .reply(404, '{"code": 404, "message": "Unknown API org/api/1.0.0"}')
+    )
+    .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .catch(err => {
+      expect(err.message).to.contains('Unknown API org/api/1.0.0')
+    })
+    .it('error shows as update failed and publish and setdefault are not executed')
+
+    test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/1.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle')
+      .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.0.0"}')
+    )
+    .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .catch(err => {
+      expect(err.message).to.contains('Unknown API org/api:1.0.0')
+    })
+    .it('error shows as publish failed and setdefault is not executed')
+
+    test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/1.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '1.0.0' })
+      .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.0.0"}')
+    )
+    .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .catch(err => {
+      expect(err.message).to.contains('Unknown API org/api:1.0.0')
+    })
+    .it('error shows as setdefault failed')
 })
 
 describe('valid api:update', () => {
@@ -130,4 +186,72 @@ describe('valid api:update', () => {
     .it('runs api:update to set API public', ctx => {
       expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'')
     })
+
+    test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/2.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=2.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--publish'])
+
+    .it('runs api:update to publish API', ctx => {
+      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'\nPublished API org/api/2.0.0')
+    })
+
+    test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/2.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=2.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '2.0.0' })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--setdefault'])
+
+    .it('runs api:update to set default version', ctx => {
+      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'\nDefault version of org/api set to 2.0.0')
+    })
+
+    test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/2.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=2.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '2.0.0' })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--setdefault', '--publish'])
+
+  .it('runs api:update to publish API and set default version', ctx => {
+    expect(ctx.stdout).
+      to.contains('Updated API \'org/api/2.0.0\'\nPublished API org/api/2.0.0\nDefault version of org/api set to 2.0.0')
+  })
 })
