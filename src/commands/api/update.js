@@ -39,7 +39,7 @@ class UpdateAPICommand extends BaseCommand {
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
     requestedApiPath :
     `${requestedApiPath}/${apiVersion}`
-    
+
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
   }
@@ -76,13 +76,13 @@ UpdateAPICommand.flags = {
     default: 'private'
   }),
   publish: flags.boolean({
-    description: 'publishes API when API gets updated',
+    description: 'sets the API version as published',
     default: false,
     required: false,
     dependsOn: ['file']
   }),
   setdefault: flags.boolean({
-    description: 'sets default API version to the version in the provided file when API gets updated',
+    description: 'sets API version to be the default',
     default: false,
     required: false,
     dependsOn: ['file']

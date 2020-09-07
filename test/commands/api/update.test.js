@@ -102,11 +102,11 @@ describe('invalid api:update', () => {
     )
     .nock(`${shubUrl}/apis`, api => api
       .put('/org/api/1.0.0/settings/lifecycle')
-      .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.0.0"}')
+      .reply(500, '{ "code": 500, "message": "An error occurred. Publishing API failed"}')
     )
     .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
     .catch(err => {
-      expect(err.message).to.contains('Unknown API org/api:1.0.0')
+      expect(err.message).to.contains('An error occurred. Publishing API failed')
     })
     .it('error shows as publish failed and setdefault is not executed')
 
@@ -126,11 +126,11 @@ describe('invalid api:update', () => {
     )
     .nock(`${shubUrl}/apis`, api => api
       .put('/org/api/settings/default', { version: '1.0.0' })
-      .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.0.0"}')
+      .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
     )
     .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('Unknown API org/api:1.0.0')
+      expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
     .it('error shows as setdefault failed')
 })
