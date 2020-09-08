@@ -192,6 +192,8 @@ OPTIONS
   -f, --file=file              (required) file location of API to update
   -h, --help                   show CLI help
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
+  --publish                    sets the API version as published
+  --setdefault                 sets API version to be the default
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
@@ -200,6 +202,9 @@ DESCRIPTION
 EXAMPLES
   swaggerhub api:update organization/api --file api.yaml
   swaggerhub api:update organization/api/1.0.0 --file api.json
+  swaggerhub api:update organization/api/1.0.0 --publish --file api.json
+  swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json
+  swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json
 ```
 
 _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.10/src/commands/api/update.js)_
