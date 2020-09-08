@@ -192,8 +192,8 @@ OPTIONS
   -f, --file=file              (required) file location of API to update
   -h, --help                   show CLI help
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
-  --publish                    publish the API version when it gets updated
-  --setdefault                 set this version as the default version of API
+  --publish                    sets the API version as published
+  --setdefault                 sets API version to be the default
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
