@@ -150,7 +150,7 @@ describe('valid api:update', () => {
     .command(['api:update', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
 
     .it('runs api:update with YAML file', ctx => {
-      expect(ctx.stdout).to.contains(`Updated API '${validIdentifier}'`)
+      expect(ctx.stdout).to.contains(`Updated API ${validIdentifier}`)
     })
 
   test
@@ -167,7 +167,7 @@ describe('valid api:update', () => {
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json'])
 
     .it('runs api:update with JSON file, version read from file', ctx => {
-      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'')
+      expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
     })
 
   test
@@ -184,7 +184,7 @@ describe('valid api:update', () => {
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility=public'])
 
     .it('runs api:update to set API public', ctx => {
-      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'')
+      expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
     })
 
     test
@@ -205,7 +205,7 @@ describe('valid api:update', () => {
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--publish'])
 
     .it('runs api:update to publish API', ctx => {
-      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'\nPublished API org/api/2.0.0')
+      expect(ctx.stdout).to.contains('Updated API org/api/2.0.0\nPublished API org/api/2.0.0')
     })
 
     test
@@ -226,7 +226,7 @@ describe('valid api:update', () => {
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--setdefault'])
 
     .it('runs api:update to set default version', ctx => {
-      expect(ctx.stdout).to.contains('Updated API \'org/api/2.0.0\'\nDefault version of org/api set to 2.0.0')
+      expect(ctx.stdout).to.contains('Updated API org/api/2.0.0\nDefault version of org/api set to 2.0.0')
     })
 
     test
@@ -252,6 +252,6 @@ describe('valid api:update', () => {
 
   .it('runs api:update to publish API and set default version', ctx => {
     expect(ctx.stdout).
-      to.contains('Updated API \'org/api/2.0.0\'\nPublished API org/api/2.0.0\nDefault version of org/api set to 2.0.0')
+      to.contains('Updated API org/api/2.0.0\nPublished API org/api/2.0.0\nDefault version of org/api set to 2.0.0')
   })
 })
