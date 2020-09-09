@@ -8,13 +8,13 @@ const BaseCommand = require('../../support/command/base-command')
 class GetAPICommand extends BaseCommand {
   constructor(...props) {
     super(...props)
+  }
 
-    this.logDefinition = response => {
-      const definition = getResponseContent(response)
-      this.log(hasJsonStructure(definition)
-        ? prettyPrintJSON(definition)
-        : definition)
-    }
+  logDefinition = response => {
+    const definition = getResponseContent(response)
+    this.log(hasJsonStructure(definition)
+      ? prettyPrintJSON(definition)
+      : definition)
   }
 
   async ensureVersion([owner, name, version]) {
