@@ -199,8 +199,6 @@ OPTIONS
   --publish                    sets the API version as published
   --setdefault                 sets API version to be the default
   --visibility=public|private  [default: private] visibility of API in SwaggerHub
-  --publish                    sets the API version as published
-  --setdefault                 sets API version to be the default
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.

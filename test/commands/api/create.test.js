@@ -268,7 +268,8 @@ describe('valid api:create', () => {
     .stdout()
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--setdefault', '--publish'])
     .it('runs api:create to publish API and set default version', ctx => {
-      expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0\nDefault version of org/api set to 1.0.0')
+      expect(ctx.stdout).to
+        .contains('Created API \'org/api\'\nPublished API org/api/1.0.0\nDefault version of org/api set to 1.0.0')
     })
 
   test
