@@ -1,7 +1,7 @@
 {
   "name": "swaggerhub-cli",
   "description": "SwaggerHub CLI",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "author": "SmartBear",
   "bin": {
     "swaggerhub": "./bin/run"
