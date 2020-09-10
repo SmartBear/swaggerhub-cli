@@ -122,6 +122,68 @@ describe('invalid api:create', () => {
       expect(ctx.message).to.equal('You have reached the limit of APIs. You may need to upgrade your current plan.')
     })
     .it('runs api:create with org that doesn\'t exist')
+  
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/orgNotExist/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
+    )
+    .command(['api:create', 'orgNotExist/api/1.0.0', '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .catch(err => {
+      expect(err.message).to.contains('Object doesn\'t exist')
+    })
+    .it('error shows as create failed and publish and setdefault are not executed')
+  
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle')
+      .reply(500, '{ "code": 500, "message": "An error occurred. Publishing API failed"}')
+    )
+    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .catch(err => {
+      expect(err.message).to.contains('An error occurred. Publishing API failed')
+    })
+    .it('error shows as publish failed and setdefault is not executed')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '1.0.0' })
+      .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
+    )
+    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .catch(err => {
+      expect(err.message).to.contains('An error occurred. Setting default version failed')
+    })
+    .it('error shows as setdefault failed')
 })
 
 describe('valid api:create', () => {
@@ -140,6 +202,73 @@ describe('valid api:create', () => {
     .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '1.0.0' })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--setdefault'])
+    .it('runs api:create to set default version', ctx => {
+      expect(ctx.stdout).to.contains('Created API \'org/api\'\nDefault version of org/api set to 1.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--publish'])
+    .it('runs api:create to publish API', ctx => {
+      expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '1.0.0' })
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .it('runs api:create to publish API and set default version', ctx => {
+      expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0\nDefault version of org/api set to 1.0.0')
     })
 
   test
