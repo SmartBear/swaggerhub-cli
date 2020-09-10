@@ -9,12 +9,16 @@ class GetAPICommand extends BaseCommand {
   constructor(...props) {
     super(...props)
 
-    this.logDefinition = response => {
-      const definition = getResponseContent(response)
-      this.log(hasJsonStructure(definition)
-        ? prettyPrintJSON(definition)
-        : definition)
-    }
+    this.logApiDefinition = this.logApiDefinition.bind(this)
+  }
+
+  logApiDefinition(response) {
+    const definition = getResponseContent(response)
+
+    this.log(hasJsonStructure(definition)
+      ? prettyPrintJSON(definition)
+      : definition
+    )
   }
 
   async ensureVersion([owner, name, version]) {
@@ -31,7 +35,7 @@ class GetAPICommand extends BaseCommand {
 
     await this.executeHttp({
       execute: () => getApi(pathParams, queryParams, requestType),
-      onResolve: this.logDefinition,
+      onResolve: this.logApiDefinition,
       options: { resolveStatus: [403] }
     })
   }
