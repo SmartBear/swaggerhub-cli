@@ -19,7 +19,9 @@ const errorMsg = {
 
   fileNotFound: 'File \'{{fileName}}\' not found',
 
-  upgradePlan: 'You may need to upgrade your current plan.',
+  upgradePlan: 'You may need to upgrade your current plan',
+
+  makePublic: 'make your definition public',
 
   unknown: 'Unknown Error',
 }
