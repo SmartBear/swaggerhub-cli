@@ -1,29 +1,13 @@
 const config = require('../config')
 const { hasJsonStructure } = require('../utils/general')
 const http = require('../support/http')
+const { getSpec, putSpec } = require('./spec')
 
-const getApi = (pathParams, queryParams, accept = 'json') => {
-  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+const getApi = (pathParams, queryParams, accept = 'json') =>
+  getSpec('apis', pathParams, queryParams, accept)
 
-  return http({
-    url: [SWAGGERHUB_URL, 'apis', ...pathParams],
-    auth: SWAGGERHUB_API_KEY,
-    accept: accept,
-    query: queryParams
-  })
-}
-
-const putApi = ({ pathParams, body }) => {
-  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-
-  return http({
-    url: [SWAGGERHUB_URL, 'apis', ...pathParams],
-    auth: SWAGGERHUB_API_KEY,
-    contentType: 'json',
-    method: 'PUT',
-    body
-  })
-}
+const putApi = ({ pathParams, body }) =>
+  putSpec('apis', pathParams, body)
 
 const postApi = ({ pathParams, queryParams, body }) => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()

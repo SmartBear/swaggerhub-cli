@@ -119,7 +119,7 @@ describe('invalid api:create', () => {
     )
     .command(['api:create', 'org/overLimitApi/1.0.0', '--file=test/resources/valid_api.json'])
     .catch(ctx => {
-      expect(ctx.message).to.equal('You have reached the limit of APIs. You may need to upgrade your current plan.')
+      expect(ctx.message).to.equal('You have reached the limit of APIs. You may need to upgrade your current plan')
     })
     .it('runs api:create with org that doesn\'t exist')
 })

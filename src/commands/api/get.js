@@ -22,7 +22,7 @@ class GetAPICommand extends BaseCommand {
   }
 
   async ensureVersion([owner, name, version]) {
-    const apiVersion = version || await this.getDefaultVersion([owner, name])
+    const apiVersion = version || await this.getDefaultApiVersion([owner, name])
     return [owner, name, apiVersion]
   }
 
