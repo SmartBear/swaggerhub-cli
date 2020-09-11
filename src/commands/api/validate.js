@@ -27,14 +27,6 @@ class ValidateCommand extends BaseCommand {
     this.exit(0)
   }
 
-  async ensureVersion(apiPath) {
-    if (apiPath.split('/').length !== 3) {
-      const version = await this.getDefaultApiVersion(apiPath.split('/'))
-      return `${apiPath}/${version}`
-    }
-    return apiPath
-  }
-
   getValidationResult(apiPath) {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'validation']),

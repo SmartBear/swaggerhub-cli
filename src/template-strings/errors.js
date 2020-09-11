@@ -5,6 +5,8 @@ const errorMsg = {
 
   Configure: 'Failed to write config to {{configFilePath}}',
 
+  IntegrationCreate: 'Invalid configuration file. Please ensure that the file is in JSON format',
+
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
   cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',

@@ -6,17 +6,16 @@ class UnpublishCommand extends BaseCommand {
   
   async run() {
     const { args } = this.parse(UnpublishCommand)
-    const requestedDomainPath = getDomainIdentifierArg(args)
-    const [owner, name, version] = splitPathParams(requestedDomainPath)
+    const domainPath = getDomainIdentifierArg(args)
 
     const publish = {
-      pathParams: [owner, name, version, 'settings', 'lifecycle'],
+      pathParams: [domainPath, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: false })
     }
     
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: this.logCommandSuccess({ requestedDomainPath }),
+      onResolve: this.logCommandSuccess({ domainPath }),
       options: { resolveStatus: [403] }
     })
   }
