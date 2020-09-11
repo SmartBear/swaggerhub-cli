@@ -17,7 +17,7 @@ const infoMsg = {
 
   DomainUnpublish: 'Unpublished domain {{domainPath}}',
 
-  IntegrationCreate: 'Created integration on API {{apiPath}}',
+  IntegrationCreate: 'Created integration on API \'{{apiPath}}\'',
 
   Configure: 'Saved config to {{configFilePath}}'
 }
