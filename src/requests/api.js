@@ -11,11 +11,10 @@ const putApi = ({ pathParams, body }) =>
 
 const postApi = ({ pathParams, queryParams, body }) => {
   const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-  const [owner, name] = pathParams
   const isJson = hasJsonStructure(body)
 
   return http({
-    url: [SWAGGERHUB_URL, 'apis', owner, name],
+    url: [SWAGGERHUB_URL, 'apis', ...pathParams],
     auth: SWAGGERHUB_API_KEY,
     contentType: isJson ? 'json' : 'yaml',
     method: 'POST',

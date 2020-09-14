@@ -1,0 +1,13 @@
+{
+    "name": "GitHub Integration Name",
+    "configType": "GITHUB",
+    "owner": "owner",
+    "token": "0123456789abcdeffedcba9876543210",
+    "repository": "pet-store-test",
+    "syncMethod": "Basic Sync",
+    "branch": "CLI_Test",
+    "target": "YAML (Unresolved)",
+    "outputFolder": "yaml-resolved",
+    "outputFile": "swagger.yaml",
+    "enabled": true
+}

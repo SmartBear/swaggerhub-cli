@@ -45,6 +45,14 @@ class BaseCommand extends Command {
     }
   }
 
+  async ensureVersion(apiPath) {
+    if (apiPath.split('/').length !== 3) {
+      const version = await this.getDefaultApiVersion(apiPath.split('/'))
+      return `${apiPath}/${version}`
+    }
+    return apiPath
+  }
+
   async getDefaultApiVersion(identifier) {
     return this.executeHttp({
       execute: () => getApi([...identifier, 'settings', 'default']),
