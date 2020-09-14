@@ -1,0 +1,13 @@
+{
+    "name": "GitHub Sync",
+    "configType": "GITHUB",
+    "token": "<token>",
+    "owner": "repo_owner",
+    "repository": "pet-store",
+    "syncMethod": "Basic Sync",
+    "branch": "pet_branch",
+    "target": "YAML (Unresolved)",
+    "outputFile": "swagger.yaml",
+    "outputFolder": "yaml-resolved",
+    "enabled": true,
+}
