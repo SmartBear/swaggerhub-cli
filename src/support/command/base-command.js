@@ -2,7 +2,8 @@ const { Command, flags } = require('@oclif/command')
 const { capitalise, pipeAsync } = require('../../utils/general')
 const { infoMsg, errorMsg } = require('../../template-strings')
 const { getApi } = require('../../requests/api')
-const { getResponseContent } = require('../../support/command/handle-response')
+const { getDomain } = require('../../requests/domain')
+const { getResponseContent } = require('./handle-response')
 
 const { isURLValid } = require('../../config')
 const {
@@ -44,9 +45,17 @@ class BaseCommand extends Command {
     }
   }
 
-  async getDefaultVersion(identifier) {
+  async getDefaultApiVersion(identifier) {
     return this.executeHttp({
       execute: () => getApi([...identifier, 'settings', 'default']),
+      onResolve: pipeAsync(getResponseContent, versionResponse),
+      options: { resolveStatus: [403] }
+    })
+  }
+
+  async getDefaultDomainVersion(identifier) {
+    return this.executeHttp({
+      execute: () => getDomain([...identifier, 'settings', 'default']),
       onResolve: pipeAsync(getResponseContent, versionResponse),
       options: { resolveStatus: [403] }
     })

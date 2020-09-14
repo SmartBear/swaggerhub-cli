@@ -1,18 +1,12 @@
-const config = require('../config')
-const http = require('../support/http')
+const { getSpec, putSpec } = require('./spec')
 
-const putDomain = ({ pathParams, body }) => {
-  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+const getDomain = (pathParams, queryParams, accept = 'json') =>
+  getSpec('domains', pathParams, queryParams, accept)
 
-  return http({
-    url: [SWAGGERHUB_URL, 'domains', ...pathParams],
-    auth: SWAGGERHUB_API_KEY,
-    contentType: 'json',
-    method: 'PUT',
-    body
-  })
-}
+const putDomain = ({ pathParams, body }) =>
+  putSpec('domains', pathParams, body)
 
 module.exports = {
+  getDomain,
   putDomain
 }

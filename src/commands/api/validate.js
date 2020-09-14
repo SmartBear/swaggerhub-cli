@@ -29,7 +29,7 @@ class ValidateCommand extends BaseCommand {
 
   async ensureVersion(apiPath) {
     if (apiPath.split('/').length !== 3) {
-      const version = await this.getDefaultVersion(apiPath.split('/'))
+      const version = await this.getDefaultApiVersion(apiPath.split('/'))
       return `${apiPath}/${version}`
     }
     return apiPath
