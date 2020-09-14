@@ -18,18 +18,18 @@ const getVersion = definition => {
   return definition.info.version
 }
 
-const parseDefinition = fileName => {
-  if (!existsSync(fileName)) {
-    throw new CLIError(errorMsg.fileNotFound({ fileName }))
+const parseDefinition = filename => {
+  if (!existsSync(filename)) {
+    throw new CLIError(errorMsg.fileNotFound({ filename }))
   }
-  const file = readFileSync(fileName)
+  const file = readFileSync(filename)
   if (file.length === 0) {
-    throw new CLIError(errorMsg.fileIsEmpty({ fileName }))
+    throw new CLIError(errorMsg.fileIsEmpty({ filename }))
   }
   try {
     return hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file) 
   } catch (e) {
-    throw new CLIError(errorMsg.cannotParseDefinition({ fileName, e: JSON.stringify(e) }))
+    throw new CLIError(errorMsg.cannotParseDefinition({ filename, e: JSON.stringify(e) }))
   }
 }
 

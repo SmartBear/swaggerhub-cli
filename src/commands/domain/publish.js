@@ -6,17 +6,16 @@ class PublishCommand extends BaseCommand {
   
   async run() {
     const { args } = this.parse(PublishCommand)
-    const requestedDomainPath = getDomainIdentifierArg(args)
-    const [owner, name, version] = splitPathParams(requestedDomainPath)
+    const domainPath = getDomainIdentifierArg(args)
 
     const publish = {
-      pathParams: [owner, name, version, 'settings', 'lifecycle'],
+      pathParams: [domainPath, 'settings', 'lifecycle'],
       body: JSON.stringify({ published: true })
     }
     
     await this.executeHttp({
       execute: () => putDomain(publish), 
-      onResolve: this.logCommandSuccess({ requestedDomainPath }),
+      onResolve: this.logCommandSuccess({ domainPath }),
       options: { resolveStatus: [403] }
     })
   }

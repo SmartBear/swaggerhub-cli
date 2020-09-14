@@ -8,7 +8,6 @@ const BaseCommand = require('../../support/command/base-command')
 class GetAPICommand extends BaseCommand {
   constructor(...props) {
     super(...props)
-
     this.logApiDefinition = this.logApiDefinition.bind(this)
   }
 
@@ -21,20 +20,14 @@ class GetAPICommand extends BaseCommand {
     )
   }
 
-  async ensureVersion([owner, name, version]) {
-    const apiVersion = version || await this.getDefaultApiVersion([owner, name])
-    return [owner, name, apiVersion]
-  }
-
   async run() {
     const { args, flags } = this.parse(GetAPICommand)
     const requestedApiPath = getApiIdentifierArg(args)
-    const requestedPathParams = splitPathParams(requestedApiPath)
-    const pathParams = await this.ensureVersion(requestedPathParams)
+    const apiPath = await this.ensureVersion(requestedApiPath)
     const [queryParams, requestType] = from(flags)(resolvedParam, reqType)
 
     await this.executeHttp({
-      execute: () => getApi(pathParams, queryParams, requestType),
+      execute: () => getApi([apiPath], queryParams, requestType),
       onResolve: this.logApiDefinition,
       options: { resolveStatus: [403] }
     })

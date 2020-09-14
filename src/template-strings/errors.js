@@ -7,7 +7,7 @@ const errorMsg = {
 
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
-  cannotParseDefinition: 'There was a problem with parsing {{fileName}}. Ensure the definition is valid. {{e}}',
+  cannotParseDefinition: 'There was a problem with parsing {{filename}}. Ensure the definition is valid. {{e}}',
 
   cannotParseOasVersion: 'Cannot determine OAS version from file',
 
@@ -15,9 +15,11 @@ const errorMsg = {
 
   noContentField: 'No content field provided',
   
-  fileIsEmpty: 'File \'{{fileName}}\' is empty',
+  fileIsEmpty: 'File \'{{filename}}\' is empty',
 
-  fileNotFound: 'File \'{{fileName}}\' not found',
+  fileNotFound: 'File \'{{filename}}\' not found',
+
+  invalidConfig: 'Invalid configuration file. Please ensure that the file is in JSON format',
 
   upgradePlan: 'You may need to upgrade your current plan',
 

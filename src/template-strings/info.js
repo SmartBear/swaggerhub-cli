@@ -7,7 +7,7 @@ const infoMsg = {
 
   ApiPublish: 'Published API {{apiPath}}',
 
-  DomainPublish: 'Published domain {{requestedDomainPath}}',
+  DomainPublish: 'Published domain {{domainPath}}',
 
   ApiSetdefault: 'Default version of {{owner}}/{{name}} set to {{version}}',
 
@@ -15,7 +15,9 @@ const infoMsg = {
 
   ApiUnpublish: 'Unpublished API {{apiPath}}',
 
-  DomainUnpublish: 'Unpublished domain {{requestedDomainPath}}',
+  DomainUnpublish: 'Unpublished domain {{domainPath}}',
+
+  IntegrationCreate: 'Created integration on API \'{{apiPath}}\'',
 
   Configure: 'Saved config to {{configFilePath}}'
 }
