@@ -52,7 +52,7 @@ class CreateIntegrationCommand extends BaseCommand {
 
 CreateIntegrationCommand.description = `creates a new API integation from a JSON configuration file.
 When VERSION is not included in the argument, the integration will be added to be default API version.
-See the documentation for example configuration files.
+See the documentation for example configuration files: https://github.com/SmartBear/swaggerhub-cli/tree/master/examples/integrations/
 `
 
 CreateIntegrationCommand.examples = [
