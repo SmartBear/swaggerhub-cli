@@ -2,7 +2,7 @@
     "name": "GitHub Advanced Sync",
     "configType": "GITHUB",
     "token": "<token>",
-    "owner": "repo_owner",
+    "owner": "repo-owner",
     "repository": "pet-store",
     "syncMethod": "Advanced Sync",
     "branch": "NodeJs",

@@ -1,0 +1,13 @@
+{
+    "name": "GitHub Enterprise Sync",
+    "configType": "GITHUB_ENTERPRISE",
+    "host": "http://ghe.swaggerhub.com",
+    "token": "<token>",
+    "owner": "repo_owner",
+    "repository": "project-repository",
+    "syncMethod": "Basic Sync",
+    "branch": "swaggerhub",
+    "target": "java",
+    "outputFolder": "java",
+    "enabled": true
+}

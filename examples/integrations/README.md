@@ -7,8 +7,23 @@ Integrations are created for an API using the `integration:create` command. The 
 * **name**: Name of the integration
 * **configType**: "GITHUB" is used to create a GitHub Integration.
 * **token**: Personal access token for accessing the repository. Tokens can generated here: https://github.com/settings/tokens.
-* **owner**: The owner of the repository to synchronize.
-* **repository**: The repository to synchronize.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. (Must not contain whitespace characters).
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **outputFolder**: The output folder for the generated code or definition.
+* **enabled**: Set whether the integration can be executed. Default value is `true`.
+
+
+## GitHub Enterprise Integration
+* **name**: Name of the integration
+* **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise Integration.
+* **host**:  The URL of your GitHub Enterprise server, for example, https://ghe.mycompany.com
+* **token**: Personal access token for accessing the repository.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
 * **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. (Must not contain whitespace characters).
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
