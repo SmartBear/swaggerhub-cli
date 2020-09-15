@@ -3,7 +3,7 @@
     "configType": "GITHUB_ENTERPRISE",
     "host": "http://ghe.swaggerhub.com",
     "token": "<token>",
-    "owner": "repo_owner",
+    "owner": "repo-owner",
     "repository": "project-repository",
     "syncMethod": "Basic Sync",
     "branch": "swaggerhub",

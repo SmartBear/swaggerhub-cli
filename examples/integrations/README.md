@@ -21,7 +21,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **name**: Name of the integration
 * **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise Integration.
 * **host**:  The URL of your GitHub Enterprise server, for example, https://ghe.mycompany.com
-* **token**: Personal access token for accessing the repository.
+* **token**: Personal access token for accessing the repository. Tokens can be generated on: https://<github-host>/settings/tokens.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
 * **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
