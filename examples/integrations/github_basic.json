@@ -9,5 +9,5 @@
     "target": "YAML (Unresolved)",
     "outputFile": "swagger.yaml",
     "outputFolder": "yaml-resolved",
-    "enabled": true,
+    "enabled": true
 }

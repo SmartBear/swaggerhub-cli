@@ -1,0 +1,13 @@
+{
+    "name": "GitLab Sync",
+    "configType": "GITLAB",
+    "personalAccessToken": "<token>",
+    "owner": "repo-owner",
+    "repository": "simple-api",
+    "syncMethod": "Basic Sync",
+    "branch": "example_branch",
+    "target": "JSON (Resolved)",
+    "outputFile": "api.json",
+    "outputFolder": "json-resolved",
+    "enabled": true
+}

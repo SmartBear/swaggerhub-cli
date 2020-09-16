@@ -2,6 +2,10 @@
 
 Integrations are created for an API using the `integration:create` command. The command takes a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
+* [GitHub Integration](#github-integration)
+* [GitHub Enterprise Integration](#github-enterprise-integration)
+* [GitLab Integration](#gitlab-integration)
+
 
 ## GitHub Integration
 * **name**: Name of the integration
@@ -20,7 +24,7 @@ Integrations are created for an API using the `integration:create` command. The 
 ## GitHub Enterprise Integration
 * **name**: Name of the integration
 * **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise Integration.
-* **host**:  The URL of your GitHub Enterprise server, for example, https://ghe.example.com.
+* **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
 * **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
@@ -31,6 +35,20 @@ Integrations are created for an API using the `integration:create` command. The 
 * **outputFolder**: The output folder for the generated code or definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
+
+## GitLab Integration
+* **name**: Name of the integration
+* **configType**: "GITLAB" is used to create a GitHub Enterprise Integration.
+* **host**: URL of the GitLab host. Default value is https://gitlab.com.
+* **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **outputFolder**: The output folder for the generated code or definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Property: `target`
 In the case of source control management (SCM) integrations, it is possible to generate server stubs, client SDKs, or resolved versions of the API. The value of `target` defines the generated output. The list of targets varies between OpenAPI 2.0 and OpenAPI 3.0 definitions. The current list of options is displayed below.
