@@ -1,7 +1,7 @@
 {
     "name": "GitHub Enterprise Sync",
     "configType": "GITHUB_ENTERPRISE",
-    "host": "http://ghe.swaggerhub.com",
+    "host": "http://ghe.example.com",
     "token": "<token>",
     "owner": "repo-owner",
     "repository": "project-repository",
