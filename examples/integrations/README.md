@@ -9,7 +9,7 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## GitHub Integration
 * **name**: Name of the integration
-* **configType**: "GITHUB" is used to create a GitHub Integration.
+* **configType**: "GITHUB" is used to create a GitHub integration.
 * **token**: Personal access token for accessing the repository. Tokens can be generated here: https://github.com/settings/tokens. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
@@ -23,7 +23,7 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## GitHub Enterprise Integration
 * **name**: Name of the integration
-* **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise Integration.
+* **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise integration.
 * **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
 * **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
@@ -38,7 +38,7 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## GitLab Integration
 * **name**: Name of the integration
-* **configType**: "GITLAB" is used to create a GitHub Enterprise Integration.
+* **configType**: "GITLAB" is used to create a GitLab integration.
 * **host**: URL of the GitLab host. Default value is https://gitlab.com.
 * **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
 * **owner**: Owner of the repository to synchronize.
