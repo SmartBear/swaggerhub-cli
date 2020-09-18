@@ -68,7 +68,7 @@ CreateIntegrationCommand.args = [{
 CreateIntegrationCommand.flags = {
   file: flags.string({
     char: 'f', 
-    description: 'file location of API to create',
+    description: 'location of integration configuration file',
     required: true
   }),
   ...BaseCommand.flags
