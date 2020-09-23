@@ -1,7 +1,7 @@
 {
     "name": "GitHub Advanced Sync",
     "configType": "GITHUB",
-    "token": "<token>",
+    "token": "token",
     "owner": "repo-owner",
     "repository": "pet-store",
     "syncMethod": "Advanced Sync",

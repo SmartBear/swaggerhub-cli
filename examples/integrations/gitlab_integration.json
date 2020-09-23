@@ -1,7 +1,7 @@
 {
     "name": "GitLab Sync",
     "configType": "GITLAB",
-    "personalAccessToken": "<token>",
+    "personalAccessToken": "token",
     "owner": "repo-owner",
     "repository": "simple-api",
     "syncMethod": "Basic Sync",
