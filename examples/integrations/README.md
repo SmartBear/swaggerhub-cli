@@ -5,7 +5,8 @@ Integrations are created for an API using the `integration:create` command. The 
 * [GitHub Integration](#github-integration)
 * [GitHub Enterprise Integration](#github-enterprise-integration)
 * [GitLab Integration](#gitlab-integration)
-
+* [Bitbucket Cloud Integration](#bitbucket-cloud-integration)
+* [Bitbucket Server Integration](#bitbucket-server-integration)
 
 ## GitHub Integration
 * **name**: Name of the integration
@@ -19,7 +20,6 @@ Integrations are created for an API using the `integration:create` command. The 
 * **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
-
 
 ## GitHub Enterprise Integration
 * **name**: Name of the integration
@@ -35,12 +35,40 @@ Integrations are created for an API using the `integration:create` command. The 
 * **outputFolder**: The output folder for the generated code or definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
-
 ## GitLab Integration
 * **name**: Name of the integration
 * **configType**: "GITLAB" is used to create a GitLab integration.
 * **host**: URL of the GitLab host. Default value is https://gitlab.com.
 * **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **outputFolder**: The output folder for the generated code or definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## Bitbucket Cloud Integration
+* **name**: Name of the integration
+* **configType**: "BITBUCKET_CLOUD" is used to create a Bitbucket Cloud integration.
+* **username**: Bitbucket username.
+* **password**: Bitbucket app password. Required permissions are: Account: Email, Read; Repositories: Read, Write.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **outputFolder**: The output folder for the generated code or definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## Bitbucket Server Integration
+* **name**: Name of the integration
+* **configType**: "BITBUCKET_SERVER" is used to create a Bitbucket Server integration.
+* **host**: URL of the Bitbucket Server host.
+* **username**: Account username.
+* **password**: Account password.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
 * **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.

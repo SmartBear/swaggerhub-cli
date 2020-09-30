@@ -1,6 +1,8 @@
 SwaggerHub CLI
 ==============
 
+[![NPM](https://img.shields.io/npm/v/swaggerhub-cli.svg)](https://www.npmjs.com/package/swaggerhub-cli)
+
 The SwaggerHub CLI enables teams to build automation and workflows around SwaggerHub. Teams can use it in places like their CI/CD pipeline to create new APIs, create and update API versions, and mark API versions as published and default among other features. Every team has their own workflow, and the SwaggerHub CLI can help teams build the workflow that fits their needs.
 
 <!-- toc -->
@@ -54,9 +56,11 @@ USAGE
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate)
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
 * [`swaggerhub configure`](#swaggerhub-configure)
+* [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
+* [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
 * [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
 * [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
@@ -77,9 +81,9 @@ ARGUMENTS
 OPTIONS
   -f, --file=file              (required) file location of API to create
   -h, --help                   show CLI help
-  --visibility=public|private  [default: private] visibility of API in SwaggerHub
   --publish                    sets the API version as published
   --setdefault                 sets API version to be the default
+  --visibility=public|private  [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
@@ -93,7 +97,7 @@ EXAMPLES
   swaggerhub api:create organization/api/1.0.0 --publish --setdefault --file api.json
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/create.js)_
 
 ## `swaggerhub api:get`
 
@@ -120,7 +124,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -140,7 +144,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -160,7 +164,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -180,7 +184,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
@@ -212,7 +216,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/update.js)_
 
 ## `swaggerhub api:validate`
 
@@ -237,7 +241,7 @@ EXAMPLES
   swaggerhub api:validate organization/api
 ```
 
-_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/validate.js)_
+_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/validate.js)_
 
 ## `swaggerhub configure`
 
@@ -259,7 +263,33 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/configure.js)_
+
+## `swaggerhub domain:get`
+
+fetches a domain definition
+
+```
+USAGE
+  $ swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/[VERSION]  SwaggerHub domain to fetch
+
+OPTIONS
+  -h, --help  show CLI help
+  -j, --json  returns the domain in JSON format.
+
+DESCRIPTION
+  When VERSION is not included in the argument, the default version will be returned.
+  Returns the domain in YAML format by default.
+
+EXAMPLES
+  swaggerhub domain:get organization/domain
+  swaggerhub domain:get organization/domain/1.0.0 --json
+```
+
+_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/get.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -279,7 +309,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -299,7 +329,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -317,6 +347,32 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+
+## `swaggerhub integration:create`
+
+creates a new API integation from a JSON configuration file.
+
+```
+USAGE
+  $ swaggerhub integration:create OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  API where integration will be added
+
+OPTIONS
+  -f, --file=file  (required) location of integration configuration file
+  -h, --help       show CLI help
+
+DESCRIPTION
+  See the documentation for configuration files: 
+  https://github.com/SmartBear/swaggerhub-cli/tree/master/examples/integrations
+  When VERSION is not included in the argument, the integration will be added to be default API version.
+
+EXAMPLE
+  swaggerhub integration:create organization/api/1.0.0 --file config.json
+```
+
+_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/integration/create.js)_
 
 ## `swaggerhub plugins`
 

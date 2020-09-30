@@ -1,8 +1,9 @@
 {
-    "name": "GitHub Enterprise Sync",
-    "configType": "GITHUB_ENTERPRISE",
-    "host": "http://ghe.example.com",
-    "token": "token",
+    "name": "Bitbucket Server Integration",
+    "configType": "BITBUCKET_SERVER",
+    "host": "https://bitbucket.example.com",
+    "username": "account-username",
+    "password": "account-password",
     "owner": "repo-owner",
     "repository": "project-repository",
     "syncMethod": "Basic Sync",
