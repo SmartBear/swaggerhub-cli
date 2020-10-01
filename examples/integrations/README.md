@@ -14,11 +14,11 @@ Integrations are created for an API using the `integration:create` command. The 
 * **token**: Personal access token for accessing the repository. Tokens can be generated here: https://github.com/settings/tokens. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## GitHub Enterprise Integration
@@ -28,11 +28,11 @@ Integrations are created for an API using the `integration:create` command. The 
 * **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## GitLab Integration
@@ -42,11 +42,40 @@ Integrations are created for an API using the `integration:create` command. The 
 * **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## Azure DevOps Server Integration
+* **name**: Name of the integration
+* **configType**: "AZURE_DEVOPS_SERVER" is used to create a Azure DevOps Server integration.
+* **url**: Azure DevOps Server host, typically `http(s)://server[:port]/tfs`
+* **personalAccessToken**: Personal access token for accessing the repository. The token must have _Code (read and write)_ scope.
+* **projectCollection**: Project collection which contains the target repositories project.
+* **project**: Team Project which contains the target repository.
+* **repository**: Repository to synchronize.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## Azure DevOps Services Integration
+* **name**: Name of the integration
+* **configType**: "AZURE_DEVOPS_SERVICES" is used to create a Azure DevOps Service integration.
+* **personalAccessToken**: [Personal access token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-a-pat) for accessing the target repository. The token must have _Code > Read & write_ scope.
+* **organization**: The Azure DevOps organization that contains the target repository.
+* **project**: Team Project which contains the target repository.
+* **repository**: Repository to synchronize.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Bitbucket Cloud Integration
@@ -56,11 +85,11 @@ Integrations are created for an API using the `integration:create` command. The 
 * **password**: Bitbucket app password. Required permissions are: Account: Email, Read; Repositories: Read, Write.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Bitbucket Server Integration
@@ -71,11 +100,11 @@ Integrations are created for an API using the `integration:create` command. The 
 * **password**: Account password.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
 * **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Property: `target`

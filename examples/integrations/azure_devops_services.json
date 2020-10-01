@@ -1,0 +1,13 @@
+{
+    "name": "Azure DevOps Services Sync",
+    "configType": "AZURE_DEVOPS_SERVICES",
+    "personalAccessToken": "token",
+    "organization": "https://azure-devops.onprem.swaggerhub.com",
+    "project": "Project",
+    "repository": "project-repository",
+    "branch": "branch-name",
+    "syncMethod": "Basic Sync",
+    "target": "YAML (Unresolved)",
+    "outputFolder": "yaml-unresolved",
+    "outputFile": "swagger.yaml"
+}

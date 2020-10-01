@@ -3,7 +3,7 @@
     "configType": "GITHUB",
     "token": "token",
     "owner": "repo-owner",
-    "repository": "pet-store",
+    "repository": "branch-name",
     "syncMethod": "Advanced Sync",
     "branch": "NodeJs",
     "target": "nodejs-server",
