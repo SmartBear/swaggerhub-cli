@@ -1,0 +1,6 @@
+{
+    "name": "API Automock Integration",
+    "configType": "API_AUTO_MOCKING",
+    "defaultResponseType": "application/json",
+    "modify": true
+}

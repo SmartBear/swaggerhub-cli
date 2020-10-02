@@ -2,6 +2,7 @@
 
 Integrations are created for an API using the `integration:create` command. The command takes a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
+* [API Auto Mocking Integration](#api-auto-mocking-integration)
 * [GitHub Integration](#github-integration)
 * [GitHub Enterprise Integration](#github-enterprise-integration)
 * [Azure DevOps Server Integration](#azure-devops-server-integration)
@@ -10,6 +11,14 @@ Integrations are created for an API using the `integration:create` command. The 
 * [Bitbucket Server Integration](#bitbucket-server-integration)
 * [GitLab Integration](#gitlab-integration)
 * [Webhook Integration](#webhook-integration)
+
+## API Auto Mocking Integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
+* **configType**: "API_AUTO_MOCKING" is used to create an API Auto Mocking integration.
+* **defaultResponseType**: Response content type that the server will return if no `Accept` header is specified. Options are: `application/json`, `application/xml`, `application/yaml`. Default value is "application/json".
+* **token**: Bearer token that users will need to send in requests to the mock server (private APIs only). This property is optional.
+* **modify**: Whether to update the `host`/`servers` in the API definition for the API Auto Mock server. Default value is `true`.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## GitHub Integration
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
