@@ -55,7 +55,6 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## Azure DevOps Services Integration
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
-* **name**: Name of the integration
 * **configType**: "AZURE_DEVOPS_SERVICES" is used to create an Azure DevOps Service integration.
 * **personalAccessToken**: [Personal access token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-a-pat) for accessing the target repository. The token must have _Code > Read & write_ scope.
 * **organization**: The Azure DevOps organization that contains the target repository.
