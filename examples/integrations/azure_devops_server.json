@@ -1,0 +1,14 @@
+{
+    "name": "Azure DevOps Server Sync",
+    "configType": "AZURE_DEVOPS_SERVER",
+    "url": "https://azure-devops.example.com/tfs",
+    "personalAccessToken": "token",
+    "projectCollection": "project-collection",
+    "project": "my-project",
+    "repository": "project-repository",
+    "branch": "branch-name",
+    "syncMethod": "Basic Sync",
+    "target": "YAML (Unresolved)",
+    "outputFolder": "yaml-unresolved",
+    "outputFile": "swagger.yaml"
+}

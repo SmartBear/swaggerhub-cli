@@ -4,9 +4,9 @@
     "token": "token",
     "owner": "repo-owner",
     "repository": "pet-store",
+    "branch": "branch-name",
     "syncMethod": "Basic Sync",
-    "branch": "pet_branch",
     "target": "YAML (Unresolved)",
-    "outputFile": "swagger.yaml",
-    "outputFolder": "yaml-resolved"
+    "outputFolder": "yaml-resolved",
+    "outputFile": "swagger.yaml"
 }
