@@ -9,9 +9,10 @@ Integrations are created for an API using the `integration:create` command. The 
 * [Bitbucket Cloud Integration](#bitbucket-cloud-integration)
 * [Bitbucket Server Integration](#bitbucket-server-integration)
 * [GitLab Integration](#gitlab-integration)
+* [Webhook Integration](#webhook-integration)
 
 ## GitHub Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "GITHUB" is used to create a GitHub integration.
 * **token**: Personal access token for accessing the repository. Tokens can be generated here: https://github.com/settings/tokens. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
 * **owner**: Owner of the repository to synchronize.
@@ -24,7 +25,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## GitHub Enterprise Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise integration.
 * **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
 * **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
@@ -38,7 +39,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Azure DevOps Server Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "AZURE_DEVOPS_SERVER" is used to create an Azure DevOps Server integration.
 * **url**: Azure DevOps Server host, typically `http(s)://server[:port]/tfs`
 * **personalAccessToken**: Personal access token for accessing the repository. The token must have _Code (read and write)_ scope.
@@ -53,7 +54,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Azure DevOps Services Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "AZURE_DEVOPS_SERVICES" is used to create an Azure DevOps Service integration.
 * **personalAccessToken**: [Personal access token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-a-pat) for accessing the target repository. The token must have _Code > Read & write_ scope.
 * **organization**: The Azure DevOps organization that contains the target repository.
@@ -67,7 +68,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Bitbucket Cloud Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "BITBUCKET_CLOUD" is used to create a Bitbucket Cloud integration.
 * **username**: Bitbucket username.
 * **password**: Bitbucket app password. Required permissions are: Account: Email, Read; Repositories: Read, Write.
@@ -81,7 +82,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Bitbucket Server Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "BITBUCKET_SERVER" is used to create a Bitbucket Server integration.
 * **host**: URL of the Bitbucket Server host.
 * **username**: Account username.
@@ -96,7 +97,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## GitLab Integration
-* **name**: Name of the integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "GITLAB" is used to create a GitLab integration.
 * **host**: URL of the GitLab host. Default value is https://gitlab.com.
 * **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
@@ -108,6 +109,14 @@ Integrations are created for an API using the `integration:create` command. The 
 * **outputFolder**: The output folder for the generated code or definition.
 * **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## Webhook Integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
+* **configType**: "WEBHOOK" is used to create a Webhook integration.
+* **url**: URL to send notification.
+* **contentType**: Content type of notification. Must be "application/json" or "application/x-www-form-urlencoded".
+* **lifecycleEvents**: The lifecycle events that will trigger webhook. This is a list from the options: "API_SAVED", "API_PUBLISHED".
+* **additionalHeaders**: 'Custom HTTP headers to be sent with webhook notifications. Use the format "name: value" for each header.'
 
 ## Property: `target`
 In the case of source control management (SCM) integrations, it is possible to generate server stubs, client SDKs, or resolved versions of the API. The value of `target` defines the generated output. The list of targets varies between OpenAPI 2.0 and OpenAPI 3.0 definitions. The current list of options is displayed below.
