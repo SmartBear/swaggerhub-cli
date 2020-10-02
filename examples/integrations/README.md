@@ -51,10 +51,10 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## Azure DevOps Server Integration
 * **name**: Name of the integration
-* **configType**: "AZURE_DEVOPS_SERVER" is used to create a Azure DevOps Server integration.
+* **configType**: "AZURE_DEVOPS_SERVER" is used to create an Azure DevOps Server integration.
 * **url**: Azure DevOps Server host, typically `http(s)://server[:port]/tfs`
 * **personalAccessToken**: Personal access token for accessing the repository. The token must have _Code (read and write)_ scope.
-* **projectCollection**: Project collection which contains the target repositories project.
+* **projectCollection**: Project collection which contains the target repository's project.
 * **project**: Team Project which contains the target repository.
 * **repository**: Repository to synchronize.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
@@ -66,7 +66,7 @@ Integrations are created for an API using the `integration:create` command. The 
 
 ## Azure DevOps Services Integration
 * **name**: Name of the integration
-* **configType**: "AZURE_DEVOPS_SERVICES" is used to create a Azure DevOps Service integration.
+* **configType**: "AZURE_DEVOPS_SERVICES" is used to create an Azure DevOps Service integration.
 * **personalAccessToken**: [Personal access token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page#create-a-pat) for accessing the target repository. The token must have _Code > Read & write_ scope.
 * **organization**: The Azure DevOps organization that contains the target repository.
 * **project**: Team Project which contains the target repository.
