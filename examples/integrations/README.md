@@ -4,9 +4,11 @@ Integrations are created for an API using the `integration:create` command. The 
 
 * [GitHub Integration](#github-integration)
 * [GitHub Enterprise Integration](#github-enterprise-integration)
-* [GitLab Integration](#gitlab-integration)
+* [Azure DevOps Server Integration](#azure-devops-server-integration)
+* [Azure DevOps Services Integration](#azure-devops-services-integration)
 * [Bitbucket Cloud Integration](#bitbucket-cloud-integration)
 * [Bitbucket Server Integration](#bitbucket-server-integration)
+* [GitLab Integration](#gitlab-integration)
 
 ## GitHub Integration
 * **name**: Name of the integration
@@ -26,20 +28,6 @@ Integrations are created for an API using the `integration:create` command. The 
 * **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise integration.
 * **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
 * **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
-* **owner**: Owner of the repository to synchronize.
-* **repository**: Repository to synchronize.
-* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
-* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFolder**: The output folder for the generated code or definition.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
-* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
-
-## GitLab Integration
-* **name**: Name of the integration
-* **configType**: "GITLAB" is used to create a GitLab integration.
-* **host**: URL of the GitLab host. Default value is https://gitlab.com.
-* **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
@@ -98,6 +86,20 @@ Integrations are created for an API using the `integration:create` command. The 
 * **host**: URL of the Bitbucket Server host.
 * **username**: Account username.
 * **password**: Account password.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## GitLab Integration
+* **name**: Name of the integration
+* **configType**: "GITLAB" is used to create a GitLab integration.
+* **host**: URL of the GitLab host. Default value is https://gitlab.com.
+* **personalAccessToken**: A personal access token for accessing the target repository. The token must have the _api_ scope.
 * **owner**: Owner of the repository to synchronize.
 * **repository**: Repository to synchronize.
 * **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
