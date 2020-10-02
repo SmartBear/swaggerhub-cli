@@ -125,7 +125,7 @@ Integrations are created for an API using the `integration:create` command. The 
 * **url**: URL to send notification.
 * **contentType**: Content type of notification. Must be "application/json" or "application/x-www-form-urlencoded".
 * **lifecycleEvents**: The lifecycle events that will trigger webhook. This is a list from the options: "API_SAVED", "API_PUBLISHED".
-* **additionalHeaders**: 'Custom HTTP headers to be sent with webhook notifications. Use the format "name: value" for each header.'
+* **additionalHeaders**: Custom HTTP headers to be sent with webhook notifications. Use the format "name: value" for each header.
 
 ## Property: `target`
 In the case of source control management (SCM) integrations, it is possible to generate server stubs, client SDKs, or resolved versions of the API. The value of `target` defines the generated output. The list of targets varies between OpenAPI 2.0 and OpenAPI 3.0 definitions. The current list of options is displayed below.
