@@ -1,0 +1,9 @@
+name: 'SwaggerHub CLI'
+description: 'Enable your CI/CD pipelines to manage the API definition lifecycle using the SwaggerHub CLI.'
+outputs:
+  response:
+    description: 'command output'
+runs:
+  using: docker
+  image: Dockerfile
+  entrypoint: /cli/gh_entrypoint.sh

@@ -1,0 +1,19 @@
+name: Test GH Action
+on:
+  push:
+    branches:
+      - feature/gh_action
+env:
+  SWAGGERHUB_API_KEY: ${{ secrets.SWAGGERHUB_API_KEY }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: A job to verify action
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Call CLI
+      id: swg-cli
+      uses: michaelmelody91/swaggerhub-cli@pr_demo
+      with:
+        args: api:get michaelmelody/SimpleApi
