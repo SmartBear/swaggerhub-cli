@@ -16,10 +16,6 @@ Enable your CI/CD pipelines to manage the API definition lifecycle using the Swa
 |------------|-----------------------|
 | `response` | Response from the CLI | 
 
-### Exit Code
-
-A workflow using this action will fail if the CLI executes a command that fails.
-
 ## Examples
 
 ### Update API
