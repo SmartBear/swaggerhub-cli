@@ -39,9 +39,9 @@ Environment variables take precedence over the configuration file created by thi
 
 ## Additional configuration for SwaggerHub On-Premise
 
-If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make SwaggerHub CLI trust this certificate.
+If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
 
-By default, Node.js rejects self-signed or privately signed SSL certificates because their root CA is not known. You will see an error like this in CLI output:
+By default, Node.js rejects self-signed or privately signed SSL certificates because their root CA is not known. You will see an error like this in the CLI output:
 
 ```
 FetchError: request to https://... failed, reason: self signed certificate
