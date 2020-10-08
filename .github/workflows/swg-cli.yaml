@@ -2,7 +2,8 @@ name: Test GH Action
 on:
   push:
     branches:
-      - feature/gh_action
+      - master
+      
 env:
   SWAGGERHUB_API_KEY: ${{ secrets.SWAGGERHUB_API_KEY }}
 jobs:
