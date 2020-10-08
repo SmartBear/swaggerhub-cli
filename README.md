@@ -9,7 +9,7 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Setup](#setup)
-** [Additional configuration for SwaggerHub On-Premise](#additional-configuration-for-swaggerhub-on-premise)
+* [Additional configuration for SwaggerHub On-Premise](#additional-configuration-for-swaggerhub-on-premise)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Plugins](#plugins)
