@@ -49,7 +49,9 @@ FetchError: request to https://... failed, reason: self signed certificate
 
 The solution is to use the [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable to specify custom trusted certificates for Node.js.
 
-Start by creating a .pem file containing your CA root and intermediate certificates in the PEM format. Certificates can be listed in any order. A self-signed certificate is its own CA, in this case include just the certificate itself. Blank lines are allowed, but optional, between individual certificates.
+Start by creating a .pem file containing your custom trusted certificates in the PEM format.
+* If the certificate is _self-signed_ (so that it is its own CA), include the certificate itself.
+* If the certificate is _signed by a private CA_, include the CA root and any intermediate certificates, in any order. Blank lines are allowed, but optional, between individual certificates.
 
 ```
 -----BEGIN CERTIFICATE-----
