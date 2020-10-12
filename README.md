@@ -108,6 +108,7 @@ USAGE
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate)
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
+* [`swaggerhub api:visibility OWNER/API_NAME/[VERSION]`](#swaggerhub-apivisibility)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
@@ -295,6 +296,26 @@ EXAMPLES
 ```
 
 _See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/validate.js)_
+
+## `swaggerhub api:visibility`
+
+```
+USAGE
+  $ swaggerhub api:visibility OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  API Identifier
+
+OPTIONS
+  -h, --help  show CLI help
+  --private   sets the default API version as private
+
+EXAMPLES
+  swaggerhub api:visibility organization/api --private
+  swaggerhub api:visibility organization/api
+```
+
+_See code: [src/commands/api/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/visibility.js)_
 
 ## `swaggerhub configure`
 
