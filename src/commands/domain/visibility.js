@@ -5,19 +5,19 @@ const { putDomain } = require('../../requests/domain')
 
 class VisibilityCommand extends BaseCommand {
     async run() {
-        const { args, flags } = this.parse(VisibilityCommand)
+        const { args, flags, version } = this.parse(VisibilityCommand)
         const domainPath = getDomainIdentifierArg(args)
         const [owner, name] = splitPathParams(domainPath)
-        const version = await this.getDefaultDomainVersion([owner, name])
+        const apiVersion = version || await this.getDefaultApiVersion([owner, name])
         const isPrivate = !!flags.private || !flags.public
         const updateDomainObj = {
-          pathParams: [owner, name, version, 'settings', 'private'],
+          pathParams: [owner, name, apiVersion, 'settings', 'private'],
           body: JSON.stringify({ private: isPrivate })
         }
     
         await this.executeHttp({
             execute: () => putDomain(updateDomainObj), 
-            onResolve: this.logCommandSuccess({ owner, name, version }),
+            onResolve: this.logCommandSuccess({ owner, name, version: apiVersion }),
             options: { resolveStatus: [403] }
         })
     }

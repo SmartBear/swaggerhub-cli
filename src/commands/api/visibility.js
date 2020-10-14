@@ -7,17 +7,17 @@ class VisibilityCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(VisibilityCommand)
         const apiPath = getApiIdentifierArg(args)
-        const [owner, name] = splitPathParams(apiPath)
-        const version = await this.getDefaultApiVersion([owner, name])
+        const [owner, name, version] = splitPathParams(apiPath)
+        const apiVersion = version || await this.getDefaultApiVersion([owner, name])
         const isPrivate = !!flags.private || !flags.public
         const updateApiObj = {
-          pathParams: [owner, name, version, 'settings', 'private'],
+          pathParams: [owner, name, apiVersion, 'settings', 'private'],
           body: JSON.stringify({ private: isPrivate })
         }
     
         await this.executeHttp({
             execute: () => putApi(updateApiObj), 
-            onResolve: this.logCommandSuccess({ owner, name, version }),
+            onResolve: this.logCommandSuccess({ owner, name, version: apiVersion }),
             options: { resolveStatus: [403] }
         })
     }
