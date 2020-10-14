@@ -27,7 +27,7 @@ VisibilityCommand.description = 'Set visibility of an API definition'
 
 VisibilityCommand.examples = [
     'swaggerhub api:visibility organization/api --private',
-    'swaggerhub api:visibility organization/api'
+    'swaggerhub api:visibility organization/api --public'
 ]
   
 VisibilityCommand.args = [{

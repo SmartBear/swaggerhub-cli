@@ -9,7 +9,7 @@ class VisibilityCommand extends BaseCommand {
         const domainPath = getDomainIdentifierArg(args)
         const [owner, name] = splitPathParams(domainPath)
         const version = await this.getDefaultDomainVersion([owner, name])
-        const isPrivate = !!flags.private
+        const isPrivate = !!flags.private || !flags.public
         const updateDomainObj = {
           pathParams: [owner, name, version, 'settings', 'private'],
           body: JSON.stringify({ private: isPrivate })
@@ -27,7 +27,7 @@ VisibilityCommand.description = 'Set visibility of a Domain'
 
 VisibilityCommand.examples = [
     'swaggerhub domain:visibility organization/domain --private',
-    'swaggerhub domain:visibility organization/domain'
+    'swaggerhub domain:visibility organization/domain --public'
 ]
   
 VisibilityCommand.args = [{
@@ -38,9 +38,16 @@ VisibilityCommand.args = [{
 
 VisibilityCommand.flags = {
     private: flags.boolean({
-        description: 'sets the default Domain version as private',
+        description: 'sets the default API version as private',
         default: false,
         required: false,
+        exclusive: ['public'],
+    }),
+    public: flags.boolean({
+        description: 'sets the default API version as public',
+        default: false,
+        required: false,
+        exclusive: ['private'],
     }),
     ...BaseCommand.flags
 }

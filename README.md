@@ -113,6 +113,7 @@ USAGE
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
+* [`swaggerhub domain:visibility OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainvisibility)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
@@ -299,6 +300,8 @@ _See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhu
 
 ## `swaggerhub api:visibility`
 
+Set visibility of an API definition
+
 ```
 USAGE
   $ swaggerhub api:visibility OWNER/API_NAME/[VERSION]
@@ -309,13 +312,14 @@ ARGUMENTS
 OPTIONS
   -h, --help  show CLI help
   --private   sets the default API version as private
+  --public    sets the default API version as public
 
 EXAMPLES
   swaggerhub api:visibility organization/api --private
-  swaggerhub api:visibility organization/api
+  swaggerhub api:visibility organization/api --public
 ```
 
-_See code: [src/commands/api/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.11/src/commands/api/visibility.js)_
+_See code: [src/commands/api/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/visibility.js)_
 
 ## `swaggerhub configure`
 
@@ -404,6 +408,29 @@ EXAMPLE
 ```
 
 _See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/unpublish.js)_
+
+## `swaggerhub domain:visibility`
+
+Set visibility of a Domain
+
+```
+USAGE
+  $ swaggerhub domain:visibility OWNER/DOMAIN_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/[VERSION]  Domain Identifier
+
+OPTIONS
+  -h, --help  show CLI help
+  --private   sets the default API version as private
+  --public    sets the default API version as public
+
+EXAMPLES
+  swaggerhub domain:visibility organization/domain --private
+  swaggerhub domain:visibility organization/domain
+```
+
+_See code: [src/commands/domain/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/visibility.js)_
 
 ## `swaggerhub help [COMMAND]`
 
