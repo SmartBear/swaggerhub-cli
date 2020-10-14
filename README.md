@@ -310,13 +310,11 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API Identifier
 
 OPTIONS
-  -h, --help  show CLI help
-  --private   sets the default API version as private
-  --public    sets the default API version as public
+  -h, --help                   show CLI help
+  --visibility=public|private  (required) [default: private] visibility of API in SwaggerHub
 
-EXAMPLES
-  swaggerhub api:visibility organization/api --private
-  swaggerhub api:visibility organization/api --public
+EXAMPLE
+  swaggerhub api:visibility organization/api --visibility=public
 ```
 
 _See code: [src/commands/api/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/visibility.js)_
@@ -421,13 +419,11 @@ ARGUMENTS
   OWNER/DOMAIN_NAME/[VERSION]  Domain Identifier
 
 OPTIONS
-  -h, --help  show CLI help
-  --private   sets the default API version as private
-  --public    sets the default API version as public
+  -h, --help                   show CLI help
+  --visibility=public|private  (required) [default: private] visibility of API in SwaggerHub
 
-EXAMPLES
-  swaggerhub domain:visibility organization/domain --private
-  swaggerhub domain:visibility organization/domain --public
+EXAMPLE
+  swaggerhub domain:visibility organization/domain --visibility=public
 ```
 
 _See code: [src/commands/domain/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/visibility.js)_
