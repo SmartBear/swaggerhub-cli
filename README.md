@@ -427,7 +427,7 @@ OPTIONS
 
 EXAMPLES
   swaggerhub domain:visibility organization/domain --private
-  swaggerhub domain:visibility organization/domain
+  swaggerhub domain:visibility organization/domain --public
 ```
 
 _See code: [src/commands/domain/visibility.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/visibility.js)_
