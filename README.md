@@ -9,6 +9,7 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Setup](#setup)
+* [Additional configuration for SwaggerHub On-Premise](#additional-configuration-for-swaggerhub-on-premise)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Plugins](#plugins)
@@ -35,6 +36,58 @@ $ swaggerhub configure
 ```
 
 Environment variables take precedence over the configuration file created by this command.
+
+## Additional configuration for SwaggerHub On-Premise
+
+If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
+
+By default, Node.js rejects self-signed or privately signed SSL certificates because their root CA is not known. You will see an error like this in the CLI output:
+
+```
+FetchError: request to https://... failed, reason: self signed certificate
+```
+
+The solution is to use the [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable to specify custom trusted certificates for Node.js.
+
+Start by creating a .pem file containing your custom trusted certificates in the PEM format.
+* If the certificate is _self-signed_ (so that it is its own CA), include the certificate itself.
+* If the certificate is _signed by a private CA_, include the CA root and any intermediate certificates, in any order. Blank lines are allowed, but optional, between individual certificates.
+
+```
+-----BEGIN CERTIFICATE-----
+CA root certificate
+-----END CERTIFICATE-----
+
+-----BEGIN CERTIFICATE-----
+Intermediate certificate 1
+-----END CERTIFICATE-----
+
+-----BEGIN CERTIFICATE-----
+Intermediate certificate 2
+-----END CERTIFICATE-----
+```
+
+Specify the path to this PEM file in the `NODE_EXTRA_CA_CERTS` environment variable.
+
+macOS/*nix/bash examples:
+```sh-session
+export NODE_EXTRA_CA_CERTS=~/Work/extra-ca-certs.pem   # '~' means the home folder of the logged-in user
+
+export NODE_EXTRA_CA_CERTS=$HOME/.ssh/extra-ca-certs.pem
+
+export NODE_EXTRA_CA_CERTS=/Users/username/Work/extra-ca-certs.pem
+```
+
+Windows examples:
+```
+:: Both forward and backslashes are OK
+set NODE_EXTRA_CA_CERTS=C:\Work\extra-ca-certs.pem
+set NODE_EXTRA_CA_CERTS=C:/Work/extra-ca-certs.pem
+
+:: You can also define the path itself using environment variables
+set NODE_EXTRA_CA_CERTS=%USERPROFILE%\extra-ca-certs.pem
+```
+
 # Usage
 ```sh-session
 $ swaggerhub COMMAND
