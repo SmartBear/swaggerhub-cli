@@ -1,0 +1,13 @@
+{
+    "name": "Webhook Integration",
+    "configType": "WEBHOOK",
+    "url": "http://example.com",
+    "contentType": "application/json",
+    "lifecycleEvents": [
+        "API_SAVED",
+        "API_PUBLISHED"
+    ],
+    "additionalHeaders": [
+        "User-Agent: SwaggerHub-Webhook"
+    ]
+}

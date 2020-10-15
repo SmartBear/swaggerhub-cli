@@ -6,8 +6,8 @@
     "password": "account-password",
     "owner": "repo-owner",
     "repository": "project-repository",
+    "branch": "branch-name",
     "syncMethod": "Basic Sync",
-    "branch": "swaggerhub",
     "target": "java",
     "outputFolder": "java",
     "enabled": true

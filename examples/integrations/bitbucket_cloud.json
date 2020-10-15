@@ -1,13 +1,13 @@
 {
-    "name": "Bitbucket Cloud Integration",
+    "name": "Bitbucket Cloud Sync",
     "configType": "BITBUCKET_CLOUD",
     "username": "bb-username",
     "password": "app-password",
     "owner": "repo-owner",
     "repository": "simple-api",
+    "branch": "branch-name",
     "syncMethod": "Basic Sync",
-    "branch": "example_branch",
     "target": "YAML (Unresolved)",
-    "outputFile": "swagger.yaml",
-    "outputFolder": "yaml-unresolved"
+    "outputFolder": "yaml-unresolved",
+    "outputFile": "swagger.yaml"
 }
