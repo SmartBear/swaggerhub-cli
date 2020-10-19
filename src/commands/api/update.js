@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApi, postApi } = require('../../requests/api')
+const { getApi, postApi, putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
@@ -11,13 +11,24 @@ class UpdateAPICommand extends BaseCommand {
   
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
+    
+    if (flags.visibility) {
+      const updateApiObj = {
+        pathParams: [owner, name, version, 'settings', 'private'],
+        body: JSON.stringify({ private: isPrivate })
+      }
+  
+      return await this.executeHttp({
+          execute: () => putApi(updateApiObj), 
+          onResolve: this.logCommandSuccess({ owner, name, version }),
+          options: { resolveStatus: [403] }
+      })
+    }
+
     const updateApiObj = {
       pathParams: [owner, name],
       queryParams: { version, isPrivate },
-      body: {}
-    }
-    if (flags.file) {
-      updateApiObj.body= readFileSync(flags.file)
+      body: readFileSync(flags.file)
     }
 
     return await this.executeHttp({
