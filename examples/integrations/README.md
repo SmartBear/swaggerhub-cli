@@ -161,7 +161,7 @@ When Advanced Sync is used the following properties can be set
    "managedPaths": [
        "api/*", "controllers/Pet.js"
    ],
-   "ignoredPath": [
+   "ignoredPaths": [
        "README.md"
    ]
  ```
