@@ -14,7 +14,10 @@ class UpdateAPICommand extends BaseCommand {
     const updateApiObj = {
       pathParams: [owner, name],
       queryParams: { version, isPrivate },
-      body: readFileSync(flags.file)
+      body: {}
+    }
+    if (flags.file) {
+      updateApiObj.body= readFileSync(flags.file)
     }
 
     return await this.executeHttp({
@@ -26,28 +29,30 @@ class UpdateAPICommand extends BaseCommand {
 
   async run() {
     const { args, flags } = this.parse(UpdateAPICommand)
-    const definition = parseDefinition(flags.file)
-    const apiVersion = getVersion(definition)
+    const definition = flags.file ? parseDefinition(flags.file) : null
     const requestedApiPath = getApiIdentifierArg(args)
-    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
+    const [owner, name, version] = splitPathParams(requestedApiPath)
+    const defaultVersion = definition ? getVersion(definition) : await this.getDefaultApiVersion([owner, name])
+    const apiVersion = version ? version : defaultVersion
 
     await this.executeHttp({
-      execute: () => getApi([owner, name, version]), 
-      onResolve: () => this.updateApi(owner, name, version, flags),
+      execute: () => getApi([owner, name, apiVersion]), 
+      onResolve: () => this.updateApi(owner, name, apiVersion, flags),
       options: { resolveStatus: [403] }
     })
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
     requestedApiPath :
-    `${requestedApiPath}/${apiVersion}`
+    `${requestedApiPath}/${defaultVersion}`
 
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
   }
 }
 
-UpdateAPICommand.description = `update an API version
+UpdateAPICommand.description = `update an API
 The API version from the file will be used unless the version is specified in the command argument.
 An error will occur if the API version does not exist.
+The API visibility can be change by using visibility flag.
 `
 
 UpdateAPICommand.examples = [
@@ -55,7 +60,8 @@ UpdateAPICommand.examples = [
   'swaggerhub api:update organization/api/1.0.0 --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --publish --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json',
-  'swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json'
+  'swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json',
+  'swaggerhub api:update organization/api/1.0.0 --visibility=private',
 ]
 
 UpdateAPICommand.args = [{
@@ -68,7 +74,8 @@ UpdateAPICommand.flags = {
   file: flags.string({
     char: 'f', 
     description: 'file location of API to update',
-    required: true
+    required: false,
+    multiple: false
   }),
   visibility: flags.string({
     description: 'visibility of API in SwaggerHub',
@@ -77,13 +84,11 @@ UpdateAPICommand.flags = {
   }),
   publish: flags.boolean({
     description: 'sets the API version as published',
-    default: false,
     required: false,
     dependsOn: ['file']
   }),
   setdefault: flags.boolean({
     description: 'sets API version to be the default',
-    default: false,
     required: false,
     dependsOn: ['file']
   }),
