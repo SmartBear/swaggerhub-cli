@@ -187,6 +187,29 @@ describe('valid api:update', () => {
       expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
     })
 
+
+    test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/settings/default')
+        .reply(200, { version: '2.0.0' })
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/2.0.0')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/private', { private: false })
+        .reply(200)
+      )
+      .stdout()
+      .command(['api:update', 'org/api/2.0.0', '--visibility=public'])
+
+      .it('runs api:update to set API public', ctx => {
+        expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
+      })
+
     test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api

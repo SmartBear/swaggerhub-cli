@@ -11,8 +11,8 @@ class UpdateAPICommand extends BaseCommand {
   
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility === 'private'
-    
-    if (flags.visibility) {
+
+    if (!flags.file && flags.visibility) {
       const updateApiObj = {
         pathParams: [owner, name, version, 'settings', 'private'],
         body: JSON.stringify({ private: isPrivate })
