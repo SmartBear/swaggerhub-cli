@@ -95,13 +95,11 @@ UpdateAPICommand.flags = {
   }),
   publish: flags.boolean({
     description: 'sets the API version as published',
-    required: false,
-    dependsOn: ['file']
+    required: false
   }),
   setdefault: flags.boolean({
     description: 'sets API version to be the default',
-    required: false,
-    dependsOn: ['file']
+    required: false
   }),
   ...BaseCommand.flags
 }
