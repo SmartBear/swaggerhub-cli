@@ -53,7 +53,7 @@ class UpdateAPICommand extends BaseCommand {
     })
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
     requestedApiPath :
-    `${requestedApiPath}/${defaultVersion}`
+    `${requestedApiPath}/${apiVersion}`
 
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
