@@ -31,6 +31,10 @@ class UpdateAPICommand extends BaseCommand {
       })
     }
 
+    if (!flags.file) {
+      return
+    }
+
     const updateApiObj = {
       pathParams: [owner, name],
       queryParams: { version, isPrivate },

@@ -335,29 +335,29 @@ describe('valid api:update', () => {
       })
 
     test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
-    )
-    .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=2.0.0&isPrivate=true')
-      .reply(200)
-    )
-    .nock(`${shubUrl}/apis`, api => api
-      .put('/org/api/2.0.0/settings/lifecycle', { published: true })
-      .reply(200)
-    )
-    .nock(`${shubUrl}/apis`, api => api
-      .put('/org/api/settings/default', { version: '2.0.0' })
-      .reply(200)
-    )
-    .stdout()
-    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--setdefault', '--publish'])
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/2.0.0')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .post('/org/api?version=2.0.0&isPrivate=true')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/settings/default', { version: '2.0.0' })
+        .reply(200)
+      )
+      .stdout()
+      .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--setdefault', '--publish'])
 
-  .it('runs api:update to publish API and set default version', ctx => {
-    expect(ctx.stdout).to.contains('Updated API org/api/2.0.0 and visibility is set to private')
-    expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
-    expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
-  })
+      .it('runs api:update to publish API and set default version', ctx => {
+        expect(ctx.stdout).to.contains('Updated API org/api/2.0.0 and visibility is set to private')
+        expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
+      })
 })
