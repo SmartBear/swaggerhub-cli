@@ -11,6 +11,7 @@ class UpdateAPICommand extends BaseCommand {
   
   async updateApi(owner, name, version, flags) {
     const isPrivate = flags.visibility !== 'public'
+    const visibility = isPrivate ? 'private' : 'public'
 
     if (!flags.file && flags.visibility) {
       const updateApiObj = {
@@ -24,7 +25,7 @@ class UpdateAPICommand extends BaseCommand {
             owner,
             name,
             version,
-            visibility: isPrivate ? 'private' : 'public'
+            visibility
           }),
           options: { resolveStatus: [403] }
       })
@@ -38,7 +39,7 @@ class UpdateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
-      onResolve: this.logCommandSuccess({ owner, name, version }),
+      onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
       options: { resolveStatus: [403] }
     })
   }
