@@ -295,7 +295,41 @@ describe('valid api:update', () => {
         expect(ctx.stdout).to.contains('Updated API visibility org/api/2.0.0')
         expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
         expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
+      })
 
+    test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/2.0.0')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .post('/org/api?version=2.0.0&isPrivate=false')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/settings/default', { version: '2.0.0' })
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+        .reply(200)
+      )
+      .stdout()
+      .command([
+        'api:update',
+        'org/api',
+        '-f=test/resources/valid_api.json',
+        '--visibility=public',
+        '--publish',
+        '--setdefault'
+      ])
+
+      .it('runs api:update to set API public, publish API, and set the default version with file flag', ctx => {
+        expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
       })
 
     test
