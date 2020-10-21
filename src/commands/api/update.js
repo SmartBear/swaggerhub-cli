@@ -20,7 +20,12 @@ class UpdateAPICommand extends BaseCommand {
   
       return await this.executeHttp({
           execute: () => putApi(updateApiObj), 
-          onResolve: this.setSuccessMessage('visibilityUpdate')({ owner, name, version }),
+          onResolve: this.setSuccessMessage('visibilityUpdate')({
+            owner,
+            name,
+            version,
+            visibility: isPrivate ? 'private' : 'public'
+          }),
           options: { resolveStatus: [403] }
       })
     }
