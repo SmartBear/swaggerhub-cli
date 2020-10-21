@@ -11,7 +11,9 @@ describe('invalid api:update command issues', () => {
 
   test
     .command(['api:update', 'invalid'])
-    .exit(2)
+    .catch(err => {
+      expect(err.message).to.contains('No updates specified')
+    })
     .it('runs api:update with no required --file flag')
 
   test
@@ -90,7 +92,7 @@ describe('invalid api:update', () => {
     })
     .it('error shows as update failed and publish and setdefault are not executed')
 
-    test
+  test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
@@ -110,7 +112,7 @@ describe('invalid api:update', () => {
     })
     .it('error shows as publish failed and setdefault is not executed')
 
-    test
+  test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
@@ -133,6 +135,17 @@ describe('invalid api:update', () => {
       expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
     .it('error shows as setdefault failed')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+
+    .stdout()
+    .command(['api:update', 'org/api/2.0.0'])
+
+    .catch(err => {
+      expect(err.message).to.contains('No updates specified')
+    })
+    .it('error shows as no flag is provided')
 })
 
 describe('valid api:update', () => {
@@ -207,7 +220,7 @@ describe('valid api:update', () => {
       .command(['api:update', 'org/api/2.0.0', '--visibility=public'])
 
       .it('runs api:update to set API public', ctx => {
-        expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Updated API visibility org/api/2.0.0')
       })
 
     test
@@ -251,6 +264,39 @@ describe('valid api:update', () => {
     .it('runs api:update to set default version', ctx => {
       expect(ctx.stdout).to.contains('Updated API org/api/2.0.0\nDefault version of org/api set to 2.0.0')
     })
+
+    test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/2.0.0')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/settings/default')
+        .reply(200, { version: '2.0.0' })
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/private', { private: false })
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/settings/default', { version: '2.0.0' })
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+        .reply(200)
+      )
+      .stdout()
+      .command(['api:update', 'org/api/2.0.0', '--visibility=public', '--publish', '--setdefault'])
+
+      .it('runs api:update to set API public, publish API, and set the default version', ctx => {
+        expect(ctx.stdout).to.contains('Updated API visibility org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
+        expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
+
+      })
 
     test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))

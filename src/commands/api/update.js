@@ -10,7 +10,7 @@ const setDefault = require('./setdefault')
 class UpdateAPICommand extends BaseCommand {
   
   async updateApi(owner, name, version, flags) {
-    const isPrivate = flags.visibility === 'private'
+    const isPrivate = flags.visibility !== 'public'
 
     if (!flags.file && flags.visibility) {
       const updateApiObj = {
@@ -20,7 +20,7 @@ class UpdateAPICommand extends BaseCommand {
   
       return await this.executeHttp({
           execute: () => putApi(updateApiObj), 
-          onResolve: this.logCommandSuccess({ owner, name, version }),
+          onResolve: this.setSuccessMessage('visibilityUpdate')({ owner, name, version }),
           options: { resolveStatus: [403] }
       })
     }
@@ -40,6 +40,11 @@ class UpdateAPICommand extends BaseCommand {
 
   async run() {
     const { args, flags } = this.parse(UpdateAPICommand)
+
+    if (!Object.keys(flags).length) {
+      return this.error('No updates specified' , { exit: 1 })
+    }
+
     const definition = flags.file ? parseDefinition(flags.file) : null
     const requestedApiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(requestedApiPath)
@@ -90,8 +95,7 @@ UpdateAPICommand.flags = {
   }),
   visibility: flags.string({
     description: 'visibility of API in SwaggerHub',
-    options: ['public', 'private'],
-    default: 'private'
+    options: ['public', 'private']
   }),
   publish: flags.boolean({
     description: 'sets the API version as published',

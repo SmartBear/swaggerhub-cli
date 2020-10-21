@@ -13,6 +13,8 @@ const infoMsg = {
 
   ApiUpdate: 'Updated API {{owner}}/{{name}}/{{version}}',
 
+  visibilityUpdate: 'Updated API visibility {{owner}}/{{name}}/{{version}}',
+
   ApiUnpublish: 'Unpublished API {{apiPath}}',
 
   DomainUnpublish: 'Unpublished domain {{domainPath}}',
