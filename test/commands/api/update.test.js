@@ -372,13 +372,34 @@ describe('valid api:update', () => {
         .reply(200, { version: '2.0.0' })
       )
       .nock(`${shubUrl}/apis`, api => api
+        .put('/org/api/2.0.0/settings/lifecycle', { published: true })
+        .reply(200)
+      )
+      .stdout()
+      .command(['api:update', 'org/api/2.0.0', '--publish'])
+
+      .it('runs api:update to publish API', ctx => {
+        expect(ctx.stdout).to.contains('Published API org/api/2.0.0')
+      })
+
+    test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/2.0.0')
+        .reply(200)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+        .get('/org/api/settings/default')
+        .reply(200, { version: '2.0.0' })
+      )
+      .nock(`${shubUrl}/apis`, api => api
         .put('/org/api/settings/default', { version: '2.0.0' })
         .reply(200)
       )
       .stdout()
       .command(['api:update', 'org/api/2.0.0', '--setdefault'])
 
-      .it('runs api:update to publish API and set default version', ctx => {
+      .it('runs api:update to set default version', ctx => {
         expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
       })
 })
