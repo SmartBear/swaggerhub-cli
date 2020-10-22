@@ -9,31 +9,7 @@ const setDefault = require('./setdefault')
 
 class UpdateAPICommand extends BaseCommand {
   
-  async updateApi(owner, name, version, flags) {
-    const isPrivate = flags.visibility !== 'public'
-    const visibility = isPrivate ? 'private' : 'public'
-
-    if (!flags.file && flags.visibility) {
-      const updateApiObj = {
-        pathParams: [owner, name, version, 'settings', 'private'],
-        body: JSON.stringify({ private: isPrivate })
-      }
-  
-      return await this.executeHttp({
-          execute: () => putApi(updateApiObj), 
-          onResolve: this.setSuccessMessage('visibilityUpdate')({
-            owner,
-            name,
-            version,
-            visibility
-          }),
-          options: { resolveStatus: [403] }
-      })
-    }
-
-    if (!flags.file) {
-      return
-    }
+  async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
 
     const updateApiObj = {
       pathParams: [owner, name],
@@ -60,12 +36,35 @@ class UpdateAPICommand extends BaseCommand {
     const [owner, name, version] = splitPathParams(requestedApiPath)
     const defaultVersion = definition ? getVersion(definition) : await this.getDefaultApiVersion([owner, name])
     const apiVersion = version ? version : defaultVersion
+    const isPrivate = flags.visibility !== 'public'
+    const visibility = isPrivate ? 'private' : 'public'
 
-    await this.executeHttp({
-      execute: () => getApi([owner, name, apiVersion]), 
-      onResolve: () => this.updateApi(owner, name, apiVersion, flags),
-      options: { resolveStatus: [403] }
-    })
+    if (flags.file) {
+      await this.executeHttp({
+        execute: () => getApi([owner, name, apiVersion]), 
+        onResolve: () => this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility }),
+        options: { resolveStatus: [403] }
+      })
+    }
+
+    if (!flags.file && flags.visibility) {
+      const updateApiObj = {
+        pathParams: [owner, name, version, 'settings', 'private'],
+        body: JSON.stringify({ private: isPrivate })
+      }
+  
+      await this.executeHttp({
+          execute: () => putApi(updateApiObj), 
+          onResolve: this.setSuccessMessage('visibilityUpdate')({
+            owner,
+            name,
+            version,
+            visibility
+          }),
+          options: { resolveStatus: [403] }
+      })
+    }
+
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
     requestedApiPath :
     `${requestedApiPath}/${apiVersion}`
