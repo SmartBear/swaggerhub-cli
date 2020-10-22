@@ -45,9 +45,7 @@ class UpdateAPICommand extends BaseCommand {
         onResolve: () => this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility }),
         options: { resolveStatus: [403] }
       })
-    }
-
-    if (!flags.file && flags.visibility) {
+    } else if (flags.visibility) {
       const updateApiObj = {
         pathParams: [owner, name, version, 'settings', 'private'],
         body: JSON.stringify({ private: isPrivate })
