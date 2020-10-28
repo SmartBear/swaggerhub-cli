@@ -47,16 +47,16 @@ class UpdateAPICommand extends BaseCommand {
       })
     } else if (flags.visibility) {
       const updateApiObj = {
-        pathParams: [owner, name, version, 'settings', 'private'],
+        pathParams: [owner, name, apiVersion, 'settings', 'private'],
         body: JSON.stringify({ private: isPrivate })
       }
-  
+
       await this.executeHttp({
-          execute: () => putApi(updateApiObj), 
+          execute: () => putApi(updateApiObj),
           onResolve: this.setSuccessMessage('visibilityUpdate')({
             owner,
             name,
-            version,
+            version: apiVersion,
             visibility
           }),
           options: { resolveStatus: [403] }
@@ -64,8 +64,8 @@ class UpdateAPICommand extends BaseCommand {
     }
 
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
-    requestedApiPath :
-    `${requestedApiPath}/${apiVersion}`
+      requestedApiPath :
+      `${requestedApiPath}/${apiVersion}`
 
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
