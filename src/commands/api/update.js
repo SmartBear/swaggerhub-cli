@@ -74,8 +74,8 @@ class UpdateAPICommand extends BaseCommand {
 
 UpdateAPICommand.description = `update an API
 The API version from the file will be used unless the version is specified in the command argument.
-An error will occur if the API version does not exist.
-The API visibility can be change by using visibility flag.
+Uses the default version, if the API version does not exist.
+The API visibility can be changed by using visibility flag.
 `
 
 UpdateAPICommand.examples = [
