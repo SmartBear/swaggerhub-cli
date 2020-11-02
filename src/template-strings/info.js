@@ -11,7 +11,9 @@ const infoMsg = {
 
   ApiSetdefault: 'Default version of {{owner}}/{{name}} set to {{version}}',
 
-  ApiUpdate: 'Updated API {{owner}}/{{name}}/{{version}}',
+  ApiUpdate: 'Updated API {{owner}}/{{name}}/{{version}} and visibility is set to {{visibility}}',
+
+  visibilityUpdate: 'Updated visibility of API {{owner}}/{{name}}/{{version}} to {{visibility}}',
 
   ApiUnpublish: 'Unpublished API {{apiPath}}',
 
