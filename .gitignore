@@ -114,4 +114,5 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-.idea
+# IntelliJ IDEA Project Configuration
+.idea/
