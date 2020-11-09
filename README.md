@@ -150,7 +150,7 @@ EXAMPLES
   swaggerhub api:create organization/api/1.0.0 --publish --setdefault --file api.json
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/create.js)_
 
 ## `swaggerhub api:get`
 
@@ -177,7 +177,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -197,7 +197,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -217,7 +217,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -237,11 +237,11 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
-update an API version
+update an API
 
 ```
 USAGE
@@ -251,15 +251,16 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to update in SwaggerHub
 
 OPTIONS
-  -f, --file=file              (required) file location of API to update
+  -f, --file=file              file location of API to update
   -h, --help                   show CLI help
   --publish                    sets the API version as published
   --setdefault                 sets API version to be the default
-  --visibility=public|private  [default: private] visibility of API in SwaggerHub
+  --visibility=public|private  visibility of API in SwaggerHub
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
-  An error will occur if the API version does not exist.
+  When no file is specified then the default API version will be updated.
+  The API visibility can be changed by using visibility flag.
 
 EXAMPLES
   swaggerhub api:update organization/api --file api.yaml
@@ -267,9 +268,10 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --publish --file api.json
   swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json
   swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json
+  swaggerhub api:update organization/api/1.0.0 --visibility=private
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/update.js)_
 
 ## `swaggerhub api:validate`
 
@@ -294,7 +296,7 @@ EXAMPLES
   swaggerhub api:validate organization/api
 ```
 
-_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/api/validate.js)_
+_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/validate.js)_
 
 ## `swaggerhub configure`
 
@@ -316,7 +318,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/configure.js)_
 
 ## `swaggerhub domain:get`
 
@@ -342,7 +344,7 @@ EXAMPLES
   swaggerhub domain:get organization/domain/1.0.0 --json
 ```
 
-_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/get.js)_
+_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/get.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -362,7 +364,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -382,7 +384,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -425,7 +427,7 @@ EXAMPLE
   swaggerhub integration:create organization/api/1.0.0 --file config.json
 ```
 
-_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.12/src/commands/integration/create.js)_
+_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/integration/create.js)_
 
 ## `swaggerhub plugins`
 
