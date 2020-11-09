@@ -42,7 +42,9 @@ class UpdateAPICommand extends BaseCommand {
     if (flags.file) {
       await this.executeHttp({
         execute: () => getApi([owner, name, apiVersion]), 
-        onResolve: () => this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility }),
+        onResolve: response => {
+          return this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility })
+        },
         options: { resolveStatus: [403] }
       })
     } else if (flags.visibility) {
