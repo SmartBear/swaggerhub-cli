@@ -12,18 +12,18 @@ const jsonResponse = {
   }
 }
 
-describe('invalid indentifier on domain:get', () => {
+describe('invalid identifier on domain:get', () => {
   test
     .stdout()
     .command(['domain:get'])
     .exit(2)
-    .it('runs domain:get with no indentifier provided')
+    .it('runs domain:get with no identifier provided')
 
   test
     .stdout()
     .command(['domain:get', 'invalid'])
     .exit(2)
-    .it('runs domain:get with invalid indentifier provided')
+    .it('runs domain:get with invalid identifier provided')
 })
 
 describe('valid identifier on domain:get', () => {

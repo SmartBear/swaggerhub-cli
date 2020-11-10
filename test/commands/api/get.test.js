@@ -12,18 +12,18 @@ const jsonResponse = {
   title: 'Swagger Petstore'
 }
 
-describe('invalid indentifier on apis:get', () => {
+describe('invalid identifier on apis:get', () => {
   test
     .stdout()
     .command(['api:get'])
     .exit(2)
-    .it('runs api:get with no indentifier provided')
+    .it('runs api:get with no identifier provided')
 
   test
     .stdout()
     .command(['api:get', 'invalid'])
     .exit(2)
-    .it('runs api:get with invalid indentifier provided')
+    .it('runs api:get with invalid identifier provided')
 })
 
 describe('valid identifier on api:get', () => {
