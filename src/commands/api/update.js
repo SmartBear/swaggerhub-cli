@@ -39,9 +39,9 @@ class UpdateAPICommand extends BaseCommand {
     const apiVersion = version ? version : defaultVersion
 
     if (flags.file) {
-      await this.handleUpdate(owner, name, apiVersion, flags);
+      await this.handleUpdate(owner, name, apiVersion, flags)
     } else if (flags.visibility) {
-      await this.handleUpdateVisibility(owner, name, apiVersion, flags);
+      await this.handleUpdateVisibility(owner, name, apiVersion, flags)
     }
 
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
