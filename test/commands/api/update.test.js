@@ -17,6 +17,13 @@ describe('invalid api:update command issues', () => {
     .it('runs api:update with no required --file flag')
 
   test
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility'])
+    .catch(err => {
+      expect(err.message).to.equal('Flag --visibility expects a value')
+    })
+    .it('runs api:update with no required --visibility flag')
+
+  test
     .command(['api:update', 'owner', '-f=test/resources/valid_api.yaml'])
     .exit(2)
     .it('runs api:update with org identifier provided')
