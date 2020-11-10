@@ -70,7 +70,7 @@ describe('invalid api:update', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0/settings/version')
-      .reply(200, '{"private": true}')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
@@ -96,7 +96,7 @@ describe('invalid api:update', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0/settings/version')
-      .reply(200, '{"private": true}')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
@@ -116,7 +116,7 @@ describe('invalid api:update', () => {
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0/settings/version')
-      .reply(200, '{"private": true}')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
@@ -152,8 +152,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/1.0.0')
-      .reply(200)
+      .get('/org/api/1.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=1.0.0&isPrivate=true')
@@ -169,8 +169,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=true')
@@ -186,8 +186,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=false')
@@ -197,6 +197,23 @@ describe('valid api:update', () => {
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility=public'])
 
     .it('runs api:update to set API public', ctx => {
+      expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, '{"private": false}')
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=2.0.0&isPrivate=true')
+      .reply(200)
+    )
+    .stdout()
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility=private'])
+
+    .it('runs api:update to set API private', ctx => {
       expect(ctx.stdout).to.contains('Updated API org/api/2.0.0')
     })
 
@@ -239,8 +256,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=true')
@@ -261,8 +278,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=true')
@@ -282,7 +299,6 @@ describe('valid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -310,10 +326,9 @@ describe('valid api:update', () => {
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=false')
@@ -346,8 +361,8 @@ describe('valid api:update', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
-      .get('/org/api/2.0.0')
-      .reply(200)
+      .get('/org/api/2.0.0/settings/version')
+      .reply(200, { "private": true })
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/api?version=2.0.0&isPrivate=true')
