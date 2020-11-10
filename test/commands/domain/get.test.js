@@ -122,12 +122,12 @@ describe('swaggerhub errors on domain:get', () => {
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get(`/${validIdentifier}`)
       .reply(403, { message: 'Error: This private API is blocked because you have exceeded your current ' +
-        'plan\'s limits. To access it: either ::upgrade-link:: or ::public-link::.' })
+        'plan\'s limits' })
     )
     .command(['domain:get', 'org1/domain2/1.0.0'])
     .catch(ctx => {
       expect(ctx.message).to.equal('Error: This private API is blocked because you have exceeded your current ' +
-        'plan\'s limits. You may need to upgrade your current plan or make your definition public.')
+        'plan\'s limits')
     })
     .it('not found returned by SwaggerHub, command fails')
 

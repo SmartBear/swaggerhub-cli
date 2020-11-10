@@ -54,7 +54,7 @@ class UpdateAPICommand extends BaseCommand {
 
   async handleUpdate(owner, name, apiVersion, flags) {
     await this.executeHttp({
-      execute: () => getApi([owner, name, apiVersion, 'settings', 'version']),
+      execute: () => getApi([owner, name, apiVersion, 'settings', 'private']),
       onResolve: response => {
         const content = getResponseContent(response)
         const versionSettings = JSON.parse(content)

@@ -19,10 +19,9 @@ const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
 
 const filterResponseMessaging = response => {
   if (response.status === 403) {
-    response.content = response.content.replace(/[.].*::upgrade-link::/, `. ${errorMsg.upgradePlan()}`)
-    response.content = response.content.replace('::public-link::', errorMsg.makePublic())
     return Promise.reject(response)
   }
+
   return Promise.resolve(response)
 }
 

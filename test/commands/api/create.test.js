@@ -115,11 +115,11 @@ describe('invalid api:create', () => {
     )
     .nock(`${shubUrl}/apis`, api => api
       .post('/org/overLimitApi?version=1.0.0&isPrivate=true&oas=3.0.0')
-      .reply(403, '{"code":403,"message":"You have reached the limit of APIs. To upgrade click here ::upgrade-link::"}')
+      .reply(403, '{"code":403,"message":"You have reached the limit of APIs"}')
     )
     .command(['api:create', 'org/overLimitApi/1.0.0', '--file=test/resources/valid_api.json'])
     .catch(ctx => {
-      expect(ctx.message).to.equal('You have reached the limit of APIs. You may need to upgrade your current plan')
+      expect(ctx.message).to.equal('You have reached the limit of APIs')
     })
     .it('runs api:create with org that doesn\'t exist')
   
