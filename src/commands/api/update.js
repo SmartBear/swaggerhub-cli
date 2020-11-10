@@ -20,7 +20,7 @@ class UpdateAPICommand extends BaseCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj),
-      onResolve: this.logCommandSuccess({ owner, name, version, isPrivate, visibility }),
+      onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
       options: { resolveStatus: [403] }
     })
   }
