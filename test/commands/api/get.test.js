@@ -1,4 +1,4 @@
-const {expect, test} = require('@oclif/test')
+const { expect, test } = require('@oclif/test')
 const yaml = require('js-yaml')
 const config = require('../../../src/config')
 
@@ -28,8 +28,8 @@ describe('invalid indentifier on apis:get', () => {
 
 describe('valid identifier on api:get', () => {
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/json'}}, api => api
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
     )
@@ -40,8 +40,8 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/json'}}, api => api
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
     )
@@ -52,8 +52,8 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/yaml'}}, api => api
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/yaml' } }, api => api
       .get(`/${validIdentifier}`)
       .reply(200, yaml.dump(jsonResponse))
     )
@@ -64,12 +64,12 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get('/org1/api2/settings/default')
-      .reply(200, {version: '1.0.0'})
+      .reply(200, { version: '1.0.0' })
     )
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/yaml'}}, api => api
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/yaml' } }, api => api
       .get(`/${validIdentifier}`)
       .reply(200, yaml.dump(jsonResponse))
     )
@@ -80,12 +80,12 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get('/org1/api2/settings/default')
-      .reply(200, {version: '1.0.0'})
+      .reply(200, { version: '1.0.0' })
     )
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/json'}}, api => api
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${validIdentifier}`)
       .reply(200, jsonResponse)
     )
@@ -96,8 +96,8 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/yaml'}}, api => api
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/yaml' } }, api => api
       .get(`/${validIdentifier}?resolved=true`)
       .reply(200, yaml.dump(jsonResponse))
     )
@@ -108,12 +108,12 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get('/org1/api2/settings/default')
-      .reply(200, {version: '1.0.0'})
+      .reply(200, { version: '1.0.0' })
     )
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/yaml'}}, api => api
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/yaml' } }, api => api
       .get(`/${validIdentifier}?resolved=true`)
       .reply(200, yaml.dump(jsonResponse))
     )
@@ -124,8 +124,8 @@ describe('valid identifier on api:get', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
-    .nock('https://api.swaggerhub.com/apis', {reqheaders: {Accept: 'application/json'}}, api => api
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${validIdentifier}?resolved=true`)
       .reply(200, jsonResponse)
     )
@@ -138,30 +138,30 @@ describe('valid identifier on api:get', () => {
 
 describe('swaggerhub errors on api:get', () => {
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get(`/${validIdentifier}`)
-      .reply(500, {message: 'Internal Server Error'})
+      .reply(500, { message: 'Internal Server Error' })
     )
     .command(['api:get', 'org1/api2/1.0.0'])
     .exit(2)
     .it('internal server error returned by SwaggerHub, command fails')
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get(`/${validIdentifier}`)
-      .reply(404, {message: 'Not found'})
+      .reply(404, { message: 'Not found' })
     )
     .command(['api:get', 'org1/api2/1.0.0'])
     .exit(2)
     .it('not found returned by SwaggerHub, command fails')
 
   test
-    .stub(config, 'getConfig', () => ({SWAGGERHUB_URL: 'https://api.swaggerhub.com'}))
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get('/org1/api2/settings/default')
-      .reply(404, {message: 'Unknown API org1/api2'})
+      .reply(404, { message: 'Unknown API org1/api2' })
     )
     .command(['api:get', 'org1/api2'])
     .exit(2)
