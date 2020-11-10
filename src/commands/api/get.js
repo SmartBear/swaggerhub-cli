@@ -1,5 +1,5 @@
 const { flags } = require('@oclif/command')
-const { getApiIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
+const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { from, hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')

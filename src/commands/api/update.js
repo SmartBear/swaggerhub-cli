@@ -4,12 +4,13 @@ const { getApi, postApi, putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
+const { getResponseContent } = require('../../support/command/handle-response')
 const publish = require('./publish')
 const setDefault = require('./setdefault')
 
 class UpdateAPICommand extends BaseCommand {
   
-  async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
+  async updateApi({ owner, name, version, flags, isPrivate }) {
 
     const updateApiObj = {
       pathParams: [owner, name],
@@ -17,9 +18,10 @@ class UpdateAPICommand extends BaseCommand {
       body: readFileSync(flags.file)
     }
 
+    const visibility = isPrivate ? 'private' : 'public'
     return await this.executeHttp({
       execute: () => postApi(updateApiObj), 
-      onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
+      onResolve: this.logCommandSuccess({ owner, name, version, isPrivate, visibility }),
       options: { resolveStatus: [403] }
     })
   }
@@ -36,18 +38,19 @@ class UpdateAPICommand extends BaseCommand {
     const [owner, name, version] = splitPathParams(requestedApiPath)
     const defaultVersion = definition ? getVersion(definition) : await this.getDefaultApiVersion([owner, name])
     const apiVersion = version ? version : defaultVersion
-    const isPrivate = flags.visibility !== 'public'
-    const visibility = isPrivate ? 'private' : 'public'
 
     if (flags.file) {
       await this.executeHttp({
-        execute: () => getApi([owner, name, apiVersion]), 
+        execute: () => getApi([owner, name, apiVersion, 'settings', 'version']),
         onResolve: response => {
-          return this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility })
+          const isPrivate = flags.visibility ? flags.visibility !== 'public' : getResponseContent(response).private
+          return this.updateApi({ owner, name, version: apiVersion, flags, resolvedIsPrivate: isPrivate })
         },
         options: { resolveStatus: [403] }
       })
     } else if (flags.visibility) {
+      const isPrivate = flags.visibility !== 'public'
+      const visibility = isPrivate ? 'private' : 'public'
       const updateApiObj = {
         pathParams: [owner, name, apiVersion, 'settings', 'private'],
         body: JSON.stringify({ private: isPrivate })
@@ -72,6 +75,7 @@ class UpdateAPICommand extends BaseCommand {
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
   }
+
 }
 
 UpdateAPICommand.description = `update an API
