@@ -24,6 +24,14 @@ describe('invalid api:update command issues', () => {
     .it('runs api:update with no required --visibility flag')
 
   test
+    .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility=unexpected'])
+    .catch(err => {
+      expect(err.message).to.equal('Expected --visibility=unexpected to be one of: public, private\n' +
+        'See more help with --help')
+    })
+    .it('runs api:update with unexpected value for required --visibility flag')
+
+  test
     .command(['api:update', 'owner', '-f=test/resources/valid_api.yaml'])
     .exit(2)
     .it('runs api:update with org identifier provided')
