@@ -14,16 +14,12 @@ const errorMsg = {
   cannotParseVersion: 'Cannot determine version from file',
 
   noContentField: 'No content field provided',
-  
+
   fileIsEmpty: 'File \'{{filename}}\' is empty',
 
   fileNotFound: 'File \'{{filename}}\' not found',
 
   invalidConfig: 'Invalid configuration file. Please ensure that the file is in JSON format',
-
-  upgradePlan: 'You may need to upgrade your current plan',
-
-  makePublic: 'make your definition public',
 
   unknown: 'Unknown Error',
 }

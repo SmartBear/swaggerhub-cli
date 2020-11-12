@@ -12,18 +12,18 @@ const jsonResponse = {
   }
 }
 
-describe('invalid indentifier on domain:get', () => {
+describe('invalid identifier on domain:get', () => {
   test
     .stdout()
     .command(['domain:get'])
     .exit(2)
-    .it('runs domain:get with no indentifier provided')
+    .it('runs domain:get with no identifier provided')
 
   test
     .stdout()
     .command(['domain:get', 'invalid'])
     .exit(2)
-    .it('runs domain:get with invalid indentifier provided')
+    .it('runs domain:get with invalid identifier provided')
 })
 
 describe('valid identifier on domain:get', () => {
@@ -122,12 +122,12 @@ describe('swaggerhub errors on domain:get', () => {
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get(`/${validIdentifier}`)
       .reply(403, { message: 'Error: This private API is blocked because you have exceeded your current ' +
-        'plan\'s limits. To access it: either ::upgrade-link:: or ::public-link::.' })
+        'plan\'s limits' })
     )
     .command(['domain:get', 'org1/domain2/1.0.0'])
     .catch(ctx => {
       expect(ctx.message).to.equal('Error: This private API is blocked because you have exceeded your current ' +
-        'plan\'s limits. You may need to upgrade your current plan or make your definition public.')
+        'plan\'s limits')
     })
     .it('not found returned by SwaggerHub, command fails')
 

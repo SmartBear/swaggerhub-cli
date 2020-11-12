@@ -4,11 +4,12 @@ const { getApi, postApi, putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
+const { getResponseContent } = require('../../support/command/handle-response')
 const publish = require('./publish')
 const setDefault = require('./setdefault')
 
 class UpdateAPICommand extends BaseCommand {
-  
+
   async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
 
     const updateApiObj = {
@@ -18,7 +19,7 @@ class UpdateAPICommand extends BaseCommand {
     }
 
     return await this.executeHttp({
-      execute: () => postApi(updateApiObj), 
+      execute: () => postApi(updateApiObj),
       onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
       options: { resolveStatus: [403] }
     })
@@ -28,7 +29,7 @@ class UpdateAPICommand extends BaseCommand {
     const { args, flags } = this.parse(UpdateAPICommand)
 
     if (!Object.keys(flags).length) {
-      return this.error('No updates specified' , { exit: 1 })
+      return this.error('No updates specified', { exit: 1 })
     }
 
     const definition = flags.file ? parseDefinition(flags.file) : null
@@ -36,31 +37,11 @@ class UpdateAPICommand extends BaseCommand {
     const [owner, name, version] = splitPathParams(requestedApiPath)
     const defaultVersion = definition ? getVersion(definition) : await this.getDefaultApiVersion([owner, name])
     const apiVersion = version ? version : defaultVersion
-    const isPrivate = flags.visibility !== 'public'
-    const visibility = isPrivate ? 'private' : 'public'
 
     if (flags.file) {
-      await this.executeHttp({
-        execute: () => getApi([owner, name, apiVersion]), 
-        onResolve: () => this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility }),
-        options: { resolveStatus: [403] }
-      })
+      await this.handleUpdate(owner, name, apiVersion, flags)
     } else if (flags.visibility) {
-      const updateApiObj = {
-        pathParams: [owner, name, apiVersion, 'settings', 'private'],
-        body: JSON.stringify({ private: isPrivate })
-      }
-
-      await this.executeHttp({
-          execute: () => putApi(updateApiObj),
-          onResolve: this.setSuccessMessage('visibilityUpdate')({
-            owner,
-            name,
-            version: apiVersion,
-            visibility
-          }),
-          options: { resolveStatus: [403] }
-      })
+      await this.handleUpdateVisibility(owner, name, apiVersion, flags)
     }
 
     const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
@@ -69,6 +50,40 @@ class UpdateAPICommand extends BaseCommand {
 
     if (flags.publish) await publish.run([apiPathWithVersion])
     if (flags.setdefault) await setDefault.run([apiPathWithVersion])
+  }
+
+  async handleUpdate(owner, name, apiVersion, flags) {
+    await this.executeHttp({
+      execute: () => getApi([owner, name, apiVersion, 'settings', 'private']),
+      onResolve: response => {
+        const content = getResponseContent(response)
+        const versionSettings = JSON.parse(content)
+        const isPrivate = flags.visibility ? flags.visibility !== 'public' : versionSettings.private
+        const visibility = isPrivate ? 'private' : 'public'
+        return this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility })
+      },
+      options: { resolveStatus: [403] }
+    })
+  }
+
+  async handleUpdateVisibility(owner, name, apiVersion, flags) {
+    const isPrivate = flags.visibility !== 'public'
+    const visibility = isPrivate ? 'private' : 'public'
+    const updateApiObj = {
+      pathParams: [owner, name, apiVersion, 'settings', 'private'],
+      body: JSON.stringify({ private: isPrivate })
+    }
+
+    await this.executeHttp({
+      execute: () => putApi(updateApiObj),
+      onResolve: this.setSuccessMessage('visibilityUpdate')({
+        owner,
+        name,
+        version: apiVersion,
+        visibility
+      }),
+      options: { resolveStatus: [403] }
+    })
   }
 }
 
@@ -95,7 +110,7 @@ UpdateAPICommand.args = [{
 
 UpdateAPICommand.flags = {
   file: flags.string({
-    char: 'f', 
+    char: 'f',
     description: 'file location of API to update',
     required: false,
     multiple: false
