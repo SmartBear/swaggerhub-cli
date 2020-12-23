@@ -150,7 +150,7 @@ EXAMPLES
   swaggerhub api:create organization/api/1.0.0 --publish --setdefault --file api.json
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/create.js)_
 
 ## `swaggerhub api:get`
 
@@ -177,7 +177,7 @@ EXAMPLES
   swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -197,7 +197,7 @@ EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -217,7 +217,7 @@ EXAMPLE
   swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -237,7 +237,7 @@ EXAMPLE
   swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
@@ -271,7 +271,7 @@ EXAMPLES
   swaggerhub api:update organization/api/1.0.0 --visibility=private
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/update.js)_
 
 ## `swaggerhub api:validate`
 
@@ -296,7 +296,7 @@ EXAMPLES
   swaggerhub api:validate organization/api
 ```
 
-_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/api/validate.js)_
+_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/api/validate.js)_
 
 ## `swaggerhub configure`
 
@@ -318,7 +318,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/configure.js)_
 
 ## `swaggerhub domain:get`
 
@@ -344,7 +344,7 @@ EXAMPLES
   swaggerhub domain:get organization/domain/1.0.0 --json
 ```
 
-_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/get.js)_
+_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/domain/get.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -364,7 +364,7 @@ EXAMPLE
   swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -384,7 +384,7 @@ EXAMPLE
   swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub help [COMMAND]`
 
@@ -401,7 +401,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
@@ -427,7 +427,7 @@ EXAMPLE
   swaggerhub integration:create organization/api/1.0.0 --file config.json
 ```
 
-_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.13/src/commands/integration/create.js)_
+_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/integration/create.js)_
 
 ## `swaggerhub plugins`
 
@@ -444,7 +444,7 @@ EXAMPLE
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/index.ts)_
 
 ## `swaggerhub plugins:install PLUGIN...`
 
@@ -480,7 +480,7 @@ EXAMPLES
   $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/install.ts)_
 
 ## `swaggerhub plugins:link PLUGIN`
 
@@ -507,7 +507,7 @@ EXAMPLE
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/link.ts)_
 
 ## `swaggerhub plugins:uninstall PLUGIN...`
 
@@ -529,7 +529,7 @@ ALIASES
   $ swaggerhub plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/uninstall.ts)_
 
 ## `swaggerhub plugins:update`
 
@@ -544,7 +544,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.0/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
 # Plugins
