@@ -1,7 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const yaml = require('js-yaml')
 const config = require('../../../src/config')
-
 const validIdentifier = 'org1/api2/1.0.0'
 const jsonResponse = {
   openapi: '3.0.0',
@@ -166,4 +165,24 @@ describe('swaggerhub errors on api:get', () => {
     .command(['api:get', 'org1/api2'])
     .exit(2)
     .it('not found returned when fetching default version of API')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', api => api
+      .get(`/${validIdentifier}`)
+      .reply(200)
+    )
+    .command(['api:get', 'org1/api2/1.0.0'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('No content field provided')
+    })
+    .it('no content returned from swaggerhub')
+
+  test
+    .stub(config, 'isURLValid', () => false)
+    .command(['api:get', 'org1/api2/1.0.0'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
+    })
+    .it('invalid SwaggerHub URL')
 })

@@ -12,11 +12,14 @@ class GetAPICommand extends BaseCommand {
   }
 
   logApiDefinition(response) {
-    const definition = getResponseContent(response)
+    const responseContent = getResponseContent(response)
+    if (responseContent instanceof Promise) {
+      return responseContent
+    }
 
-    this.log(hasJsonStructure(definition)
-      ? prettyPrintJSON(definition)
-      : definition
+    this.log(hasJsonStructure(responseContent)
+      ? prettyPrintJSON(responseContent)
+      : responseContent
     )
   }
 

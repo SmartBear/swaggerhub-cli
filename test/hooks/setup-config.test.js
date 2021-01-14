@@ -26,11 +26,13 @@ describe('setup config', () => {
     delete global.configFilePath
   })
 
-  describe('setupConfig', () => {
+  describe('setupConfig create new file', () => {
     test.it('it should create a new config file if none exists', () => {
       expect(existsSync(expectedFilePath)).to.equal(true)
     })
+  })
 
+  describe('setupConfig set global variables', () => {
     test.it('should set a global variable - configFilePath', () => {
       expect(global.configFilePath).to.equal(expectedFilePath)
     })
