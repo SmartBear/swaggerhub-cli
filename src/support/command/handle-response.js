@@ -39,10 +39,7 @@ const parseResponseError = ({ content }) => hasJsonStructure(content)
   : errorMsg.unknown()
 
 const handleErrors = error => {
-  if (isError(error)) {
-    throw new CLIError(error.message)
-  }
-  const cliError = parseResponseError(error)
+  const cliError = isError(error) ? error.message : parseResponseError(error)
   if (hasJsonStructure(cliError)) {
     return handleErrors({ content: cliError })
   }
