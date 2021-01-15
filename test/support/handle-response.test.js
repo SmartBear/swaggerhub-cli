@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { checkForErrors, handleErrors } = require('../../src/support/command/handle-response')
+const { checkForErrors, getResponseContent, handleErrors } = require('../../src/support/command/handle-response')
 
 describe('checkForErrors', () => {
     test.it('should return resolved promise', async () => {
@@ -34,6 +34,16 @@ describe('handleErrors', () => {
             handleErrors({ content: 'Not json format' })
         } catch (err) {
             expect(err.message).to.equal('Unknown Error')
+        }
+    })
+})
+
+describe('getResponseContent', () => {
+    test.it('test error returned when getResponseContent called with no parameters', async () => {
+        try {
+            await getResponseContent()
+        } catch (err) {
+            expect(err.message).to.equal('No content field provided')
         }
     })
 })

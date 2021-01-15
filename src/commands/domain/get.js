@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
-const { from, hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
+const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getDomain } = require('../../requests/domain')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
@@ -11,15 +11,12 @@ class GetDomainCommand extends BaseCommand {
     this.logDefinition = this.logDefinition.bind(this)
   }
 
-  logDefinition(response) {
-    const responseContent = getResponseContent(response)
-    if (responseContent instanceof Promise) {
-      return responseContent
-    }
+  async logDefinition(response) {
+    const definition = await getResponseContent(response)
 
-    this.log(hasJsonStructure(responseContent)
-      ? prettyPrintJSON(responseContent)
-      : responseContent
+    this.log(hasJsonStructure(definition)
+      ? prettyPrintJSON(definition)
+      : definition
     )
   }
 
@@ -33,7 +30,8 @@ class GetDomainCommand extends BaseCommand {
     const requestedDomainPath = getDomainIdentifierArg(args)
     const requestedPathParams = splitPathParams(requestedDomainPath)
     const pathParams = await this.ensureVersion(requestedPathParams)
-    const [queryParams, requestType] = from(flags)(resolvedParam, reqType)
+    const queryParams = resolvedParam(flags)
+    const requestType = reqType(flags)
 
     await this.executeHttp({
       execute: () => getDomain(pathParams, queryParams, requestType),

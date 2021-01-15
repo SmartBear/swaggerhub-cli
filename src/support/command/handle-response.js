@@ -25,9 +25,13 @@ const filterResponseMessaging = response => {
   return Promise.resolve(response)
 }
 
-const getResponseContent = ({ content }) => content || Promise.reject(
-  new Error(errorMsg.noContentField())
-)
+const getResponseContent = async ({ content } = {}) => {
+  content = await content
+  if (!content) {
+    throw new CLIError(errorMsg.noContentField())
+  }  
+  return content
+}
 
 const parseContent = content => {
   const { message, error } = JSON.parse(content)
