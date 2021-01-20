@@ -132,12 +132,24 @@ describe('swaggerhub errors on domain:get', () => {
     .it('not found returned by SwaggerHub, command fails')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-  .nock('https://api.swaggerhub.com/domains', domain => domain
-    .get('/org1/domain2/settings/default')
-    .reply(404, { message: 'Unknown domain org1/domain2' })
-  )
-  .command(['domain:get', 'org1/domain2'])
-  .exit(2)
-  .it('not found returned when fetching default version of domain')
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/domains', api => api
+      .get(`/${validIdentifier}`)
+      .reply(200)
+    )
+    .command(['domain:get', 'org1/domain2/1.0.0'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('No content field provided')
+    })
+    .it('no content returned from swaggerhub')
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/domains', domain => domain
+      .get('/org1/domain2/settings/default')
+      .reply(404, { message: 'Unknown domain org1/domain2' })
+    )
+    .command(['domain:get', 'org1/domain2'])
+    .exit(2)
+    .it('not found returned when fetching default version of domain')
 })

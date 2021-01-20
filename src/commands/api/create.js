@@ -1,7 +1,6 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
-const { from } = require('../../utils/general')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
@@ -63,7 +62,8 @@ class CreateAPICommand extends BaseCommand {
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const definition = parseDefinition(flags.file)
-    const [oas, apiVersion] = from(definition)(getOasVersion, getVersion)
+    const oas = getOasVersion(definition)
+    const apiVersion = getVersion(definition)
     const requestedApiPath = getApiIdentifierArg(args)
     const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
 

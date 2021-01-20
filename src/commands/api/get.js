@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
-const { from, hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
+const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
@@ -11,8 +11,8 @@ class GetAPICommand extends BaseCommand {
     this.logApiDefinition = this.logApiDefinition.bind(this)
   }
 
-  logApiDefinition(response) {
-    const definition = getResponseContent(response)
+  async logApiDefinition(response) {
+    const definition = await getResponseContent(response)
 
     this.log(hasJsonStructure(definition)
       ? prettyPrintJSON(definition)
@@ -24,7 +24,8 @@ class GetAPICommand extends BaseCommand {
     const { args, flags } = this.parse(GetAPICommand)
     const requestedApiPath = getApiIdentifierArg(args)
     const apiPath = await this.ensureVersion(requestedApiPath)
-    const [queryParams, requestType] = from(flags)(resolvedParam, reqType)
+    const queryParams = resolvedParam(flags)
+    const requestType = reqType(flags)
 
     await this.executeHttp({
       execute: () => getApi([apiPath], queryParams, requestType),

@@ -258,14 +258,14 @@ describe('valid api:update', () => {
       .reply(200, { version: '2.0.0' })
     )
     .nock(`${shubUrl}/apis`, api => api
-      .put('/org/api/2.0.0/settings/private', { private: false })
+      .put('/org/api/2.0.0/settings/private', { private: true })
       .reply(200)
     )
     .stdout()
-    .command(['api:update', 'org/api/2.0.0', '--visibility=public'])
+    .command(['api:update', 'org/api/2.0.0', '--visibility=private'])
 
-    .it('runs api:update to set API public', ctx => {
-      expect(ctx.stdout).to.contains('Updated visibility of API org/api/2.0.0 to public')
+    .it('runs api:update to set API private', ctx => {
+      expect(ctx.stdout).to.contains('Updated visibility of API org/api/2.0.0 to private')
     })
 
   test
