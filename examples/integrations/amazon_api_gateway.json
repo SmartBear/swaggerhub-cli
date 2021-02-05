@@ -1,0 +1,11 @@
+{
+    "name": "Amazon API Gateway Integraton",
+    "configType": "AMAZON_API_GATEWAY",
+    "region": "us-east-1",
+    "publishMode": "merge",
+    "basePathMode": "ignore",
+    "updateDefinition": true,
+    "proxyToAddress": "http://api.example.com",
+    "accessKey": "accessKey",
+    "secretKey": "secretKey"
+}
