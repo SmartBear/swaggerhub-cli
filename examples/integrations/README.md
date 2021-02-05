@@ -4,49 +4,37 @@ Integrations are created for an API using the `integration:create` command. The 
 
 **Note:** SwaggerHub On-Premise users need v. 1.26 to use the `integration:create` command.
 
+* [Amazon API Gateway Integration](#amazon-api-gateway-integration)
 * [API Auto Mocking Integration](#api-auto-mocking-integration)
-* [GitHub Integration](#github-integration)
-* [GitHub Enterprise Integration](#github-enterprise-integration)
 * [Azure DevOps Server Integration](#azure-devops-server-integration)
 * [Azure DevOps Services Integration](#azure-devops-services-integration)
 * [Bitbucket Cloud Integration](#bitbucket-cloud-integration)
 * [Bitbucket Server Integration](#bitbucket-server-integration)
+* [GitHub Integration](#github-integration)
+* [GitHub Enterprise Integration](#github-enterprise-integration)
 * [GitLab Integration](#gitlab-integration)
 * [Webhook Integration](#webhook-integration)
+
+## Amazon API Gateway Integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
+* **configType**: "AMAZON_API_GATEWAY" is used to create an Amazon API Gateway integration.
+* **region**: AWS region where the API will be published. See [*Property: `region`*](#property-region) for possible values.
+* **proxyToAddress**: The URL of the backend endpoint to which API Gateway will proxy the requests.
+* **accessKey**: AWS access key. Write-only property. Required to create and update the integration.
+* **secretKey**: AWS secret key. Write-only property. Required to create and update the integration.
+* **publishMode**: How to update an existing API in AWS. Options are: `merge`, `overwrite`. Default value is `merge`.
+* **basePathMode**: How to handle the API's basePath value. Refer to [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html) for details. Options are `ignore`, `prepend`, `split`. Default value is `ignore`.
+* **updateDefinition**: Whether to update the API definition with Amazon-specific extensions and compatibility modifications. Default value is `false`.
+* **deploymentMode**: Should be `on save`. The value `never` means the integration is disabled. Default value is `on save`.
+* **apiId**: AWS ID of the API to update. Empty value will create a new API in AWS. This property is optional.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## API Auto Mocking Integration
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "API_AUTO_MOCKING" is used to create an API Auto Mocking integration.
-* **defaultResponseType**: Response content type that the server will return if no `Accept` header is specified. Options are: `application/json`, `application/xml`, `application/yaml`. Default value is "application/json".
+* **defaultResponseType**: Response content type that the server will return if no `Accept` header is specified. Options are: `application/json`, `application/xml`, `application/yaml`. Default value is `application/json`.
 * **token**: Bearer token that users will need to send in requests to the mock server (private APIs only). This property is optional.
 * **modify**: Whether to update the `host`/`servers` in the API definition for the API Auto Mock server. Default value is `true`.
-* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
-
-## GitHub Integration
-* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
-* **configType**: "GITHUB" is used to create a GitHub integration.
-* **token**: Personal access token for accessing the repository. Tokens can be generated here: https://github.com/settings/tokens. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
-* **owner**: Owner of the repository to synchronize.
-* **repository**: Repository to synchronize.
-* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
-* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFolder**: The output folder for the generated code or definition.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
-* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
-
-## GitHub Enterprise Integration
-* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
-* **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise integration.
-* **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
-* **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
-* **owner**: Owner of the repository to synchronize.
-* **repository**: Repository to synchronize.
-* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
-* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
-* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
-* **outputFolder**: The output folder for the generated code or definition.
-* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Azure DevOps Server Integration
@@ -110,6 +98,33 @@ Integrations are created for an API using the `integration:create` command. The 
 * **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
+## GitHub Integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
+* **configType**: "GITHUB" is used to create a GitHub integration.
+* **token**: Personal access token for accessing the repository. Tokens can be generated here: https://github.com/settings/tokens. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
+## GitHub Enterprise Integration
+* **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
+* **configType**: "GITHUB_ENTERPRISE" is used to create a GitHub Enterprise integration.
+* **host**:  URL of your GitHub Enterprise server, for example, https://ghe.example.com.
+* **token**: [Personal access token](https://docs.github.com/en/enterprise/user/github/authenticating-to-github/creating-a-personal-access-token) for accessing the repository. The token must have the _public_repo_ scope if the target repository is public, or the _repo_ scope if it is private.
+* **owner**: Owner of the repository to synchronize.
+* **repository**: Repository to synchronize.
+* **branch**: The branch to synchronize. If it does not exist, it will be created based on your default branch. Must not contain whitespace characters.
+* **syncMethod**: "Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.
+* **target**: The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.
+* **outputFolder**: The output folder for the generated code or definition.
+* **outputFile**: If target is the YAML/JSON definiton, this is the filename for the generated definition.
+* **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
+
 ## GitLab Integration
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "GITLAB" is used to create a GitLab integration.
@@ -131,6 +146,12 @@ Integrations are created for an API using the `integration:create` command. The 
 * **contentType**: Content type of notification. Must be "application/json" or "application/x-www-form-urlencoded".
 * **lifecycleEvents**: The lifecycle events that will trigger webhook. This is a list from the options: "API_SAVED", "API_PUBLISHED".
 * **additionalHeaders**: Custom HTTP headers to be sent with webhook notifications. Use the format "name: value" for each header.
+
+## Property: `region`
+AWS region where the API will be published. 
+* AWS regions: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "eu-west-1", "eu-west-2", "eu-west-3", "eu-central-1", "eu-north-1",
+            "ap-east-1", "ap-south-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "ap-northeast-2", "sa-east-1", "cn-north-1",
+            cn-northwest-1", "ca-central-1", "me-south-1"
 
 ## Property: `target`
 In the case of source control management (SCM) integrations, it is possible to generate server stubs, client SDKs, or resolved versions of the API. The value of `target` defines the generated output. The list of targets varies between OpenAPI 2.0 and OpenAPI 3.0 definitions. The current list of options is displayed below.
