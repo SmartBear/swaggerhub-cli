@@ -18,7 +18,7 @@ Integrations are created for an API using the `integration:create` command. The 
 ## Amazon API Gateway Integration
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "AMAZON_API_GATEWAY" is used to create an Amazon API Gateway integration.
-* **region**: AWS region where the API will be published. Possible values include: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "eu-west-1", "eu-west-2", "eu-west-3", "eu-central-1", "eu-north-1", "ap-east-1", "ap-south-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "ap-northeast-2", "sa-east-1", "cn-north-1", "cn-northwest-1", "ca-central-1", "me-south-1".
+* **region**: AWS region where the API will be published. Options are: `us-east-1`, `us-east-2`, `us-west-1`, `us-west-2`, `eu-west-1`, `eu-west-2`, `eu-west-3`, `eu-central-1`, `eu-north-1`, `ap-east-1`, `ap-south-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-northeast-1`, `ap-northeast-2`, `sa-east-1`, `cn-north-1`, `cn-northwest-1`, `ca-central-1`, `me-south-1`.
 * **proxyToAddress**: The URL of the backend endpoint to which the API Gateway will proxy the requests.
 * **accessKey**: AWS access key. Write-only property. Required to create and update the integration.
 * **secretKey**: AWS secret key. Write-only property. Required to create and update the integration.
