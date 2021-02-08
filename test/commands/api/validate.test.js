@@ -6,6 +6,7 @@ const heading = 'line \tseverity \tdescription\n\n'
 
 describe('invalid api:validate', () => {
   const severity = 'CRITICAL',
+    warningSeverity = 'WARNING',
     description = 'sample description',
     line = 10
 
@@ -23,6 +24,22 @@ describe('invalid api:validate', () => {
   .exit(1)
   .it('should return validation errors, one per line', ctx => {
     expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+  })
+
+  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(200, {
+      validation: [
+        { line, description, severity: warningSeverity }
+      ]
+      })
+  )
+  .stdout()
+  .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
+  .exit(0)
+  .it('should return warning validation errors, one per line with zero exit code', ctx => {
+    expect(ctx.stdout).to.contains(`${heading}${line}: \t${warningSeverity} \t${description}`)
   })
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))

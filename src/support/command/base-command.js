@@ -5,7 +5,7 @@ const { getApi } = require('../../requests/api')
 const { getDomain } = require('../../requests/domain')
 const { getResponseContent } = require('./handle-response')
 
-const { isURLValid } = require('../../config')
+const config = require('../../config')
 const {
   parseResponse,
   checkForErrors,
@@ -71,7 +71,7 @@ class BaseCommand extends Command {
   
   executeHttp({ execute, onResolve, onReject = handleErrors, options: { resolveStatus = [] } }) {
 
-    if (!isURLValid()) {
+    if (!config.isURLValid()) {
       this.error('Please verify that the configured SwaggerHub URL is correct.')
     } 
 

@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { pipe, prettyPrintJSON } = require('../../src/utils/general')
+const { hasJsonStructure, pipe, prettyPrintJSON } = require('../../src/utils/general')
 
 describe('compositions ', () => {
   describe('pipe', () => {
@@ -24,4 +24,13 @@ describe('prettyPrintJSON', () => {
     expect(output).to.equal('{\n  "a": true,\n  "b": {\n    "c": 1,\n    "d": "2"\n  }\n}')
   })
 })
-  
+
+describe('hasJsonStructure', () => {
+  test.it('should read array as json', () => {
+    const str = '["one", "two", "three"]'
+
+    const output = hasJsonStructure(str)
+    
+    expect(output).to.equal(true)
+  })
+})

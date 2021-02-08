@@ -2,6 +2,8 @@
 
 Integrations are created for an API using the `integration:create` command. The command takes a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
+**Note:** SwaggerHub On-Premise users need v. 1.26 to use the `integration:create` command.
+
 * [API Auto Mocking Integration](#api-auto-mocking-integration)
 * [GitHub Integration](#github-integration)
 * [GitHub Enterprise Integration](#github-enterprise-integration)
@@ -48,6 +50,9 @@ Integrations are created for an API using the `integration:create` command. The 
 * **enabled**: Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.
 
 ## Azure DevOps Server Integration
+
+**Note:** This integration is available in SwaggerHub On-Premise only.
+
 * **name**: Display name of the integration. Must be unique among all integrations configured for the given API version.
 * **configType**: "AZURE_DEVOPS_SERVER" is used to create an Azure DevOps Server integration.
 * **url**: Azure DevOps Server host, typically `http(s)://server[:port]/tfs`

@@ -27,21 +27,6 @@ describe('http', () => {
     })
     test
       .nock(mockUrl, api => api
-        .get('/headers')
-        .matchHeader('authorization', `Bearer ${mockApiKey}`)
-        .matchHeader('content-type', 'application/json')
-        .matchHeader('accept', 'application/json')
-        .matchHeader('user-agent', mockUserAgent)
-        .reply(200)
-      )
-      .it('should create valid http headers from the provided options', async () => await http({
-        url: [mockUrl, 'headers'],
-        accept: 'json',
-        contentType: 'json',
-        auth: mockApiKey
-      }))
-    test
-      .nock(mockUrl, api => api
         .get('/query')
         .query(mockReqQuery)
         .reply(200)
@@ -64,6 +49,24 @@ describe('http', () => {
           url: [mockUrl, 'body'],
           method: 'post',
           body: JSON.stringify(mockReqBody)
+        })
+      )
+  })
+  describe('deafult header behaviour', () => {
+    test
+      .nock(mockUrl, api => api
+        .get('/headers')
+        .matchHeader('authorization', `Bearer ${mockApiKey}`)
+        .matchHeader('content-type', 'application/json')
+        .matchHeader('accept', 'application/json')
+        .matchHeader('user-agent', mockUserAgent)
+        .reply(200)
+      )
+      .it('should create valid http headers from the provided options', async () => await http({
+          url: [mockUrl, 'headers'],
+          accept: 'json',
+          contentType: 'json',
+          auth: mockApiKey
         })
       )
   })

@@ -25,9 +25,13 @@ const filterResponseMessaging = response => {
   return Promise.resolve(response)
 }
 
-const getResponseContent = ({ content }) => content || Promise.reject(
-  new Error(errorMsg.noContentField())
-)
+const getResponseContent = async ({ content } = {}) => {
+  content = await content
+  if (!content) {
+    throw new CLIError(errorMsg.noContentField())
+  }  
+  return content
+}
 
 const parseContent = content => {
   const { message, error } = JSON.parse(content)
@@ -39,10 +43,7 @@ const parseResponseError = ({ content }) => hasJsonStructure(content)
   : errorMsg.unknown()
 
 const handleErrors = error => {
-  const cliError = isError(error)
-    ? error
-    : parseResponseError(error)
-
+  const cliError = isError(error) ? error.message : parseResponseError(error)
   if (hasJsonStructure(cliError)) {
     return handleErrors({ content: cliError })
   }

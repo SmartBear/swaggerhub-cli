@@ -55,8 +55,8 @@ class UpdateAPICommand extends BaseCommand {
   async handleUpdate(owner, name, apiVersion, flags) {
     await this.executeHttp({
       execute: () => getApi([owner, name, apiVersion, 'settings', 'private']),
-      onResolve: response => {
-        const content = getResponseContent(response)
+      onResolve: async response => {
+        const content = await getResponseContent(response)
         const versionSettings = JSON.parse(content)
         const isPrivate = flags.visibility ? flags.visibility !== 'public' : versionSettings.private
         const visibility = isPrivate ? 'private' : 'public'
