@@ -23,9 +23,9 @@
     "semver": "^7.3.4"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.25.1",
+    "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "^1.2.8",
-    "chai": "^4.2.0",
+    "chai": "^4.3.0",
     "husky": "^4.3.5",
     "babel-eslint": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
