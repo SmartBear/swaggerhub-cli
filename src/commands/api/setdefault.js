@@ -1,24 +1,15 @@
-const { putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
+const UpdateCommand = require('../../support/command/update-command')
 
-class SetDefaultCommand extends BaseCommand {
+class SetDefaultCommand extends UpdateCommand {
 
   async run() {
     const { args } = this.parse(SetDefaultCommand)
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
-    const setDefault = {
-      pathParams: [owner, name, 'settings', 'default'],
-      body: JSON.stringify({ version })
-    }
-    
-    await this.executeHttp({
-      execute: () => putApi(setDefault), 
-      onResolve: this.logCommandSuccess({ owner, name, version }),
-      options: { resolveStatus: [403] }
-    })
+    await this.updateDefault('apis', owner, name, version)
   }
 }
 
