@@ -4,12 +4,11 @@ const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
-const publish = require('./publish')
-const setDefault = require('./setdefault')
+const UpdateCommand = require('../../support/command/update-command')
 
 const isApiNameAvailable = response => response.status === 404
 
-class CreateAPICommand extends BaseCommand {
+class CreateAPICommand extends UpdateCommand {
   
   async checkApiName(path) {
     return this.executeHttp({
@@ -64,8 +63,9 @@ class CreateAPICommand extends BaseCommand {
     const definition = parseDefinition(flags.file)
     const oas = getOasVersion(definition)
     const apiVersion = getVersion(definition)
-    const requestedApiPath = getApiIdentifierArg(args)
-    const [owner, name, version = apiVersion] = splitPathParams(requestedApiPath)
+    const apiPath = getApiIdentifierArg(args)
+    const [owner, name, version = apiVersion] = splitPathParams(apiPath)
+    const type = 'apis'
 
     const argsObj = {
       path: [owner, name],
@@ -75,7 +75,7 @@ class CreateAPICommand extends BaseCommand {
     }
 
     const createdApi = (
-      await this.tryCreateApi(argsObj) || 
+      await this.tryCreateApi(argsObj) ||
       await this.tryCreateApiVersion(argsObj)
     )
 
@@ -84,14 +84,10 @@ class CreateAPICommand extends BaseCommand {
         owner, name, version 
       })()
     }
-    const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
-    requestedApiPath :
-    `${requestedApiPath}/${apiVersion}`
 
-    if (flags.publish) await publish.run([apiPathWithVersion])
-    if (flags.setdefault) await setDefault.run([apiPathWithVersion])
+    if (flags.publish) await this.updatePublish(type, owner, name, version)
+    if (flags.setdefault) await this.updateDefault(type, owner, name, version)
   }
-
 }
 
 CreateAPICommand.description = `creates a new API / API version from a YAML/JSON file

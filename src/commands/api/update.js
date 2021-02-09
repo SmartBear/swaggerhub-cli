@@ -4,11 +4,10 @@ const { getApi, postApi, putApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
+const UpdateCommand = require('../../support/command/update-command')
 const { getResponseContent } = require('../../support/command/handle-response')
-const publish = require('./publish')
-const setDefault = require('./setdefault')
 
-class UpdateAPICommand extends BaseCommand {
+class UpdateAPICommand extends UpdateCommand {
 
   async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
 
@@ -33,23 +32,20 @@ class UpdateAPICommand extends BaseCommand {
     }
 
     const definition = flags.file ? parseDefinition(flags.file) : null
-    const requestedApiPath = getApiIdentifierArg(args)
-    const [owner, name, version] = splitPathParams(requestedApiPath)
+    const apiPath = getApiIdentifierArg(args)
+    const [owner, name, version] = splitPathParams(apiPath)
     const defaultVersion = definition ? getVersion(definition) : await this.getDefaultApiVersion([owner, name])
     const apiVersion = version ? version : defaultVersion
+    const type = 'apis'
 
     if (flags.file) {
       await this.handleUpdate(owner, name, apiVersion, flags)
     } else if (flags.visibility) {
-      await this.handleUpdateVisibility(owner, name, apiVersion, flags)
+      await this.updateVisibility(owner, name, apiVersion, flags)
     }
 
-    const apiPathWithVersion = requestedApiPath.split('/').length === 3 ?
-      requestedApiPath :
-      `${requestedApiPath}/${apiVersion}`
-
-    if (flags.publish) await publish.run([apiPathWithVersion])
-    if (flags.setdefault) await setDefault.run([apiPathWithVersion])
+    if (flags.publish) await this.updatePublish(type, owner, name, apiVersion)
+    if (flags.setdefault) await this.updateDefault(type, owner, name, apiVersion)
   }
 
   async handleUpdate(owner, name, apiVersion, flags) {
@@ -66,7 +62,7 @@ class UpdateAPICommand extends BaseCommand {
     })
   }
 
-  async handleUpdateVisibility(owner, name, apiVersion, flags) {
+  async updateVisibility(owner, name, apiVersion, flags) {
     const isPrivate = flags.visibility !== 'public'
     const visibility = isPrivate ? 'private' : 'public'
     const updateApiObj = {

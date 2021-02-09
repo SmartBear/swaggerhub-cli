@@ -1,22 +1,14 @@
-const { putApi } = require('../../requests/api')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
+const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
+const UpdateCommand = require('../../support/command/update-command')
 
-class PublishCommand extends BaseCommand {
+class PublishCommand extends UpdateCommand {
   async run() {
     const { args } = this.parse(PublishCommand)
     const apiPath = getApiIdentifierArg(args)
+    const [owner, name, version] = splitPathParams(apiPath)
 
-    const publish = {
-      pathParams: [apiPath, 'settings', 'lifecycle'],
-      body: JSON.stringify({ published: true })
-    }
-    
-    await this.executeHttp({
-      execute: () => putApi(publish), 
-      onResolve: this.logCommandSuccess({ apiPath }),
-      options: { resolveStatus: [403] }
-    })
+    await this.updatePublish('apis', owner, name, version)    
   }
 }
 

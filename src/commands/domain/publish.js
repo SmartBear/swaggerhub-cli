@@ -1,23 +1,15 @@
-const { putDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
+const UpdateCommand = require('../../support/command/update-command')
 
-class PublishCommand extends BaseCommand {
+class PublishCommand extends UpdateCommand {
   
   async run() {
     const { args } = this.parse(PublishCommand)
     const domainPath = getDomainIdentifierArg(args)
+    const [owner, name, version] = splitPathParams(domainPath)
 
-    const publish = {
-      pathParams: [domainPath, 'settings', 'lifecycle'],
-      body: JSON.stringify({ published: true })
-    }
-    
-    await this.executeHttp({
-      execute: () => putDomain(publish), 
-      onResolve: this.logCommandSuccess({ domainPath }),
-      options: { resolveStatus: [403] }
-    })
+    await this.updatePublish('domains', owner, name, version)
   }
 }
 
