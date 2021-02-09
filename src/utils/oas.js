@@ -12,10 +12,10 @@ const getOasVersion = ({ swagger, openapi }) => {
 }
 
 const getVersion = definition => {
-  if (!definition.info || !definition.info.version) {
-    throw new CLIError(errorMsg.cannotParseVersion())
+  if (definition.info && definition.info.version) {
+    return definition.info.version
   }
-  return definition.info.version
+  throw new CLIError(errorMsg.cannotParseVersion())
 }
 
 const parseDefinition = filename => {
