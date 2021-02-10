@@ -2,9 +2,9 @@
 
 Integrations are created for an API using the `integration:create` command. The command takes a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
-**Note:** 
+**Notes:** 
 * SwaggerHub On-Premise users need v. 1.26 to use the `integration:create` command.
-* Amazon API Gateway Integration is not supported yet in Swggerhub On-Premise.
+* Amazon API Gateway Integration is not supported yet in SwggerHub On-Premise.
 
 # Integrations
 
