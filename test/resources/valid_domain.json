@@ -1,0 +1,21 @@
+{
+  "info" : {
+    "description" : "This is a sample Domain",
+    "version" : "1.2.3",
+    "title" : "Sample Domain"
+  },
+  "definitions" : {
+    "ErrorModel" : {
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

@@ -109,6 +109,7 @@ USAGE
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate)
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
 * [`swaggerhub configure`](#swaggerhub-configure)
+* [`swaggerhub domain:create`](#swaggerhub-domaincreate)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
@@ -319,6 +320,38 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/configure.js)_
+
+## `swaggerhub domain:create`
+
+creates a new domain / domain version from a YAML/JSON file
+
+```
+USAGE
+  $ swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to create in SwaggerHub
+
+OPTIONS
+  -f, --file=file              (required) file location of domain to create
+  -h, --help                   show CLI help
+  --publish                    sets the domain version as published
+  --setdefault                 sets domain version to be the default
+  --visibility=public|private  [default: private] visibility of domain in SwaggerHub
+
+DESCRIPTION
+  The domain version from the file will be used unless the version is specified in the command argument.
+  An error will occur if the domain version already exists.
+
+EXAMPLES
+  swaggerhub domain:create organization/domain/1.0.0 --file domain.yaml --visibility public
+  swaggerhub domain:create organization/domain --file domain.yaml
+  swaggerhub domain:create organization/domain/1.0.0 --publish --file domain.json
+  swaggerhub domain:create organization/domain/1.0.0 --setdefault --file domain.json
+  swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json
+```
+
+_See code: [src/commands/domain/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.14/src/commands/domain/create.js)_
 
 ## `swaggerhub domain:get`
 
