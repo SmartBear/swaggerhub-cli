@@ -1,0 +1,7 @@
+{
+    "name": "Azure API Management",
+    "configType": "AZURE_API_MANAGEMENT",
+    "serviceInstance": "org-instance",
+    "token": "token",
+    "urlSuffix": "v1"
+}
