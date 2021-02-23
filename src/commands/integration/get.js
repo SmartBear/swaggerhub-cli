@@ -32,7 +32,7 @@ class GetIntegrationCommand extends BaseCommand {
   }  
 }
 
-GetIntegrationCommand.description = `retieves an integation for the given API.`
+GetIntegrationCommand.description = 'retieves an integation for the given API.'
 
 GetIntegrationCommand.examples = [
   'swaggerhub integration:get organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
