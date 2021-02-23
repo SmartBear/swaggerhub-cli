@@ -36,7 +36,7 @@ Integrations are created for an API using the `integration:create` command. The 
 |basePathMode|string|no|How to handle the API's basePath value. Refer to [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html) for details. Options are `ignore`, `prepend`, `split`. Default value is `ignore`.|
 |updateDefinition|boolean|no|Whether to update the API definition with Amazon-specific extensions and compatibility modifications. Default value is `false`.|
 |deploymentMode|string|no|Should be `on save`. The value `never` means the integration is disabled. Default value is `on save`.|
-|apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS. This property is optional.|
+|apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Amazon API Gateway Lambda Integration
@@ -46,14 +46,14 @@ Integrations are created for an API using the `integration:create` command. The 
 |configType|string|yes|"AMAZON_API_GATEWAY_LAMBDA" is used to create an Amazon API Gateway Lambda integration.|
 |region|string|yes|AWS region where the API will be published. See [*Property: `region`*](#property-region) for options.|
 |runtimeLanguage|string|no|The target runtime language to generate lambda functions. Options are: `nodejs12.x`, `nodejs10.x`, `python3.8`, `python3.7`, `python3.6`, `python2.7`. Default value is `nodejs12.x`.|
-|lambdaRole|string|no|Execution role for creating non-existing Lambda Functions. If specified, missing lambda functions will be created using this role. Must be in the `arn:aws:iam::{ID}:role/{NAME}` format.|
+|lambdaRole|string|no|Execution role for creating Lambda Functions. Must be in the format `arn:aws:iam::{ID}:role/{NAME}`.|
 |accessKey|string|yes|AWS access key.|
 |secretKey|string|yes|AWS secret key.|
 |publishMode|string|no|How to update an existing API in AWS. Options are: `merge`, `overwrite`. Default value is `merge`.|
 |basePathMode|string|no|How to handle the API's basePath value. Refer to [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html) for details. Options are `ignore`, `prepend`, `split`. Default value is `ignore`.|
 |updateDefinition|boolean|no|Whether to update the API definition with Amazon-specific extensions and compatibility modifications. Default value is `false`.|
 |deploymentMode|string|no|Should be `on save`. The value `never` means the integration is disabled. Default value is `on save`.|
-|apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS. This property is optional.|
+|apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## API Auto Mocking Integration
@@ -71,8 +71,8 @@ Integrations are created for an API using the `integration:create` command. The 
 |-|-|-|-|
 |name|string|yes|Display name of the integration. Must be unique among all integrations configured for the given API version.|
 |configType|string|yes|"APIGEE_EDGE" is used to create an Apigee Edge integration.|
-|email|string|yes|Apigee Edge email.|
-|password|string|yes|Password for apigee account.|
+|email|string|yes|Apigee Edge email address.|
+|password|string|yes|Password for Apigee account.|
 |organization|string|yes|Organization where API will be saved.|
 |apiName|string|yes|Name for the API that is going to be saved on your apigee account.|
 |targetUrl|string|yes|Target endpoint for proxy.|
@@ -85,7 +85,7 @@ Integrations are created for an API using the `integration:create` command. The 
 |name|string|yes|Display name of the integration. Must be unique among all integrations configured for the given API version.|
 |configType|string|yes|"AZURE_API_MANAGEMENT" is used to create an Azure API Management integration.|
 |serviceInstance|string|yes|The name of the Azure API Management service instance as it appears in the "All resources" list in the Azure portal.|
-|token|string|yes|A personal access token for accessing the Azure API Management service. Documentation for generating tokens is [here.](https://docs.microsoft.com/en-us/rest/api/apimanagement/apimanagementrest/azure-api-management-rest-api-authentication)|
+|token|string|yes|A personal access token for the Azure API Management service. Documentation for generating tokens is [here.](https://docs.microsoft.com/en-us/rest/api/apimanagement/apimanagementrest/azure-api-management-rest-api-authentication)|
 |urlSuffix|string|no|API URL suffix in Azure API Management.|
 |apiId|string|no|A unique identifier that allows you to connect your definition to an existing API. If left blank, a unique identifier will be added using an extension, x-azure-api-id. This value will be ignored if a value exists in the definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
