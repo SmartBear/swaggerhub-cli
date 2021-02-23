@@ -35,7 +35,7 @@ Integrations are created for an API using the `integration:create` command. The 
 |publishMode|string|no|How to update an existing API in AWS. Options are: `merge`, `overwrite`. Default value is `merge`.|
 |basePathMode|string|no|How to handle the API's basePath value. Refer to [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html) for details. Options are `ignore`, `prepend`, `split`. Default value is `ignore`.|
 |updateDefinition|boolean|no|Whether to update the API definition with Amazon-specific extensions and compatibility modifications. Default value is `false`.|
-|deploymentMode|string|no|Should be `on save`. The value `never` means the integration is disabled. Default value is `on save`.|
+|deploymentMode|string|no|Should be `"on save"`. The value `"never"` means the integration is disabled. Default value is `on save`.|
 |apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
@@ -52,7 +52,7 @@ Integrations are created for an API using the `integration:create` command. The 
 |publishMode|string|no|How to update an existing API in AWS. Options are: `merge`, `overwrite`. Default value is `merge`.|
 |basePathMode|string|no|How to handle the API's basePath value. Refer to [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api-basePath.html) for details. Options are `ignore`, `prepend`, `split`. Default value is `ignore`.|
 |updateDefinition|boolean|no|Whether to update the API definition with Amazon-specific extensions and compatibility modifications. Default value is `false`.|
-|deploymentMode|string|no|Should be `on save`. The value `never` means the integration is disabled. Default value is `on save`.|
+|deploymentMode|string|no|Should be `"on save"`. The value `"never"` means the integration is disabled. Default value is `on save`.|
 |apiId|string|no|AWS ID of the API to update. Empty value will create a new API in AWS.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
