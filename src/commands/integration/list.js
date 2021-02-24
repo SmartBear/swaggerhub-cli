@@ -1,4 +1,4 @@
-const { cli } = require('cli-ux');
+const { cli } = require('cli-ux')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
@@ -18,7 +18,7 @@ class ListIntegrationCommand extends BaseCommand {
   }
 
   async logIntegration(response) {
-    const responseObj = JSON.parse(await getResponseContent(response));
+    const responseObj = JSON.parse(await getResponseContent(response))
     cli.table(responseObj.integrations, {
       id: {
         header: 'ID',
