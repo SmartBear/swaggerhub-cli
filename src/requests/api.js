@@ -1,5 +1,3 @@
-const config = require('../config')
-const http = require('../support/http')
 const { getSpec, putSpec, postSpec } = require('./spec')
 
 const getApi = (pathParams, queryParams, accept = 'json') =>

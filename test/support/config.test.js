@@ -98,7 +98,7 @@ describe('config ', () => {
     })
 
     test
-    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://test-api.swaggerhub.com' }))
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://api.test.swaggerhub.com' }))
     .it('it should return true when using lower envs api url', () => {
       expect(isURLValid()).to.equal(true)
     })
