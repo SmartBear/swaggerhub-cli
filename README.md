@@ -115,6 +115,7 @@ USAGE
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
+* [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
 * [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
@@ -463,6 +464,26 @@ EXAMPLE
 
 _See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/create.js)_
 
+## `swaggerhub integration:execute`
+
+executes an integation for the given API.
+
+```
+USAGE
+  $ swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to execute for given API
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
+```
+
+_See code: [src/commands/integration/execute.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/execute.js)_
+
 ## `swaggerhub integration:get`
 
 retieves an integation for the given API.
@@ -522,7 +543,7 @@ DESCRIPTION
   Installation of a user-installed plugin will override a core plugin.
 
   e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
@@ -554,7 +575,7 @@ OPTIONS
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
