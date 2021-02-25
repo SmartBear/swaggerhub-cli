@@ -484,7 +484,7 @@ EXAMPLE
 
 _See code: [src/commands/integration/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/delete.js)_
 
-## `swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`
+## `swaggerhub integration:get`
 
 retieves an integation for the given API.
 
