@@ -3,6 +3,7 @@ const { errorMsg } = require('../../template-strings')
 
 const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?)$/)
 const requiredVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
+const integrationIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 
 const isValidIdentifier = (id, isVersionRequired) => isVersionRequired
   ? requiredVersionRegex.test(id)
@@ -30,6 +31,15 @@ const getDomainIdentifierArg = args => {
   return getIdentifierArg(isVersionRequired, format, identifier)
 }
 
+const getIntegrationIdentifierArg = args => {
+  const format = 'OWNER/API_NAME/VERSION/INTEGRATION_ID'
+  const identifier = args[format]
+  if (!integrationIdentifierRegex.test(identifier)) {
+    throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
+  }
+  return identifier
+}
+
 const splitPathParams = path => path.split('/').filter(Boolean)
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
@@ -39,6 +49,7 @@ const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
 module.exports = {
   getApiIdentifierArg,
   getDomainIdentifierArg,
+  getIntegrationIdentifierArg,
   splitPathParams,
   reqType,
   resolvedParam,
