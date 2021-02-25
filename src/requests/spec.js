@@ -12,6 +12,16 @@ const getSpec = (specType, pathParams, queryParams, accept) => {
     })
   }
 
+  const deleteSpec = (specType, pathParams) => {
+    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+    return http({
+      url: [SWAGGERHUB_URL, specType, ...pathParams],
+      auth: SWAGGERHUB_API_KEY,
+      contentType: 'json',
+      method: 'DELETE'
+    })
+  }
+
 const putSpec = (specType, pathParams, body) => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
     return http({
@@ -39,6 +49,7 @@ const postSpec = (specType, pathParams, queryParams, body) => {
 
 module.exports = {
     getSpec,
+    deleteSpec,
     putSpec,
     postSpec
 }
