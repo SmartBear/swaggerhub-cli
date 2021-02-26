@@ -1,0 +1,12 @@
+{
+    "name": "Amazon API Gateway Integraton",
+    "configType": "AMAZON_API_GATEWAY_LAMBDA",
+    "region": "us-east-1",
+    "publishMode": "merge",
+    "basePathMode": "ignore",
+    "updateDefinition": true,
+    "runtimeLanguage": "python3.8",
+    "lambdaRole": "arn:aws:iam::745439406965:role/swaggerhub-lambda",
+    "accessKey": "accessKey",
+    "secretKey": "secretKey"
+}
