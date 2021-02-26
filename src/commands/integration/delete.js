@@ -30,7 +30,7 @@ DeleteIntegrationCommand.examples = [
 DeleteIntegrationCommand.args = [{ 
   name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
   required: true,
-  description: 'Remove integration from the API'
+  description: 'Integration to delete'
 }]
 
 DeleteIntegrationCommand.flags = {
