@@ -486,14 +486,14 @@ _See code: [src/commands/integration/get.js](https://github.com/SmartBear/swagge
 
 ## `swaggerhub integration:list`
 
-API to lists the integations on.
+list integrations on an API.
 
 ```
 USAGE
   $ swaggerhub integration:list OWNER/API_NAME/[VERSION]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  List integrations on this API
+  OWNER/API_NAME/[VERSION]  API to list integrations on
 
 OPTIONS
   -h, --help  show CLI help

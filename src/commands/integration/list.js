@@ -43,7 +43,7 @@ class ListIntegrationCommand extends BaseCommand {
   }  
 }
 
-ListIntegrationCommand.description = 'API to lists the integations on.'
+ListIntegrationCommand.description = 'list integrations on an API.'
 
 ListIntegrationCommand.examples = [
   'swaggerhub integration:list organization/api/1.0.0'
@@ -52,7 +52,7 @@ ListIntegrationCommand.examples = [
 ListIntegrationCommand.args = [{ 
   name: 'OWNER/API_NAME/[VERSION]',
   required: true,
-  description: 'List integrations on this API'
+  description: 'API to list integrations on'
 }]
 
 ListIntegrationCommand.flags = {
