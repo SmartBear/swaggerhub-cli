@@ -173,16 +173,16 @@ describe('swaggerhub errors on api:get', () => {
       .reply(200)
     )
     .command(['api:get', 'org1/api2/1.0.0'])
-    .catch(ctx => {
+    .catch(ctx =>
       expect(ctx.message).to.equal('No content field provided')
-    })
+    )
     .it('no content returned from swaggerhub')
 
   test
     .stub(config, 'isURLValid', () => false)
     .command(['api:get', 'org1/api2/1.0.0'])
-    .catch(ctx => {
+    .catch(ctx =>
       expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
-    })
+    )
     .it('invalid SwaggerHub URL')
 })

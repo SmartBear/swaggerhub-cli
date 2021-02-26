@@ -116,6 +116,7 @@ USAGE
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
+* [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
 * [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
 * [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
@@ -435,7 +436,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
@@ -483,6 +484,26 @@ EXAMPLE
 
 _See code: [src/commands/integration/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/get.js)_
 
+## `swaggerhub integration:list`
+
+list integrations on an API.
+
+```
+USAGE
+  $ swaggerhub integration:list OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  API to list integrations on
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:list organization/api/1.0.0
+```
+
+_See code: [src/commands/integration/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/list.js)_
+
 ## `swaggerhub plugins`
 
 list installed plugins
@@ -498,7 +519,7 @@ EXAMPLE
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/index.ts)_
 
 ## `swaggerhub plugins:install PLUGIN...`
 
@@ -522,7 +543,7 @@ DESCRIPTION
   Installation of a user-installed plugin will override a core plugin.
 
   e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command 
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in 
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
@@ -534,7 +555,7 @@ EXAMPLES
   $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/install.ts)_
 
 ## `swaggerhub plugins:link PLUGIN`
 
@@ -554,14 +575,14 @@ OPTIONS
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/link.ts)_
 
 ## `swaggerhub plugins:uninstall PLUGIN...`
 
@@ -583,7 +604,7 @@ ALIASES
   $ swaggerhub plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/uninstall.ts)_
 
 ## `swaggerhub plugins:update`
 
@@ -598,7 +619,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
 # Plugins
