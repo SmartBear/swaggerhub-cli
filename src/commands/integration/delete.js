@@ -21,7 +21,7 @@ class DeleteIntegrationCommand extends BaseCommand {
   }  
 }
 
-DeleteIntegrationCommand.description = 'removes the given integration from the given API.'
+DeleteIntegrationCommand.description = 'deletes the integration from the given API.'
 
 DeleteIntegrationCommand.examples = [
   'swaggerhub integration:delete organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
