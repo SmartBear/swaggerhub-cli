@@ -4,7 +4,7 @@ const getApi = (pathParams, queryParams, accept = 'json') =>
   getSpec('apis', pathParams, queryParams, accept)
 
 const deleteApi = pathParams =>
-deleteSpec('apis', pathParams)
+  deleteSpec('apis', pathParams)
 
 const putApi = ({ pathParams, body }) =>
   putSpec('apis', pathParams, body)
