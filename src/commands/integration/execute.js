@@ -2,10 +2,10 @@ const { postApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 
-class GetIntegrationCommand extends BaseCommand {
+class ExecuteIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args } = this.parse(GetIntegrationCommand)
+      const { args } = this.parse(ExecuteIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       await this.executeIntegration(integrationPath)
   }
@@ -21,20 +21,20 @@ class GetIntegrationCommand extends BaseCommand {
   }  
 }
 
-GetIntegrationCommand.description = 'executes an integation for the given API.'
+ExecuteIntegrationCommand.description = 'executes an integration for the given API.'
 
-GetIntegrationCommand.examples = [
+ExecuteIntegrationCommand.examples = [
   'swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
 ]
 
-GetIntegrationCommand.args = [{ 
+ExecuteIntegrationCommand.args = [{ 
   name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
   required: true,
   description: 'Integration to execute for given API'
 }]
 
-GetIntegrationCommand.flags = {
+ExecuteIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = GetIntegrationCommand
+module.exports = ExecuteIntegrationCommand

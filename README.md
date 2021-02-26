@@ -440,7 +440,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0
 
 ## `swaggerhub integration:create`
 
-creates a new API integation from a JSON configuration file.
+creates a new API integration from a JSON configuration file.
 
 ```
 USAGE
@@ -466,7 +466,7 @@ _See code: [src/commands/integration/create.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub integration:execute`
 
-executes an integation for the given API.
+executes an integration for the given API.
 
 ```
 USAGE
@@ -486,7 +486,7 @@ _See code: [src/commands/integration/execute.js](https://github.com/SmartBear/sw
 
 ## `swaggerhub integration:get`
 
-retieves an integation for the given API.
+retieves an integration for the given API.
 
 ```
 USAGE
