@@ -144,7 +144,7 @@ describe('readConfigFile', () => {
   context('valid config file', () =>
     it('should return config content', () => {
       const config = readConfigFile('test/resources/github.json')
-      const configString = new TextDecoder("utf-8").decode(config);
+      const configString = String.fromCharCode.apply(null, config)
       expect(configString).to.contains('GitHub Integration Name')
     })
   )
