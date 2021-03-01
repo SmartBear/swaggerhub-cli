@@ -507,7 +507,7 @@ _See code: [src/commands/integration/list.js](https://github.com/SmartBear/swagg
 
 ## `swaggerhub integration:update`
 
-update the configuration of an API integation.
+update the configuration of an API integration.
 
 ```
 USAGE
