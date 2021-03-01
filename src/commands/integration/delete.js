@@ -15,7 +15,7 @@ class DeleteIntegrationCommand extends BaseCommand {
 
     return this.executeHttp({
       execute: () => deleteApi([owner, api, version, 'integrations', integrationId]), 
-      onResolve: this.logCommandSuccess({ apiPath: [owner, api, version].join('/') }),
+      onResolve: this.logCommandSuccess({ integrationId, apiPath: [owner, api, version].join('/') }),
       options: {}
     })
   }  
