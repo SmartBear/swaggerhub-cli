@@ -115,6 +115,7 @@ USAGE
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
+* [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
 * [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
 * [`swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationupdate)
@@ -441,7 +442,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2
 
 ## `swaggerhub integration:create`
 
-creates a new API integation from a JSON configuration file.
+creates a new API integration from a JSON configuration file.
 
 ```
 USAGE
@@ -465,9 +466,29 @@ EXAMPLE
 
 _See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/create.js)_
 
+## `swaggerhub integration:execute`
+
+executes an integration for the given API.
+
+```
+USAGE
+  $ swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to execute for given API
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
+```
+
+_See code: [src/commands/integration/execute.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/execute.js)_
+
 ## `swaggerhub integration:get`
 
-retieves an integation for the given API.
+retieves an integration for the given API.
 
 ```
 USAGE
