@@ -27,7 +27,7 @@ describe('invalid integration:execute command issues', () => {
   test
     .command(['integration:execute', 'owner/api/version'])
     .exit(2)
-    .it('runs integration:execute with api version identifier provided')
+    .it('runs integration:execute without the integration identifier provided')
 })
 
 describe('invalid integration:execute', () => {
