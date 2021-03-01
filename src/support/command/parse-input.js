@@ -1,3 +1,5 @@
+const { existsSync, readFileSync } = require('fs-extra')
+const { hasJsonStructure } = require('../../utils/general')
 const { CLIError } = require('@oclif/errors')
 const { errorMsg } = require('../../template-strings')
 
@@ -40,6 +42,22 @@ const getIntegrationIdentifierArg = args => {
   return identifier
 }
 
+const readConfigFile = filename => {
+  if (!existsSync(filename)) {
+    throw new CLIError(errorMsg.fileNotFound({ filename }))
+  }
+
+  const config = readFileSync(filename)
+  if (config.length === 0) {
+    throw new CLIError(errorMsg.fileIsEmpty({ filename }))
+  }
+
+  if (!hasJsonStructure(config)) {
+    throw new CLIError(errorMsg.invalidConfig())
+  }
+  return config
+}
+
 const splitPathParams = path => path.split('/').filter(Boolean)
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
@@ -50,6 +68,7 @@ module.exports = {
   getApiIdentifierArg,
   getDomainIdentifierArg,
   getIntegrationIdentifierArg,
+  readConfigFile,
   splitPathParams,
   reqType,
   resolvedParam,

@@ -5,6 +5,7 @@ const {
   isValidIdentifier, 
   getApiIdentifierArg, 
   getDomainIdentifierArg,
+  readConfigFile,
   reqType 
 } = require('../../src/support/command/parse-input')
 
@@ -98,44 +99,76 @@ describe('getApiIdentifierArg', () => {
 
 describe('getDomainIdentifierArg', () => {
 
-  context('valid version identifier', () => {
-    it('should be returned', () => {
+  context('valid version identifier', () =>
+    it('should be returned', () =>
       expect(getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain/123' })).to.equal('owner/domain/123')
-    })
-  })
+    )
+  )
 
-  context('valid identifier', () => {
-    it('should be returned', () => {
+  context('valid identifier', () =>
+    it('should be returned', () =>
       expect(getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/[VERSION]': 'owner/domain' }, false)).to.equal('owner/domain')
-    })
-  })
+    )
+  )
 
-  context('invalid identifier', () => {
-    it('should throw an exception', () => {
+  context('invalid identifier', () =>
+    it('should throw an exception', () =>
       expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain/version/extra' })})
         .to.throw(CLIError)
-    })
-  })
+    )
+  )
 
-  context('invalid identifier with space', () => {
-    it('should throw an exception', () => {
+  context('invalid identifier with space', () =>
+    it('should throw an exception', () =>
       expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain name/version' })})
         .to.throw(CLIError)
-    })
-  })
+    )
+  )
 
   context('invalid identifier with space and no version', () => {
-    it('should throw an exception', () => {
+    it('should throw an exception', () =>
       expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/[VERSION]': 'owner/domain name' }, false)})
         .to.throw(CLIError)
-    })
+    )
   })
 
-  context('invalid identifier with version required', () => {
-    it('should throw an exception', () => {
+  context('invalid identifier with version required', () =>
+    it('should throw an exception', () =>
       expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain' })}).to.throw(CLIError)
+    )
+  )
+})
+
+describe('readConfigFile', () => {
+
+  context('valid config file', () =>
+    it('should return config content', () => {
+      const config = readConfigFile('test/resources/github.json')
+      const configString = String.fromCharCode.apply(null, config)
+      expect(configString).to.contains('GitHub Integration Name')
     })
-  })
+  )
+
+  context('config file does not exist', () => 
+    it('should return an error', () =>
+      expect(() => readConfigFile('test/resources/missing_file.json'))
+        .to.throw('File \'test/resources/missing_file.json\' not found')
+    )
+  )
+
+  context('config file is empty', () => 
+    it('should return an error', () =>
+      expect(() => readConfigFile('test/resources/empty.yaml'))
+        .to.throw('File \'test/resources/empty.yaml\' is empty')
+    )
+  )
+
+  context('config file is not in JSON format', () => 
+    it('should return an error', () =>
+      expect(() => readConfigFile('test/resources/invalid_format.yaml'))
+        .to.throw('Invalid configuration file. Please ensure that the file is in JSON format')
+    )
+  )
 })
 
 describe('parseDefinition', () => {
