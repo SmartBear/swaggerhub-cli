@@ -115,6 +115,7 @@ USAGE
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
+* [`swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationdelete)
 * [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
 * [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
@@ -465,6 +466,26 @@ EXAMPLE
 ```
 
 _See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/create.js)_
+
+## `swaggerhub integration:delete`
+
+deletes the integration from the given API.
+
+```
+USAGE
+  $ swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to delete
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:delete organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
+```
+
+_See code: [src/commands/integration/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/delete.js)_
 
 ## `swaggerhub integration:execute`
 

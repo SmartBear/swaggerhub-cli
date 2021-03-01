@@ -23,6 +23,8 @@ const infoMsg = {
 
   IntegrationCreate: 'Created integration on API \'{{apiPath}}\'',
 
+  IntegrationDelete: 'Deleted integration \'{{integrationId}}\' from API \'{{apiPath}}\'',
+  
   IntegrationExecute: 'Executed integration \'{{integrationId}}\' on API \'{{apiPath}}\'',
   
   IntegrationUpdate: 'Updated integration \'{{integrationId}}\' on API \'{{apiPath}}\'',
