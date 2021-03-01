@@ -466,14 +466,14 @@ _See code: [src/commands/integration/create.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub integration:delete`
 
-removes the given integration from the given API.
+deletes the integration from the given API.
 
 ```
 USAGE
   $ swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION/INTEGRATION_ID  Remove integration from the API
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to delete
 
 OPTIONS
   -h, --help  show CLI help
