@@ -3,14 +3,6 @@ const config = require('../../../src/config')
 const validApi = 'org/api/1.0.0'
 const validPath = 'org/api/1.0.0/integrations/integration-id'
 const shubUrl = 'https://test-api.swaggerhub.com'
-const integrationResponse = {
-    id: 'integration-id',
-    name: 'Api Auto Mocking Integration',
-    configType: 'API_AUTO_MOCKING',
-    enabled: true,
-    defaultResponseType: 'application/json',
-    modify: true
-  }
 
 describe('valid integration:execute', () => {
   test
