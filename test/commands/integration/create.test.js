@@ -52,29 +52,6 @@ describe('invalid integration:create command issues', () => {
     .it('runs integration:create with org identifier provided')
 })
 
-describe('invalid integration:create file', () => {
-  test
-    .command(['integration:create', `${validIdentifier}`, '--file=test/resources/missing_file.json'])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('File \'test/resources/missing_file.json\' not found')
-    })
-    .it('runs integration:create with missing config file')
-
-  test
-    .command(['integration:create', `${validIdentifier}`, '--file=test/resources/empty.yaml'])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('File \'test/resources/empty.yaml\' is empty')
-    })
-    .it('runs integration:create with empty config file')
-
-  test
-    .command(['integration:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('Invalid configuration file. Please ensure that the file is in JSON format')
-    })
-    .it('runs integration:create with non-JSON config file')
-})
-
 describe('invalid integration:create', () => {
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))

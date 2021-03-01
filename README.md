@@ -118,6 +118,7 @@ USAGE
 * [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
 * [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
+* [`swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationupdate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
 * [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
 * [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
@@ -524,6 +525,27 @@ EXAMPLE
 ```
 
 _See code: [src/commands/integration/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/list.js)_
+
+## `swaggerhub integration:update`
+
+update the configuration of an API integration.
+
+```
+USAGE
+  $ swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to update on the given API
+
+OPTIONS
+  -f, --file=file  (required) location of integration configuration file
+  -h, --help       show CLI help
+
+EXAMPLE
+  swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json
+```
+
+_See code: [src/commands/integration/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/update.js)_
 
 ## `swaggerhub plugins`
 
