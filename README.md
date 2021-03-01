@@ -116,7 +116,10 @@ USAGE
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationdelete)
+* [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
 * [`swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationget)
+* [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
+* [`swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationupdate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
 * [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
 * [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
@@ -436,11 +439,11 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
-creates a new API integation from a JSON configuration file.
+creates a new API integration from a JSON configuration file.
 
 ```
 USAGE
@@ -484,9 +487,29 @@ EXAMPLE
 
 _See code: [src/commands/integration/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/delete.js)_
 
+## `swaggerhub integration:execute`
+
+executes an integration for the given API.
+
+```
+USAGE
+  $ swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to execute for given API
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
+```
+
+_See code: [src/commands/integration/execute.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/execute.js)_
+
 ## `swaggerhub integration:get`
 
-retieves an integation for the given API.
+retieves an integration for the given API.
 
 ```
 USAGE
@@ -504,6 +527,47 @@ EXAMPLE
 
 _See code: [src/commands/integration/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/get.js)_
 
+## `swaggerhub integration:list`
+
+list integrations on an API.
+
+```
+USAGE
+  $ swaggerhub integration:list OWNER/API_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/API_NAME/[VERSION]  API to list integrations on
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub integration:list organization/api/1.0.0
+```
+
+_See code: [src/commands/integration/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/list.js)_
+
+## `swaggerhub integration:update`
+
+update the configuration of an API integration.
+
+```
+USAGE
+  $ swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to update on the given API
+
+OPTIONS
+  -f, --file=file  (required) location of integration configuration file
+  -h, --help       show CLI help
+
+EXAMPLE
+  swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json
+```
+
+_See code: [src/commands/integration/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.2.15/src/commands/integration/update.js)_
+
 ## `swaggerhub plugins`
 
 list installed plugins
@@ -519,7 +583,7 @@ EXAMPLE
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/index.ts)_
 
 ## `swaggerhub plugins:install PLUGIN...`
 
@@ -555,7 +619,7 @@ EXAMPLES
   $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/install.ts)_
 
 ## `swaggerhub plugins:link PLUGIN`
 
@@ -582,7 +646,7 @@ EXAMPLE
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/link.ts)_
 
 ## `swaggerhub plugins:uninstall PLUGIN...`
 
@@ -604,7 +668,7 @@ ALIASES
   $ swaggerhub plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/uninstall.ts)_
 
 ## `swaggerhub plugins:update`
 
@@ -619,7 +683,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.4/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.9.5/src/commands/plugins/update.ts)_
 <!-- commandsstop -->
 
 # Plugins

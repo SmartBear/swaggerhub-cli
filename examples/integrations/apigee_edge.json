@@ -1,0 +1,9 @@
+{
+    "name": "Apigee Edge Integration",
+    "configType": "APIGEE_EDGE",
+    "email": "developer@example.com",
+    "password": "account-password",
+    "organization": "developer-org",
+    "apiName": "MyApiName",
+    "targetUrl": "http://api.example.com/reports/v2"
+}
