@@ -35,7 +35,7 @@ describe('invalid integration:delete command issues', () => {
   test
     .command(['integration:delete', 'owner/api/version'])
     .exit(2)
-    .it('runs integration:delete with api version identifier provided')
+    .it('runs integration:delete without integration identifier provided')
 })
 
 describe('invalid integration:delete', () => {
