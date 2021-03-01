@@ -23,7 +23,7 @@ const infoMsg = {
 
   IntegrationCreate: 'Created integration on API \'{{apiPath}}\'',
 
-  IntegrationExecute: 'Executed integration on API \'{{apiPath}}\'',
+  IntegrationExecute: 'Executed integration \'{{integrationId}}\' on API \'{{apiPath}}\'',
 
   Configure: 'Saved config to {{configFilePath}}'
 }

@@ -15,7 +15,7 @@ class ExecuteIntegrationCommand extends BaseCommand {
 
     return this.executeHttp({
       execute: () => postApi({ pathParams: [owner, api, version, 'integrations', integrationId, 'execute'] }), 
-      onResolve: this.logCommandSuccess({ apiPath: `${owner}/${api}/${version}` }),
+      onResolve: this.logCommandSuccess({ integrationId, apiPath: `${owner}/${api}/${version}` }),
       options: {}
     })
   }  
