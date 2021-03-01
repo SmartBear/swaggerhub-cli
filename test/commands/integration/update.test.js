@@ -33,7 +33,7 @@ describe('invalid integration:update command issues', () => {
   test
     .command(['integration:update', 'owner/api/version', '-f=test/resources/github.json'])
     .exit(2)
-    .it('runs integration:update withoout integration identifier provided')
+    .it('runs integration:update without integration identifier provided')
 
     test
     .command(['integration:update', 'owner/api/verion/integration/integrationId', '-f=test/resources/github.json'])

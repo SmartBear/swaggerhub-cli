@@ -27,7 +27,7 @@ class UpdateIntegrationCommand extends BaseCommand {
   }  
 }
 
-UpdateIntegrationCommand.description = 'update the configuration of an API integation.'
+UpdateIntegrationCommand.description = 'update the configuration of an API integration.'
 
 UpdateIntegrationCommand.examples = [
   'swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json'
