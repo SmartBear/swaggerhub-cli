@@ -75,6 +75,9 @@
       },
       "domain": {
         "description": "this topic supports the management of Domains"
+      },
+      "integration": {
+        "description": "this topic supports the management of Integrations"
       }
     },
     "helpClass": "./src/help"
