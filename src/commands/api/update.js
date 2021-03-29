@@ -5,7 +5,6 @@ const { getApiIdentifierArg, splitPathParams } = require('../../support/command/
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
-const { getResponseContent } = require('../../support/command/handle-response')
 
 class UpdateAPICommand extends UpdateCommand {
 
@@ -17,7 +16,6 @@ class UpdateAPICommand extends UpdateCommand {
       this.logCommandSuccess = this.setSuccessMessage('ApiUpdateVisibility')
     }
 
-    const visibility = queryParams['isPrivate'] ? 'private' : 'public'  
     const updateApiObj = {
       pathParams: [owner, name],
       queryParams: queryParams,
@@ -26,7 +24,7 @@ class UpdateAPICommand extends UpdateCommand {
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj),
-      onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
+      onResolve: this.logCommandSuccess({ owner, name, version, visibility: flags.visibility }),
       options: { resolveStatus: [403] }
     })
   }
