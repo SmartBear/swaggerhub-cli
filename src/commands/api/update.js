@@ -9,11 +9,18 @@ const { getResponseContent } = require('../../support/command/handle-response')
 
 class UpdateAPICommand extends UpdateCommand {
 
-  async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
+  async updateApi(owner, name, version, flags) {
+    const queryParams = { version }
 
+    if (flags.visibility) {
+      queryParams['isPrivate'] = flags.visibility !== 'public'
+      this.logCommandSuccess = this.setSuccessMessage('ApiUpdateVisibility')
+    }
+
+    const visibility = queryParams['isPrivate'] ? 'private' : 'public'  
     const updateApiObj = {
       pathParams: [owner, name],
-      queryParams: { version, isPrivate },
+      queryParams: queryParams,
       body: readFileSync(flags.file)
     }
 
@@ -48,16 +55,10 @@ class UpdateAPICommand extends UpdateCommand {
     if (flags.setdefault) await this.updateDefault(type, owner, name, apiVersion)
   }
 
-  async handleUpdate(owner, name, apiVersion, flags) {
+  async handleUpdate(owner, name, version, flags) {
     await this.executeHttp({
-      execute: () => getApi([owner, name, apiVersion, 'settings', 'private']),
-      onResolve: async response => {
-        const content = await getResponseContent(response)
-        const versionSettings = JSON.parse(content)
-        const isPrivate = flags.visibility ? flags.visibility !== 'public' : versionSettings.private
-        const visibility = isPrivate ? 'private' : 'public'
-        return this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility })
-      },
+      execute: () => getApi([owner, name, version]),
+      onResolve: () => this.updateApi(owner, name, version, flags),
       options: { resolveStatus: [403] }
     })
   }
