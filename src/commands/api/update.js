@@ -18,7 +18,7 @@ class UpdateAPICommand extends UpdateCommand {
 
     const updateApiObj = {
       pathParams: [owner, name],
-      queryParams: queryParams,
+      queryParams,
       body: readFileSync(flags.file)
     }
 
