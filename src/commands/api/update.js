@@ -5,21 +5,26 @@ const { getApiIdentifierArg, splitPathParams } = require('../../support/command/
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
-const { getResponseContent } = require('../../support/command/handle-response')
 
 class UpdateAPICommand extends UpdateCommand {
 
-  async updateApi({ owner, name, version, flags, isPrivate, visibility }) {
+  async updateApi(owner, name, version, flags) {
+    const queryParams = { version }
+
+    if (flags.visibility) {
+      queryParams['isPrivate'] = flags.visibility !== 'public'
+      this.logCommandSuccess = this.setSuccessMessage('ApiUpdateVisibility')
+    }
 
     const updateApiObj = {
       pathParams: [owner, name],
-      queryParams: { version, isPrivate },
+      queryParams,
       body: readFileSync(flags.file)
     }
 
     return await this.executeHttp({
       execute: () => postApi(updateApiObj),
-      onResolve: this.logCommandSuccess({ owner, name, version, visibility }),
+      onResolve: this.logCommandSuccess({ owner, name, version, visibility: flags.visibility }),
       options: { resolveStatus: [403] }
     })
   }
@@ -48,16 +53,10 @@ class UpdateAPICommand extends UpdateCommand {
     if (flags.setdefault) await this.updateDefault(type, owner, name, apiVersion)
   }
 
-  async handleUpdate(owner, name, apiVersion, flags) {
+  async handleUpdate(owner, name, version, flags) {
     await this.executeHttp({
-      execute: () => getApi([owner, name, apiVersion, 'settings', 'private']),
-      onResolve: async response => {
-        const content = await getResponseContent(response)
-        const versionSettings = JSON.parse(content)
-        const isPrivate = flags.visibility ? flags.visibility !== 'public' : versionSettings.private
-        const visibility = isPrivate ? 'private' : 'public'
-        return this.updateApi({ owner, name, version: apiVersion, flags, isPrivate, visibility })
-      },
+      execute: () => getApi([owner, name, version]),
+      onResolve: () => this.updateApi(owner, name, version, flags),
       options: { resolveStatus: [403] }
     })
   }
