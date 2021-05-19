@@ -2,10 +2,7 @@
 
 Integrations are managed using the `integration` topic. The `create` and `update` commands take a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
-**Notes for SwaggerHub On-Premise customers:** 
-* v. 1.26 is required to use the `integration:create` command.
-* The following integration commands are not yet supported for CLI use: `delete`, `execute`, `get`, `list`, `update`.
-* The following integrations are not yet supported for CLI use: Amazon API Gateway, Amazon API Gateway Lambda, Apigee Edge, Azure API Management, IBM API Connect.
+**Note for SwaggerHub On-Premise customers:** Most of the `integration` commands require SwaggerHub v. 1.27, except for `integration:create` which can create source control integrations in v. 1.26 as well.
 
 # Integrations
 
