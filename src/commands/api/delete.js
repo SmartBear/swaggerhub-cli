@@ -11,15 +11,10 @@ class DeleteAPICommand extends BaseCommand {
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
-    if (!flags.force && !version) {
-      const confirmed = await this.confirmDeletion(name)
-      if (!confirmed) {
-        return
-      }
-    }
-
     if (version) {
       this.logCommandSuccess = this.setSuccessMessage('deletedApiVersion')
+    } else if (!flags.force && await this.confirmDeletion(name) == false) {
+      return
     }
 
     await this.executeHttp({
@@ -34,7 +29,7 @@ class DeleteAPICommand extends BaseCommand {
       {
         type: 'confirm',
         name: 'answer',
-        message: `Are you sure you want to delete '${apiName}' definition entirely?`,
+        message: `Are you sure you want to delete '${apiName}' API definition entirely?`,
         default: false
       }
     ])

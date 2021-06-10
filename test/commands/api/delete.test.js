@@ -36,7 +36,7 @@ describe('valid api:delete', () => {
     .stub(inquirer, 'prompt', () => Promise.resolve({ answer: false }))
     .stdout()
     .command(['api:delete', apiId])
-    .it(`runs api:delete on API, enter 'No' on confirmation`)
+    .it('runs api:delete on API, enter \'No\' on confirmation')
 
   test
     .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
