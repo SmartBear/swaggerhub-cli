@@ -3,11 +3,15 @@ const { wrapTemplates } = require('../utils/general')
 const infoMsg = {
   ApiCreate: 'Created API \'{{owner}}/{{name}}\'',
 
+  ApiDelete: 'Deleted API \'{{owner}}/{{name}}\'',
+
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
 
   createdApiVersion: 'Created version {{version}} of API \'{{owner}}/{{name}}\'',
 
   createdDomainVersion: 'Created version {{version}} of domain \'{{owner}}/{{name}}\'',
+
+  deletedApiVersion: 'Deleted version {{version}} of API \'{{owner}}/{{name}}\'',
 
   published: 'Published {{type}} {{path}}',
 
