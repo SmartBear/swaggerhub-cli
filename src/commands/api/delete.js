@@ -55,7 +55,7 @@ DeleteAPICommand.args = [{
 DeleteAPICommand.flags = {
   force: flags.boolean({
     char: 'f', 
-    description: 'file location of API to create'
+    description: 'delete API without prompting for confirmation'
   }),
   ...BaseCommand.flags
 }
