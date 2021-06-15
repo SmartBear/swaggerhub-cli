@@ -22,21 +22,21 @@ describe('invalid api:create command issues', () => {
 
 describe('invalid api:create file issues', () => {
   test
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/missing_file.yaml'])
+    .command(['api:create', validIdentifier, '-f=test/resources/missing_file.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain('File \'test/resources/missing_file.yaml\' not found')
     })
     .it('runs api:create with file not found')
 
   test
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
+    .command(['api:create', validIdentifier, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Ensure the definition is valid.')
     })
     .it('runs api:create with incorrectly formatted file')
 
   test
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/missing_oas_version.yaml'])
+    .command(['api:create', validIdentifier, '--file=test/resources/missing_oas_version.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Cannot determine OAS version from file')
     })
@@ -61,7 +61,7 @@ describe('invalid api:create', () => {
       .get('/org/api/1.0.0')
       .reply(200)
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml'])
     .catch(ctx => {
       expect(ctx.message).to.contain(`API version '${validIdentifier}' already exists in SwaggerHub`)
     })
@@ -73,7 +73,7 @@ describe('invalid api:create', () => {
       .get('/org/api')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml'])
     .exit(2)
     .it('runs api:create with error retrieving APIs')
 
@@ -87,7 +87,7 @@ describe('invalid api:create', () => {
       .get('/org/api/1.0.0')
       .reply(500, '{ "code": 500, "message": "Error"}')
     )
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.json'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.json'])
     .exit(2)
     .it('runs api:create with error on retrieving API version')
 
@@ -154,7 +154,7 @@ describe('invalid api:create', () => {
       .put('/org/api/1.0.0/settings/lifecycle')
       .reply(500, '{ "code": 500, "message": "An error occurred. Publishing API failed"}')
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Publishing API failed')
     })
@@ -179,7 +179,7 @@ describe('invalid api:create', () => {
       .put('/org/api/settings/default', { version: '1.0.0' })
       .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
     )
-    .command(['api:create', `${validIdentifier}`, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
@@ -199,7 +199,7 @@ describe('valid api:create', () => {
       .reply(201)
     )
     .stdout()
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'')
     })
@@ -220,7 +220,7 @@ describe('valid api:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--setdefault'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--setdefault'])
     .it('runs api:create to set default version', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'\nDefault version of org/api set to 1.0.0')
     })
@@ -241,7 +241,7 @@ describe('valid api:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--publish'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--publish'])
     .it('runs api:create to publish API', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0')
     })
@@ -266,7 +266,7 @@ describe('valid api:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['api:create', `${validIdentifier}`, '--file=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--setdefault', '--publish'])
     .it('runs api:create to publish API and set default version', ctx => {
       expect(ctx.stdout).to
         .contains('Created API \'org/api\'\nPublished API org/api/1.0.0\nDefault version of org/api set to 1.0.0')
