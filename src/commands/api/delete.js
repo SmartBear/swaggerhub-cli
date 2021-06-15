@@ -13,7 +13,7 @@ class DeleteAPICommand extends BaseCommand {
 
     if (version) {
       this.logCommandSuccess = this.setSuccessMessage('deletedApiVersion')
-    } else if (!flags.force && await this.confirmDeletion(name) == false) {
+    } else if (!flags.force && await this.confirmDeletion(name) !== true) {
       return
     }
 
