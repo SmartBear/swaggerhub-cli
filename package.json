@@ -17,7 +17,7 @@
     "deep-extend": "^0.6.0",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
-    "js-yaml": "^3.14.1",
+    "js-yaml": "^4.1.0",
     "json-templates": "^4.1.0",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
