@@ -3,13 +3,14 @@ const { putSpec } = require('../../requests/spec')
 
 class UpdateCommand extends BaseCommand {
 
-  async updatePublish(type, owner, name, version) {
+  async updatePublish(type, owner, name, version, isPublished) {
     const pathParams = [owner, name, version, 'settings', 'lifecycle']
-    const body = JSON.stringify({ published: true })
+    const body = JSON.stringify({ published: isPublished })
+    const successMessage = isPublished ? 'published' : 'unpublished'
 
     await this.executeHttp({
         execute: () => putSpec(type, pathParams, body), 
-        onResolve: this.setSuccessMessage('published')({ 
+        onResolve: this.setSuccessMessage(successMessage)({ 
           type: type === 'apis' ? 'API' : 'domain',
           path: `${owner}/${name}/${version}`
         }),

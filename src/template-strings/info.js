@@ -15,6 +15,8 @@ const infoMsg = {
 
   published: 'Published {{type}} {{path}}',
 
+  unpublished: 'Unpublished {{type}} {{path}}',
+
   setDefault: 'Default version of {{owner}}/{{name}} set to {{version}}',
 
   ApiUpdate: 'Updated API {{owner}}/{{name}}/{{version}}',

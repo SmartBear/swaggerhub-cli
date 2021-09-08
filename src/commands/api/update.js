@@ -49,7 +49,7 @@ class UpdateAPICommand extends UpdateCommand {
       await this.updateVisibility(type, owner, name, apiVersion, flags.visibility !== 'public')
     }
 
-    if (flags.publish) await this.updatePublish(type, owner, name, apiVersion)
+    if (flags.published) await this.updatePublish(type, owner, name, apiVersion, flags.published === 'publish')
     if (flags.setdefault) await this.updateDefault(type, owner, name, apiVersion)
   }
 
@@ -71,9 +71,9 @@ The API visibility can be changed by using visibility flag.
 UpdateAPICommand.examples = [
   'swaggerhub api:update organization/api --file api.yaml',
   'swaggerhub api:update organization/api/1.0.0 --file api.json',
-  'swaggerhub api:update organization/api/1.0.0 --publish --file api.json',
+  'swaggerhub api:update organization/api/1.0.0 --published=publish --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json',
-  'swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json',
+  'swaggerhub api:update organization/api/1.0.0 --published=unpublish --setdefault --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --visibility=private',
 ]
 
@@ -94,9 +94,10 @@ UpdateAPICommand.flags = {
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private']
   }),
-  publish: flags.boolean({
-    description: 'sets the API version as published',
-    required: false
+  published: flags.string({
+    description: 'sets the lifecycle setting of the API version',
+    options: ['publish', 'unpublish'],
+    required: false,
   }),
   setdefault: flags.boolean({
     description: 'sets API version to be the default',

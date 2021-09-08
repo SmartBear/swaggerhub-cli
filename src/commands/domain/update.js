@@ -49,7 +49,7 @@ class UpdateDomainCommand extends UpdateCommand {
       await this.updateVisibility(type, owner, name, domainVersion, flags.visibility !== 'public')
     }
 
-    if (flags.publish) await this.updatePublish(type, owner, name, domainVersion)
+    if (flags.published) await this.updatePublish(type, owner, name, domainVersion, flags.published === 'publish')
     if (flags.setdefault) await this.updateDefault(type, owner, name, domainVersion)
   }
 
@@ -71,9 +71,9 @@ The domain visibility can be changed by using visibility flag.
 UpdateDomainCommand.examples = [
   'swaggerhub domain:update organization/domain --file domain.yaml',
   'swaggerhub domain:update organization/domain/1.0.0 --file domain.json',
-  'swaggerhub domain:update organization/domain/1.0.0 --publish --file domain.json',
+  'swaggerhub domain:update organization/domain/1.0.0 --published=publish --file domain.json',
   'swaggerhub domain:update organization/domain/1.0.0 --setdefault --file domain.json',
-  'swaggerhub domain:update organization/domain/1.0.0 --publish --setdefault --file domain.json',
+  'swaggerhub domain:update organization/domain/1.0.0 --published=unpublish --setdefault --file domain.json',
   'swaggerhub domain:update organization/domain/1.0.0 --visibility=private',
 ]
 
@@ -94,8 +94,9 @@ UpdateDomainCommand.flags = {
     description: 'visibility of domain in SwaggerHub',
     options: ['public', 'private']
   }),
-  publish: flags.boolean({
-    description: 'sets the domain version as published',
+  published: flags.string({
+    description: 'sets the lifecycle setting of the domain version',
+    options: ['publish', 'unpublish'],
     required: false
   }),
   setdefault: flags.boolean({

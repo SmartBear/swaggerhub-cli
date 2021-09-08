@@ -85,7 +85,7 @@ class CreateAPICommand extends UpdateCommand {
       })()
     }
 
-    if (flags.publish) await this.updatePublish(type, owner, name, version)
+    if (flags.published === 'publish') await this.updatePublish(type, owner, name, version, true)
     if (flags.setdefault) await this.updateDefault(type, owner, name, version)
   }
 }
@@ -98,9 +98,9 @@ An error will occur if the API version already exists.
 CreateAPICommand.examples = [
   'swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public',
   'swaggerhub api:create organization/api --file api.yaml',
-  'swaggerhub api:create organization/api/1.0.0 --publish --file api.json',
+  'swaggerhub api:create organization/api/1.0.0 --published=publish --file api.json',
   'swaggerhub api:create organization/api/1.0.0 --setdefault --file api.json',
-  'swaggerhub api:create organization/api/1.0.0 --publish --setdefault --file api.json'
+  'swaggerhub api:create organization/api/1.0.0 --published=publish --setdefault --file api.json'
 ]
 
 CreateAPICommand.args = [{ 
@@ -120,9 +120,10 @@ CreateAPICommand.flags = {
     options: ['public', 'private'],
     default: 'private'
   }),
-  publish: flags.boolean({
-    description: 'sets the API version as published',
-    default: false,
+  published: flags.string({
+    description: 'sets the lifecycle setting of the API version',
+    options: ['publish', 'unpublish'],
+    default: 'unpublish',
     required: false,
     dependsOn: ['file']
   }),

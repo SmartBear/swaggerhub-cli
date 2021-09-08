@@ -142,11 +142,11 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to create in SwaggerHub
 
 OPTIONS
-  -f, --file=file              (required) file location of API to create
-  -h, --help                   show CLI help
-  --publish                    sets the API version as published
-  --setdefault                 sets API version to be the default
-  --visibility=public|private  [default: private] visibility of API in SwaggerHub
+  -f, --file=file                (required) file location of API to create
+  -h, --help                     show CLI help
+  --published=publish|unpublish  [default: unpublish] sets the lifecycle setting of the API version
+  --setdefault                   sets API version to be the default
+  --visibility=public|private    [default: private] visibility of API in SwaggerHub
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
@@ -155,9 +155,9 @@ DESCRIPTION
 EXAMPLES
   swaggerhub api:create organization/api/1.0.0 --file api.yaml --visibility public
   swaggerhub api:create organization/api --file api.yaml
-  swaggerhub api:create organization/api/1.0.0 --publish --file api.json
+  swaggerhub api:create organization/api/1.0.0 --published=publish --file api.json
   swaggerhub api:create organization/api/1.0.0 --setdefault --file api.json
-  swaggerhub api:create organization/api/1.0.0 --publish --setdefault --file api.json
+  swaggerhub api:create organization/api/1.0.0 --published=publish --setdefault --file api.json
 ```
 
 _See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/api/create.js)_
@@ -284,11 +284,11 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to update in SwaggerHub
 
 OPTIONS
-  -f, --file=file              file location of API to update
-  -h, --help                   show CLI help
-  --publish                    sets the API version as published
-  --setdefault                 sets API version to be the default
-  --visibility=public|private  visibility of API in SwaggerHub
+  -f, --file=file                file location of API to update
+  -h, --help                     show CLI help
+  --published=publish|unpublish  sets the lifecycle setting of the API version
+  --setdefault                   sets API version to be the default
+  --visibility=public|private    visibility of API in SwaggerHub
 
 DESCRIPTION
   The API version from the file will be used unless the version is specified in the command argument.
@@ -298,9 +298,9 @@ DESCRIPTION
 EXAMPLES
   swaggerhub api:update organization/api --file api.yaml
   swaggerhub api:update organization/api/1.0.0 --file api.json
-  swaggerhub api:update organization/api/1.0.0 --publish --file api.json
+  swaggerhub api:update organization/api/1.0.0 --published=publish --file api.json
   swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json
-  swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json
+  swaggerhub api:update organization/api/1.0.0 --published=unpublish --setdefault --file api.json
   swaggerhub api:update organization/api/1.0.0 --visibility=private
 ```
 
@@ -365,11 +365,11 @@ ARGUMENTS
   OWNER/DOMAIN_NAME/[VERSION]  Domain to create in SwaggerHub
 
 OPTIONS
-  -f, --file=file              (required) file location of domain to create
-  -h, --help                   show CLI help
-  --publish                    sets the domain version as published
-  --setdefault                 sets domain version to be the default
-  --visibility=public|private  [default: private] visibility of domain in SwaggerHub
+  -f, --file=file                (required) file location of domain to create
+  -h, --help                     show CLI help
+  --published=publish|unpublish  [default: unpublish] sets the lifecycle setting of the domain version
+  --setdefault                   sets domain version to be the default
+  --visibility=public|private    [default: private] visibility of domain in SwaggerHub
 
 DESCRIPTION
   The domain version from the file will be used unless the version is specified in the command argument.
@@ -483,11 +483,11 @@ ARGUMENTS
   OWNER/DOMAIN_NAME/[VERSION]  domain to update in SwaggerHub
 
 OPTIONS
-  -f, --file=file              file location of domain to update
-  -h, --help                   show CLI help
-  --publish                    sets the domain version as published
-  --setdefault                 sets domain version to be the default
-  --visibility=public|private  visibility of domain in SwaggerHub
+  -f, --file=file                file location of domain to update
+  -h, --help                     show CLI help
+  --published=publish|unpublish  sets the lifecycle setting of the domain version
+  --setdefault                   sets domain version to be the default
+  --visibility=public|private    visibility of domain in SwaggerHub
 
 DESCRIPTION
   The domain version from the file will be used unless the version is specified in the command argument.
@@ -497,9 +497,9 @@ DESCRIPTION
 EXAMPLES
   swaggerhub domain:update organization/domain --file domain.yaml
   swaggerhub domain:update organization/domain/1.0.0 --file domain.json
-  swaggerhub domain:update organization/domain/1.0.0 --publish --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --published=publish --file domain.json
   swaggerhub domain:update organization/domain/1.0.0 --setdefault --file domain.json
-  swaggerhub domain:update organization/domain/1.0.0 --publish --setdefault --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --published=unpublish --setdefault --file domain.json
   swaggerhub domain:update organization/domain/1.0.0 --visibility=private
 ```
 

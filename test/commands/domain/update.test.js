@@ -32,6 +32,14 @@ describe('invalid domain:update command issues', () => {
     .it('runs domain:update with unexpected value for required --visibility flag')
 
   test
+    .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--published=unexpected'])
+    .catch(err => {
+      expect(err.message).to.equal('Expected --published=unexpected to be one of: publish, unpublish\n' +
+        'See more help with --help')
+    })
+    .it('runs domain:update with unexpected value for required --published flag')
+
+  test
     .command(['domain:update', 'owner', '-f=test/resources/valid_domain.yaml'])
     .exit(2)
     .it('runs domain:update with org identifier provided')
@@ -101,7 +109,7 @@ describe('invalid domain:update', () => {
       .get('/org/domain/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown domain org/domain/1.0.0"}')
     )
-    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--publish', '--setdefault'])
+    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('Unknown domain org/domain/1.0.0')
     })
@@ -121,7 +129,7 @@ describe('invalid domain:update', () => {
       .put('/org/domain/1.0.0/settings/lifecycle')
       .reply(500, '{ "code": 500, "message": "An error occurred. Publishing domain failed"}')
     )
-    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--publish'])
+    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Publishing domain failed')
     })
@@ -145,7 +153,7 @@ describe('invalid domain:update', () => {
       .put('/org/domain/settings/default', { version: '1.0.0' })
       .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
     )
-    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--publish', '--setdefault'])
+    .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
@@ -283,11 +291,33 @@ describe('valid domain:update', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--publish'])
+    .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--published=publish'])
 
     .it('runs domain:update to publish domain', ctx => {
       expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
       expect(ctx.stdout).to.contains('Published domain org/domain/1.2.3')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain/1.2.3')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.2.3')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .put('/org/domain/1.2.3/settings/lifecycle', { published: false })
+      .reply(200)
+    )
+    .stdout()
+    .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--published=unpublish'])
+
+    .it('runs domain:update to unpublish domain', ctx => {
+      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contains('Unpublished domain org/domain/1.2.3')
     })
 
   test
@@ -331,11 +361,38 @@ describe('valid domain:update', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:update', 'org/domain/2.0.0', '--visibility=public', '--publish', '--setdefault'])
+    .command(['domain:update', 'org/domain/2.0.0', '--visibility=public', '--published=publish', '--setdefault'])
 
     .it('runs domain:update to set domain public, publish domain, and set the default version', ctx => {
       expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to public')
       expect(ctx.stdout).to.contains('Published domain org/domain/2.0.0')
+      expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain/settings/default')
+      .reply(200, { version: '2.0.0' })
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .put('/org/domain/2.0.0/settings/private', { private: false })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .put('/org/domain/settings/default', { version: '2.0.0' })
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .put('/org/domain/2.0.0/settings/lifecycle', { published: false })
+      .reply(200)
+    )
+    .stdout()
+    .command(['domain:update', 'org/domain/2.0.0', '--visibility=public', '--published=unpublish', '--setdefault'])
+
+    .it('runs domain:update to set domain public, unpublish domain, and set the default version', ctx => {
+      expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to public')
+      expect(ctx.stdout).to.contains('Unpublished domain org/domain/2.0.0')
       expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
     })
 
@@ -363,7 +420,7 @@ describe('valid domain:update', () => {
       'org/domain',
       '-f=test/resources/valid_domain.json',
       '--visibility=public',
-      '--publish',
+      '--published=publish',
       '--setdefault'
     ])
 
@@ -392,7 +449,13 @@ describe('valid domain:update', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--setdefault', '--publish'])
+    .command([
+      'domain:update', 
+      'org/domain', 
+      '-f=test/resources/valid_domain.json', 
+      '--setdefault',
+      '--published=publish'
+    ])
 
     .it('runs domain:update to publish domain and set default version', ctx => {
       expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
@@ -411,10 +474,27 @@ describe('valid domain:update', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:update', 'org/domain/2.0.0', '--publish'])
+    .command(['domain:update', 'org/domain/2.0.0', '--published=publish'])
 
     .it('runs domain:update to publish domain', ctx => {
       expect(ctx.stdout).to.contains('Published domain org/domain/2.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain/settings/default')
+      .reply(200, { version: '2.0.0' })
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .put('/org/domain/2.0.0/settings/lifecycle', { published: false })
+      .reply(200)
+    )
+    .stdout()
+    .command(['domain:update', 'org/domain/2.0.0', '--published=unpublish'])
+
+    .it('runs domain:update to unpublish domain', ctx => {
+      expect(ctx.stdout).to.contains('Unpublished domain org/domain/2.0.0')
     })
 
   test
