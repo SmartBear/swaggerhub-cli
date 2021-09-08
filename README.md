@@ -113,7 +113,9 @@ USAGE
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
+* [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
+* [`swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainupdate)
 * [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationdelete)
@@ -429,6 +431,26 @@ EXAMPLE
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/publish.js)_
 
+## `swaggerhub domain:setdefault`
+
+set the default version of a domain
+
+```
+USAGE
+  $ swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/VERSION  domain identifier
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub domain:setdefault organization/domain/2.0.0
+```
+
+_See code: [src/commands/domain/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/setdefault.js)_
+
 ## `swaggerhub domain:unpublish`
 
 unpublish a domain version
@@ -448,6 +470,40 @@ EXAMPLE
 ```
 
 _See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/unpublish.js)_
+
+## `swaggerhub domain:update`
+
+update a domain
+
+```
+USAGE
+  $ swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/[VERSION]  domain to update in SwaggerHub
+
+OPTIONS
+  -f, --file=file              file location of domain to update
+  -h, --help                   show CLI help
+  --publish                    sets the domain version as published
+  --setdefault                 sets domain version to be the default
+  --visibility=public|private  visibility of domain in SwaggerHub
+
+DESCRIPTION
+  The domain version from the file will be used unless the version is specified in the command argument.
+  When no file is specified then the default domain version will be updated.
+  The domain visibility can be changed by using visibility flag.
+
+EXAMPLES
+  swaggerhub domain:update organization/domain --file domain.yaml
+  swaggerhub domain:update organization/domain/1.0.0 --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --publish --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --setdefault --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --publish --setdefault --file domain.json
+  swaggerhub domain:update organization/domain/1.0.0 --visibility=private
+```
+
+_See code: [src/commands/domain/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/update.js)_
 
 ## `swaggerhub help [COMMAND]`
 

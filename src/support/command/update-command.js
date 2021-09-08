@@ -31,6 +31,23 @@ class UpdateCommand extends BaseCommand {
       options: { resolveStatus: [403] }
     })
   }
+
+  async updateVisibility(type, owner, name, version, isPrivate) {
+    const visibility = isPrivate ? 'private' : 'public'
+    const pathParams = [owner, name, version, 'settings', 'private']
+    const body = JSON.stringify({ private: isPrivate })
+
+    await this.executeHttp({
+      execute: () => putSpec(type, pathParams, body),
+      onResolve: this.setSuccessMessage('visibilityUpdate')({
+        owner,
+        name,
+        version: version,
+        visibility
+      }),
+      options: { resolveStatus: [403] }
+    })
+  }
 }
 
 module.exports = UpdateCommand

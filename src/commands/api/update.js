@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApi, postApi, putApi } = require('../../requests/api')
+const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
@@ -46,7 +46,7 @@ class UpdateAPICommand extends UpdateCommand {
     if (flags.file) {
       await this.handleUpdate(owner, name, apiVersion, flags)
     } else if (flags.visibility) {
-      await this.updateVisibility(owner, name, apiVersion, flags)
+      await this.updateVisibility(type, owner, name, apiVersion, flags.visibility !== 'public')
     }
 
     if (flags.publish) await this.updatePublish(type, owner, name, apiVersion)
@@ -57,26 +57,6 @@ class UpdateAPICommand extends UpdateCommand {
     await this.executeHttp({
       execute: () => getApi([owner, name, version]),
       onResolve: () => this.updateApi(owner, name, version, flags),
-      options: { resolveStatus: [403] }
-    })
-  }
-
-  async updateVisibility(owner, name, apiVersion, flags) {
-    const isPrivate = flags.visibility !== 'public'
-    const visibility = isPrivate ? 'private' : 'public'
-    const updateApiObj = {
-      pathParams: [owner, name, apiVersion, 'settings', 'private'],
-      body: JSON.stringify({ private: isPrivate })
-    }
-
-    await this.executeHttp({
-      execute: () => putApi(updateApiObj),
-      onResolve: this.setSuccessMessage('visibilityUpdate')({
-        owner,
-        name,
-        version: apiVersion,
-        visibility
-      }),
       options: { resolveStatus: [403] }
     })
   }
