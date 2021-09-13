@@ -7,11 +7,13 @@ const infoMsg = {
 
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
 
+  DomainDelete: 'Deleted domain \'{{owner}}/{{name}}\'',
+
   createdApiVersion: 'Created version {{version}} of API \'{{owner}}/{{name}}\'',
 
   createdDomainVersion: 'Created version {{version}} of domain \'{{owner}}/{{name}}\'',
 
-  deletedApiVersion: 'Deleted version {{version}} of API \'{{owner}}/{{name}}\'',
+  deletedVersion: 'Deleted version {{version}} of {{type}} \'{{owner}}/{{name}}\'',
 
   published: 'Published {{type}} {{path}}',
 
