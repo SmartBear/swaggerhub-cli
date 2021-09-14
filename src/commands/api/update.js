@@ -1,6 +1,6 @@
 const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
-const { getApi, postApi, putApi } = require('../../requests/api')
+const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getVersion, parseDefinition } = require('../../utils/oas')
 const BaseCommand = require('../../support/command/base-command')
@@ -46,10 +46,10 @@ class UpdateAPICommand extends UpdateCommand {
     if (flags.file) {
       await this.handleUpdate(owner, name, apiVersion, flags)
     } else if (flags.visibility) {
-      await this.updateVisibility(owner, name, apiVersion, flags)
+      await this.updateVisibility(type, owner, name, apiVersion, flags.visibility !== 'public')
     }
 
-    if (flags.publish) await this.updatePublish(type, owner, name, apiVersion)
+    if (flags.published) await this.updatePublish(type, owner, name, apiVersion, flags.published === 'publish')
     if (flags.setdefault) await this.updateDefault(type, owner, name, apiVersion)
   }
 
@@ -57,26 +57,6 @@ class UpdateAPICommand extends UpdateCommand {
     await this.executeHttp({
       execute: () => getApi([owner, name, version]),
       onResolve: () => this.updateApi(owner, name, version, flags),
-      options: { resolveStatus: [403] }
-    })
-  }
-
-  async updateVisibility(owner, name, apiVersion, flags) {
-    const isPrivate = flags.visibility !== 'public'
-    const visibility = isPrivate ? 'private' : 'public'
-    const updateApiObj = {
-      pathParams: [owner, name, apiVersion, 'settings', 'private'],
-      body: JSON.stringify({ private: isPrivate })
-    }
-
-    await this.executeHttp({
-      execute: () => putApi(updateApiObj),
-      onResolve: this.setSuccessMessage('visibilityUpdate')({
-        owner,
-        name,
-        version: apiVersion,
-        visibility
-      }),
       options: { resolveStatus: [403] }
     })
   }
@@ -91,9 +71,9 @@ The API visibility can be changed by using visibility flag.
 UpdateAPICommand.examples = [
   'swaggerhub api:update organization/api --file api.yaml',
   'swaggerhub api:update organization/api/1.0.0 --file api.json',
-  'swaggerhub api:update organization/api/1.0.0 --publish --file api.json',
+  'swaggerhub api:update organization/api/1.0.0 --published=publish --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --setdefault --file api.json',
-  'swaggerhub api:update organization/api/1.0.0 --publish --setdefault --file api.json',
+  'swaggerhub api:update organization/api/1.0.0 --published=unpublish --setdefault --file api.json',
   'swaggerhub api:update organization/api/1.0.0 --visibility=private',
 ]
 
@@ -114,9 +94,10 @@ UpdateAPICommand.flags = {
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private']
   }),
-  publish: flags.boolean({
-    description: 'sets the API version as published',
-    required: false
+  published: flags.string({
+    description: 'sets the lifecycle setting of the API version',
+    options: ['publish', 'unpublish'],
+    required: false,
   }),
   setdefault: flags.boolean({
     description: 'sets API version to be the default',

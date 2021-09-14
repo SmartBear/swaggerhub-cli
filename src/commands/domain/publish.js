@@ -9,7 +9,7 @@ class PublishCommand extends UpdateCommand {
     const domainPath = getDomainIdentifierArg(args)
     const [owner, name, version] = splitPathParams(domainPath)
 
-    await this.updatePublish('domains', owner, name, version)
+    await this.updatePublish('domains', owner, name, version, true)
   }
 }
 

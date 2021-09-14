@@ -8,7 +8,7 @@ class PublishCommand extends UpdateCommand {
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
-    await this.updatePublish('apis', owner, name, version)    
+    await this.updatePublish('apis', owner, name, version, true)    
   }
 }
 

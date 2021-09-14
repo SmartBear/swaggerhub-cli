@@ -1,6 +1,6 @@
 const { CLIError } = require('@oclif/errors')
 const { hasJsonStructure } = require('./general')
-const { safeLoad } = require('js-yaml')
+const yaml = require('js-yaml')
 const { existsSync, readFileSync } = require('fs-extra')
 const { errorMsg } = require('../template-strings')
 
@@ -27,7 +27,7 @@ const parseDefinition = filename => {
     throw new CLIError(errorMsg.fileIsEmpty({ filename }))
   }
   try {
-    return hasJsonStructure(file) ? JSON.parse(file) : safeLoad(file) 
+    return hasJsonStructure(file) ? JSON.parse(file) : yaml.load(file) 
   } catch (e) {
     throw new CLIError(errorMsg.cannotParseDefinition({ filename, e: JSON.stringify(e) }))
   }

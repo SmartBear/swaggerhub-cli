@@ -126,6 +126,11 @@ describe('config ', () => {
     .it('it should return true when using on-premise with /v1 path', () => {
       expect(isURLValid()).to.equal(true)
     })
-  })
 
+    test
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://localhost:8088' }))
+    .it('it should return true when using SwaggerHub on localhost', () => {
+      expect(isURLValid()).to.equal(true)
+    })
+  })
 })

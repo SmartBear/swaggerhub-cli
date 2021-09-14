@@ -23,7 +23,8 @@ const setConfig = update => {
 const isURLValid = () => {
   const { SWAGGERHUB_URL } = getConfig()
   return swaggerhubUrlRegex.test(SWAGGERHUB_URL) ||
-   (!SWAGGERHUB_URL.includes('api.swaggerhub.com') && SWAGGERHUB_URL.endsWith('/v1'))
+   (!SWAGGERHUB_URL.includes('api.swaggerhub.com') && SWAGGERHUB_URL.endsWith('/v1')) ||
+   SWAGGERHUB_URL.includes('localhost')
 }
 
 module.exports = {
