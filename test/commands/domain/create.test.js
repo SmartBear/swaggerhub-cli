@@ -127,7 +127,7 @@ describe('invalid domain:create', () => {
       .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
     .command(['domain:create', 'orgNotExist/domain/1.0.0', '-f=test/resources/valid_domain.yaml',
-      '--publish', '--setdefault'])
+      '--published=publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('Object doesn\'t exist')
     })
@@ -148,7 +148,7 @@ describe('invalid domain:create', () => {
       .put('/org/domain/1.0.0/settings/lifecycle')
       .reply(500, '{ "code": 500, "message": "An error occurred. Publishing domain failed"}')
     )
-    .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--publish'])
+    .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Publishing domain failed')
     })
@@ -173,7 +173,7 @@ describe('invalid domain:create', () => {
       .put('/org/domain/settings/default', { version: '1.0.0' })
       .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
     )
-    .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--publish', '--setdefault'])
+    .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
@@ -235,9 +235,26 @@ describe('valid domain:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--publish'])
+    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--published=publish'])
     .it('runs domain:create to publish domain', ctx => {
       expect(ctx.stdout).to.contains('Created domain \'org/domain\'\nPublished domain org/domain/1.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.0.0&isPrivate=true')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .stdout()
+    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--published=unpublish'])
+    .it('runs domain:create with published=unpublish', ctx => {
+      expect(ctx.stdout).to.contains('Created domain \'org/domain\'')
     })
 
   test
@@ -260,7 +277,7 @@ describe('valid domain:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--setdefault', '--publish'])
+    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--setdefault', '--published=publish'])
     .it('runs domain:create to publish domain and set default version', ctx => {
       expect(ctx.stdout).to
         .contains('Created domain \'org/domain\'\n' +

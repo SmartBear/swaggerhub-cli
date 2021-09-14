@@ -83,7 +83,7 @@ class CreateDomainCommand extends UpdateCommand {
       })()
     }
 
-    if (flags.publish) await this.updatePublish(type, owner, name, version)
+    if (flags.published === 'publish') await this.updatePublish(type, owner, name, version, true)
     if (flags.setdefault) await this.updateDefault(type, owner, name, version)
   }
 }
@@ -118,9 +118,10 @@ CreateDomainCommand.flags = {
     options: ['public', 'private'],
     default: 'private'
   }),
-  publish: flags.boolean({
-    description: 'sets the domain version as published',
-    default: false,
+  published: flags.string({
+    description: 'sets the lifecycle setting of the domain version',
+    options: ['publish', 'unpublish'],
+    default: 'unpublish',
     required: false,
     dependsOn: ['file']
   }),
