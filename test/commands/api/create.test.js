@@ -133,7 +133,13 @@ describe('invalid api:create', () => {
       .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=2.0')
       .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
-    .command(['api:create', 'orgNotExist/api/1.0.0', '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .command([
+      'api:create', 
+      'orgNotExist/api/1.0.0', 
+      '-f=test/resources/valid_api.yaml', 
+      '--published=publish', 
+      '--setdefault'
+    ])
     .catch(err => {
       expect(err.message).to.contains('Object doesn\'t exist')
     })
@@ -154,7 +160,7 @@ describe('invalid api:create', () => {
       .put('/org/api/1.0.0/settings/lifecycle')
       .reply(500, '{ "code": 500, "message": "An error occurred. Publishing API failed"}')
     )
-    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Publishing API failed')
     })
@@ -179,7 +185,7 @@ describe('invalid api:create', () => {
       .put('/org/api/settings/default', { version: '1.0.0' })
       .reply(500, '{ "code": 500, "message": "An error occurred. Setting default version failed"}')
     )
-    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--publish', '--setdefault'])
+    .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
       expect(err.message).to.contains('An error occurred. Setting default version failed')
     })
@@ -241,7 +247,7 @@ describe('valid api:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--publish'])
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--published=publish'])
     .it('runs api:create to publish API', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0')
     })
@@ -266,10 +272,44 @@ describe('valid api:create', () => {
       .reply(200)
     )
     .stdout()
-    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--setdefault', '--publish'])
+    .command([
+      'api:create', 
+      validIdentifier, 
+      '--file=test/resources/valid_api.yaml', 
+      '--setdefault', 
+      '--published=publish'
+    ])
     .it('runs api:create to publish API and set default version', ctx => {
       expect(ctx.stdout).to
         .contains('Created API \'org/api\'\nPublished API org/api/1.0.0\nDefault version of org/api set to 1.0.0')
+    })
+
+  test
+    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/apis`, api => api
+      .get('/org/api')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .matchHeader('Content-Type', 'application/yaml')
+      .reply(201)
+    )
+    .nock(`${shubUrl}/apis`, api => api
+      .put('/org/api/settings/default', { version: '1.0.0' })
+      .reply(200)
+    )
+    .stdout()
+    .command([
+      'api:create', 
+      validIdentifier, 
+      '--file=test/resources/valid_api.yaml', 
+      '--setdefault', 
+      '--published=unpublish'
+    ])
+    .it('run api:create with published=unpublish and set default version', ctx => {
+      expect(ctx.stdout).to
+        .contains('Created API \'org/api\'\nDefault version of org/api set to 1.0.0')
     })
 
   test
