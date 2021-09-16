@@ -9,7 +9,7 @@ const errorMsg = {
 
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
-  cannotParseDefinition: 'There was a problem with parsing {{filename}}. Ensure the definition is valid. {{e}}',
+  cannotParseDefinition: 'There was a problem with parsing {{filename}}. \nReason: {{e}}',
 
   cannotParseOasVersion: 'Cannot determine OAS version from file',
 

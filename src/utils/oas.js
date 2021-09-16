@@ -29,7 +29,7 @@ const parseDefinition = filename => {
   try {
     return hasJsonStructure(file) ? JSON.parse(file) : yaml.load(file) 
   } catch (e) {
-    throw new CLIError(errorMsg.cannotParseDefinition({ filename, e: JSON.stringify(e) }))
+    throw new CLIError(errorMsg.cannotParseDefinition({ filename, e: JSON.stringify(e.message).replace(/\\n/g, '\n') }))
   }
 }
 
