@@ -12,14 +12,14 @@ class DeleteAPICommand extends BaseCommand {
     const [owner, name, version] = splitPathParams(apiPath)
 
     if (version) {
-      this.logCommandSuccess = this.setSuccessMessage('deletedApiVersion')
+      this.logCommandSuccess = this.setSuccessMessage('deletedVersion')
     } else if (!flags.force && await this.confirmDeletion(name) !== true) {
       return
     }
 
     await this.executeHttp({
       execute: () => deleteApi([apiPath]),
-      onResolve: this.logCommandSuccess({ owner, name, version }),
+      onResolve: this.logCommandSuccess({ type: 'API', owner, name, version }),
       options: {}
     })
   }
@@ -29,7 +29,7 @@ class DeleteAPICommand extends BaseCommand {
       {
         type: 'confirm',
         name: 'answer',
-        message: `Are you sure you want to delete '${apiName}' API definition entirely?`,
+        message: `Are you sure you want to delete '${apiName}' definition entirely?`,
         default: false
       }
     ])

@@ -12,13 +12,14 @@ const getSpec = (specType, pathParams, queryParams, accept) => {
     })
   }
 
-  const deleteSpec = (specType, pathParams) => {
+  const deleteSpec = (specType, pathParams, queryParams) => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
     return http({
       url: [SWAGGERHUB_URL, specType, ...pathParams],
       auth: SWAGGERHUB_API_KEY,
       contentType: 'json',
-      method: 'DELETE'
+      method: 'DELETE',
+      query: queryParams
     })
   }
 

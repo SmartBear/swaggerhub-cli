@@ -111,6 +111,7 @@ USAGE
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
+* [`swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaindelete)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
 * [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
@@ -385,6 +386,29 @@ EXAMPLES
 
 _See code: [src/commands/domain/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/create.js)_
 
+## `swaggerhub domain:delete`
+
+delete a domain or domain version
+
+```
+USAGE
+  $ swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to delete in SwaggerHub
+
+OPTIONS
+  -f, --force  delete domain without prompting for confirmation
+  -h, --help   show CLI help
+
+EXAMPLES
+  swaggerhub domain:delete organization/domain/1.0.0
+  swaggerhub domain:delete organization/domain
+  swaggerhub domain:delete organization/domain --force
+```
+
+_See code: [src/commands/domain/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.4.0/src/commands/domain/delete.js)_
+
 ## `swaggerhub domain:get`
 
 fetches a domain definition
@@ -520,7 +544,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.3/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
