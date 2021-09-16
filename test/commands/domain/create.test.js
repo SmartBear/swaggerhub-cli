@@ -31,7 +31,7 @@ describe('invalid domain:create file issues', () => {
   test
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('Ensure the definition is valid.')
+      expect(ctx.message).to.contain('There was a problem with parsing test/resources/invalid_format.yaml.')
     })
     .it('runs domain:create with incorrectly formatted file')
 
