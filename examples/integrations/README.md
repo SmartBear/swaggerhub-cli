@@ -2,7 +2,7 @@
 
 Integrations are managed using the `integration` topic. The `create` and `update` commands take a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
-**Note for SwaggerHub On-Premise customers:** Most of the `integration` commands require SwaggerHub v. 1.27, except for `integration:create` which can create source control integrations in v. 1.26 as well.
+**Note for SwaggerHub On-Premise customers:** Most of the `integration` commands require SwaggerHub v. 1.27 or later, except for `integration:create` which can create source control integrations in v. 1.26 as well.
 
 # Integrations
 
@@ -225,7 +225,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 
 ## Property: `region`
 AWS region where the API will be published. 
-Options are: `us-east-1`, `us-east-2`, `us-west-1`, `us-west-2`, `eu-west-1`, `eu-west-2`, `eu-west-3`, `eu-central-1`, `eu-north-1`, `ap-east-1`, `ap-south-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-northeast-1`, `ap-northeast-2`, `sa-east-1`, `cn-north-1`, `cn-northwest-1`, `ca-central-1`, `me-south-1`.
+Options are: `us-east-1`, `us-east-2`, `us-west-1`, `us-west-2`, `eu-west-1`, `eu-west-2`, `eu-west-3`, `eu-central-1`, `eu-north-1`, `eu-south-1`, `ap-east-1`, `ap-south-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-northeast-1`, `ap-northeast-2`, `sa-east-1`, `cn-north-1`, `cn-northwest-1`, `ca-central-1`, `me-south-1`, `af-south-1`.
 
 ## Property: `target`
 In the case of source control management (SCM) integrations, it is possible to generate server stubs, client SDKs, or resolved versions of the API. The value of `target` defines the generated output. The list of targets varies between OpenAPI 2.0 and OpenAPI 3.0 definitions. The current list of options is displayed below.
@@ -233,13 +233,13 @@ In the case of source control management (SCM) integrations, it is possible to g
 ### OpenAPI 2.0
 * API: "YAML (Unresolved)", "YAML (Resolved)", "JSON (Unresolved)", "JSON (Resolved)"
 
-* Servers: "aspnetcore", "erlang-server", "go-server", "haskell", "inflector", "jaxrs", "jaxrs-cxf", "jaxrs-cxf-cdi", "jaxrs-resteasy", "jaxrs-spec", "lumen", "msf4j", "nancyfx", "nodejs-server", "php-silex", "php-symfony", "pistache-server", "python-flask", "rails5", "restbed", "rust-server", "scalatra", "sinatra", "slim", "spring", "undertow"
+* Servers: "aspnetcore", "erlang-server", "go-server", "haskell", "inflector", "java-pkmst", "jaxrs", "jaxrs-cxf", "jaxrs-cxf-cdi", "jaxrs-resteasy", "jaxrs-spec", "lumen", "msf4j", "nancyfx", "nodejs-server", "php-silex", "php-symfony", "pistache-server", "python-flask", "rails5", "restbed", "rust-server", "scalatra", "sinatra", "slim", "spring", "undertow"
 
 * Clients: "akka-scala", "android", "apex", "clojure", "cpprest", "csharp", "csharp-dotnet2", "cwiki", "dart", "dynamic-html", "flash", "go", "groovy", "html", "html2", "java", "javascript", "javascript-closure-angular", "jaxrs-cxf-client", "jmeter", "kotlin", "objc", "perl", "php", "python", "qt5cpp", "ruby", "scala", "scala-gatling", "swagger", "swagger-yaml", "swift", "swift3", "swift4", "swift5", "tizen", "typescript-angular", "typescript-angularjs", "typescript-fetch", "typescript-inversify", "typescript-node"
 
 ### OpenAPI 3.0
 * API: "YAML (Unresolved)", "YAML (Resolved)", "JSON (Unresolved)", "JSON (Resolved)"
-* Servers: "aspnetcore", "go-server", "inflector", "jaxrs-jersey", "jaxrs-resteasy", "jaxrs-resteasy-eap", "nodejs-server", "python-flask", "scala-akka-http-server", "spring"
+* Servers: "aspnetcore", "go-server", "inflector", "jaxrs-cxf", "jaxrs-jersey", "jaxrs-resteasy", "jaxrs-resteasy-eap", "jaxrs-spec", "nodejs-server", "python-flask", "scala-akka-http-server", "spring"
 * Clients: "csharp", "dynamic-html", "go", "html", "html2", "java", "jaxrs-cxf-client", "kotlin-client", "openapi", "openapi-yaml", "php", "python", "scala", "swift3", "swift4", "swift5", "typescript-angular", "typescript-fetch"
 
 
