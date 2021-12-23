@@ -26,12 +26,24 @@ describe('valid project:list', () => {
         .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get('/')
+            .reply(200, { 'projects': [projectsResponse['projects'][0]] })
+        )
+        .stdout()
+        .command(['project:list'])
+        .it('runs project:list with no arguments and finds one project', ctx => {
+            expect(ctx.stdout).to.contains('Found 1 project.')
+        })
+
+    test
+        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
+            .get('/')
             .reply(200, projectsResponse)
         )
         .stdout()
         .command(['project:list'])
-        .it('runs project:list with no arguments', ctx => {
-            expect(ctx.stdout).to.contains('Found 2 projects')
+        .it('runs project:list with no arguments ands finds 2 projects', ctx => {
+            expect(ctx.stdout).to.contains('Found 2 projects.')
         })
 
     test
@@ -43,7 +55,7 @@ describe('valid project:list', () => {
         .stdout()
         .command(['project:list', validOrgName])
         .it('runs project:list with org name', ctx => {
-            expect(ctx.stdout).to.contains('Found 2 projects')
+            expect(ctx.stdout).to.contains('Found 2 projects.')
         })
 })
 

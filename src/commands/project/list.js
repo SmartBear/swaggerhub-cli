@@ -41,7 +41,7 @@ class ListProjectCommand extends BaseCommand {
 
     async listProjects(args) {
         return this.executeHttp({
-            execute: () => getProject('projects', [args]),
+            execute: () => getProject([args]),
             onResolve: this.logProject,
             options: {}
         })
@@ -51,6 +51,7 @@ class ListProjectCommand extends BaseCommand {
 ListProjectCommand.description = 'list projects'
 
 ListProjectCommand.examples = [
+    'swaggerhub project:list',
     'swaggerhub project:list organization'
 ]
 

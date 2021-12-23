@@ -42,11 +42,6 @@ const getIntegrationIdentifierArg = args => {
   return identifier
 }
 
-const getProjectIdentifierArg = args => {
-  const format = '[OWNER]'
-  return args[format]
-}
-
 const readConfigFile = filename => {
   if (!existsSync(filename)) {
     throw new CLIError(errorMsg.fileNotFound({ filename }))
@@ -73,7 +68,6 @@ module.exports = {
   getApiIdentifierArg,
   getDomainIdentifierArg,
   getIntegrationIdentifierArg,
-  getProjectIdentifierArg,
   readConfigFile,
   splitPathParams,
   reqType,
