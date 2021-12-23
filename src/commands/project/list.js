@@ -16,27 +16,29 @@ class ListProjectCommand extends BaseCommand {
 
     async logProject(response) {
         const responseObj = JSON.parse(await getResponseContent(response))
-        const projectCount = responseObj.projects.length
-        this.log(`Found ${ projectCount } project${ projectCount > 1 ? 's' : '' }.`)
-        cli.table(responseObj.projects, {
-            name: {
-                header: 'Name'
-            },
-            owner: {
-                header: 'Owner'
-            },
-            description: {
-                header: 'Description'
-            },
-            apis: {
-                header: 'APIs'
-            },
-            domains: {
-                header: 'Domains'
-            }
-        }, {
-            printLine: this.log
-        })
+        if (responseObj.projects.length === 0){
+            this.log('No projects found.')
+        } else {
+            cli.table(responseObj.projects, {
+                name: {
+                    header: 'Name'
+                },
+                owner: {
+                    header: 'Owner'
+                },
+                description: {
+                    header: 'Description'
+                },
+                apis: {
+                    header: 'APIs'
+                },
+                domains: {
+                    header: 'Domains'
+                }
+            }, {
+                printLine: this.log
+            })
+        }
     }
 
     async listProjects(args) {
