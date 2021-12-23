@@ -11,7 +11,7 @@ class ListProjectCommand extends BaseCommand {
 
     async run() {
         const { args } = this.parse(ListProjectCommand)
-        await this.listProjects(args['[OWNER]'])
+        await this.listProjects(args['OWNER'])
     }
 
     async logProject(response) {
@@ -58,7 +58,7 @@ ListProjectCommand.examples = [
 ]
 
 ListProjectCommand.args = [{
-    name: '[OWNER]',
+    name: 'OWNER',
     required: false,
     description: 'Organization to list projects for'
 }]

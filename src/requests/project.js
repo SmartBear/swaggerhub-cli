@@ -1,15 +1,7 @@
-const config = require('../config')
-const http = require('../support/http')
+const { getSpec } = require('./spec')
 
-const getProject = (pathParams, queryParams, accept = 'json') => {
-    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-    return http({
-        url: [SWAGGERHUB_URL, 'projects', ...pathParams],
-        auth: SWAGGERHUB_API_KEY,
-        accept: accept,
-        query: queryParams
-    })
-}
+const getProject = (pathParams, queryParams, accept = 'json') =>
+    getSpec('projects', pathParams, queryParams, accept)
 
 module.exports = {
     getProject
