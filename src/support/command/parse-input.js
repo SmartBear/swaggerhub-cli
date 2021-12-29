@@ -6,6 +6,7 @@ const { errorMsg } = require('../../template-strings')
 const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?)$/)
 const requiredVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const integrationIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
+const projectIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+$/)
 
 const isValidIdentifier = (id, isVersionRequired) => isVersionRequired
   ? requiredVersionRegex.test(id)
@@ -42,6 +43,15 @@ const getIntegrationIdentifierArg = args => {
   return identifier
 }
 
+const getProjectIdentifierArg = args => {
+  const format = 'OWNER/PROJECT_NAME'
+  const identifier = args[format]
+  if (!projectIdentifierRegex.test(identifier)) {
+    throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
+  }
+  return identifier
+}
+
 const readConfigFile = filename => {
   if (!existsSync(filename)) {
     throw new CLIError(errorMsg.fileNotFound({ filename }))
@@ -68,6 +78,7 @@ module.exports = {
   getApiIdentifierArg,
   getDomainIdentifierArg,
   getIntegrationIdentifierArg,
+  getProjectIdentifierArg,
   readConfigFile,
   splitPathParams,
   reqType,
