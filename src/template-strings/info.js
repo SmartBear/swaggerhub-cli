@@ -43,7 +43,9 @@ const infoMsg = {
   
   IntegrationUpdate: 'Updated integration \'{{integrationId}}\' on API \'{{apiPath}}\'',
 
-  Configure: 'Saved config to {{configFilePath}}'
+  Configure: 'Saved config to {{configFilePath}}',
+
+  ProjectCreate: 'Created project \'{{projectName}}\''
 }
 
 module.exports = wrapTemplates({

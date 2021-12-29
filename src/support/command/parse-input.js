@@ -70,6 +70,8 @@ const readConfigFile = filename => {
 
 const splitPathParams = path => path.split('/').filter(Boolean)
 
+const splitFlagParams = flag => flag.split(',').filter(Boolean)
+
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
 const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
@@ -81,6 +83,7 @@ module.exports = {
   getProjectIdentifierArg,
   readConfigFile,
   splitPathParams,
+  splitFlagParams,
   reqType,
   resolvedParam,
   isValidIdentifier
