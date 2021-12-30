@@ -45,7 +45,9 @@ const infoMsg = {
 
   Configure: 'Saved config to {{configFilePath}}',
 
-  ProjectCreate: 'Created project \'{{projectName}}\''
+  ProjectCreate: 'Created project \'{{projectName}}\'',
+
+  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\''
 }
 
 module.exports = wrapTemplates({
