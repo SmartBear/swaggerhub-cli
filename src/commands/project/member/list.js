@@ -28,7 +28,7 @@ class ListProjectMembersCommand extends BaseCommand {
     async getProjectMembers(projectPath) {
         return this.executeHttp({
             execute: () => getProject([projectPath,'members']),
-            onResolve: this.logProject,
+            onResolve: this.logProjectMembers,
             options: {}
         })
     }
