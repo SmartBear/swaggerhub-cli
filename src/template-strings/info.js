@@ -47,7 +47,9 @@ const infoMsg = {
 
   ProjectCreate: 'Created project \'{{projectName}}\'',
 
-  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\''
+  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
+
+  ProjectDelete: 'Deleted project \'{{projectPath}}\''
 }
 
 module.exports = wrapTemplates({
