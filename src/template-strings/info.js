@@ -47,7 +47,9 @@ const infoMsg = {
 
   ProjectCreate: 'Created project \'{{projectName}}\'',
 
-  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\''
+  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
+
+  ProjectSpecAdd: 'Added spec \'{{specName}}\' ({{specType}}) to project \'{{projectPath}}\''
 }
 
 module.exports = wrapTemplates({
