@@ -12,23 +12,23 @@ class UpdateProjectCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(UpdateProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
-        const [owner, projectName] = splitPathParams(projectPath)
+        const [owner, name] = splitPathParams(projectPath)
         const body = {
-            'owner': owner,
-            'name': projectName
+            owner,
+            name
         }
         // Append optional flags to body if present
         if (flags.description !== undefined) body.description = flags.description
         if (flags.apis !== undefined) body.apis = splitFlagParams(flags.apis)
         if (flags.domains !== undefined) body.domains = splitFlagParams(flags.domains)
 
-        await this.updateProject(owner, projectName, JSON.stringify(body))
+        await this.updateProject(owner, name, JSON.stringify(body))
     }
 
     async updateProject(owner, projectName, body) {
         const createRequest = {
             pathParams: [owner, projectName],
-            body: body
+            body
         }
 
         return this.executeHttp({
