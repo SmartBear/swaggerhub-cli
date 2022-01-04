@@ -12,23 +12,23 @@ class CreateProjectCommand extends BaseCommand {
     async run() {
         const { args, flags } = this.parse(CreateProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
-        const [owner, projectName] = splitPathParams(projectPath)
+        const [owner, name] = splitPathParams(projectPath)
         const body = {
-            'owner': owner,
-            'name': projectName
+            owner,
+            name
         }
         // Append optional flags to body if present
         if (flags.description !== undefined) body.description = flags.description
         if (flags.apis !== undefined) body.apis = splitFlagParams(flags.apis)
         if (flags.domains !== undefined) body.domains = splitFlagParams(flags.domains)
 
-        await this.createProject(owner, projectName, JSON.stringify(body))
+        await this.createProject(owner, name, JSON.stringify(body))
     }
 
     async createProject(owner, projectName, body) {
         const createRequest = {
             pathParams: [owner],
-            body: body
+            body
         }
 
         return this.executeHttp({
