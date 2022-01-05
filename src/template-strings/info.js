@@ -45,7 +45,14 @@ const infoMsg = {
 
   Configure: 'Saved config to {{configFilePath}}',
 
-  ProjectCreate: 'Created project \'{{projectName}}\''
+  ProjectCreate: 'Created project \'{{projectName}}\'',
+
+  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
+
+  ProjectSpecAdd: 'Added spec \'{{specName}}\' ({{specType}}) to project \'{{projectPath}}\'',
+
+  ProjectDelete: 'Deleted project \'{{projectPath}}\''
+
 }
 
 module.exports = wrapTemplates({
