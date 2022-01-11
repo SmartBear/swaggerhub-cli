@@ -49,7 +49,9 @@ const infoMsg = {
 
   ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
 
-  ProjectSpecAdd: 'Added spec \'{{specName}}\' ({{specType}}) to project \'{{projectPath}}\'',
+  ProjectApiAdd: 'Added api \'{{apiName}}\' to project \'{{projectPath}}\'',
+
+  ProjectDomainAdd: 'Added domain \'{{domainName}}\' to project \'{{projectPath}}\'',
 
   ProjectDelete: 'Deleted project \'{{projectPath}}\''
 
