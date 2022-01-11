@@ -7,7 +7,6 @@ const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?
 const requiredVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const integrationIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const projectIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+$/)
-const specTypeIdentifierRegex = new RegExp(/^(\bapis\b|\bdomains\b)$/)
 
 const isValidIdentifier = (id, isVersionRequired) => isVersionRequired
   ? requiredVersionRegex.test(id)
@@ -53,15 +52,6 @@ const getProjectIdentifierArg = args => {
   return identifier
 }
 
-const getSpecTypeIdentifierArg = args => {
-  const format = 'SPEC_TYPE'
-  const identifier = args[format]
-  if (!specTypeIdentifierRegex.test(identifier)) {
-    throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
-  }
-  return identifier
-}
-
 const readConfigFile = filename => {
   if (!existsSync(filename)) {
     throw new CLIError(errorMsg.fileNotFound({ filename }))
@@ -91,7 +81,6 @@ module.exports = {
   getDomainIdentifierArg,
   getIntegrationIdentifierArg,
   getProjectIdentifierArg,
-  getSpecTypeIdentifierArg,
   readConfigFile,
   splitPathParams,
   splitFlagParams,
