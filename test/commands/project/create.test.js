@@ -33,7 +33,7 @@ describe('valid project:create',
             .stdout()
             .command(['project:create', `${validIdentifier}`])
             .it('runs project:create with no flags', ctx => {
-                expect(ctx.stdout).to.contains('Created project \'testproject\'')
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
             })
 
         test
@@ -46,7 +46,7 @@ describe('valid project:create',
             .stdout()
             .command(['project:create', `${validIdentifier}`, '--apis=testapi1,testapi2'])
             .it('runs project:create with --apis flags', ctx => {
-                expect(ctx.stdout).to.contains('Created project \'testproject\'')
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
             })
 
         test
@@ -59,7 +59,7 @@ describe('valid project:create',
             .stdout()
             .command(['project:create', `${validIdentifier}`, '--domains=testdomain1,testdomain2'])
             .it('runs project:create with --domains flags', ctx => {
-                expect(ctx.stdout).to.contains('Created project \'testproject\'')
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
             })
 
         test
@@ -72,7 +72,7 @@ describe('valid project:create',
             .stdout()
             .command(['project:create', `${validIdentifier}`, '--description="test project description"'])
             .it('runs project:create with --description flag', ctx => {
-                expect(ctx.stdout).to.contains('Created project \'testproject\'')
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
             })
 
         test
@@ -91,7 +91,7 @@ describe('valid project:create',
                 '--apis=testapi1,testapi2'
             ])
             .it('runs project:create with all valid flags', ctx => {
-                expect(ctx.stdout).to.contains('Created project \'testproject\'')
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
             })
     })
 

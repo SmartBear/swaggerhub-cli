@@ -33,7 +33,7 @@ class CreateProjectCommand extends BaseCommand {
 
         return this.executeHttp({
             execute: () => postProject(createRequest),
-            onResolve: this.logCommandSuccess({ projectName }),
+            onResolve: this.logCommandSuccess({ owner, projectName }),
             options: {}
         })
     }

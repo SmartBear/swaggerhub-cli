@@ -45,13 +45,17 @@ const infoMsg = {
 
   Configure: 'Saved config to {{configFilePath}}',
 
-  ProjectCreate: 'Created project \'{{projectName}}\'',
+  ProjectCreate: 'Created project \'{{owner}}/{{projectName}}\'',
 
   ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
 
   ProjectApiAdd: 'Added api \'{{apiName}}\' to project \'{{projectPath}}\'',
 
+  ProjectApiRemove: 'Removed api \'{{apiName}}\' from project \'{{projectPath}}\'',
+
   ProjectDomainAdd: 'Added domain \'{{domainName}}\' to project \'{{projectPath}}\'',
+
+  ProjectDomainRemove: 'Removed domain \'{{domainName}}\' from project \'{{projectPath}}\'',
 
   ProjectDelete: 'Deleted project \'{{projectPath}}\''
 
