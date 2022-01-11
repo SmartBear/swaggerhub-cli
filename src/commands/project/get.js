@@ -32,7 +32,7 @@ class GetProjectCommand extends BaseCommand {
     }
 }
 
-GetProjectCommand.description = 'Retrieves the details for a single project.'
+GetProjectCommand.description = 'Retrieves the details for a project.'
 
 GetProjectCommand.examples = [
     'swaggerhub project:get organization/project_name'

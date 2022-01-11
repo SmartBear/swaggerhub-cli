@@ -52,7 +52,7 @@ UpdateProjectCommand.examples = [
     'swaggerhub project:update organization/project_name --domains "testdomain3,testdomain4"',
     'swaggerhub project:update organization/project_name --domains "testdomain3,testdomain4"',
     // eslint-disable-next-line max-len
-    'swaggerhub project:update organization/project_name -a "testapi,testapi2" -d "testdomain,testdomain2" --description "description of project"'
+    'swaggerhub project:update organization/project_name -a "testapi" -d "testdomain" --description "Project description"'
 ]
 
 UpdateProjectCommand.args = [{

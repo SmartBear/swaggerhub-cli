@@ -43,13 +43,12 @@ CreateProjectCommand.description = 'Creates a new project in SwaggerHub.'
 
 CreateProjectCommand.examples = [
     'swaggerhub project:create organization/new_project_name --description "project description"',
-    'swaggerhub project:create organization/new_project_name --a "testapi1,testapi2"',
+    'swaggerhub project:create organization/new_project_name -a "testapi1,testapi2"',
     'swaggerhub project:create organization/new_project_name --apis "testapi1,testapi2"',
     'swaggerhub project:create organization/new_project_name -d "testdomain3,testdomain4"',
     'swaggerhub project:create organization/new_project_name --domains "testdomain3,testdomain4"',
-    'swaggerhub project:create organization/new_project_name --domains "testdomain3,testdomain4"',
     // eslint-disable-next-line max-len
-    'swaggerhub project:create organization/new_project_name -a "testapi1,testapi2" -d "testdomain3,testdomain4" --description "description of project"'
+    'swaggerhub project:create organization/new_project_name -a "testapi1" -d "testdomain3" --description "description of project"'
 ]
 
 CreateProjectCommand.args = [{
