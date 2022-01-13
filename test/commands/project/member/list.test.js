@@ -15,8 +15,6 @@ const membersResponse = {
     ]
 }
 
-
-
 describe('valid project:member:list', () => {
     test
         .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
@@ -39,7 +37,7 @@ describe('valid project:member:list', () => {
         .stdout()
         .command(['project:member:list', validIdentifier])
         .it('runs project:member:list and finds one member', ctx => {
-            expect(ctx.stdout).to.contain('"type": "USER",')
+            expect(ctx.stdout).to.contain('testuser USER [ \'OWNER\', \'MEMBER\' ]')
         })
 })
 

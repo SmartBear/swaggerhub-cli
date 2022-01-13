@@ -2,7 +2,7 @@ const { getProject } = require('../../../requests/project')
 const { getResponseContent } = require('../../../support/command/handle-response')
 const BaseCommand = require('../../../support/command/base-command')
 const { getProjectIdentifierArg } = require('../../../support/command/parse-input')
-const { prettyPrintJSON } = require('../../../utils/general')
+const { cli } = require('cli-ux')
 
 class ListProjectMembersCommand extends BaseCommand {
     constructor(...props) {
@@ -21,7 +21,19 @@ class ListProjectMembersCommand extends BaseCommand {
         if (responseObj.members.length === 0){
             this.log('No members found.')
         } else {
-            this.log(prettyPrintJSON(JSON.stringify(responseObj)))
+            cli.table(responseObj.members, {
+                name: {
+                    header: 'Name'
+                },
+                type: {
+                    header: 'Type'
+                },
+                roles: {
+                    header: 'Roles'
+                }
+            }, {
+                printLine: this.log
+            })
         }
     }
 
