@@ -23,14 +23,9 @@ class ListProjectMembersCommand extends BaseCommand {
         } else {
             cli.table(responseObj.members, {
                 name: {
-                    header: 'Name'
+                    minWidth: 24
                 },
-                type: {
-                    header: 'Type'
-                },
-                roles: {
-                    header: 'Roles'
-                }
+                type: {}
             }, {
                 printLine: this.log
             })

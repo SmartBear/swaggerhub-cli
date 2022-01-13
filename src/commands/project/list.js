@@ -20,21 +20,13 @@ class ListProjectCommand extends BaseCommand {
             this.log('No projects found.')
         } else {
             cli.table(responseObj.projects, {
-                name: {
-                    header: 'Name'
-                },
-                owner: {
-                    header: 'Owner'
-                },
-                description: {
-                    header: 'Description'
-                },
+                name: {},
+                owner: {},
+                description: {},
                 apis: {
                     header: 'APIs'
                 },
-                domains: {
-                    header: 'Domains'
-                }
+                domains: {}
             }, {
                 printLine: this.log
             })
