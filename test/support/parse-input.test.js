@@ -5,6 +5,7 @@ const {
   isValidIdentifier, 
   getApiIdentifierArg, 
   getDomainIdentifierArg,
+  getProjectIdentifierArg,
   readConfigFile,
   reqType 
 } = require('../../src/support/command/parse-input')
@@ -137,6 +138,37 @@ describe('getDomainIdentifierArg', () => {
       expect(() => { getDomainIdentifierArg({ 'OWNER/DOMAIN_NAME/VERSION': 'owner/domain' })}).to.throw(CLIError)
     )
   )
+})
+
+describe('getProjectIdentifierArg', () => {
+
+  context('valid identifier', () =>
+      it('should be returned', () =>
+          expect(getProjectIdentifierArg({ 'OWNER/PROJECT_NAME': 'owner/project_name' })).to.equal('owner/project_name')
+      )
+  )
+
+  context('invalid identifier', () =>
+      it('should throw an exception', () =>
+          expect(() => { getProjectIdentifierArg({ 'OWNER/PROJECT_NAME': 'owner/project_name/extra' })})
+              .to.throw(CLIError)
+      )
+  )
+
+  context('invalid identifier with space', () =>
+      it('should throw an exception', () =>
+          expect(() => { getProjectIdentifierArg({ 'OWNER/PROJECT_NAME': 'owner/project name' })})
+              .to.throw(CLIError)
+      )
+  )
+
+  context('null identifier', () =>
+      it('should throw an exception', () =>
+          expect(() => { getProjectIdentifierArg({ 'OWNER/PROJECT_NAME': null })})
+              .to.throw(CLIError)
+      )
+  )
+
 })
 
 describe('readConfigFile', () => {

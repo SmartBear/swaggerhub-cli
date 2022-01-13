@@ -43,7 +43,22 @@ const infoMsg = {
   
   IntegrationUpdate: 'Updated integration \'{{integrationId}}\' on API \'{{apiPath}}\'',
 
-  Configure: 'Saved config to {{configFilePath}}'
+  Configure: 'Saved config to {{configFilePath}}',
+
+  ProjectCreate: 'Created project \'{{owner}}/{{projectName}}\'',
+
+  ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
+
+  ProjectApiAdd: 'Added api \'{{apiName}}\' to project \'{{projectPath}}\'',
+
+  ProjectApiRemove: 'Removed api \'{{apiName}}\' from project \'{{projectPath}}\'',
+
+  ProjectDomainAdd: 'Added domain \'{{domainName}}\' to project \'{{projectPath}}\'',
+
+  ProjectDomainRemove: 'Removed domain \'{{domainName}}\' from project \'{{projectPath}}\'',
+
+  ProjectDelete: 'Deleted project \'{{projectPath}}\''
+
 }
 
 module.exports = wrapTemplates({
