@@ -16,7 +16,7 @@ const removeArgsFromLinks = line => {
 const main = () => {
     const outputBuffer = []
     try {
-        const data = fs.readFileSync('../README.md', 'utf8')
+        const data = fs.readFileSync('README.md', 'utf8')
         const lineBuffer = data.split('\n')
 
         lineBuffer.forEach(line => {
