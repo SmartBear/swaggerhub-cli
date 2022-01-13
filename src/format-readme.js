@@ -1,6 +1,7 @@
 const fs = require('fs')
 
 const removeArgsFromHeaders = line => {
+    if (!line.contains('OWNER')) return line
     const words = line.split(' ')
     const filteredWords = words.filter(word => !word.startsWith('OWNER'))
     return `${filteredWords.join(' ')}\``
@@ -9,6 +10,7 @@ const removeArgsFromHeaders = line => {
 const removeArgsFromLinks = line => {
     const slug = line.substr(line.indexOf('#')+1, line.length-2)
     const words = slug.split('-')
+    if (words.length <= 2) return line
     return line.replace(slug, `${words[0]}-${words[1]})`)
 }
 
