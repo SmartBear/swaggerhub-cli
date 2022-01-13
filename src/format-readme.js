@@ -1,10 +1,9 @@
 const fs = require('fs')
 
 const removeArgsFromHeaders = line => {
-    if (!line.includes('OWNER')) return line
     const words = line.split(' ')
-    const filteredWords = words.filter(word => !word.startsWith('OWNER'))
-    return `${filteredWords.join(' ')}\``
+    if (words.length <= 3) return line
+    return `## ${words[1]} ${words[2]}\``
 }
 
 const removeArgsFromLinks = line => {
@@ -17,7 +16,7 @@ const removeArgsFromLinks = line => {
 const main = () => {
     const outputBuffer = []
     try {
-        const data = fs.readFileSync('README.md', 'utf8')
+        const data = fs.readFileSync('../README.md', 'utf8')
         const lineBuffer = data.split('\n')
 
         lineBuffer.forEach(line => {
