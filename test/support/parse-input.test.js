@@ -7,7 +7,7 @@ const {
   getDomainIdentifierArg,
   getProjectIdentifierArg,
   readConfigFile,
-  reqType 
+  reqType, splitFlagParams
 } = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {
@@ -31,6 +31,33 @@ describe('reqType returns correct type', () => {
   })
 })
 
+describe('splitFlagParams returns array of params', () => {
+
+  context('splitFlagParams(\'testapi1,testapi2,testapi3\')', () => {
+    it('should return 3 items', () => {
+      expect(splitFlagParams('testapi1,testapi2,testapi3').length).to.equal(3)
+    })
+  })
+
+  context('splitFlagParams(\'testapi1,    testapi2,     testapi3\')', () => {
+    it('should return 3 items', () => {
+      expect(splitFlagParams('testapi1,    testapi2,     testapi3').length).to.equal(3)
+    })
+  })
+
+  context('splitFlagParams(\'testapi1\')', () => {
+    it('should return 1 items', () => {
+      expect(splitFlagParams('testapi1').length).lengthOf.to.equal(1)
+    })
+  })
+
+  context('splitFlagParams(\'testapi1,,,,testapi2\')', () => {
+    it('should return 3 items', () => {
+      expect(splitFlagParams('testapi1,,,,testapi2').length).to.equal(2)
+    })
+  })
+
+})
 
 describe('Validate Object Identifier', () => {
 
