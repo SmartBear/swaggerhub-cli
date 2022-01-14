@@ -57,6 +57,32 @@ describe('valid project:create',
                 .reply(201)
             )
             .stdout()
+            .command(['project:create', `${validIdentifier}`, '--apis="testapi1, testapi2,     testapi3"'])
+            .it('runs project:create with --apis flags with whitespace characters', ctx => {
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
+            })
+
+        test
+            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .nock(`${shubUrl}/projects`, integration => integration
+                .post(`/${validOwner}`)
+                .matchHeader('Content-Type', 'application/json')
+                .reply(201)
+            )
+            .stdout()
+            .command(['project:create', `${validIdentifier}`, '--domains="testdomain1,  testdomain2,        testdomain3"'])
+            .it('runs project:create with --domains flags with whitespace characters', ctx => {
+                expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
+            })
+
+        test
+            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .nock(`${shubUrl}/projects`, integration => integration
+                .post(`/${validOwner}`)
+                .matchHeader('Content-Type', 'application/json')
+                .reply(201)
+            )
+            .stdout()
             .command(['project:create', `${validIdentifier}`, '--domains=testdomain1,testdomain2'])
             .it('runs project:create with --domains flags', ctx => {
                 expect(ctx.stdout).to.contains('Created project \'testowner/testproject\'')
