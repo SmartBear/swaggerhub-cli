@@ -25,7 +25,7 @@ $ npm i -g swaggerhub-cli
 The SwaggerHub CLI can be configured through environment variables or through the [`swaggerhub configure`](#swaggerhub-configure) command. The CLI will look for the following environment variables.
 
 * `SWAGGERHUB_API_KEY` (required) – **Important: keep this key secure.** This is the SwaggerHub API key the CLI will use for authentication. You can find your API key on the [user settings page](https://app.swaggerhub.com/settings/apiKey) in SwaggerHub.
-* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com`) – Customers with on-premise installations need to point this to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a backslash). 
+* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com`) – Customers with on-premise installations need to point this to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a backslash).
 
 Alernatively, you can use the `swaggerhub configure` command to create a configuration file for the CLI to use. This command will walk you through the steps to set up the necessary configurations.
 
@@ -37,7 +37,7 @@ $ swaggerhub configure
 
 Environment variables take precedence over the configuration file created by this command.
 
-## Additional configuration for SwaggerHub On-Premise
+# Additional configuration for SwaggerHub On-Premise
 
 If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
 
@@ -117,7 +117,7 @@ USAGE
 * [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainupdate)
-* [`swaggerhub help [COMMAND]`](#swaggerhub-help-command)
+* [`swaggerhub help [COMMAND]`](#swaggerhub-help)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationdelete)
 * [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
@@ -125,11 +125,20 @@ USAGE
 * [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
 * [`swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationupdate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
-* [`swaggerhub plugins:inspect PLUGIN...`](#swaggerhub-pluginsinspect-plugin)
-* [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall-plugin)
-* [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink-plugin)
-* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall-plugin)
+* [`swaggerhub plugins:inspect PLUGIN...`](#swaggerhub-pluginsinspect)
+* [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall)
+* [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink)
+* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall)
 * [`swaggerhub plugins:update`](#swaggerhub-pluginsupdate)
+* [`swaggerhub project:api:add OWNER/PROJECT_NAME API`](#swaggerhub-projectapiadd)
+* [`swaggerhub project:api:remove OWNER/PROJECT_NAME API`](#swaggerhub-projectapiremove)
+* [`swaggerhub project:create OWNER/PROJECT_NAME`](#swaggerhub-projectcreate)
+* [`swaggerhub project:delete OWNER/PROJECT_NAME`](#swaggerhub-projectdelete)
+* [`swaggerhub project:domain:add OWNER/PROJECT_NAME DOMAIN`](#swaggerhub-projectdomainadd)
+* [`swaggerhub project:domain:remove OWNER/PROJECT_NAME DOMAIN`](#swaggerhub-projectdomainremove)
+* [`swaggerhub project:get OWNER/PROJECT_NAME`](#swaggerhub-projectget)
+* [`swaggerhub project:list [OWNER]`](#swaggerhub-projectlist)
+* [`swaggerhub project:member:list OWNER/PROJECT_NAME`](#swaggerhub-projectmemberlist)
 
 ## `swaggerhub api:create`
 
@@ -529,7 +538,7 @@ EXAMPLES
 
 _See code: [src/commands/domain/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/domain/update.js)_
 
-## `swaggerhub help [COMMAND]`
+## `swaggerhub help`
 
 display help for swaggerhub
 
@@ -544,7 +553,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.3.1/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
@@ -675,56 +684,56 @@ _See code: [src/commands/integration/update.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub plugins`
 
-list installed plugins
+List installed plugins.
 
 ```
 USAGE
   $ swaggerhub plugins
 
 OPTIONS
-  --core  show core plugins
+  --core  Show core plugins.
 
 EXAMPLE
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
 
-## `swaggerhub plugins:inspect PLUGIN...`
+## `swaggerhub plugins:inspect`
 
-displays installation properties of a plugin
+Displays installation properties of a plugin.
 
 ```
 USAGE
   $ swaggerhub plugins:inspect PLUGIN...
 
 ARGUMENTS
-  PLUGIN  [default: .] plugin to inspect
+  PLUGIN  [default: .] Plugin to inspect.
 
 OPTIONS
-  -h, --help     show CLI help
+  -h, --help     Show CLI help.
   -v, --verbose
 
 EXAMPLE
   $ swaggerhub plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/inspect.ts)_
 
-## `swaggerhub plugins:install PLUGIN...`
+## `swaggerhub plugins:install`
 
-installs a plugin into the CLI
+Installs a plugin into the CLI.
 
 ```
 USAGE
   $ swaggerhub plugins:install PLUGIN...
 
 ARGUMENTS
-  PLUGIN  plugin to install
+  PLUGIN  Plugin to install.
 
 OPTIONS
-  -f, --force    yarn install with force flag
-  -h, --help     show CLI help
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
   -v, --verbose
 
 DESCRIPTION
@@ -745,11 +754,11 @@ EXAMPLES
   $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/install.ts)_
 
-## `swaggerhub plugins:link PLUGIN`
+## `swaggerhub plugins:link`
 
-links a plugin into the CLI for development
+Links a plugin into the CLI for development.
 
 ```
 USAGE
@@ -759,24 +768,24 @@ ARGUMENTS
   PATH  [default: .] path to plugin
 
 OPTIONS
-  -h, --help     show CLI help
+  -h, --help     Show CLI help.
   -v, --verbose
 
 DESCRIPTION
   Installation of a linked plugin will override a user-installed or core plugin.
 
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello' 
-  command will override the user-installed or core plugin implementation. This is useful for development work.
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLE
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/link.ts)_
 
-## `swaggerhub plugins:uninstall PLUGIN...`
+## `swaggerhub plugins:uninstall`
 
-removes a plugin from the CLI
+Removes a plugin from the CLI.
 
 ```
 USAGE
@@ -786,7 +795,7 @@ ARGUMENTS
   PLUGIN  plugin to uninstall
 
 OPTIONS
-  -h, --help     show CLI help
+  -h, --help     Show CLI help.
   -v, --verbose
 
 ALIASES
@@ -794,22 +803,216 @@ ALIASES
   $ swaggerhub plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/uninstall.ts)_
 
 ## `swaggerhub plugins:update`
 
-update installed plugins
+Update installed plugins.
 
 ```
 USAGE
   $ swaggerhub plugins:update
 
 OPTIONS
-  -h, --help     show CLI help
+  -h, --help     Show CLI help.
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.10.0/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/update.ts)_
+
+## `swaggerhub project:api:add`
+
+Adds an API to an existing project.
+
+```
+USAGE
+  $ swaggerhub project:api:add OWNER/PROJECT_NAME API
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  The project to add the API to
+  API                 The name of the API to add
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:api:add organization/project_name my_api
+```
+
+_See code: [src/commands/project/api/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/api/add.js)_
+
+## `swaggerhub project:api:remove`
+
+Removes an API from a project in SwaggerHub.
+
+```
+USAGE
+  $ swaggerhub project:api:remove OWNER/PROJECT_NAME API
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  The project remove the API from
+  API                 The API to remove
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:api:remove organization/project_name my_api
+```
+
+_See code: [src/commands/project/api/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/api/remove.js)_
+
+## `swaggerhub project:create`
+
+Creates a new project in SwaggerHub.
+
+```
+USAGE
+  $ swaggerhub project:create OWNER/PROJECT_NAME
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  The new project to create
+
+OPTIONS
+  -a, --apis=apis            Comma separated list of api names to include in project
+  -d, --domains=domains      Comma separated list of domain names to include in project
+  -h, --help                 show CLI help
+  --description=description  Description of project
+
+EXAMPLES
+  swaggerhub project:create organization/new_project_name --description "project description"
+  swaggerhub project:create organization/new_project_name -a "testapi1,testapi2"
+  swaggerhub project:create organization/new_project_name --apis "testapi1,testapi2"
+  swaggerhub project:create organization/new_project_name -d "testdomain3,testdomain4"
+  swaggerhub project:create organization/new_project_name --domains "testdomain3,testdomain4"
+  swaggerhub project:create organization/new_project_name -a "testapi1" -d "testdomain3" --description "description"
+```
+
+_See code: [src/commands/project/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/create.js)_
+
+## `swaggerhub project:delete`
+
+Deletes a project from SwaggerHub.
+
+```
+USAGE
+  $ swaggerhub project:delete OWNER/PROJECT_NAME
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  Project to delete
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:delete organization/project_name
+```
+
+_See code: [src/commands/project/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/delete.js)_
+
+## `swaggerhub project:domain:add`
+
+Adds a domain to an existing project.
+
+```
+USAGE
+  $ swaggerhub project:domain:add OWNER/PROJECT_NAME DOMAIN
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  The project to add the domain to
+  DOMAIN              The name of the domain to add
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:domain:add organization/project_name my_domain
+```
+
+_See code: [src/commands/project/domain/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/domain/add.js)_
+
+## `swaggerhub project:domain:remove`
+
+Removes a domain from a project in SwaggerHub.
+
+```
+USAGE
+  $ swaggerhub project:domain:remove OWNER/PROJECT_NAME DOMAIN
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  The project remove the domain from
+  DOMAIN              The domain to remove
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:domain:remove organization/project_name my_domain
+```
+
+_See code: [src/commands/project/domain/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/domain/remove.js)_
+
+## `swaggerhub project:get`
+
+Retrieves the details for a project.
+
+```
+USAGE
+  $ swaggerhub project:get OWNER/PROJECT_NAME
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  Project to retrieve the details for
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  swaggerhub project:get organization/project_name
+```
+
+_See code: [src/commands/project/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/get.js)_
+
+## `swaggerhub project:list`
+
+list projects
+
+```
+USAGE
+  $ swaggerhub project:list [OWNER]
+
+ARGUMENTS
+  OWNER  Organization to list projects for
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLES
+  swaggerhub project:list
+  swaggerhub project:list organization
+```
+
+_See code: [src/commands/project/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/list.js)_
+
+## `swaggerhub project:member:list`
+
+list members of a project
+
+```
+USAGE
+  $ swaggerhub project:member:list OWNER/PROJECT_NAME
+
+ARGUMENTS
+  OWNER/PROJECT_NAME  Project to list members of
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLES
+  swaggerhub project:list
+  swaggerhub project:list organization
+```
+
+_See code: [src/commands/project/member/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.5.0/src/commands/project/member/list.js)_
 <!-- commandsstop -->
 
 # Plugins

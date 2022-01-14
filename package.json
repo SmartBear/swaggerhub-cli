@@ -79,6 +79,9 @@
       },
       "integration": {
         "description": "this topic supports the management of Integrations"
+      },
+      "projects": {
+        "description": "this topic supports the management of Projects"
       }
     },
     "helpClass": "./src/help"
