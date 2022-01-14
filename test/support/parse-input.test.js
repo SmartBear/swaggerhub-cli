@@ -7,7 +7,8 @@ const {
   getDomainIdentifierArg,
   getProjectIdentifierArg,
   readConfigFile,
-  reqType, splitFlagParams
+  reqType,
+  splitFlagParams
 } = require('../../src/support/command/parse-input')
 
 describe('reqType returns correct type', () => {

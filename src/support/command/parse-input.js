@@ -70,7 +70,7 @@ const readConfigFile = filename => {
 
 const splitPathParams = path => path.split('/').filter(Boolean)
 
-const splitFlagParams = flag => flag.replace(/\s+/g, '').split(',').filter(Boolean)
+const splitFlagParams = flag => flag.split(',').map(param => param.trim()).filter(Boolean)
 
 const reqType = ({ json }) => json ? 'json' : 'yaml'
 
