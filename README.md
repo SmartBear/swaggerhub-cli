@@ -9,6 +9,7 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Setup](#setup)
+* [Additional configuration for SwaggerHub On-Premise](#additional-configuration-for-swaggerhub-on-premise)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Plugins](#plugins)
@@ -36,7 +37,7 @@ $ swaggerhub configure
 
 Environment variables take precedence over the configuration file created by this command.
 
-## Additional configuration for SwaggerHub On-Premise
+# Additional configuration for SwaggerHub On-Premise
 
 If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
 
