@@ -1008,7 +1008,7 @@ OPTIONS
   -h, --help  show CLI help
 
 EXAMPLE
-  swaggerhub project:member:list OWNER/PROJECT_NAME
+  swaggerhub project:member:list organisation/project_name
 ```
 
 _See code: [src/commands/project/member/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.6.0/src/commands/project/member/list.js)_
