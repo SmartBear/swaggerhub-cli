@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2        
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
@@ -31,7 +31,7 @@ jobs:
       # TODO: Move below personal repo under smartbear github org.
       # npm install changelog
       - name: run_npm_install_changelog
-        run: sudo npm i -g https://github.com/Rody-Kirwan/generate-changelog
+        run: sudo npm i -g https://github.com/SmartBear/generate-changelog
         id: run_npm_install_changelog
 
       # Get current tag and release tag.
