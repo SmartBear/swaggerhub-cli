@@ -44,7 +44,7 @@ class ListProjectMembersCommand extends BaseCommand {
 ListProjectMembersCommand.description = 'list members of a project'
 
 ListProjectMembersCommand.examples = [
-    'swaggerhub project:member:list OWNER/PROJECT_NAME',
+    'swaggerhub project:member:list organisation/project_name',
 ]
 
 ListProjectMembersCommand.args = [{
