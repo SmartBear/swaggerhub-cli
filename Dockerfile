@@ -1,8 +1,5 @@
 FROM node:12-alpine
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /cli
-RUN chown -R appuser:appgroup /cli
-USER appuser
 COPY package*.json ./
 COPY ./bin ./bin
 COPY ./src ./src
