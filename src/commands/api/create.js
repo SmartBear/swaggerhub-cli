@@ -2,7 +2,7 @@ const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getOasVersion, getVersion, parseDefinition } = require('../../utils/oas')
+const { getVersion, parseDefinition, getSpecification } = require('../../utils/definitions')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
 
@@ -18,13 +18,13 @@ class CreateAPICommand extends UpdateCommand {
     })
   }
 
-  async tryCreateApi({ path, version, oas, flags }) {
+  async tryCreateApi({ path, version, specification, flags }) {
     const isNameAvailable = await this.checkApiName(path)
     const pathHasVersion = path.length === 3
     const fullPath = pathHasVersion ? path : [...path, version]
     
     if (isNameAvailable) {
-      await this.createApi(fullPath, oas, flags, pathHasVersion)
+      await this.createApi(fullPath, specification, flags, pathHasVersion)
       return true
     }
     
@@ -38,12 +38,12 @@ class CreateAPICommand extends UpdateCommand {
     })
   }
 
-  async createApi([owner, name, version], oas, flags, pathHasVersion) {
+  async createApi([owner, name, version], specification, flags, pathHasVersion) {
     const isPrivate = flags.visibility === 'private'
 
     const createApiObj = {
       pathParams: [owner, name],
-      queryParams: { version, isPrivate, oas },
+      queryParams: { version, isPrivate, specification },
       body: readFileSync(flags.file)
     }
 
@@ -61,7 +61,7 @@ class CreateAPICommand extends UpdateCommand {
   async run() {
     const { args, flags } = this.parse(CreateAPICommand)
     const definition = parseDefinition(flags.file)
-    const oas = getOasVersion(definition)
+    const specification = getSpecification(definition)
     const apiVersion = getVersion(definition)
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version = apiVersion] = splitPathParams(apiPath)
@@ -71,7 +71,7 @@ class CreateAPICommand extends UpdateCommand {
       path: [owner, name],
       version,
       flags,
-      oas
+      specification
     }
 
     const createdApi = (

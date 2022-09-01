@@ -1,6 +1,6 @@
 const { expect } = require('@oclif/test')
 const { CLIError } = require('@oclif/errors') 
-const { parseDefinition } = require('../../src/utils/oas')
+const { parseDefinition } = require('../../src/utils/definitions')
 const { 
   isValidIdentifier, 
   getApiIdentifierArg, 
