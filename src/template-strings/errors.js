@@ -11,7 +11,7 @@ const errorMsg = {
 
   cannotParseDefinition: 'There was a problem with parsing {{filename}}. \nReason: {{e}}',
 
-  cannotParseOasVersion: 'Cannot determine OAS version from file',
+  cannotParseSpecification: 'Cannot determine specification from file',
 
   cannotParseVersion: 'Cannot determine version from file',
 

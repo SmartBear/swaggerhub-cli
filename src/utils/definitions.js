@@ -4,11 +4,20 @@ const yaml = require('js-yaml')
 const { existsSync, readFileSync } = require('fs-extra')
 const { errorMsg } = require('../template-strings')
 
-const getOasVersion = ({ swagger, openapi }) => {
-  if (!swagger && !openapi) {
-    throw new CLIError(errorMsg.cannotParseOasVersion())
+const specVersionToSpecification = specVersion => {
+  if (/2.0$/.test(specVersion))
+      return 'openapi-2.0'
+  if (/2.\d+.\d+$/.test(specVersion))
+    return 'asyncapi-2.x.x'
+  return 'openapi-3.0.0'
+}
+
+const getSpecification = ({ swagger, openapi, asyncapi }) => {
+  if (!swagger && !openapi && !asyncapi) {
+    throw new CLIError(errorMsg.cannotParseSpecification())
   }
-  return swagger || openapi
+  const specVersion = [swagger, openapi, asyncapi].filter(version => Boolean(version))[0]
+  return specVersionToSpecification(specVersion)
 }
 
 const getVersion = definition => {
@@ -34,7 +43,7 @@ const parseDefinition = filename => {
 }
 
 module.exports = {
-  getOasVersion,
+  getSpecification,
   getVersion,
   parseDefinition,
 }

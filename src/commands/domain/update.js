@@ -2,7 +2,7 @@ const { flags } = require('@oclif/command')
 const { readFileSync } = require('fs-extra')
 const { getDomain, postDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getVersion, parseDefinition } = require('../../utils/oas')
+const { getVersion, parseDefinition } = require('../../utils/definitions')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
 

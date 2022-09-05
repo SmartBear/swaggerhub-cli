@@ -38,9 +38,9 @@ describe('invalid api:create file issues', () => {
   test
     .command(['api:create', validIdentifier, '--file=test/resources/missing_oas_version.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('Cannot determine OAS version from file')
+      expect(ctx.message).to.contain('Cannot determine specification from file')
     })
-    .it('runs api:create with file missing OAS Version')
+    .it('runs api:create with file missing specification')
 
     test
     .command(['api:create', 'org/api', '--file=test/resources/missing_version.yaml'])
@@ -98,7 +98,7 @@ describe('invalid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=3.0.0')
+      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&specification=openapi-3.0.0')
       .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
     .command(['api:create', 'orgNotExist/api/1.0.0', '--file=test/resources/valid_api.json'])
@@ -114,7 +114,7 @@ describe('invalid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/overLimitApi?version=1.0.0&isPrivate=true&oas=3.0.0')
+      .post('/org/overLimitApi?version=1.0.0&isPrivate=true&specification=openapi-3.0.0')
       .reply(403, '{"code":403,"message":"You have reached the limit of APIs"}')
     )
     .command(['api:create', 'org/overLimitApi/1.0.0', '--file=test/resources/valid_api.json'])
@@ -130,7 +130,7 @@ describe('invalid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/orgNotExist/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .reply(404, '{"code":404,"message":"{\\\"code\\\":404,\\\"message\\\":\\\"Object doesn\'t exist\\\"}"}')
     )
     .command([
@@ -152,7 +152,7 @@ describe('invalid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -173,7 +173,7 @@ describe('invalid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -200,7 +200,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -217,7 +217,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -238,7 +238,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -259,7 +259,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -291,7 +291,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.0&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.0&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -319,7 +319,7 @@ describe('valid api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=2.0.0&isPrivate=false&oas=3.0.0')
+      .post('/org/api?version=2.0.0&isPrivate=false&specification=openapi-3.0.0')
       .matchHeader('Content-Type', 'application/json')
       .reply(201)
     )
@@ -333,6 +333,49 @@ describe('valid api:create', () => {
     .it('runs api:create with json file', ctx => {
       expect(ctx.stdout).to.contains('Created API \'org/api\'')
     })
+
+  test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}/apis`, api => api
+          .get('/org/api')
+          .reply(404)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+          .post('/org/api?version=2.0.0&isPrivate=false&specification=asyncapi-2.x.x')
+          .matchHeader('Content-Type', 'application/json')
+          .reply(201)
+      )
+      .stdout()
+      .command([
+        'api:create',
+        'org/api/2.0.0',
+        '--file=test/resources/valid_asyncapi.json',
+        '--visibility=public'
+      ])
+      .it('runs api:create with asyncapi json file', ctx => {
+        expect(ctx.stdout).to.contains('Created API \'org/api\'')
+      })
+  test
+      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}/apis`, api => api
+          .get('/org/api')
+          .reply(404)
+      )
+      .nock(`${shubUrl}/apis`, api => api
+          .post('/org/api?version=2.0.0&isPrivate=false&specification=asyncapi-2.x.x')
+          .matchHeader('Content-Type', 'application/yaml')
+          .reply(201)
+      )
+      .stdout()
+      .command([
+        'api:create',
+        'org/api/2.0.0',
+        '--file=test/resources/valid_asyncapi.yaml',
+        '--visibility=public'
+      ])
+      .it('runs api:create with asyncapi yaml file', ctx => {
+        expect(ctx.stdout).to.contains('Created API \'org/api\'')
+      })
 })
 
 describe('valid create new version with api:create', () => {
@@ -347,7 +390,7 @@ describe('valid create new version with api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=1.0.1&isPrivate=true&oas=2.0')
+      .post('/org/api?version=1.0.1&isPrivate=true&specification=openapi-2.0')
       .matchHeader('Content-Type', 'application/yaml')
       .reply(201)
     )
@@ -368,7 +411,7 @@ describe('valid create new version with api:create', () => {
       .reply(404)
     )
     .nock(`${shubUrl}/apis`, api => api
-      .post('/org/api?version=2.0.0&isPrivate=false&oas=3.0.0')
+      .post('/org/api?version=2.0.0&isPrivate=false&specification=openapi-3.0.0')
       .reply(201)
     )
     .stdout()

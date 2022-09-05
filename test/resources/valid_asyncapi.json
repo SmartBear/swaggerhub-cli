@@ -1,0 +1,104 @@
+{
+    "asyncapi": "2.4.0",
+    "info": {
+        "title": "Streetlights Kafka API",
+        "version": "1.0.0",
+        "description": ""
+    },
+    "channels": {
+        "smartylighting.streetlights.1.0.event.{streetlightId}.lighting.measured": {
+            "description": "The topic on which measured values may be produced and consumed.",
+            "parameters": {
+                "streetlightId": {
+                    "$ref": "#/components/parameters/streetlightId"
+                }
+            },
+            "publish": {
+                "summary": "Inform about environmental lighting conditions of a particular streetlight.",
+                "operationId": "receiveLightMeasurement",
+                "traits": [
+                    {
+                        "$ref": "#/components/operationTraits/kafka"
+                    }
+                ],
+                "message": {
+                    "$ref": "#/components/messages/lightMeasured"
+                }
+            }
+        }
+    },
+    "components": {
+        "messages": {
+            "lightMeasured": {
+                "name": "lightMeasured",
+                "title": "Light measured",
+                "summary": "Inform about environmental lighting conditions of a particular streetlight.",
+                "contentType": "application/json",
+                "traits": [
+                    {
+                        "$ref": "#/components/messageTraits/commonHeaders"
+                    }
+                ],
+                "payload": {
+                    "$ref": "#/components/schemas/lightMeasuredPayload"
+                }
+            }
+        },
+        "schemas": {
+            "lightMeasuredPayload": {
+                "type": "object",
+                "properties": {
+                    "lumens": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "description": "Light intensity measured in lumens."
+                    },
+                    "sentAt": {
+                        "$ref": "#/components/schemas/sentAt"
+                    }
+                }
+            },
+            "sentAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time when the message was sent."
+            }
+        },
+        "parameters": {
+            "streetlightId": {
+                "description": "The ID of the streetlight.",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "messageTraits": {
+            "commonHeaders": {
+                "headers": {
+                    "type": "object",
+                    "properties": {
+                        "my-app-header": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100
+                        }
+                    }
+                }
+            }
+        },
+        "operationTraits": {
+            "kafka": {
+                "bindings": {
+                    "kafka": {
+                        "clientId": {
+                            "type": "string",
+                            "enum": [
+                                "my-app-id"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
