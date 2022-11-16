@@ -234,10 +234,12 @@ ARGUMENTS
   OWNER/API_NAME/VERSION  API identifier
 
 OPTIONS
+  -f, --force publish API without prompting for confirmation
   -h, --help  show CLI help
 
 EXAMPLE
   swaggerhub api:publish organization/api/1.0.0
+  swaggerhub api:publish organization/api/1.0.0 --force
 ```
 
 _See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.6.3/src/commands/api/publish.js)_
