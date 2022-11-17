@@ -1,24 +1,22 @@
 const BaseCommand = require('./base-command')
 const { putSpec } = require('../../requests/spec')
-const {
-  handleErrors,
-} = require('./handle-response')
+const { handleErrors } = require('./handle-response')
 
 class UpdateCommand extends BaseCommand {
 
-  async updatePublish(type, owner, name, version, isPublished, flags) {
+  async updatePublish(type, owner, name, version, isPublished, flags = { force: false }) {
     const pathParams = [owner, name, version, 'settings', 'lifecycle']
     const body = JSON.stringify({ published: isPublished })
     const successMessage = isPublished ? 'published' : 'unpublished'
 
     await this.executeHttp({
-      execute: () => flags?.force ?  putSpec(type, pathParams, body, flags) : putSpec(type, pathParams, body),
+      execute: () => flags.force ?  putSpec(type, pathParams, body, flags) : putSpec(type, pathParams, body),
       onResolve: this.setSuccessMessage(successMessage)({
         type: type === 'apis' ? 'API' : 'domain',
         path: `${owner}/${name}/${version}`
       }),
       onReject: async (err) => {
-        if (err?.status === 424 && type === 'apis') {
+        if (err.status === 424 && type === 'apis') {
           if (await this.confirmPublish() === true) {
             this.executeHttp({
               execute: () => putSpec(type, pathParams, body, { 'force': 'true' }),
