@@ -10,7 +10,7 @@ class UpdateCommand extends BaseCommand {
     const successMessage = isPublished ? 'published' : 'unpublished'
 
     await this.executeHttp({
-      execute: () => flags.force ?  putSpec(type, pathParams, body, flags) : putSpec(type, pathParams, body),
+      execute: () => flags.force ? putSpec(type, pathParams, body, flags) : putSpec(type, pathParams, body),
       onResolve: this.setSuccessMessage(successMessage)({
         type: type === 'apis' ? 'API' : 'domain',
         path: `${owner}/${name}/${version}`
