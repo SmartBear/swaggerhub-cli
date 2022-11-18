@@ -23,15 +23,16 @@ const getSpec = (specType, pathParams, queryParams, accept) => {
     })
   }
 
-const putSpec = (specType, pathParams, body) => {
-    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
-    return http({
-        url: [SWAGGERHUB_URL, specType, ...pathParams],
-        auth: SWAGGERHUB_API_KEY,
-        contentType: 'json',
-        method: 'PUT',
-        body
-    })
+const putSpec = (specType, pathParams, body, query) => {
+  const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+  return http({
+    url: [SWAGGERHUB_URL, specType, ...pathParams],
+    auth: SWAGGERHUB_API_KEY,
+    contentType: 'json',
+    method: 'PUT',
+    query,
+    body
+  })
 }
 
 const postSpec = (specType, pathParams, queryParams, body) => {
