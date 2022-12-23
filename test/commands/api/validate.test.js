@@ -12,7 +12,7 @@ describe('invalid api:validate', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(200, {
       validation: [
         { line, description, severity }
@@ -28,7 +28,7 @@ describe('invalid api:validate', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(200, {
       validation: [
         { line, description, severity: warningSeverity }
@@ -44,7 +44,7 @@ describe('invalid api:validate', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(404, {
         code: 404,
         message: `SPEC ${apiPath} not found.`
@@ -57,7 +57,7 @@ describe('invalid api:validate', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(404, {
         code: 404,
         message: `Org Standardization not enabled for ${apiPath.split('/')[0]}`
@@ -70,7 +70,7 @@ describe('invalid api:validate', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(403, {
         code: 403,
         message: `user is not an owner or editor of SPEC ${apiPath}`
@@ -94,7 +94,7 @@ describe('invalid api:validate', () => {
 describe('valid api:validation', () => {
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(200, {
       validation: []
       })
@@ -112,7 +112,7 @@ describe('valid api:validation', () => {
     .reply(200, { version: apiPath.substring(apiPath.lastIndexOf('/')+1) })
   )
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
+    .get(`/${apiPath}/standardization`)
     .reply(200, {
       validation: []
     })
