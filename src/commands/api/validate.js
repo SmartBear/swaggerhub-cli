@@ -29,7 +29,7 @@ class ValidateCommand extends BaseCommand {
 
   getValidationResult(apiPath) {
     return this.executeHttp({
-      execute: () => getApi([apiPath, 'validation']),
+      execute: () => getApi([apiPath, 'standardization']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
       options: {}
     })
