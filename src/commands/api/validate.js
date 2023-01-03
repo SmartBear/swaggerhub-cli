@@ -31,9 +31,20 @@ class ValidateCommand extends BaseCommand {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'standardization']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
+      onReject: () => this.getFallbackValidationResult(apiPath),
       options: {}
     })
   }
+
+  /* Required to support older on-prem installations */
+  getFallbackValidationResult(apiPath) {
+    return this.executeHttp({
+      execute: () => getApi([apiPath, 'validation']),
+      onResolve: pipeAsync(getResponseContent, JSON.parse),
+      options: {}
+    })
+  }
+
 }
 
 ValidateCommand.description = `get validation result for an API version
