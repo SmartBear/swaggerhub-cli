@@ -11,7 +11,7 @@ class GetProjectCommand extends BaseCommand {
     }
 
     async run() {
-        const { args } = this.parse(GetProjectCommand)
+        const { args } = await this.parse(GetProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
         await this.getProject(projectPath)
     }

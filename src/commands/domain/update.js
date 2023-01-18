@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getDomain, postDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -30,7 +30,7 @@ class UpdateDomainCommand extends UpdateCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(UpdateDomainCommand)
+    const { args, flags } = await this.parse(UpdateDomainCommand)
 
     if (!Object.keys(flags).length) {
       return this.error('No updates specified', { exit: 1 })
@@ -84,22 +84,22 @@ UpdateDomainCommand.args = [{
 }]
 
 UpdateDomainCommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f',
     description: 'file location of domain to update',
     required: false,
     multiple: false
   }),
-  visibility: flags.string({
+  visibility: Flags.string({
     description: 'visibility of domain in SwaggerHub',
     options: ['public', 'private']
   }),
-  published: flags.string({
+  published: Flags.string({
     description: 'sets the lifecycle setting of the domain version',
     options: ['publish', 'unpublish'],
     required: false
   }),
-  setdefault: flags.boolean({
+  setdefault: Flags.boolean({
     description: 'sets domain version to be the default',
     required: false
   }),

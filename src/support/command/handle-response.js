@@ -1,4 +1,4 @@
-const { CLIError } = require('@oclif/errors')
+const { CLIError } = require('@oclif/core').Errors
 const { hasJsonStructure, isError } = require('../../utils/general')
 const { errorMsg } = require('../../template-strings')
 

@@ -1,6 +1,6 @@
 const { existsSync, readFileSync } = require('fs-extra')
 const { hasJsonStructure } = require('../../utils/general')
-const { CLIError } = require('@oclif/errors')
+const { CLIError } = require('@oclif/core').Errors
 const { errorMsg } = require('../../template-strings')
 
 const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?)$/)

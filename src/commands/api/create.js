@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -59,7 +59,7 @@ class CreateAPICommand extends UpdateCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(CreateAPICommand)
+    const { args, flags } = await this.parse(CreateAPICommand)
     const definition = parseDefinition(flags.file)
     const specification = getSpecification(definition)
     const apiVersion = getVersion(definition)
@@ -110,24 +110,24 @@ CreateAPICommand.args = [{
 }]
 
 CreateAPICommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f', 
     description: 'file location of API to create',
     required: true
   }),
-  visibility: flags.string({
+  visibility: Flags.string({
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private'],
     default: 'private'
   }),
-  published: flags.string({
+  published: Flags.string({
     description: 'sets the lifecycle setting of the API version',
     options: ['publish', 'unpublish'],
     default: 'unpublish',
     required: false,
     dependsOn: ['file']
   }),
-  setdefault: flags.boolean({
+  setdefault: Flags.boolean({
     description: 'sets API version to be the default',
     default: false,
     required: false,

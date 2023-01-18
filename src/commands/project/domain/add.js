@@ -7,7 +7,7 @@ const BaseCommand = require('../../../support/command/base-command')
 class ProjectDomainAddCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectDomainAddCommand)
+        const { args } = await this.parse(ProjectDomainAddCommand)
         const projectPath = getProjectIdentifierArg(args)
         const domainName = args['DOMAIN']
 

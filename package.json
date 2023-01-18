@@ -8,42 +8,36 @@
   },
   "bugs": "https://github.com/SmartBear/swaggerhub-cli/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.16",
-    "@oclif/config": "^1.17.0",
-    "@oclif/errors": "^1.3.5",
-    "@oclif/plugin-help": "^3.3.1",
-    "@oclif/plugin-plugins": "^2.0.11",
-    "cli-ux": "^5.6.3",
+    "@oclif/core": "^1.24.1",
+    "@oclif/plugin-help": "^5.1.23",
+    "@oclif/plugin-plugins": "^2.1.12",
     "deep-extend": "^0.6.0",
-    "fs-extra": "^10.0.0",
-    "inquirer": "^8.1.0",
+    "fs-extra": "^11.1.0",
+    "inquirer": "^8.0.0",
     "js-yaml": "^4.1.0",
-    "json-templates": "^4.1.0",
+    "json-templates": "^4.2.0",
     "lodash": "^4.17.21",
-    "node-fetch": "^2.6.1",
-    "semver": "^7.3.5"
+    "node-fetch": "^2.6.8",
+    "semver": "^7.3.8"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0",
-    "@oclif/test": "^1.2.8",
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.3.4",
-    "eslint": "^7.28.0",
-    "eslint-plugin-chai-friendly": "^0.7.1",
+    "@oclif/test": "^2.2.21",
+    "chai": "^4.3.7",
+    "eslint": "^8.32.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-mocha": "^9.0.0",
+    "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint_d": "^10.1.3",
     "globby": "^11.0.3",
     "husky": "^6.0.0",
-    "mocha": "^9.1.3",
-    "nock": "^13.1.0",
+    "mocha": "^10.2.0",
+    "nock": "^13.3.0",
     "nyc": "^15.1.0",
     "rewire": "^6.0.0",
     "tmp": "^0.2.1"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=14.0.0"
   },
   "files": [
     "/bin",
@@ -91,7 +85,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
-    "lint": "eslint_d ./src ./test",
+    "lint": "eslint ./src ./test",
     "postinstall": "node ./src/check-node-version"
   },
   "husky": {

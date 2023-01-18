@@ -1,6 +1,5 @@
 {
   "plugins": ["node", "immutable", "chai-friendly", "mocha"],
-  "parser": "babel-eslint",
   "root": true,
   "env": {
     "node": true,

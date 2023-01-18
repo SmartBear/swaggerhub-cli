@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -6,7 +6,7 @@ const inquirer = require('inquirer')
 
 class PublishCommand extends UpdateCommand {
   async run() {
-    const { args, flags } = this.parse(PublishCommand)
+    const { args, flags } = await this.parse(PublishCommand)
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
@@ -18,7 +18,9 @@ class PublishCommand extends UpdateCommand {
       {
         type: 'confirm',
         name: 'answer',
-        message: `You are about to publish an API referencing unpublished Domains. If those Domains change, it may affect your API definition. Do you wish to continue?`,
+        message: `You are about to publish an API referencing unpublished Domains. 
+        If those Domains change, it may affect your API definition. 
+        Do you wish to continue?`,
         default: false
       }
     ])
@@ -40,7 +42,7 @@ PublishCommand.args = [{
 }]
 
 PublishCommand.flags = {
-  force: flags.boolean({
+  force: Flags.boolean({
     char: 'f',
     description: 'publish API without prompting for confirmation'
   }),

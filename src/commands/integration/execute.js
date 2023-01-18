@@ -5,7 +5,7 @@ const BaseCommand = require('../../support/command/base-command')
 class ExecuteIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args } = this.parse(ExecuteIntegrationCommand)
+      const { args } = await this.parse(ExecuteIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       await this.executeIntegration(integrationPath)
   }

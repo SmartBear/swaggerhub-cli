@@ -1,4 +1,4 @@
-const { cli } = require('cli-ux')
+const { CliUx } = require('@oclif/core')
 const { getProject } = require('../../requests/project')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
@@ -10,7 +10,7 @@ class ListProjectCommand extends BaseCommand {
     }
 
     async run() {
-        const { args } = this.parse(ListProjectCommand)
+        const { args } = await this.parse(ListProjectCommand)
         await this.listProjects(args['OWNER'])
     }
 
@@ -19,7 +19,7 @@ class ListProjectCommand extends BaseCommand {
         if (responseObj.projects.length === 0){
             this.log('No projects found.')
         } else {
-            cli.table(responseObj.projects, {
+            CliUx.ux.table(responseObj.projects, {
                 name: {},
                 owner: {},
                 description: {},
@@ -28,7 +28,7 @@ class ListProjectCommand extends BaseCommand {
                 },
                 domains: {}
             }, {
-                printLine: this.log
+                printLine: this.log.bind(this)
             })
         }
     }

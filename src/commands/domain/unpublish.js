@@ -5,7 +5,7 @@ const UpdateCommand = require('../../support/command/update-command')
 class UnpublishCommand extends UpdateCommand {
   
   async run() {
-    const { args } = this.parse(UnpublishCommand)
+    const { args } = await this.parse(UnpublishCommand)
     const domainPath = getDomainIdentifierArg(args)
     const [owner, name, version] = splitPathParams(domainPath)
 

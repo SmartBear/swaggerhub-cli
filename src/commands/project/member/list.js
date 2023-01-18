@@ -2,7 +2,7 @@ const { getProject } = require('../../../requests/project')
 const { getResponseContent } = require('../../../support/command/handle-response')
 const BaseCommand = require('../../../support/command/base-command')
 const { getProjectIdentifierArg } = require('../../../support/command/parse-input')
-const { cli } = require('cli-ux')
+const { CliUx } = require('@oclif/core')
 
 class ListProjectMembersCommand extends BaseCommand {
     constructor(...props) {
@@ -11,7 +11,7 @@ class ListProjectMembersCommand extends BaseCommand {
     }
 
     async run() {
-        const { args } = this.parse(ListProjectMembersCommand)
+        const { args } = await this.parse(ListProjectMembersCommand)
         const projectPath = getProjectIdentifierArg(args)
         await this.getProjectMembers(projectPath)
     }
@@ -21,13 +21,13 @@ class ListProjectMembersCommand extends BaseCommand {
         if (responseObj.members.length === 0){
             this.log('No members found.')
         } else {
-            cli.table(responseObj.members, {
+            CliUx.ux.table(responseObj.members, {
                 name: {
                     minWidth: 24
                 },
                 type: {}
             }, {
-                printLine: this.log
+                printLine: this.log.bind(this)
             })
         }
     }

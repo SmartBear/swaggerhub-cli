@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { postApi } = require('../../requests/api')
 const { getApiIdentifierArg, readConfigFile } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -6,7 +6,7 @@ const BaseCommand = require('../../support/command/base-command')
 class CreateIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args, flags } = this.parse(CreateIntegrationCommand)
+      const { args, flags } = await this.parse(CreateIntegrationCommand)
       const config = readConfigFile(flags.file)
 
       const requestedApiPath = getApiIdentifierArg(args)
@@ -44,7 +44,7 @@ CreateIntegrationCommand.args = [{
 }]
 
 CreateIntegrationCommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f', 
     description: 'location of integration configuration file',
     required: true

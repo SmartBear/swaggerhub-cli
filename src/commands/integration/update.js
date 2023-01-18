@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { putApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, readConfigFile, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -6,7 +6,7 @@ const BaseCommand = require('../../support/command/base-command')
 class UpdateIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args, flags } = this.parse(UpdateIntegrationCommand)
+      const { args, flags } = await this.parse(UpdateIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       const config = readConfigFile(flags.file)
       await this.updateIntegration(integrationPath, config)
@@ -40,7 +40,7 @@ UpdateIntegrationCommand.args = [{
 }]
 
 UpdateIntegrationCommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f', 
     description: 'location of integration configuration file',
     required: true

@@ -1,4 +1,4 @@
-const Help = require('@oclif/plugin-help').Help
+const { Help } = require('@oclif/core')
 
 module.exports = class CustomHelp extends Help {
 

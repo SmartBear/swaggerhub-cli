@@ -7,7 +7,7 @@ const BaseCommand = require('../../../support/command/base-command')
 class ProjectApiAddCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectApiAddCommand)
+        const { args } = await this.parse(ProjectApiAddCommand)
         const projectPath = getProjectIdentifierArg(args)
         const apiName = args['API']
 

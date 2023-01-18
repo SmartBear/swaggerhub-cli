@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { postProject } = require('../../requests/project')
 const {
     getProjectIdentifierArg,
@@ -10,7 +10,7 @@ const BaseCommand = require('../../support/command/base-command')
 class CreateProjectCommand extends BaseCommand {
 
     async run() {
-        const { args, flags } = this.parse(CreateProjectCommand)
+        const { args, flags } = await this.parse(CreateProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
         const [owner, name] = splitPathParams(projectPath)
         const body = {
@@ -57,16 +57,16 @@ CreateProjectCommand.args = [{
 }]
 
 CreateProjectCommand.flags = {
-    description: flags.string({
+    description: Flags.string({
         description: 'Description of project',
         required: false
     }),
-    apis: flags.string({
+    apis: Flags.string({
         char: 'a',
         description: 'Comma separated list of api names to include in project',
         required: false
     }),
-    domains: flags.string({
+    domains: Flags.string({
         char: 'd',
         description: 'Comma separated list of domain names to include in project',
         required: false

@@ -11,7 +11,7 @@ class GetIntegrationCommand extends BaseCommand {
   }
 
   async run() {
-      const { args } = this.parse(GetIntegrationCommand)
+      const { args } = await this.parse(GetIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       await this.getIntegration(integrationPath)
   }

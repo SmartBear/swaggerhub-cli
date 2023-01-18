@@ -10,7 +10,7 @@ const { pipeAsync } = require('../../../utils/general')
 class ProjectApiRemoveCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectApiRemoveCommand)
+        const { args } = await this.parse(ProjectApiRemoveCommand)
         const projectPath = getProjectIdentifierArg(args)
         const apiToRemove = args['API']
 

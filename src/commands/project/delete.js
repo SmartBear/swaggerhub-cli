@@ -9,7 +9,7 @@ class DeleteProjectCommand extends BaseCommand {
     }
 
     async run() {
-        const { args } = this.parse(DeleteProjectCommand)
+        const { args } = await this.parse(DeleteProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
         await this.deleteProject(projectPath)
     }

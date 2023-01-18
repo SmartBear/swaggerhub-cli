@@ -5,7 +5,7 @@ const BaseCommand = require('../../support/command/base-command')
 class DeleteIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args } = this.parse(DeleteIntegrationCommand)
+      const { args } = await this.parse(DeleteIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       await this.deleteIntegration(integrationPath)
   }

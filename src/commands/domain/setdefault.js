@@ -5,7 +5,7 @@ const UpdateCommand = require('../../support/command/update-command')
 class SetDefaultDomainCommand extends UpdateCommand {
 
   async run() {
-    const { args } = this.parse(SetDefaultDomainCommand)
+    const { args } = await this.parse(SetDefaultDomainCommand)
     const domainPath = getDomainIdentifierArg(args)
     const [owner, name, version] = splitPathParams(domainPath)
 

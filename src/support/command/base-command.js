@@ -1,4 +1,4 @@
-const { Command, flags } = require('@oclif/command')
+const { Command, Flags } = require('@oclif/core')
 const { capitalise, pipeAsync } = require('../../utils/general')
 const { infoMsg, errorMsg } = require('../../template-strings')
 const { getApi } = require('../../requests/api')
@@ -85,7 +85,7 @@ class BaseCommand extends Command {
 }
 
 BaseCommand.flags = {
-  help: flags.help({ char: 'h' })
+  help: Flags.help({ char: 'h' })
 }
 
 module.exports = BaseCommand

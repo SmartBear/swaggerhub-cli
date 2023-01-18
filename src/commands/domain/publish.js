@@ -5,7 +5,7 @@ const UpdateCommand = require('../../support/command/update-command')
 class PublishCommand extends UpdateCommand {
   
   async run() {
-    const { args } = this.parse(PublishCommand)
+    const { args } = await this.parse(PublishCommand)
     const domainPath = getDomainIdentifierArg(args)
     const [owner, name, version] = splitPathParams(domainPath)
 

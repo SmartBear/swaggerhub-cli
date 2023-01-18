@@ -1,4 +1,4 @@
-const { cli } = require('cli-ux')
+const { CliUx } = require('@oclif/core')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
@@ -11,15 +11,15 @@ class ListIntegrationCommand extends BaseCommand {
   }
 
   async run() {
-    const { args } = this.parse(ListIntegrationCommand)
+    const { args } = await this.parse(ListIntegrationCommand)
     const requestedApiPath = getApiIdentifierArg(args)
     const apiPath = await this.ensureVersion(requestedApiPath)
     await this.listIntegrations(apiPath)
   }
 
   async logIntegration(response) {
-    const responseObj = JSON.parse(await getResponseContent(response))
-    cli.table(responseObj.integrations, {
+    const { integrations } = JSON.parse(await getResponseContent(response))
+    CliUx.ux.table(integrations, {
       id: {
         header: 'ID',
         minWidth: 38
@@ -30,7 +30,7 @@ class ListIntegrationCommand extends BaseCommand {
       },
       enabled: {}
     }, {
-        printLine: this.log
+        printLine: this.log.bind(this)
     })
   }
 

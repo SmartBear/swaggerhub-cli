@@ -1,4 +1,4 @@
-const { CLIError } = require('@oclif/errors')
+const { CLIError } = require('@oclif/core').Errors
 const { hasJsonStructure } = require('./general')
 const yaml = require('js-yaml')
 const { existsSync, readFileSync } = require('fs-extra')

@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
 const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getDomain } = require('../../requests/domain')
@@ -26,7 +26,7 @@ class GetDomainCommand extends BaseCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(GetDomainCommand)
+    const { args, flags } = await this.parse(GetDomainCommand)
     const requestedDomainPath = getDomainIdentifierArg(args)
     const requestedPathParams = splitPathParams(requestedDomainPath)
     const pathParams = await this.ensureVersion(requestedPathParams)
@@ -58,7 +58,7 @@ GetDomainCommand.args = [{
 }]
 
 GetDomainCommand.flags = {
-  json: flags.boolean({
+  json: Flags.boolean({
     char: 'j',
     description: 'returns the domain in JSON format.'
   }),

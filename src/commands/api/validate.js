@@ -6,7 +6,7 @@ const { getResponseContent } = require('../../support/command/handle-response')
 
 class ValidateCommand extends BaseCommand {
   async run() {
-    const { args } = this.parse(ValidateCommand)
+    const { args } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
     const validationResult = await this.getValidationResult(validPath)

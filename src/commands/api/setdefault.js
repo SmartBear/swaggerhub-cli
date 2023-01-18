@@ -5,7 +5,7 @@ const UpdateCommand = require('../../support/command/update-command')
 class SetDefaultCommand extends UpdateCommand {
 
   async run() {
-    const { args } = this.parse(SetDefaultCommand)
+    const { args } = await this.parse(SetDefaultCommand)
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
