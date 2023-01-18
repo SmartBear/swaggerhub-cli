@@ -16,9 +16,8 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Requirements
-Node.js 12 or later.
+Node.js 14 or later.
 
-*NOTE:* `swaggerhub-cli v0.6.4` *will be the last release to support Node 12.x and support will be dropped in a future version.*
 # Installation
 ```sh-session
 $ npm i -g swaggerhub-cli
