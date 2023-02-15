@@ -1,8 +1,5 @@
-Fixes # or adds feature x
+This PR ...  
 
-## Proposed Changes
+// Give a brief summary of changes introduced
 
-  -
-  -
-  -
-
+* [ ] I have added the appropriate label to my PR
