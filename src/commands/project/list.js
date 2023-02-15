@@ -1,4 +1,4 @@
-const { CliUx } = require('@oclif/core')
+const { ux, Args } = require('@oclif/core')
 const { getProject } = require('../../requests/project')
 const { getResponseContent } = require('../../support/command/handle-response')
 const BaseCommand = require('../../support/command/base-command')
@@ -19,7 +19,7 @@ class ListProjectCommand extends BaseCommand {
         if (responseObj.projects.length === 0){
             this.log('No projects found.')
         } else {
-            CliUx.ux.table(responseObj.projects, {
+            ux.table(responseObj.projects, {
                 name: {},
                 owner: {},
                 description: {},
@@ -49,11 +49,12 @@ ListProjectCommand.examples = [
     'swaggerhub project:list organization'
 ]
 
-ListProjectCommand.args = [{
-    name: 'OWNER',
-    required: false,
-    description: 'Organization to list projects for'
-}]
+ListProjectCommand.args = {
+    'OWNER': Args.string({
+        required: false,
+        description: 'The organization to list projects for on Swaggerhub'
+    })
+}
 
 ListProjectCommand.flags = {
     ...BaseCommand.flags

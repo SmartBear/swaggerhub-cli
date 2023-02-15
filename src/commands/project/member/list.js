@@ -1,8 +1,8 @@
+const { ux, Args } = require('@oclif/core')
 const { getProject } = require('../../../requests/project')
 const { getResponseContent } = require('../../../support/command/handle-response')
 const BaseCommand = require('../../../support/command/base-command')
 const { getProjectIdentifierArg } = require('../../../support/command/parse-input')
-const { CliUx } = require('@oclif/core')
 
 class ListProjectMembersCommand extends BaseCommand {
     constructor(...props) {
@@ -21,7 +21,7 @@ class ListProjectMembersCommand extends BaseCommand {
         if (responseObj.members.length === 0){
             this.log('No members found.')
         } else {
-            CliUx.ux.table(responseObj.members, {
+            ux.table(responseObj.members, {
                 name: {
                     minWidth: 24
                 },
@@ -47,11 +47,12 @@ ListProjectMembersCommand.examples = [
     'swaggerhub project:member:list organisation/project_name',
 ]
 
-ListProjectMembersCommand.args = [{
-    name: 'OWNER/PROJECT_NAME',
-    required: true,
-    description: 'Project to list members of'
-}]
+ListProjectMembersCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
+        required: true,
+        description: 'Project to list members of on Swaggerhub'
+    })
+}
 
 ListProjectMembersCommand.flags = {
     ...BaseCommand.flags

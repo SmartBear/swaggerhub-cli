@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -35,11 +35,12 @@ PublishCommand.examples = [
   'swaggerhub api:publish organization/api/1.0.0 --force'
 ]
 
-PublishCommand.args = [{
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API identifier'
-}]
+PublishCommand.args = {
+  'OWNER/API_NAME/VERSION': Args.string({
+    required: true,
+    description: 'API to publish on Swaggerhub'
+  })
+}
 
 PublishCommand.flags = {
   force: Flags.boolean({

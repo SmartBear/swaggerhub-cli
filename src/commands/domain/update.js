@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getDomain, postDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -77,11 +77,12 @@ UpdateDomainCommand.examples = [
   'swaggerhub domain:update organization/domain/1.0.0 --visibility=private',
 ]
 
-UpdateDomainCommand.args = [{
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'domain to update in SwaggerHub'
-}]
+UpdateDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to update on SwaggerHub'
+  })
+}
 
 UpdateDomainCommand.flags = {
   file: Flags.string({

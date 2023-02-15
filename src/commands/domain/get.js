@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
 const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getDomain } = require('../../requests/domain')
@@ -51,11 +51,12 @@ GetDomainCommand.examples = [
   'swaggerhub domain:get organization/domain/1.0.0 --json'
 ]
 
-GetDomainCommand.args = [{
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'SwaggerHub domain to fetch'
-}]
+GetDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to fetch from SwaggerHub'
+  })
+}
 
 GetDomainCommand.flags = {
   json: Flags.boolean({

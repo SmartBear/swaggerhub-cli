@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
@@ -45,11 +45,12 @@ GetAPICommand.examples = [
   'swaggerhub api:get organization/api/1.0.0 --json'
 ]
 
-GetAPICommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'SwaggerHub API to fetch'
-}]
+GetAPICommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to fetch from Swaggerhub'
+  })
+}
 
 GetAPICommand.flags = {
   json: Flags.boolean({

@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -19,11 +20,12 @@ SetDefaultCommand.examples = [
   'swaggerhub api:setdefault organization/api/2.0.0'
 ]
 
-SetDefaultCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API identifier'
-}]
+SetDefaultCommand.args = { 
+  'OWNER/API_NAME/VERSION': Args.string({
+    required: true,
+    description: 'API to set as default on Swaggerhub'
+  })
+}
 
 SetDefaultCommand.flags = BaseCommand.flags
 

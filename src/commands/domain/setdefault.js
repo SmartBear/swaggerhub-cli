@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -19,11 +20,12 @@ SetDefaultDomainCommand.examples = [
   'swaggerhub domain:setdefault organization/domain/2.0.0'
 ]
 
-SetDefaultDomainCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/VERSION',
-  required: true,
-  description: 'domain identifier'
-}]
+SetDefaultDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/VERSION': Args.string({
+    required: true,
+    description: 'Domain to set as default on SwaggerHub'
+  })
+}
 
 SetDefaultDomainCommand.flags = BaseCommand.flags
 

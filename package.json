@@ -8,9 +8,9 @@
   },
   "bugs": "https://github.com/SmartBear/swaggerhub-cli/issues",
   "dependencies": {
-    "@oclif/core": "^1.24.1",
-    "@oclif/plugin-help": "^5.1.23",
-    "@oclif/plugin-plugins": "^2.1.12",
+    "@oclif/core": "^2.1.4",
+    "@oclif/plugin-help": "^5.2.4",
+    "@oclif/plugin-plugins": "^2.3.2",
     "deep-extend": "^0.6.0",
     "fs-extra": "^11.1.0",
     "inquirer": "^8.0.0",
@@ -21,7 +21,7 @@
     "semver": "^7.3.8"
   },
   "devDependencies": {
-    "@oclif/test": "^2.2.21",
+    "@oclif/test": "^2.3.6",
     "chai": "^4.3.7",
     "eslint": "^8.32.0",
     "eslint-plugin-chai-friendly": "^0.7.2",

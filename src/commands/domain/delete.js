@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { deleteDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -46,11 +46,12 @@ DeleteDomainCommand.examples = [
   'swaggerhub domain:delete organization/domain --force'
 ]
 
-DeleteDomainCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'Domain to delete in SwaggerHub'
-}]
+DeleteDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to delete on SwaggerHub'
+  })
+}
 
 DeleteDomainCommand.flags = {
   force: Flags.boolean({

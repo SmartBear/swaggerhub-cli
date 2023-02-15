@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -77,11 +77,12 @@ UpdateAPICommand.examples = [
   'swaggerhub api:update organization/api/1.0.0 --visibility=private',
 ]
 
-UpdateAPICommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API to update in SwaggerHub'
-}]
+UpdateAPICommand.args = { 
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to update on SwaggerHub'
+  })
+}
 
 UpdateAPICommand.flags = {
   file: Flags.string({

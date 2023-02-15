@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getDomain, postDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -101,11 +101,12 @@ CreateDomainCommand.examples = [
   'swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json'
 ]
 
-CreateDomainCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'Domain to create in SwaggerHub'
-}]
+CreateDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to create on SwaggerHub'
+  })
+}
 
 CreateDomainCommand.flags = {
   file: Flags.string({

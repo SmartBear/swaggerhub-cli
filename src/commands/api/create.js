@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -103,11 +103,12 @@ CreateAPICommand.examples = [
   'swaggerhub api:create organization/api/1.0.0 --published=publish --setdefault --file api.json'
 ]
 
-CreateAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API to create in SwaggerHub'
-}]
+CreateAPICommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to create on SwaggerHub'
+  })
+}
 
 CreateAPICommand.flags = {
   file: Flags.string({

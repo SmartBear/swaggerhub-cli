@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -19,11 +20,12 @@ PublishCommand.examples = [
   'swaggerhub domain:publish organization/domain/1.0.0'
 ]
 
-PublishCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/VERSION',
-  required: true,
-  description: 'Domain identifier'
-}]
+PublishCommand.args = {
+  'OWNER/DOMAIN_NAME/VERSION': Args.string({
+    required: true,
+    description: 'Domain to publish on SwaggerHub'
+  })
+}
 
 PublishCommand.flags = BaseCommand.flags
 

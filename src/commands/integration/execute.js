@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { postApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -27,11 +28,12 @@ ExecuteIntegrationCommand.examples = [
   'swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
 ]
 
-ExecuteIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
-  required: true,
-  description: 'Integration to execute for given API'
-}]
+ExecuteIntegrationCommand.args = { 
+  'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
+    required: true,
+    description: 'Integration to execute for given API on Swaggerhub'
+  })
+}
 
 ExecuteIntegrationCommand.flags = {
   ...BaseCommand.flags

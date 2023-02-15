@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { putProject, getProject } = require('../../../requests/project')
 const {
     getProjectIdentifierArg,
@@ -53,17 +54,15 @@ ProjectDomainRemoveCommand.examples = [
     'swaggerhub project:domain:remove organization/project_name my_domain',
 ]
 
-ProjectDomainRemoveCommand.args = [
-    {
-        name: 'OWNER/PROJECT_NAME',
+ProjectDomainRemoveCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project remove the domain from'
-    },
-    {
-        name: 'DOMAIN',
+        description: 'The project to remove the domain from on Swaggerhub'
+    }),
+    'DOMAIN': Args.string({
         required: true,
-        description: 'The domain to remove'
-    }
-]
+        description: 'The name of the domain on Swaggerhub to remove'
+    })
+}
 
 module.exports = ProjectDomainRemoveCommand

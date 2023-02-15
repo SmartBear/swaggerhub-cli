@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { postProject } = require('../../requests/project')
 const {
     getProjectIdentifierArg,
@@ -50,11 +50,12 @@ CreateProjectCommand.examples = [
     'swaggerhub project:create organization/new_project_name -a "testapi1" -d "testdomain3" --description "description"'
 ]
 
-CreateProjectCommand.args = [{
-    name: 'OWNER/PROJECT_NAME',
-    required: true,
-    description: 'The new project to create'
-}]
+CreateProjectCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
+        required: true,
+        description: 'The new project to create on Swaggerhub'
+    })
+}
 
 CreateProjectCommand.flags = {
     description: Flags.string({

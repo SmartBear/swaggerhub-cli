@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { postApi } = require('../../requests/api')
 const { getApiIdentifierArg, readConfigFile } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -37,11 +37,12 @@ CreateIntegrationCommand.examples = [
   'swaggerhub integration:create organization/api/1.0.0 --file config.json'
 ]
 
-CreateIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API where integration will be added'
-}]
+CreateIntegrationCommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to add integration to on SwaggerHub'
+  })
+}
 
 CreateIntegrationCommand.flags = {
   file: Flags.string({

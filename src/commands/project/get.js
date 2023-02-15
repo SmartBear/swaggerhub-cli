@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getProject } = require('../../requests/project')
 const { getProjectIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getResponseContent } = require('../../support/command/handle-response')
@@ -38,11 +39,12 @@ GetProjectCommand.examples = [
     'swaggerhub project:get organization/project_name'
 ]
 
-GetProjectCommand.args = [{
-    name: 'OWNER/PROJECT_NAME',
-    required: true,
-    description: 'Project to retrieve the details for'
-}]
+GetProjectCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
+        required: true,
+        description: 'The project to get details for on Swaggerhub'
+    })
+}
 
 GetProjectCommand.flags = {
     ...BaseCommand.flags

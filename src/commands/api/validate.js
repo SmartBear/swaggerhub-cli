@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const BaseCommand = require('../../support/command/base-command')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { getApi } = require('../../requests/api')
@@ -57,11 +58,12 @@ ValidateCommand.examples = [
   'swaggerhub api:validate organization/api'
 ]
 
-ValidateCommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API Identifier'
-}]
+ValidateCommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to fetch validation errors for from Swaggerhub'
+  })
+}
 
 ValidateCommand.flags = BaseCommand.flags
 

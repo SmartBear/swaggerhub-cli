@@ -1,4 +1,4 @@
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const { putApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, readConfigFile, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -33,11 +33,12 @@ UpdateIntegrationCommand.examples = [
   'swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json'
 ]
 
-UpdateIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
-  required: true,
-  description: 'Integration to update on the given API'
-}]
+UpdateIntegrationCommand.args = { 
+  'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
+    required: true,
+    description: 'Integration to update for given API on Swaggerhub'
+  })
+}
 
 UpdateIntegrationCommand.flags = {
   file: Flags.string({

@@ -1,4 +1,4 @@
-const { CliUx } = require('@oclif/core')
+const { ux, Args } = require('@oclif/core')
 const { getApi } = require('../../requests/api')
 const { getResponseContent } = require('../../support/command/handle-response')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
@@ -19,7 +19,7 @@ class ListIntegrationCommand extends BaseCommand {
 
   async logIntegration(response) {
     const { integrations } = JSON.parse(await getResponseContent(response))
-    CliUx.ux.table(integrations, {
+    ux.table(integrations, {
       id: {
         header: 'ID',
         minWidth: 38
@@ -49,11 +49,12 @@ ListIntegrationCommand.examples = [
   'swaggerhub integration:list organization/api/1.0.0'
 ]
 
-ListIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API to list integrations on'
-}]
+ListIntegrationCommand.args = { 
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to list integrations for on Swaggerhub'
+  })
+}
 
 ListIntegrationCommand.flags = {
   ...BaseCommand.flags

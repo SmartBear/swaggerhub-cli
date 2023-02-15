@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
@@ -19,11 +20,12 @@ UnpublishCommand.examples = [
   'swaggerhub api:unpublish organization/api/1.0.0'
 ]
 
-UnpublishCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION',
-  required: true,
-  description: 'API identifier'
-}]
+UnpublishCommand.args = { 
+  'OWNER/API_NAME/VERSION': Args.string({
+    required: true,
+    description: 'API identifier'
+  })
+}
 
 UnpublishCommand.flags = BaseCommand.flags
 
