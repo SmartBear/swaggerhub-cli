@@ -36,6 +36,7 @@ jobs:
           VERSION=$(npm version ${{inputs.type}} --no-git-tag-version)
           npx oclif-dev readme && node src/format-readme.js
           git commit -am "Release for ${VERSION}"
+          git tag $VERSION
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "Released version ${VERSION}" >> $GITHUB_STEP_SUMMARY
 
