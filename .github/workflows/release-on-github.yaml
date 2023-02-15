@@ -26,12 +26,16 @@ jobs:
         with:
           node-version: '18.x'
 
+      - run: npm ci
+
       - name: npm version...
         run: |
           # https://github.com/orgs/community/discussions/26560
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          VERSION=$(npm version ${{inputs.type}})
+          VERSION=$(npm version ${{inputs.type}} --no-git-tag-version)
+          npx oclif-dev readme && node src/format-readme.js
+          git commit -am "Release for ${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "Released version ${VERSION}" >> $GITHUB_STEP_SUMMARY
 
