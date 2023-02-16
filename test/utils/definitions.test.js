@@ -2,9 +2,7 @@ const { expect, test } = require('@oclif/test')
 const { getSpecification } = require('../../src/utils/definitions')
 
 describe('getSpecification', () => {
-
   describe('should return `openapi-2.0`', () => {
-
     test.it('for `swagger: 2.0`', () => {
       const definition = { swagger: '2.0' }
   
@@ -15,7 +13,6 @@ describe('getSpecification', () => {
   })
 
   describe('should return `openapi-3.1.0`', () => {
-
     test.it('for `openapi: 3.1.0`', () => {
       const definition = { openapi: '3.1.0' }
   
@@ -34,7 +31,6 @@ describe('getSpecification', () => {
   })
   
   describe('should return `openapi-3.0.0`', () => {
-  
     test.it('for `openapi: 3.0.0`', () => {
       const definition = { openapi: '3.0.0' }
   
@@ -61,7 +57,6 @@ describe('getSpecification', () => {
   })
 
   describe('should return `asyncapi-2.x.x`', () => {
-
     test.it('for `asyncapi: 2.0.0`', () => {
       const definition = { asyncapi: '2.0.0' }
   
@@ -88,7 +83,6 @@ describe('getSpecification', () => {
   })
 
   describe('should default to `openapi-3.0.0`', () => {
-
     test.it('for `openapi: abcd`', () => {
       const definition = { openapi: 'abcd' }
   
@@ -121,5 +115,4 @@ describe('getSpecification', () => {
       expect(specification).to.equal('openapi-3.0.0')
     })
   })
-
 })
