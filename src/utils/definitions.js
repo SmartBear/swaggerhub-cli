@@ -6,9 +6,11 @@ const { errorMsg } = require('../template-strings')
 
 const specVersionToSpecification = specVersion => {
   if (/2.0$/.test(specVersion))
-      return 'openapi-2.0'
+    return 'openapi-2.0'
   if (/2.\d+.\d+$/.test(specVersion))
     return 'asyncapi-2.x.x'
+  if (/3.1.\d+$/.test(specVersion))
+    return 'openapi-3.1.0'
   return 'openapi-3.0.0'
 }
 
