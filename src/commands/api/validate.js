@@ -14,7 +14,7 @@ class ValidateCommand extends BaseCommand {
     let hasCritical = false
     const validationResultsStr = validationResult.validation
           .map(err => {
-            if (err.severity.toLocaleUpperCase('en-US') === 'CRITICAL') hasCritical = true
+            if (err.severity.toUpperCase() === 'CRITICAL') hasCritical = true
             return `${err.line}: \t${err.severity} \t${err.description}`
           })
           .join('\n')
