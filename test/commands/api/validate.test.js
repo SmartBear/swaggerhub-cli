@@ -5,7 +5,7 @@ const apiPath = 'example-org/example-api/example-ver'
 const heading = 'line \tseverity \tdescription\n\n'
 
 describe('invalid api:validate', () => {
-  const severity = 'CRITICAL',
+  const severity = 'critical',
     warningSeverity = 'WARNING',
     description = 'sample description',
     line = 10
