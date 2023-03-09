@@ -98,7 +98,7 @@ describe('valid api:validate', () => {
       })
     })
     
-    describe('with --failOnCritical flag', () => {
+    describe('with --fail-on-critical flag', () => {
       test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}/standardization`)
@@ -109,7 +109,7 @@ describe('valid api:validate', () => {
           })
       )
       .stdout()
-      .command(['api:validate', '--failOnCritical', apiPath]) // swaggerhub api:validate o/a/v
+      .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
       .exit(1)
       .it('should return validation errors, one per line, with exit code 1', ctx => {
         expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
@@ -156,7 +156,7 @@ describe('valid api:validate', () => {
       })
     })
 
-    describe('with --failOnCritical flag', () => {
+    describe('with --fail-on-critical flag', () => {
       test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}/standardization`)
@@ -167,7 +167,7 @@ describe('valid api:validate', () => {
           })
       )
       .stdout()
-      .command(['api:validate', '--failOnCritical', apiPath]) // swaggerhub api:validate o/a/v
+      .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
         expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)

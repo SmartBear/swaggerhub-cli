@@ -24,7 +24,7 @@ class ValidateCommand extends BaseCommand {
     }
     this.log(validationResultsStr)
     
-    if (hasCritical && flags.failOnCritical) this.exit(1)
+    if (hasCritical && flags['fail-on-critical']) this.exit(1)
     this.exit(0)
   }
 
@@ -68,7 +68,7 @@ ValidateCommand.args = [{
 }]
 
 ValidateCommand.flags = {
-  failOnCritical: flags.boolean({
+  'fail-on-critical': flags.boolean({
     char: 'c', 
     description: 'Exit with error code 1 if there are critical standardization errors present',
     default: false

@@ -332,8 +332,8 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API Identifier
 
 OPTIONS
-  -c, --failOnCritical  Exit with error code 1 if there are critical standardization errors present
-  -h, --help            show CLI help
+  -c, --fail-on-critical  Exit with error code 1 if there are critical standardization errors present
+  -h, --help              show CLI help
 
 DESCRIPTION
   When VERSION is not included in the argument, the default version will be validated.
