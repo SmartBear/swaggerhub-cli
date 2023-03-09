@@ -332,15 +332,19 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API Identifier
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --failOnCritical  Exit with error code 1 if there are critical standardization errors present
+  -h, --help            show CLI help
 
 DESCRIPTION
   When VERSION is not included in the argument, the default version will be validated.
   An error will occur if the API version does not exist.
+  If the flag `-c` or `--failOnCritical` is used and there are standardization
+  errors with `Critical` severity present, the command will exit with error code `1`.
 
 EXAMPLES
   swaggerhub api:validate organization/api/1.0.0
-  swaggerhub api:validate organization/api
+  swaggerhub api:validate -c organization/api/1.0.0
+  swaggerhub api:validate --fail-on-critical organization/api
 ```
 
 _See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.6.5/src/commands/api/validate.js)_
