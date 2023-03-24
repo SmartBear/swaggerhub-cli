@@ -3,7 +3,7 @@
 name: Pull Requests - SwaggerHub CLI
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
