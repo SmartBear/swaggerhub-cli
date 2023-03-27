@@ -38,7 +38,7 @@ class ValidateCommand extends BaseCommand {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'standardization']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
-      onReject: () => this.getFallbackValidationResult(apiPath),
+      onReject: () => ({ validation: [] }),
       options: {}
     })
   }
