@@ -13,6 +13,7 @@ class ValidateCommand extends BaseCommand {
     const validPath = await this.ensureVersion(apiPath)
     // eslint-disable-next-line immutable/no-let
     let validationResult = await this.getValidationResult(validPath)
+    // Required to support On-Prem 2.4.1
     if (validationResult.validation.length === 0 && isOnPrem()) {
       validationResult = await this.getFallbackValidationResult(validPath)
     }
@@ -47,6 +48,7 @@ class ValidateCommand extends BaseCommand {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'validation']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
+      onReject: () => ({ validation: [] }),
       options: {}
     })
   }

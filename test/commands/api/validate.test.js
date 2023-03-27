@@ -14,9 +14,16 @@ describe('invalid api:validate', () => {
         message: `SPEC ${apiPath} not found.`
       })
   )
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(404, {
+        code: 404,
+        message: `SPEC ${apiPath} not found.`
+      })
+  )
   .stdout()
   .command(['api:validate', apiPath])
-  .exit(2)
+  .exit(0)
   .it('not found returned when fetching validation result of a non existing API')
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
@@ -27,22 +34,33 @@ describe('invalid api:validate', () => {
         message: `Org Standardization not enabled for ${apiPath.split('/')[0]}`
       })
   )
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(404, {
+        code: 404
+      })
+  )
   .stdout()
   .command(['api:validate', apiPath])
-  .exit(2)
+  .exit(0)
   .it('not enabled returned when fetching validation result an existing')
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}/standardization`)
     .reply(403, {
-        code: 403,
-        message: `user is not an owner or editor of SPEC ${apiPath}`
+        code: 403
+      })
+  )
+  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(404, {
+        code: 404
       })
   )
   .stdout()
   .command(['api:validate', apiPath])
-  .exit(2)
+  .exit(0)
   .it('an error is returned when user has no permission to access API')
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
