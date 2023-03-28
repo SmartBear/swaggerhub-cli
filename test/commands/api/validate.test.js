@@ -61,10 +61,6 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://example.com/v1' }))
   .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
-    .reply(200, { 
-      version: apiPath.substring(apiPath.lastIndexOf('/')+1) 
-    })
     .get(`/${apiPath}/standardization`)
     .reply(200, {
       validation: []
@@ -77,9 +73,10 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
     })
   )
   .stdout()
-  .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
+  .command(['api:validate', apiPath])
   .exit(0)
   .it('should fall back to legacy /validation endpoint and return errors', ctx => {
+    console.log(ctx.stdout)
     expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
   })
 })
