@@ -65,6 +65,8 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
     .reply(200, {
       validation: []
     })
+  )
+  .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}/validation`)
     .reply(200, {
       validation: [
