@@ -78,7 +78,6 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
   .command(['api:validate', apiPath])
   .exit(0)
   .it('should fall back to legacy /validation endpoint and return errors', ctx => {
-    console.log(ctx.stdout)
     expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
   })
 })
