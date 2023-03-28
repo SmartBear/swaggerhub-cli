@@ -14,13 +14,6 @@ describe('invalid api:validate', () => {
         message: `SPEC ${apiPath} not found.`
       })
   )
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
-    .reply(404, {
-        code: 404,
-        message: `SPEC ${apiPath} not found.`
-      })
-  )
   .stdout()
   .command(['api:validate', apiPath])
   .exit(0)
@@ -34,12 +27,6 @@ describe('invalid api:validate', () => {
         message: `Org Standardization not enabled for ${apiPath.split('/')[0]}`
       })
   )
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
-    .reply(404, {
-        code: 404
-      })
-  )
   .stdout()
   .command(['api:validate', apiPath])
   .exit(0)
@@ -50,12 +37,6 @@ describe('invalid api:validate', () => {
     .get(`/${apiPath}/standardization`)
     .reply(403, {
         code: 403
-      })
-  )
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/validation`)
-    .reply(404, {
-        code: 404
       })
   )
   .stdout()
@@ -71,6 +52,36 @@ describe('invalid api:validate', () => {
   .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
   .exit(2)
   .it('not found returned when fetching default version of API')
+})
+
+describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
+  const description = 'sample description'
+  const line = 10
+  const severity = 'warning'
+
+  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://example.com/v1' }))
+  .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
+    .reply(200, { 
+      version: apiPath.substring(apiPath.lastIndexOf('/')+1) 
+    })
+    .get(`/${apiPath}/standardization`)
+    .reply(200, {
+      validation: []
+    })
+    .get(`/${apiPath}/validation`)
+    .reply(200, {
+      validation: [
+        { line, description, severity }
+      ]
+    })
+  )
+  .stdout()
+  .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
+  .exit(0)
+  .it('should fall back to legacy /validation endpoint and return errors', ctx => {
+    expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+  })
 })
 
 describe('valid api:validate', () => {
