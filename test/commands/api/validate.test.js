@@ -12,7 +12,7 @@ describe('invalid api:validate', () => {
     .reply(404, {
         code: 404,
         message: `SPEC ${apiPath} not found.`
-      })
+    })
   )
   .stdout()
   .command(['api:validate', apiPath])
@@ -25,7 +25,7 @@ describe('invalid api:validate', () => {
     .reply(404, {
         code: 404,
         message: `Org Standardization not enabled for ${apiPath.split('/')[0]}`
-      })
+     })
   )
   .stdout()
   .command(['api:validate', apiPath])
@@ -37,7 +37,7 @@ describe('invalid api:validate', () => {
     .get(`/${apiPath}/standardization`)
     .reply(403, {
         code: 403
-      })
+    })
   )
   .stdout()
   .command(['api:validate', apiPath])
@@ -99,7 +99,7 @@ describe('valid api:validate', () => {
           validation: [
             { line, description, severity }
           ]
-          })
+        })
       )
       .stdout()
       .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
@@ -193,7 +193,7 @@ describe('valid api:validate', () => {
           validation: [
             { line, description, severity }
           ]
-          })
+        })
       )
       .stdout()
       .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
@@ -222,9 +222,9 @@ describe('valid api:validate', () => {
     test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', api => api
       .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
-      .reply(200, { version: apiPath.substring(apiPath.lastIndexOf('/')+1) })
-    )
-    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+      .reply(200, { 
+        version: apiPath.substring(apiPath.lastIndexOf('/')+1) 
+      })
       .get(`/${apiPath}/standardization`)
       .reply(200, {
         validation: []
