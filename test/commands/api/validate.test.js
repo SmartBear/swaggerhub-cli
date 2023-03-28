@@ -59,7 +59,7 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
   const line = 10
   const severity = 'warning'
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://example.com/v1' }))
+  test.env({ SWAGGERHUB_URL: 'https://example.com/v1' })
   .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}/standardization`)
     .reply(200, {
