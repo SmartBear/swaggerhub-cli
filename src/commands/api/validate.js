@@ -1,4 +1,4 @@
-const { Args } = require('@oclif/core')
+const { Args, Flags } = require('@oclif/core')
 const BaseCommand = require('../../support/command/base-command')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { getApi } = require('../../requests/api')
@@ -7,7 +7,7 @@ const { getResponseContent } = require('../../support/command/handle-response')
 
 class ValidateCommand extends BaseCommand {
   async run() {
-    const { args } = await this.parse(ValidateCommand)
+    const { args, flags } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
     const validationResult = await this.getValidationResult(validPath)
@@ -15,7 +15,7 @@ class ValidateCommand extends BaseCommand {
     let hasCritical = false
     const validationResultsStr = validationResult.validation
           .map(err => {
-            if (err.severity === 'CRITICAL') hasCritical = true
+            if (err.severity.toUpperCase() === 'CRITICAL') hasCritical = true
             return `${err.line}: \t${err.severity} \t${err.description}`
           })
           .join('\n')
@@ -24,7 +24,7 @@ class ValidateCommand extends BaseCommand {
     }
     this.log(validationResultsStr)
     
-    if (hasCritical) this.exit(1)
+    if (hasCritical && flags['fail-on-critical']) this.exit(1)
     this.exit(0)
   }
 
@@ -51,11 +51,14 @@ class ValidateCommand extends BaseCommand {
 ValidateCommand.description = `get validation result for an API version
 When VERSION is not included in the argument, the default version will be validated.
 An error will occur if the API version does not exist.
+If the flag \`-c\` or \`--failOnCritical\` is used and there are standardization
+errors with \`Critical\` severity present, the command will exit with error code \`1\`.
 `
 
 ValidateCommand.examples = [
   'swaggerhub api:validate organization/api/1.0.0',
-  'swaggerhub api:validate organization/api'
+  'swaggerhub api:validate -c organization/api/1.0.0',
+  'swaggerhub api:validate --fail-on-critical organization/api'
 ]
 
 ValidateCommand.args = {
@@ -65,6 +68,12 @@ ValidateCommand.args = {
   })
 }
 
-ValidateCommand.flags = BaseCommand.flags
-
+ValidateCommand.flags = {
+  'fail-on-critical': Flags.boolean({
+    char: 'c', 
+    description: 'Exit with error code 1 if there are critical standardization errors present',
+    default: false
+  }),
+  ...BaseCommand.flags
+}
 module.exports = ValidateCommand

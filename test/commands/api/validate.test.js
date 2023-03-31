@@ -5,42 +5,6 @@ const apiPath = 'example-org/example-api/example-ver'
 const heading = 'line \tseverity \tdescription\n\n'
 
 describe('invalid api:validate', () => {
-  const severity = 'CRITICAL',
-    warningSeverity = 'WARNING',
-    description = 'sample description',
-    line = 10
-
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/standardization`)
-    .reply(200, {
-      validation: [
-        { line, description, severity }
-      ]
-      })
-  )
-  .stdout()
-  .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
-  .exit(1)
-  .it('should return validation errors, one per line', ctx => {
-    expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
-  })
-
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/standardization`)
-    .reply(200, {
-      validation: [
-        { line, description, severity: warningSeverity }
-      ]
-      })
-  )
-  .stdout()
-  .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
-  .exit(0)
-  .it('should return warning validation errors, one per line with zero exit code', ctx => {
-    expect(ctx.stdout).to.contains(`${heading}${line}: \t${warningSeverity} \t${description}`)
-  })
 
   test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
@@ -91,36 +55,157 @@ describe('invalid api:validate', () => {
   .it('not found returned when fetching default version of API')
 })
 
-describe('valid api:validation', () => {
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/standardization`)
-    .reply(200, {
-      validation: []
+describe('valid api:validate', () => {
+  const description = 'sample description'
+  const line = 10
+
+  describe('with critical errors present', () => {
+    const severity = 'critical'
+
+    describe('without -c flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(0)
+      .it('should return validation errors, one per line, with exit code 0', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
       })
-  )
-  .stdout()
-  .command(['api:validate', apiPath])
-  .exit(0)
-  .it('should return empty result as there is no error', ctx => {
-    expect(ctx.stdout).to.contains('')
+    })
+
+    describe('with -c flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', '-c', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(1)
+      .it('should return validation errors, one per line, with exit code 1', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+      })
+    })
+    
+    describe('with --fail-on-critical flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(1)
+      .it('should return validation errors, one per line, with exit code 1', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+      })
+    })
   })
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-  .nock('https://api.swaggerhub.com/apis', api => api
-    .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
-    .reply(200, { version: apiPath.substring(apiPath.lastIndexOf('/')+1) })
-  )
-  .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
-    .get(`/${apiPath}/standardization`)
-    .reply(200, {
-      validation: []
+  describe('without critical errors present', () => {
+    const severity = 'WARNING'
+
+    describe('without -c flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(0)
+      .it('should return warning validation errors, one per line, with exit code 0', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+      })
     })
-  )
-  .stdout()
-  .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
-  .exit(0)
-  .it('should resolve version and return empty result as there is no error', ctx => {
-    expect(ctx.stdout).to.contains('')
+
+    describe('with -c flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', '-c', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(0)
+      .it('should return warning validation errors, one per line, with exit code 0', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+      })
+    })
+
+    describe('with --fail-on-critical flag', () => {
+      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+        .get(`/${apiPath}/standardization`)
+        .reply(200, {
+          validation: [
+            { line, description, severity }
+          ]
+          })
+      )
+      .stdout()
+      .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
+      .exit(0)
+      .it('should return warning validation errors, one per line, with exit code 0', ctx => {
+        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+      })
+    })
+  })
+
+  describe('when no standardization errors present', () => {
+    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+      .get(`/${apiPath}/standardization`)
+      .reply(200, {
+        validation: []
+        })
+    )
+    .stdout()
+    .command(['api:validate', apiPath])
+    .exit(0)
+    .it('should return empty result as there is no error', ctx => {
+      expect(ctx.stdout).to.contains('')
+    })
+
+    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/apis', api => api
+      .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
+      .reply(200, { version: apiPath.substring(apiPath.lastIndexOf('/')+1) })
+    )
+    .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+      .get(`/${apiPath}/standardization`)
+      .reply(200, {
+        validation: []
+      })
+    )
+    .stdout()
+    .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
+    .exit(0)
+    .it('should resolve version and return empty result as there is no error', ctx => {
+      expect(ctx.stdout).to.contains('')
+    })
   })
 })

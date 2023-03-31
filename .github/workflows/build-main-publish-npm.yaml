@@ -1,4 +1,4 @@
-name: Build Master - Publish npm
+name: Build Main - Publish npm
 on:
   release:
     types:
