@@ -4,13 +4,19 @@ const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { getApi } = require('../../requests/api')
 const { pipeAsync } = require('../../utils/general')
 const { getResponseContent } = require('../../support/command/handle-response')
+const { isOnPrem } = require('../../support/isOnPrem')
 
 class ValidateCommand extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
-    const validationResult = await this.getValidationResult(validPath)
+    // eslint-disable-next-line immutable/no-let
+    let validationResult = await this.getValidationResult(validPath)
+    // Required to support On-Prem 2.4.1
+    if (validationResult.validation.length === 0 && isOnPrem()) {
+      validationResult = await this.getFallbackValidationResult(validPath)
+    }
     // eslint-disable-next-line immutable/no-let
     let hasCritical = false
     const validationResultsStr = validationResult.validation
@@ -32,7 +38,7 @@ class ValidateCommand extends BaseCommand {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'standardization']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
-      onReject: () => this.getFallbackValidationResult(apiPath),
+      onReject: () => ({ validation: [] }),
       options: {}
     })
   }
@@ -42,6 +48,7 @@ class ValidateCommand extends BaseCommand {
     return this.executeHttp({
       execute: () => getApi([apiPath, 'validation']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
+      onReject: () => ({ validation: [] }),
       options: {}
     })
   }
