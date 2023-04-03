@@ -15,10 +15,14 @@ on:
         - patch
         default: minor
 jobs:
-  release:
+  bump-version:
     runs-on: ubuntu-latest
+
+    outputs:
+      RELEASE_VERSION: ${{ steps.create_tags.outputs.RELEASE_VERSION }}
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v3
 
@@ -28,7 +32,7 @@ jobs:
 
       - run: npm ci
 
-      - name: npm version...
+      - name: Bump version and regenerate README
         run: |
           # https://github.com/orgs/community/discussions/26560
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -37,11 +41,22 @@ jobs:
           npx oclif readme && node src/format-readme.js
           git commit -am "Release for ${VERSION}"
           git tag $VERSION
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_OUTPUT
           echo "Released version ${VERSION}" >> $GITHUB_STEP_SUMMARY
+        id: create_tags
 
       - run: git push origin --follow-tags
-      
+  
+  publish-github:
+    runs-on: ubuntu-latest
+
+    needs: bump-version
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.bump-version.outputs.RELEASE_VERSION }}
+
+    steps:
       - name: Create GitHub Release
         uses: octokit/request-action@v2.x
         id: create_release
@@ -54,3 +69,25 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    needs: [bump-version, publish-github]
+    env:
+      VERSION: ${{ needs.bump-version.outputs.RELEASE_VERSION }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - run: npm ci
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
