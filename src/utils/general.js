@@ -1,6 +1,31 @@
 const deepExtend = require('deep-extend')
 const jsonTemplate = require('json-templates')
 
+const pick = (object, keys) => {
+  const newObject = {}
+  for (const key of keys) {
+    if (key in object) {
+      newObject[key] = object[key]
+    }
+  }
+
+  return newObject
+}
+
+const omit = (object, keys_) => {
+  const keys = new Set(keys_)
+  const newObject = {}
+  for (const [key, value] of Object.entries(object)) {
+    if (!keys.has(key)) {
+      newObject[key] = value
+    }
+  }
+
+  return newObject
+}
+
+const isEqual = (obj1, obj2) => JSON.stringify(obj1) === JSON.stringify(obj2)
+
 const pipe = (...fns) => val => (
   fns.reduce((acc, currentFn) => currentFn(acc), val)
 )
@@ -47,5 +72,8 @@ module.exports = {
   mergeDeep,
   wrapTemplates,
   pipe,
-  pipeAsync
+  pipeAsync,
+  pick,
+  omit,
+  isEqual
 }

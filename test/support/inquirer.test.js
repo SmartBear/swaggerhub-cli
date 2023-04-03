@@ -1,6 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const { wrapTemplates } = require('../../src/utils/general')
-const isEqual = require('lodash/isEqual')
+const { isEqual } = require('../../src/utils/general')
 const rewire = require('rewire')
 
 const inquirer = rewire('../../src/support/inquirer')

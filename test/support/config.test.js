@@ -2,7 +2,7 @@ const { expect, test } = require('@oclif/test')
 const { readJSONSync, removeSync, writeJSONSync } = require('fs-extra')
 const fse = require('fs-extra')
 const mock = require('../resources/config')
-const isEqual = require('lodash/isEqual')
+const { isEqual } = require('../../src/utils/general')
 const { setConfig, getConfig, isURLValid } = require('../../src/config')
 
 const envShubUrl = 'https://environmental.var'
