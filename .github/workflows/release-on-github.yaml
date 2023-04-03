@@ -78,23 +78,16 @@ jobs:
       VERSION: ${{ needs.bump-version.outputs.RELEASE_VERSION }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
+      - uses: actions/checkout@v3
+
+      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - run: npm ci
 
-      - name: set_npm_config
-        run: npm config set '//registry.npmjs.org/:_authToken' ${{ secrets.NPM_TOKEN }}
-        id: set_npm_config
-
-      - name: npm_ci
-        run: npm ci
-        id: npm_ci
-
-      - name: npm_publish
-        run: npm publish
-        id: npm_publish
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
