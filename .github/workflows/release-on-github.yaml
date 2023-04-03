@@ -34,7 +34,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           VERSION=$(npm version ${{inputs.type}} --no-git-tag-version)
-          npx oclif-dev readme && node src/format-readme.js
+          npx oclif readme && node src/format-readme.js
           git commit -am "Release for ${VERSION}"
           git tag $VERSION
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
