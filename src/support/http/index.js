@@ -3,9 +3,7 @@ const qs = require('querystring')
 const headerTemplates = require('./header-templates')
 const defaultHeaders = require('./default-headers')
 
-const { pipe } = require('../../utils/general')
-const pick = require('lodash/pick')
-const omit = require('lodash/omit')
+const { pipe, pick, omit } = require('../../utils/general')
 
 const buildHeaders = options => Object.keys(options)
   .reduce((obj, key) => ({

@@ -52,6 +52,22 @@ describe('invalid api:validate', () => {
   .command(['api:validate', apiPath.substring(0, apiPath.lastIndexOf('/'))])
   .exit(2)
   .it('not found returned when fetching default version of API')
+
+  test.env({ SWAGGERHUB_URL: 'https://example.com/v1' })
+  .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/standardization`)
+    .reply(404)
+  )
+  .nock('https://example.com/v1/apis', { reqheaders: { Accept: 'application/json' } }, api => api
+    .get(`/${apiPath}/validation`)
+    .reply(404)
+  )
+  .stdout()
+  .command(['api:validate', apiPath])
+  .exit(0)
+  .it('should not display output if fallback endpoint returns 404', ctx => {
+    expect(ctx.stdout).to.not.contains(`${heading}`)
+  })
 })
 
 describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {

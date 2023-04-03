@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { hasJsonStructure, pipe, prettyPrintJSON } = require('../../src/utils/general')
+const { hasJsonStructure, pipe, prettyPrintJSON, pick, omit, isEqual } = require('../../src/utils/general')
 
 describe('compositions ', () => {
   describe('pipe', () => {
@@ -32,5 +32,47 @@ describe('hasJsonStructure', () => {
     const output = hasJsonStructure(str)
     
     expect(output).to.equal(true)
+  })
+})
+
+describe('pick', () => {
+  test.it('should only pick existing keys from object', () => {
+    const obj = { 'hello': 'world', 'number': 1 }
+    const keys = ['hello', 'nonExistantKey']
+
+    const result = pick(obj, keys)
+
+    expect(Object.keys(result)).to.eql(['hello'])
+    expect(result.hello).to.equal('world')
+  })
+})
+
+describe('omit', () => {
+  test.it('should only remove specified keys from object', () => {
+    const obj = { 'hello': 'world', 'number': 1 }
+    const keys = ['hello', 'nonExistantKey']
+
+    const result = omit(obj, keys)
+
+    expect(Object.keys(result)).to.eql(['number'])
+    expect(result.number).to.equal(1)
+  })
+})
+
+describe('isEqual', () => {
+  test.it('should return true if 2 objects are equal', () => {
+    const world = 'world'
+    const obj1 = { hello: 'world' }
+    const obj2 = { 'hello': world }
+
+    expect(isEqual(obj1, obj2)).to.equal(true)
+  })
+
+  test.it('should return false if 2 objects are not equal', () => {
+    const mom = 'mom'
+    const obj1 = { hello: 'world' }
+    const obj2 = { 'hello': mom }
+
+    expect(isEqual(obj1, obj2)).to.equal(false)
   })
 })

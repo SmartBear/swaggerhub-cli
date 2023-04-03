@@ -16,7 +16,6 @@
     "inquirer": "^8.0.0",
     "js-yaml": "^4.1.0",
     "json-templates": "^4.2.0",
-    "lodash": "^4.17.21",
     "node-fetch": "^2.6.9",
     "semver": "^7.3.8"
   },
