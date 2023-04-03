@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getDomain, postDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -59,7 +59,7 @@ class CreateDomainCommand extends UpdateCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(CreateDomainCommand)
+    const { args, flags } = await this.parse(CreateDomainCommand)
     const definition = parseDefinition(flags.file)
     const domainVersion = getVersion(definition)
     const doaminPath = getDomainIdentifierArg(args)
@@ -101,31 +101,32 @@ CreateDomainCommand.examples = [
   'swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json'
 ]
 
-CreateDomainCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'Domain to create in SwaggerHub'
-}]
+CreateDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to create on SwaggerHub'
+  })
+}
 
 CreateDomainCommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f', 
     description: 'file location of domain to create',
     required: true
   }),
-  visibility: flags.string({
+  visibility: Flags.string({
     description: 'visibility of domain in SwaggerHub',
     options: ['public', 'private'],
     default: 'private'
   }),
-  published: flags.string({
+  published: Flags.string({
     description: 'sets the lifecycle setting of the domain version',
     options: ['publish', 'unpublish'],
     default: 'unpublish',
     required: false,
     dependsOn: ['file']
   }),
-  setdefault: flags.boolean({
+  setdefault: Flags.boolean({
     description: 'sets domain version to be the default',
     default: false,
     required: false,

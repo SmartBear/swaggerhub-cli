@@ -1,69 +1,56 @@
-name: Release - SwaggerHub CLI on GitHub
+name: Release
+
+run-name: 'Release from ${{ github.ref_name }}'
+
 on:
-  # Trigger pipeline/github-actions on new tags pushed from local repo.
-  #     e.g, git tag v1.2.3 ; git push --tags
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+    inputs:
+      type:
+        description: |
+          Select the branch to release from above, then select the version level to bump below.
+        type: choice
+        options:
+        - major
+        - minor
+        - patch
+        default: minor
 jobs:
-  build:
-    name: Create Release
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
+          node-version: '18.x'
 
-      # fetch all tags to the github ubuntu node
-      - name: fetch_tags
+      - run: npm ci
+
+      - name: npm version...
         run: |
-          git tag --list
-          git fetch --prune --tags
-          git tag --list
-        id: fetch_tags
+          # https://github.com/orgs/community/discussions/26560
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          VERSION=$(npm version ${{inputs.type}} --no-git-tag-version)
+          npx oclif-dev readme && node src/format-readme.js
+          git commit -am "Release for ${VERSION}"
+          git tag $VERSION
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "Released version ${VERSION}" >> $GITHUB_STEP_SUMMARY
 
-      # TODO: Move below personal repo under smartbear github org.
-      # npm install changelog
-      - name: run_npm_install_changelog
-        run: sudo npm i -g https://github.com/Rody-Kirwan/generate-changelog
-        id: run_npm_install_changelog
-
-      # Get current tag and release tag.
-      # Release tag comes from package.json.
-      # Current tag is the tag prior to release tag.
-      - name: generate_tag_vars
-        run: |
-          version_tag_release="v$(cat package.json | jq --raw-output .version)"
-          version_tag_current="$(git describe --abbrev=0 --tags ${version_tag_release}^)"
-          tagdiff="${version_tag_current}..${version_tag_release}"
-          echo "::set-output name=version_tag_release::$version_tag_release"
-          echo "::set-output name=version_tag_current::$version_tag_current"
-          echo "::set-output name=tagdiffoutput::${tagdiff}"
-          echo "Current:${version_tag_current} / Release:${version_tag_release}"
-        id: generate_tag_vars
-
-      # Generate a changelog from a tag range, parse and set as an output.
-      # Prior changelog method: changelog="$(generate-changelog --tag ${{ github.event.pull_request.body }} $* --file -)"
-      - name: generate_tag_range_changelog
-        run: |
-          changelog=$(generate-changelog --exclude other --tag ${{ steps.generate_tag_vars.outputs.tagdiffoutput }} $* --file -)
-          changelog="${changelog//'%'/'%25'}"
-          changelog="${changelog//$'\n'/'%0A'}"
-          changelog="${changelog//$'\r'/'%0D'}"
-          echo "::set-output name=changelog::$changelog"
-        id: generate_tag_range_changelog
-
-      # Create release in github
-      - name: Create Release
+      - run: git push origin --follow-tags
+      
+      - name: Create GitHub Release
+        uses: octokit/request-action@v2.x
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.generate_tag_vars.outputs.version_tag_release }}
-          release_name: SwaggerHub CLI Release ${{ steps.generate_tag_vars.outputs.version_tag_release }}
-          body: |
-            ${{ steps.generate_tag_range_changelog.outputs.changelog }}
-          draft: true # Allow swaggerhub-cli team approve the release notes before making public.
-          prerelease: false
+          route: POST /repos/{owner}/{repo}/releases
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          tag_name: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

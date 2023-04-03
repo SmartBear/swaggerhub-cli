@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
 const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getDomain } = require('../../requests/domain')
@@ -26,7 +26,7 @@ class GetDomainCommand extends BaseCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(GetDomainCommand)
+    const { args, flags } = await this.parse(GetDomainCommand)
     const requestedDomainPath = getDomainIdentifierArg(args)
     const requestedPathParams = splitPathParams(requestedDomainPath)
     const pathParams = await this.ensureVersion(requestedPathParams)
@@ -51,14 +51,15 @@ GetDomainCommand.examples = [
   'swaggerhub domain:get organization/domain/1.0.0 --json'
 ]
 
-GetDomainCommand.args = [{
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'SwaggerHub domain to fetch'
-}]
+GetDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to fetch from SwaggerHub'
+  })
+}
 
 GetDomainCommand.flags = {
-  json: flags.boolean({
+  json: Flags.boolean({
     char: 'j',
     description: 'returns the domain in JSON format.'
   }),

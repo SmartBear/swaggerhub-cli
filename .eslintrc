@@ -1,6 +1,5 @@
 {
   "plugins": ["node", "immutable", "chai-friendly", "mocha"],
-  "parser": "babel-eslint",
   "root": true,
   "env": {
     "node": true,
@@ -52,7 +51,6 @@
     "arrow-parens": ["error", "as-needed"],
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "max-len": ["error", { "code": 120 , "ignoreTemplateLiterals": true}],
-    "immutable/no-let": 2,
     "mocha/no-mocha-arrows": 0,
     "mocha/no-setup-in-describe": 0
   },

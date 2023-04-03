@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { deleteDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -7,7 +7,7 @@ const inquirer = require('inquirer')
 class DeleteDomainCommand extends BaseCommand {
 
   async run() {
-    const { args, flags } = this.parse(DeleteDomainCommand)
+    const { args, flags } = await this.parse(DeleteDomainCommand)
     const domainPath = getDomainIdentifierArg(args)
     const [owner, name, version] = splitPathParams(domainPath)
 
@@ -46,14 +46,15 @@ DeleteDomainCommand.examples = [
   'swaggerhub domain:delete organization/domain --force'
 ]
 
-DeleteDomainCommand.args = [{ 
-  name: 'OWNER/DOMAIN_NAME/[VERSION]',
-  required: true,
-  description: 'Domain to delete in SwaggerHub'
-}]
+DeleteDomainCommand.args = {
+  'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'Domain to delete on SwaggerHub'
+  })
+}
 
 DeleteDomainCommand.flags = {
-  force: flags.boolean({
+  force: Flags.boolean({
     char: 'f', 
     description: 'delete domain without prompting for confirmation'
   }),

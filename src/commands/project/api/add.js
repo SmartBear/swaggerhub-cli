@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { putProject } = require('../../../requests/project')
 const {
     getProjectIdentifierArg
@@ -7,7 +8,7 @@ const BaseCommand = require('../../../support/command/base-command')
 class ProjectApiAddCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectApiAddCommand)
+        const { args } = await this.parse(ProjectApiAddCommand)
         const projectPath = getProjectIdentifierArg(args)
         const apiName = args['API']
 
@@ -31,18 +32,15 @@ ProjectApiAddCommand.examples = [
     'swaggerhub project:api:add organization/project_name my_api'
 ]
 
-ProjectApiAddCommand.args = [
-    {
-        name: 'OWNER/PROJECT_NAME',
+ProjectApiAddCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to add the API to'
-    },
-
-    {
-        name: 'API',
+        description: 'The project to add the API to on Swaggerhub'
+    }),
+    'API': Args.string({
         required: true,
-        description: 'The name of the API to add'
-    }
-]
+        description: 'The name of the API on Swaggerhub to add'
+    })
+}
 
 module.exports = ProjectApiAddCommand

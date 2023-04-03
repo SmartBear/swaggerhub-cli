@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
 const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
 const { getApi } = require('../../requests/api')
@@ -21,7 +21,7 @@ class GetAPICommand extends BaseCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(GetAPICommand)
+    const { args, flags } = await this.parse(GetAPICommand)
     const requestedApiPath = getApiIdentifierArg(args)
     const apiPath = await this.ensureVersion(requestedApiPath)
     const queryParams = resolvedParam(flags)
@@ -45,18 +45,19 @@ GetAPICommand.examples = [
   'swaggerhub api:get organization/api/1.0.0 --json'
 ]
 
-GetAPICommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'SwaggerHub API to fetch'
-}]
+GetAPICommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to fetch from Swaggerhub'
+  })
+}
 
 GetAPICommand.flags = {
-  json: flags.boolean({
+  json: Flags.boolean({
     char: 'j',
     description: 'returns the API in JSON format.'
   }),
-  resolved: flags.boolean({
+  resolved: Flags.boolean({
     char: 'r',
     description: 'gets the resolved API definition (supported in v1.25+). '
   }),

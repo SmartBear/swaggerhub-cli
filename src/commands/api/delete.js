@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { deleteApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -7,7 +7,7 @@ const inquirer = require('inquirer')
 class DeleteAPICommand extends BaseCommand {
 
   async run() {
-    const { args, flags } = this.parse(DeleteAPICommand)
+    const { args, flags } = await this.parse(DeleteAPICommand)
     const apiPath = getApiIdentifierArg(args)
     const [owner, name, version] = splitPathParams(apiPath)
 
@@ -46,14 +46,15 @@ DeleteAPICommand.examples = [
   'swaggerhub api:delete organization/api --force'
 ]
 
-DeleteAPICommand.args = [{ 
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API to delete in SwaggerHub'
-}]
+DeleteAPICommand.args = { 
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to delete on SwaggerHub'
+  })
+}
 
 DeleteAPICommand.flags = {
-  force: flags.boolean({
+  force: Flags.boolean({
     char: 'f', 
     description: 'delete API without prompting for confirmation'
   }),

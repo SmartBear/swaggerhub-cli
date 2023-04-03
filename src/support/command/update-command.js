@@ -15,7 +15,7 @@ class UpdateCommand extends BaseCommand {
         type: type === 'apis' ? 'API' : 'domain',
         path: `${owner}/${name}/${version}`
       }),
-      onReject: async (err) => {
+      onReject: async err => {
         if (err.status === 424 && type === 'apis') {
           if (await this.confirmPublish() === true) {
             this.executeHttp({

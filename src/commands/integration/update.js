@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { putApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, readConfigFile, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -6,7 +6,7 @@ const BaseCommand = require('../../support/command/base-command')
 class UpdateIntegrationCommand extends BaseCommand {
 
   async run() {
-      const { args, flags } = this.parse(UpdateIntegrationCommand)
+      const { args, flags } = await this.parse(UpdateIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       const config = readConfigFile(flags.file)
       await this.updateIntegration(integrationPath, config)
@@ -33,14 +33,15 @@ UpdateIntegrationCommand.examples = [
   'swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json'
 ]
 
-UpdateIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
-  required: true,
-  description: 'Integration to update on the given API'
-}]
+UpdateIntegrationCommand.args = { 
+  'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
+    required: true,
+    description: 'Integration to update for given API on Swaggerhub'
+  })
+}
 
 UpdateIntegrationCommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f', 
     description: 'location of integration configuration file',
     required: true

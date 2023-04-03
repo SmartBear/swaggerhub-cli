@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Args, Flags } = require('@oclif/core')
 const BaseCommand = require('../../support/command/base-command')
 const { getApiIdentifierArg } = require('../../support/command/parse-input')
 const { getApi } = require('../../requests/api')
@@ -8,7 +8,7 @@ const { isOnPrem } = require('../../support/isOnPrem')
 
 class ValidateCommand extends BaseCommand {
   async run() {
-    const { args, flags } = this.parse(ValidateCommand)
+    const { args, flags } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
     // eslint-disable-next-line immutable/no-let
@@ -68,14 +68,15 @@ ValidateCommand.examples = [
   'swaggerhub api:validate --fail-on-critical organization/api'
 ]
 
-ValidateCommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API Identifier'
-}]
+ValidateCommand.args = {
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to fetch validation errors for from Swaggerhub'
+  })
+}
 
 ValidateCommand.flags = {
-  'fail-on-critical': flags.boolean({
+  'fail-on-critical': Flags.boolean({
     char: 'c', 
     description: 'Exit with error code 1 if there are critical standardization errors present',
     default: false

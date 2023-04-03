@@ -1,4 +1,4 @@
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const { readFileSync } = require('fs-extra')
 const { getApi, postApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
@@ -30,7 +30,7 @@ class UpdateAPICommand extends UpdateCommand {
   }
 
   async run() {
-    const { args, flags } = this.parse(UpdateAPICommand)
+    const { args, flags } = await this.parse(UpdateAPICommand)
 
     if (!Object.keys(flags).length) {
       return this.error('No updates specified', { exit: 1 })
@@ -77,29 +77,30 @@ UpdateAPICommand.examples = [
   'swaggerhub api:update organization/api/1.0.0 --visibility=private',
 ]
 
-UpdateAPICommand.args = [{
-  name: 'OWNER/API_NAME/[VERSION]',
-  required: true,
-  description: 'API to update in SwaggerHub'
-}]
+UpdateAPICommand.args = { 
+  'OWNER/API_NAME/[VERSION]': Args.string({
+    required: true,
+    description: 'API to update on SwaggerHub'
+  })
+}
 
 UpdateAPICommand.flags = {
-  file: flags.string({
+  file: Flags.string({
     char: 'f',
     description: 'file location of API to update',
     required: false,
     multiple: false
   }),
-  visibility: flags.string({
+  visibility: Flags.string({
     description: 'visibility of API in SwaggerHub',
     options: ['public', 'private']
   }),
-  published: flags.string({
+  published: Flags.string({
     description: 'sets the lifecycle setting of the API version',
     options: ['publish', 'unpublish'],
     required: false,
   }),
-  setdefault: flags.boolean({
+  setdefault: Flags.boolean({
     description: 'sets API version to be the default',
     required: false
   }),

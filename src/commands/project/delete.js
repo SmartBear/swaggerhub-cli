@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { deleteProject } = require('../../requests/project')
 const { getProjectIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
@@ -9,7 +10,7 @@ class DeleteProjectCommand extends BaseCommand {
     }
 
     async run() {
-        const { args } = this.parse(DeleteProjectCommand)
+        const { args } = await this.parse(DeleteProjectCommand)
         const projectPath = getProjectIdentifierArg(args)
         await this.deleteProject(projectPath)
     }
@@ -31,11 +32,12 @@ DeleteProjectCommand.examples = [
     'swaggerhub project:delete organization/project_name'
 ]
 
-DeleteProjectCommand.args = [{
-    name: 'OWNER/PROJECT_NAME',
-    required: true,
-    description: 'Project to delete'
-}]
+DeleteProjectCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
+        required: true,
+        description: 'The project to delete on Swaggerhub'
+    })
+}
 
 DeleteProjectCommand.flags = {
     ...BaseCommand.flags

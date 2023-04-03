@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { getApi } = require('../../requests/api')
 const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { getResponseContent } = require('../../support/command/handle-response')
@@ -11,7 +12,7 @@ class GetIntegrationCommand extends BaseCommand {
   }
 
   async run() {
-      const { args } = this.parse(GetIntegrationCommand)
+      const { args } = await this.parse(GetIntegrationCommand)
       const integrationPath = getIntegrationIdentifierArg(args)
       await this.getIntegration(integrationPath)
   }
@@ -38,11 +39,12 @@ GetIntegrationCommand.examples = [
   'swaggerhub integration:get organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
 ]
 
-GetIntegrationCommand.args = [{ 
-  name: 'OWNER/API_NAME/VERSION/INTEGRATION_ID',
-  required: true,
-  description: 'Integration to fetch for given API'
-}]
+GetIntegrationCommand.args = { 
+  'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
+    required: true,
+    description: 'Integration to fetch for given API on Swaggerhub'
+  })
+}
 
 GetIntegrationCommand.flags = {
   ...BaseCommand.flags

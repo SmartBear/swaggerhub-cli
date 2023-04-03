@@ -1,4 +1,4 @@
-const { exit } = require('@oclif/errors')
+const { exit } = require('@oclif/core')
 const { expect, test } = require('@oclif/test')
 const inquirer = require('inquirer')
 const config = require('../../../src/config')

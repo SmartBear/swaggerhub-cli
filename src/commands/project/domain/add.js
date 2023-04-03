@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { putProject } = require('../../../requests/project')
 const {
     getProjectIdentifierArg
@@ -7,7 +8,7 @@ const BaseCommand = require('../../../support/command/base-command')
 class ProjectDomainAddCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectDomainAddCommand)
+        const { args } = await this.parse(ProjectDomainAddCommand)
         const projectPath = getProjectIdentifierArg(args)
         const domainName = args['DOMAIN']
 
@@ -31,18 +32,15 @@ ProjectDomainAddCommand.examples = [
     'swaggerhub project:domain:add organization/project_name my_domain'
 ]
 
-ProjectDomainAddCommand.args = [
-    {
-        name: 'OWNER/PROJECT_NAME',
+ProjectDomainAddCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to add the domain to'
-    },
-
-    {
-        name: 'DOMAIN',
+        description: 'The project to add the domain to on Swaggerhub'
+    }),
+    'DOMAIN': Args.string({
         required: true,
-        description: 'The name of the domain to add'
-    }
-]
+        description: 'The name of the domain on Swaggerhub to add'
+    })
+}
 
 module.exports = ProjectDomainAddCommand

@@ -1,3 +1,4 @@
+const { Args } = require('@oclif/core')
 const { putProject, getProject } = require('../../../requests/project')
 const {
     getProjectIdentifierArg,
@@ -10,7 +11,7 @@ const { pipeAsync } = require('../../../utils/general')
 class ProjectApiRemoveCommand extends BaseCommand {
 
     async run() {
-        const { args } = this.parse(ProjectApiRemoveCommand)
+        const { args } = await this.parse(ProjectApiRemoveCommand)
         const projectPath = getProjectIdentifierArg(args)
         const apiToRemove = args['API']
 
@@ -53,17 +54,15 @@ ProjectApiRemoveCommand.examples = [
     'swaggerhub project:api:remove organization/project_name my_api',
 ]
 
-ProjectApiRemoveCommand.args = [
-    {
-        name: 'OWNER/PROJECT_NAME',
+ProjectApiRemoveCommand.args = {
+    'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project remove the API from'
-    },
-    {
-        name: 'API',
+        description: 'The project to remove the API from on Swaggerhub'
+    }),
+    'API': Args.string({
         required: true,
-        description: 'The API to remove'
-    }
-]
+        description: 'The name of the API on Swaggerhub to remove'
+    })
+}
 
 module.exports = ProjectApiRemoveCommand
