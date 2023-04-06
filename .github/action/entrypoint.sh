@@ -1,5 +1,4 @@
 #!/bin/sh
 output=$(/cli/bin/run $*); status=$?;
-echo "::set-output name=response::
-$output"
+echo "response=$output" >> $GITHUB_OUTPUT
 exit $status
