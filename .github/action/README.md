@@ -50,6 +50,7 @@ name: Push API
 on: [release]  
 env:
   SWAGGERHUB_API_KEY: ${{ secrets.SWAGGERHUB_API_KEY }}
+  SWAGGERHUB_URL: ${{ secrets.SWAGGERHUB_URL }}
 jobs:
   build:
     runs-on: ubuntu-latest
