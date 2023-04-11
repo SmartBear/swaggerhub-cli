@@ -29,14 +29,13 @@ on:
       
 env:
   SWAGGERHUB_API_KEY: ${{ secrets.SWAGGERHUB_API_KEY }}
-  SWAGGERHUB_URL: ${{ secrets.SWAGGERHUB_URL }}
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Update SwaggerHub
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Call CLI
       uses: smartbear/swaggerhub-cli@pr_demo
       with:
@@ -51,13 +50,14 @@ name: Push API
 on: [release]  
 env:
   SWAGGERHUB_API_KEY: ${{ secrets.SWAGGERHUB_API_KEY }}
+  SWAGGERHUB_URL: ${{ secrets.SWAGGERHUB_URL }}
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Update SwaggerHub
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Call CLI
       uses: smartbear/swaggerhub-cli@pr_demo
       with:
