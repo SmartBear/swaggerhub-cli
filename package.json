@@ -27,7 +27,7 @@
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
-    "globby": "^11.1.0",
+    "globby": "^13.2.0",
     "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "nock": "^13.3.1",
