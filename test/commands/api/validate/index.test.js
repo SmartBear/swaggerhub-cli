@@ -2,8 +2,7 @@ const config = require('../../../../src/config')
 const { expect, test } = require('@oclif/test')
 
 const apiPath = 'example-org/example-api/example-ver'
-const heading = ' Line Severity Description        \n' +
-    ' ──── ──────── ────────────────── \n'
+const heading = ' Line Severity Description        \n ──── ──────── ────────────────── \n'
 
 describe('invalid api:validate', () => {
 

@@ -4,8 +4,7 @@ const config = require('../../../../src/config')
 const orgName = 'example-org'
 const apiPath = './test/resources/valid_api.yaml'
 const jsonApiPath = './test/resources/valid_api.json'
-const heading = ' Line Severity Description        \n' +
-  ' ──── ──────── ────────────────── \n'
+const heading = ' Line Severity Description        \n ──── ──────── ────────────────── \n'
 
 describe('invalid api:validate:local command issues', () => {
   test
