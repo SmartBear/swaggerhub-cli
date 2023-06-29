@@ -1,8 +1,9 @@
-const config = require('../../../src/config')
+const config = require('../../../../src/config')
 const { expect, test } = require('@oclif/test')
 
 const apiPath = 'example-org/example-api/example-ver'
-const heading = 'line \tseverity \tdescription\n\n'
+const heading = ' Line Severity Description        \n' +
+    ' ──── ──────── ────────────────── \n'
 
 describe('invalid api:validate', () => {
 
@@ -94,7 +95,7 @@ describe('valid api:validate for swaggerhub on-premise <= 2.4.1', () => {
   .command(['api:validate', apiPath])
   .exit(0)
   .it('should fall back to legacy /validation endpoint and return errors', ctx => {
-    expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+    expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
   })
 })
 
@@ -119,7 +120,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
       })
     })
 
@@ -137,7 +138,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', '-c', apiPath]) // swaggerhub api:validate o/a/v
       .exit(1)
       .it('should return validation errors, one per line, with exit code 1', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
       })
     })
     
@@ -155,7 +156,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
       .exit(1)
       .it('should return validation errors, one per line, with exit code 1', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
       })
     })
   })
@@ -177,7 +178,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
 
@@ -195,7 +196,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', '-c', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
 
@@ -213,7 +214,7 @@ describe('valid api:validate', () => {
       .command(['api:validate', '--fail-on-critical', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading}${line}: \t${severity} \t${description}`)
+        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
   })
