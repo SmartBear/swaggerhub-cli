@@ -10,7 +10,7 @@ class BaseValidateCommand extends BaseCommand {
     }
 
     printValidationOutput(flags, validationResult) {
-        if (validationResult.validation.length && !flags['to-json']) {
+        if (validationResult.validation.length && !flags['json']) {
             ux.table(validationResult.validation, {
                 line: {},
                 severity: {},
@@ -30,7 +30,7 @@ BaseValidateCommand.flags = {
         description: 'Exit with error code 1 if there are critical standardization errors present',
         default: false
     }),
-    'to-json': Flags.boolean({
+    'json': Flags.boolean({
         char: 'j',
         description: 'Print output in JSON instead of table format',
         default: false

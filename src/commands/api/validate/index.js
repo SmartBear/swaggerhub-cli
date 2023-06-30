@@ -50,8 +50,8 @@ errors with \`Critical\` severity present, the command will exit with error code
 
 ValidateCommand.examples = [
   'swaggerhub api:validate organization/api/1.0.0',
-  'swaggerhub api:validate -c organization/api/1.0.0',
-  'swaggerhub api:validate --fail-on-critical organization/api'
+  'swaggerhub api:validate -c -j organization/api/1.0.0',
+  'swaggerhub api:validate --fail-on-critical --json organization/api'
 ]
 
 ValidateCommand.args = {
