@@ -110,6 +110,7 @@ USAGE
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate)
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
+* [`swaggerhub api:validate:local`](#swaggerhub-apivalidatelocal)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
 * [`swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaindelete)
@@ -362,11 +363,11 @@ _See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-
 
 ## `swaggerhub api:validate`
 
-get validation result for an API version
+Get validation result for an API version
 
 ```
 USAGE
-  $ swaggerhub api:validate OWNER/API_NAME/[VERSION] [-h] [-c]
+  $ swaggerhub api:validate OWNER/API_NAME/[VERSION] [-h] [-c] [-j]
 
 ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to fetch validation errors for from Swaggerhub
@@ -374,9 +375,10 @@ ARGUMENTS
 FLAGS
   -c, --fail-on-critical  Exit with error code 1 if there are critical standardization errors present
   -h, --help              Show CLI help.
+  -j, --json              Print output in JSON instead of table format
 
 DESCRIPTION
-  get validation result for an API version
+  Get validation result for an API version
   When VERSION is not included in the argument, the default version will be validated.
   An error will occur if the API version does not exist.
   If the flag `-c` or `--failOnCritical` is used and there are standardization
@@ -386,12 +388,42 @@ DESCRIPTION
 EXAMPLES
   $ swaggerhub api:validate organization/api/1.0.0
 
-  $ swaggerhub api:validate -c organization/api/1.0.0
+  $ swaggerhub api:validate -c -j organization/api/1.0.0
 
-  $ swaggerhub api:validate --fail-on-critical organization/api
+  $ swaggerhub api:validate --fail-on-critical --json organization/api
 ```
 
-_See code: [src/commands/api/validate.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.7.2/src/commands/api/validate.js)_
+_See code: [src/commands/api/validate/index.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.7.2/src/commands/api/validate/index.js)_
+
+## `swaggerhub api:validate:local`
+
+Runs a scan against a local API definition using the organization's standardization configuration on SwaggerHub.
+
+```
+USAGE
+  $ swaggerhub api:validate:local -f <value> -o <value> [-h] [-c] [-j]
+
+FLAGS
+  -c, --fail-on-critical      Exit with error code 1 if there are critical standardization errors present
+  -f, --file=<value>          (required) Path of API definition file to run scan against
+  -h, --help                  Show CLI help.
+  -j, --json                  Print output in JSON instead of table format
+  -o, --organization=<value>  (required) Which organization's standardization settings to use for linting the target
+                              definition
+
+DESCRIPTION
+  Runs a scan against a local API definition using the organization's standardization configuration on SwaggerHub.
+  If the flag `-c` or `--failOnCritical` is used and there are standardization
+  errors with `Critical` severity present, the command will exit with error code `1`.
+
+
+EXAMPLES
+  $ swaggerhub api:validate:local -o myOrg -f ./my-api.yaml -c -j 
+
+  $ swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json
+```
+
+_See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.7.2/src/commands/api/validate/local.js)_
 
 ## `swaggerhub configure`
 
@@ -646,7 +678,7 @@ DESCRIPTION
   Display help for swaggerhub.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.10/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
@@ -798,10 +830,13 @@ List installed plugins.
 
 ```
 USAGE
-  $ swaggerhub plugins [--core]
+  $ swaggerhub plugins [--json] [--core]
 
 FLAGS
   --core  Show core plugins.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   List installed plugins.
@@ -810,7 +845,7 @@ EXAMPLES
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/index.ts)_
 
 ## `swaggerhub plugins:install`
 
@@ -875,7 +910,7 @@ EXAMPLES
   $ swaggerhub plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/inspect.ts)_
 
 ## `swaggerhub plugins:install`
 
@@ -915,7 +950,7 @@ EXAMPLES
   $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/install.ts)_
 
 ## `swaggerhub plugins:link`
 
@@ -944,7 +979,7 @@ EXAMPLES
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/link.ts)_
 
 ## `swaggerhub plugins:uninstall`
 
@@ -992,7 +1027,7 @@ ALIASES
   $ swaggerhub plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/uninstall.ts)_
 
 ## `swaggerhub plugins:uninstall`
 
@@ -1033,7 +1068,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.1.5/src/commands/plugins/update.ts)_
 
 ## `swaggerhub project:api:add`
 

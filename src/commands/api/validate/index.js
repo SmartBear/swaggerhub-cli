@@ -1,12 +1,12 @@
-const { Args, Flags } = require('@oclif/core')
-const BaseCommand = require('../../support/command/base-command')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
-const { getApi } = require('../../requests/api')
-const { pipeAsync } = require('../../utils/general')
-const { getResponseContent } = require('../../support/command/handle-response')
-const { isOnPrem } = require('../../support/isOnPrem')
+const { Args } = require('@oclif/core')
+const BaseValidateCommand = require('../../../support/command/base-validate-command')
+const { getApiIdentifierArg } = require('../../../support/command/parse-input')
+const { getApi } = require('../../../requests/api')
+const { pipeAsync } = require('../../../utils/general')
+const { getResponseContent } = require('../../../support/command/handle-response')
+const { isOnPrem } = require('../../../support/isOnPrem')
 
-class ValidateCommand extends BaseCommand {
+class ValidateCommand extends BaseValidateCommand {
   async run() {
     const { args, flags } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
@@ -17,21 +17,8 @@ class ValidateCommand extends BaseCommand {
     if (validationResult.validation.length === 0 && isOnPrem()) {
       validationResult = await this.getFallbackValidationResult(validPath)
     }
-    // eslint-disable-next-line immutable/no-let
-    let hasCritical = false
-    const validationResultsStr = validationResult.validation
-          .map(err => {
-            if (err.severity.toUpperCase() === 'CRITICAL') hasCritical = true
-            return `${err.line}: \t${err.severity} \t${err.description}`
-          })
-          .join('\n')
-    if (validationResult.validation.length) {
-      this.log('line \tseverity \tdescription\n')
-    }
-    this.log(validationResultsStr)
-    
-    if (hasCritical && flags['fail-on-critical']) this.exit(1)
-    this.exit(0)
+    this.printValidationOutput(flags, validationResult)
+    this.exitWithCode(flags, validationResult)
   }
 
   getValidationResult(apiPath) {
@@ -52,10 +39,9 @@ class ValidateCommand extends BaseCommand {
       options: {}
     })
   }
-
 }
 
-ValidateCommand.description = `get validation result for an API version
+ValidateCommand.description = `Get validation result for an API version
 When VERSION is not included in the argument, the default version will be validated.
 An error will occur if the API version does not exist.
 If the flag \`-c\` or \`--failOnCritical\` is used and there are standardization
@@ -64,8 +50,8 @@ errors with \`Critical\` severity present, the command will exit with error code
 
 ValidateCommand.examples = [
   'swaggerhub api:validate organization/api/1.0.0',
-  'swaggerhub api:validate -c organization/api/1.0.0',
-  'swaggerhub api:validate --fail-on-critical organization/api'
+  'swaggerhub api:validate -c -j organization/api/1.0.0',
+  'swaggerhub api:validate --fail-on-critical --json organization/api'
 ]
 
 ValidateCommand.args = {
@@ -76,11 +62,6 @@ ValidateCommand.args = {
 }
 
 ValidateCommand.flags = {
-  'fail-on-critical': Flags.boolean({
-    char: 'c', 
-    description: 'Exit with error code 1 if there are critical standardization errors present',
-    default: false
-  }),
-  ...BaseCommand.flags
+  ...BaseValidateCommand.flags
 }
 module.exports = ValidateCommand
