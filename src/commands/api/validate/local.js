@@ -40,8 +40,8 @@ errors with \`Critical\` severity present, the command will exit with error code
 `
 
 ValidateLocalCommand.examples = [
-  'swaggerhub api:validate-local -c -j -o myOrg -f ./my-api.yaml',
-  'swaggerhub api:validate-local --fail-on-critical --json --organization myOrg --file ./my-api/json',
+  'swaggerhub api:validate:local -o myOrg -f ./my-api.yaml -c -j ',
+  'swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json',
 ]
 
 ValidateLocalCommand.flags = {

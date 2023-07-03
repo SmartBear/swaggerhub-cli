@@ -375,7 +375,7 @@ ARGUMENTS
 FLAGS
   -c, --fail-on-critical  Exit with error code 1 if there are critical standardization errors present
   -h, --help              Show CLI help.
-  -j, --json           Print output in JSON instead of table format
+  -j, --json              Print output in JSON instead of table format
 
 DESCRIPTION
   Get validation result for an API version
@@ -388,9 +388,9 @@ DESCRIPTION
 EXAMPLES
   $ swaggerhub api:validate organization/api/1.0.0
 
-  $ swaggerhub api:validate -c organization/api/1.0.0
+  $ swaggerhub api:validate -c -j organization/api/1.0.0
 
-  $ swaggerhub api:validate --fail-on-critical organization/api
+  $ swaggerhub api:validate --fail-on-critical --json organization/api
 ```
 
 _See code: [src/commands/api/validate/index.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.7.2/src/commands/api/validate/index.js)_
@@ -407,7 +407,7 @@ FLAGS
   -c, --fail-on-critical      Exit with error code 1 if there are critical standardization errors present
   -f, --file=<value>          (required) Path of API definition file to run scan against
   -h, --help                  Show CLI help.
-  -j, --json               Print output in JSON instead of table format
+  -j, --json                  Print output in JSON instead of table format
   -o, --organization=<value>  (required) Which organization's standardization settings to use for linting the target
                               definition
 
@@ -418,9 +418,9 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ swaggerhub api:validate-local -c -j -o myOrg -f ./my-api.yaml
+  $ swaggerhub api:validate:local -o myOrg -f ./my-api.yaml -c -j 
 
-  $ swaggerhub api:validate-local --fail-on-critical --json --organization myOrg --file ./my-api/json
+  $ swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json
 ```
 
 _See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.7.2/src/commands/api/validate/local.js)_
