@@ -16,7 +16,7 @@
     "inquirer": "^8.2.5",
     "js-yaml": "^4.1.0",
     "json-templates": "^5.0.0",
-    "node-fetch": "^2.6.12",
+    "node-fetch": "^3.3.1",
     "semver": "^7.5.3"
   },
   "devDependencies": {
