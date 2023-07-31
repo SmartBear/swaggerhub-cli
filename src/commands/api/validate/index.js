@@ -24,14 +24,14 @@ class ValidateCommand extends BaseValidateCommand {
 
   checkApiExists(apiPath) {
     return this.executeHttp({
-      execute: () => getApi([apiPath], {}),
+      execute: () => getApi([apiPath]),
       options: { resolveStatus: [200] }
     })
   }
 
   getValidationResult(apiPath) {
     return this.executeHttp({
-      execute: () => getApi([apiPath, 'standardization'], {}),
+      execute: () => getApi([apiPath, 'standardization']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
       onReject: () => ({ validation: [] }),
       options: {}
@@ -41,7 +41,7 @@ class ValidateCommand extends BaseValidateCommand {
   /* Required to support older on-prem installations */
   getFallbackValidationResult(apiPath) {
     return this.executeHttp({
-      execute: () => getApi([apiPath, 'validation'], {}),
+      execute: () => getApi([apiPath, 'validation']),
       onResolve: pipeAsync(getResponseContent, JSON.parse),
       onReject: () => ({ validation: [] }),
       options: {}
