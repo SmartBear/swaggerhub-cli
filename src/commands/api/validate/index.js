@@ -11,6 +11,7 @@ class ValidateCommand extends BaseValidateCommand {
     const { args, flags } = await this.parse(ValidateCommand)
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
+    await this.checkApiExists(validPath)
     // eslint-disable-next-line immutable/no-let
     let validationResult = await this.getValidationResult(validPath)
     // Required to support On-Prem 2.4.1
@@ -19,6 +20,13 @@ class ValidateCommand extends BaseValidateCommand {
     }
     this.printValidationOutput(flags, validationResult)
     this.exitWithCode(flags, validationResult)
+  }
+
+  checkApiExists(apiPath) {
+    return this.executeHttp({
+      execute: () => getApi([apiPath]),
+      options: { resolveStatus: [200] }
+    })
   }
 
   getValidationResult(apiPath) {
