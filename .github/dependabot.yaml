@@ -4,3 +4,10 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      oclif:
+        patterns:
+        - '@oclif*'
+      dev-dependencies:
+        dependency-type: 'development'
+      
