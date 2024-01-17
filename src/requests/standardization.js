@@ -15,6 +15,18 @@ const postStandardization = (pathParams, body) => {
     })
 }
 
+const getStandardization = (pathParams, queryParams) => {
+    const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
+
+    return http({
+        url: [SWAGGERHUB_URL, 'standardization', ...pathParams],
+        query: queryParams,
+        auth: SWAGGERHUB_API_KEY,
+        method: 'GET',
+    })
+}
+
 module.exports = {
-    postStandardization
+    postStandardization,
+    getStandardization
 }
