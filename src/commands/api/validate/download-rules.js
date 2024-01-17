@@ -8,8 +8,8 @@ class ValidateDownloadRulesCommand extends BaseValidateCommand {
     async run() {
         const { args, flags } = await this.parse(ValidateDownloadRulesCommand)
 
-        const includeSystemRules = flags['include-system-rules']
-        const includeDisabledRules = flags['include-disabled-rules']
+        const includeSystemRules = flags['include-system-rules'] ?? false
+        const includeDisabledRules = flags['include-disabled-rules'] ?? false
         const organization = args['OWNER']
 
         const organizationRuleset = await this.getExportedOrganizationRuleset(organization, {includeSystemRules, includeDisabledRules})

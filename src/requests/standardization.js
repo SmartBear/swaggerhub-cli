@@ -21,6 +21,7 @@ const getStandardization = (pathParams, queryParams) => {
     return http({
         url: [SWAGGERHUB_URL, 'standardization', ...pathParams],
         query: queryParams,
+        accept: 'json',
         auth: SWAGGERHUB_API_KEY,
         method: 'GET',
     })
