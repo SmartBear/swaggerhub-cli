@@ -6,13 +6,17 @@ const { getStandardization } = require('../../../requests/standardization')
 
 class ValidateDownloadRulesCommand extends BaseValidateCommand {
     async run() {
-        const { flags, args } = await this.parse(ValidateDownloadRulesCommand)
+        const { args, flags } = await this.parse(ValidateDownloadRulesCommand)
+
+        const includeSystemRules = flags['include-system-rules']
+        const includeDisabledRules = flags['include-disabled-rules']
         const organization = args['OWNER']
-        const standardizationConfig = await this.getOrganizationStandardizationConfig(organization, flags)
-        this.log(JSON.stringify(standardizationConfig, null, 2))
+
+        const organizationRuleset = await this.getExportedOrganizationRuleset(organization, {includeSystemRules, includeDisabledRules})
+        this.log(JSON.stringify(organizationRuleset, null, 2))
     }
 
-    getOrganizationStandardizationConfig(orgName, queryParams) {
+    getExportedOrganizationRuleset(orgName, queryParams) {
         return this.executeHttp({
             execute: () => getStandardization([orgName, 'spectral'], queryParams),
             onResolve: pipeAsync(getResponseContent, JSON.parse),
@@ -24,8 +28,8 @@ class ValidateDownloadRulesCommand extends BaseValidateCommand {
 ValidateDownloadRulesCommand.description = `TODO`
 
 ValidateDownloadRulesCommand.examples = [
-    'swaggerhub api:validate:download-rules myOrg -s=true',
-    'swaggerhub api:validate:download-rules myOrg --include-disabled-rules=true -s',
+    'swaggerhub api:validate:download-rules myOrg -s',
+    'swaggerhub api:validate:download-rules myOrg --include-disabled-rules -s',
 ]
 
 ValidateDownloadRulesCommand.args = {
@@ -35,12 +39,12 @@ ValidateDownloadRulesCommand.args = {
     })
 }
 ValidateDownloadRulesCommand.flags = {
-    includeSystemRules: Flags.boolean({
+    'include-system-rules': Flags.boolean({
         char: 's',
         description: 'Includes system rules in fetched organization\'s ruleset',
         required: false
     }),
-    includeDisabledRules: Flags.boolean({
+    'include-disabled-rules': Flags.boolean({
         char: 'd',
         description: 'Includes disabled rules in fetched organization\'s ruleset',
         required: false
