@@ -444,8 +444,8 @@ FLAGS
 
 DESCRIPTION
   Get existing SwaggerHub's organization standardization ruleset.
-  Requires organization name argument. An error will occur if provided organization is non existing
-  or your account is not permitted to access that organization settings.
+  Requires organization name argument. An error will occur if provided organization doesn't exist
+  or your account is not permitted to access that organization's settings.
   If the flag `-s` or `--include-system-rules` is used, the returned ruleset will also include SwaggerHub system rules.
   If the flag `-d` or `--include-disabled-rules` is used, the returned ruleset will also include disabled custom rules
 
