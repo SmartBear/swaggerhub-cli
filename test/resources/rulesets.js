@@ -62,7 +62,3 @@ module.exports = {
     rulesetWithDisabledRule,
     rulesetWithDisabledAndSystemRule
 }
-
-
-
-
