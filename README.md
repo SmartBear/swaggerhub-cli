@@ -110,6 +110,7 @@ USAGE
 * [`swaggerhub api:unpublish OWNER/API_NAME/VERSION`](#swaggerhub-apiunpublish)
 * [`swaggerhub api:update OWNER/API_NAME/[VERSION]`](#swaggerhub-apiupdate)
 * [`swaggerhub api:validate OWNER/API_NAME/[VERSION]`](#swaggerhub-apivalidate)
+* [`swaggerhub api:validate:download-rules OWNER`](#swaggerhub-apivalidatedownload-rules)
 * [`swaggerhub api:validate:local`](#swaggerhub-apivalidatelocal)
 * [`swaggerhub configure`](#swaggerhub-configure)
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
@@ -424,6 +425,37 @@ EXAMPLES
 ```
 
 _See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.8.1/src/commands/api/validate/local.js)_
+
+## `swaggerhub api:validate:download-rules`
+
+Get existing SwaggerHub's organization standardization ruleset.
+
+```
+USAGE
+  $ swaggerhub api:validate:download-rules OWNER [-s] [-d] [-h]
+
+ARGUMENTS
+  OWNER  Which organization standardization rules to fetch from SwaggerHub
+
+FLAGS
+  -d, --include-disabled-rules  Includes disabled rules in fetched organization's ruleset
+  -h, --help                    Show CLI help.
+  -s, --include-system-rules    Includes system rules in fetched organization's ruleset
+
+DESCRIPTION
+  Get existing SwaggerHub's organization standardization ruleset.
+  Requires organization name argument. An error will occur if provided organization is non existing
+  or your account is not permitted to access that organization settings.
+  If the flag `-s` or `--include-system-rules` is used, the returned ruleset will also include SwaggerHub system rules.
+  If the flag `-d` or `--include-disabled-rules` is used, the returned ruleset will also include disabled custom rules
+
+EXAMPLES
+  $ swaggerhub api:validate:download-rules myOrg -s
+
+  $ swaggerhub api:validate:download-rules myOrg --include-disabled-rules -s
+```
+
+_See code: [src/commands/api/validate/download-rules.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.8.1/src/commands/api/validate/download-rules.js)_
 
 ## `swaggerhub configure`
 

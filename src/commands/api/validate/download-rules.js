@@ -1,10 +1,10 @@
 const { Flags, Args } = require('@oclif/core')
-const BaseValidateCommand = require('../../../support/command/base-validate-command')
+const BaseCommand = require('../../../support/command/base-command')
 const { pipeAsync } = require('../../../utils/general')
 const { getResponseContent } = require('../../../support/command/handle-response')
 const { getStandardization } = require('../../../requests/standardization')
 
-class ValidateDownloadRulesCommand extends BaseValidateCommand {
+class ValidateDownloadRulesCommand extends BaseCommand {
     async run() {
         const { args, flags } = await this.parse(ValidateDownloadRulesCommand)
 
@@ -25,7 +25,11 @@ class ValidateDownloadRulesCommand extends BaseValidateCommand {
     }
 }
 
-ValidateDownloadRulesCommand.description = `TODO`
+ValidateDownloadRulesCommand.description = `Get existing SwaggerHub's organization standardization ruleset.
+Requires organization name argument. An error will occur if provided organization is non existing
+or your account is not permitted to access that organization settings.
+If the flag \`-s\` or \`--include-system-rules\` is used, the returned ruleset will also include SwaggerHub system rules.
+If the flag \`-d\` or \`--include-disabled-rules\` is used, the returned ruleset will also include disabled custom rules`
 
 ValidateDownloadRulesCommand.examples = [
     'swaggerhub api:validate:download-rules myOrg -s',
@@ -49,6 +53,6 @@ ValidateDownloadRulesCommand.flags = {
         description: 'Includes disabled rules in fetched organization\'s ruleset',
         required: false
     }),
-    ...BaseValidateCommand.flags
+    ...BaseCommand.flags
 }
 module.exports = ValidateDownloadRulesCommand
