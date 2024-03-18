@@ -10,7 +10,7 @@
   "dependencies": {
     "@oclif/core": "^3.3.1",
     "@oclif/plugin-help": "^6.0.3",
-    "@oclif/plugin-plugins": "^3.1.8",
+    "@oclif/plugin-plugins": "^4.3.7",
     "deep-extend": "^0.6.0",
     "fs-extra": "^11.1.1",
     "inquirer": "^8.2.5",
@@ -20,7 +20,7 @@
     "semver": "^7.5.4"
   },
   "devDependencies": {
-    "@oclif/test": "^2.4.2",
+    "@oclif/test": "^3.2.6",
     "chai": "^4.3.7",
     "eslint": "^8.46.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
