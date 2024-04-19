@@ -19,7 +19,7 @@ describe('invalid domain:update command issues', () => {
   test
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--visibility'])
     .catch(err => {
-      expect(err.message).to.equal('Flag --visibility expects a value')
+      expect(err.message).to.equal('Flag --visibility expects one of these values: public, private')
     })
     .it('runs domain:update with no required --visibility flag')
 
@@ -70,7 +70,7 @@ describe('invalid domain:update file issues', () => {
 
 describe('invalid domain:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown domain org/domain/1.0.0"}')
@@ -80,7 +80,7 @@ describe('invalid domain:update', () => {
     .it('runs domain:update with domain version not found')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(500, '{"code": 500, "message": "Error"}')
@@ -90,7 +90,7 @@ describe('invalid domain:update', () => {
     .it('runs domain:update with error retrieving domain version')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(200)
@@ -104,7 +104,7 @@ describe('invalid domain:update', () => {
     .it('runs domain:update with error on updating domain')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown domain org/domain/1.0.0"}')
@@ -116,7 +116,7 @@ describe('invalid domain:update', () => {
     .it('error shows as update failed and publish and setdefault are not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(200)
@@ -136,7 +136,7 @@ describe('invalid domain:update', () => {
     .it('error shows as publish failed and setdefault is not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(200)
@@ -160,7 +160,7 @@ describe('invalid domain:update', () => {
     .it('error shows as setdefault failed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .stdout()
     .command(['domain:update', 'org/domain/2.0.0'])
@@ -173,7 +173,7 @@ describe('invalid domain:update', () => {
 
 describe('valid domain:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
       .reply(200)
@@ -190,7 +190,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -207,7 +207,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -224,7 +224,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -241,7 +241,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
@@ -259,7 +259,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
@@ -277,7 +277,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -299,7 +299,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -321,7 +321,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -343,7 +343,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -370,7 +370,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -397,7 +397,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -431,7 +431,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.2.3')
       .reply(200)
@@ -464,7 +464,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -481,7 +481,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -498,7 +498,7 @@ describe('valid domain:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/settings/default')
       .reply(200, { version: '2.0.0' })

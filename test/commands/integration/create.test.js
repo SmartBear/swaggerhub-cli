@@ -5,7 +5,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid integration:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validIdentifier}/integrations`)
       .matchHeader('Content-Type', 'application/json')
@@ -18,7 +18,7 @@ describe('valid integration:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '1.0.0' })
@@ -54,7 +54,7 @@ describe('invalid integration:create command issues', () => {
 
 describe('invalid integration:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validIdentifier}/integrations`)
       .reply(409, { message: 'Integration \'Integration Name\' already exists' })
@@ -66,7 +66,7 @@ describe('invalid integration:create', () => {
     .it('runs integration:create with integration name conflict')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validIdentifier}/integrations`)
       .reply(404, { message: 'Unknown API org/api/1.0.0' })

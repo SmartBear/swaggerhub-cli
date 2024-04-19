@@ -5,7 +5,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid project:delete', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, api => api
             .delete(`/${validIdentifier}`)
             .reply(200, `Deleted project \'${validIdentifier}\'`)
@@ -33,7 +33,7 @@ describe('invalid project:delete command problems', () => {
 
 describe('invalid project:delete', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .delete(`/${validIdentifier}`)
             .reply(404, { message: 'The specified project was not found' })

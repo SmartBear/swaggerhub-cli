@@ -4,7 +4,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid domain:setdefault', () => {
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
   .nock(`${shubUrl}/domains`, domain => domain
     .put('/org/domain/settings/default', { version: '2.0.0' })
     .reply(200)
@@ -34,7 +34,7 @@ describe('invalid domain:setdefault', () => {
   .it('runs domain:setdefault with unrecognised flag')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
   .nock(`${shubUrl}/domains`, domain => domain
     .put('/org/domain/settings/default', { version: '1.2.3' })
     .reply(404, '{ "code": 404, "message": "Unknown domain org/domain:1.2.3"}')

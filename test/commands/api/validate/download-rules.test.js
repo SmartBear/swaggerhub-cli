@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const { expect, test } = require('@oclif/test')
 const config = require('../../../../src/config')
 const {
@@ -16,10 +17,10 @@ describe('invalid api:validate:download-rules', () => {
         .it('runs api:validate:download-rules with no organization name provided')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' }}, api => api
-            .get(`/org2/spectral`)
-            .query({ includeSystemRules : false, includeDisabledRules : false})
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' } }, api => api
+            .get('/org2/spectral')
+            .query({ includeSystemRules: false, includeDisabledRules: false })
             .reply(404, 'Access Denied')
         )
         .command(['api:validate:download-rules', 'org2'])
@@ -27,7 +28,7 @@ describe('invalid api:validate:download-rules', () => {
         .it('Access Denied returned when trying to fetch ruleset of not existing or not available organization')
 
     test
-        .stub(config, 'isURLValid', () => false)
+        .stub(config, 'isURLValid', stub => stub.returns(false))
         .command(['api:validate:download-rules', 'org1'])
         .catch(ctx =>
             expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
@@ -37,10 +38,10 @@ describe('invalid api:validate:download-rules', () => {
 
 describe('valid api:validate:download-rules', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' }}, api => api
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' } }, api => api
             .get(`/${orgName}/spectral`)
-            .query({ includeSystemRules : false, includeDisabledRules : false})
+            .query({ includeSystemRules: false, includeDisabledRules: false })
             .reply(200, ruleset)
         )
         .stdout()
@@ -50,10 +51,10 @@ describe('valid api:validate:download-rules', () => {
         })
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' }}, api => api
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' } }, api => api
             .get(`/${orgName}/spectral`)
-            .query({ includeSystemRules : true, includeDisabledRules : false})
+            .query({ includeSystemRules: true, includeDisabledRules: false })
             .reply(200, rulesetWithSystemRule)
         )
         .stdout()
@@ -63,10 +64,10 @@ describe('valid api:validate:download-rules', () => {
         })
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' }}, api => api
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' } }, api => api
             .get(`/${orgName}/spectral`)
-            .query({ includeSystemRules : false, includeDisabledRules : true})
+            .query({ includeSystemRules: false, includeDisabledRules: true })
             .reply(200, rulesetWithDisabledRule)
         )
         .stdout()
@@ -77,10 +78,10 @@ describe('valid api:validate:download-rules', () => {
 
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' }}, api => api
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+        .nock('https://api.swaggerhub.com/standardization',{ reqheaders: { Accept: 'application/json' } }, api => api
             .get(`/${orgName}/spectral`)
-            .query({ includeSystemRules : true, includeDisabledRules : true})
+            .query({ includeSystemRules: true, includeDisabledRules: true })
             .reply(200, rulesetWithDisabledAndSystemRule)
         )
         .stdout()

@@ -17,7 +17,7 @@ const membersResponse = {
 
 describe('valid project:member:list', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get(`/${validIdentifier}/members`)
             .reply(200, { members: [] })
@@ -29,7 +29,7 @@ describe('valid project:member:list', () => {
         })
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get(`/${validIdentifier}/members`)
             .reply(200, membersResponse)
@@ -55,7 +55,7 @@ describe('invalid project:list command issues', () => {
 
 describe('invalid project:list', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get(`/${validIdentifier}/members`)
             .reply(404, membersResponse)

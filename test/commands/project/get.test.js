@@ -27,7 +27,7 @@ describe('invalid identifier on project:get', () => {
 
 describe('valid identifier on project:get', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
         .nock('https://test.api.swaggerhub.com/projects', { reqheaders: { Accept: 'application/json' } }, api => api
             .get(`/${validIdentifier}`)
             .reply(200, jsonResponse)
@@ -41,7 +41,7 @@ describe('valid identifier on project:get', () => {
 
 describe('swaggerhub errors on project:get', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
         .nock('https://test.api.swaggerhub.com/projects', api => api
             .get(`/${validIdentifier}`)
             .reply(500, { message: 'Internal Server Error' })
@@ -51,7 +51,7 @@ describe('swaggerhub errors on project:get', () => {
         .it('internal server error returned by SwaggerHub, command fails')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
         .nock('https://test.api.swaggerhub.com/projects', api => api
             .get(`/${validIdentifier}`)
             .reply(404, { message: 'Not found' })
@@ -61,7 +61,7 @@ describe('swaggerhub errors on project:get', () => {
         .it('not found returned by SwaggerHub, command fails')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
         .nock('https://test.api.swaggerhub.com/projects', api => api
             .get('/testowner/nonexistantproject')
             .reply(404, { message: 'Unknown project testowner/nonexistantproject' })
@@ -71,7 +71,7 @@ describe('swaggerhub errors on project:get', () => {
         .it('not found returned when fetching non-existant project')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
         .nock('https://test.api.swaggerhub.com/projects', api => api
             .get(`/${validIdentifier}`)
             .reply(200)
@@ -83,7 +83,7 @@ describe('swaggerhub errors on project:get', () => {
         .it('no content returned from swaggerhub')
 
     test
-        .stub(config, 'isURLValid', () => false)
+        .stub(config, 'isURLValid', stub => stub.returns(false))
         .command(['project:get', 'testowner/testproject'])
         .catch(ctx =>
             expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')

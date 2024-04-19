@@ -6,7 +6,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid integration:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .put(`/${apiIdentifier}/integrations/${integrationId}`)
       .matchHeader('Content-Type', 'application/json')
@@ -43,7 +43,7 @@ describe('invalid integration:update command issues', () => {
 
 describe('invalid integration:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .put(`/${apiIdentifier}/integrations/${integrationId}`)
       .reply(404, { message: `Integration type GITHUB with ID '${integrationId}' not found` })

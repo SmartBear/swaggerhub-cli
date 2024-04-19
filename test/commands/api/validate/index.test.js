@@ -6,7 +6,7 @@ const heading = ' Line Severity Description        \n ──── ────�
 
 describe('invalid api:validate', () => {
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}`)
     .reply(404, {
@@ -19,7 +19,7 @@ describe('invalid api:validate', () => {
   .exit(2)
   .it('not found returned when fetching validation result of a non existing API')
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}`)
     .reply(200, {
@@ -38,7 +38,7 @@ describe('invalid api:validate', () => {
   .exit(0)
   .it('not enabled returned when fetching validation result an existing')
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath}`)
     .reply(200, {
@@ -56,7 +56,7 @@ describe('invalid api:validate', () => {
   .exit(0)
   .it('an error is returned when user has no permission to access API')
 
-  test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
     .get(`/${apiPath.substring(0, apiPath.lastIndexOf('/'))}/settings/default`)
     .reply(404, { message: 'Unknown API org1/api2' })
@@ -130,7 +130,7 @@ describe('valid api:validate', () => {
     const severity = 'critical'
 
     describe('without -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -154,7 +154,7 @@ describe('valid api:validate', () => {
     })
 
     describe('with -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -178,7 +178,7 @@ describe('valid api:validate', () => {
     })
     
     describe('with --fail-on-critical flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -206,7 +206,7 @@ describe('valid api:validate', () => {
     const severity = 'WARNING'
 
     describe('without -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -231,7 +231,7 @@ describe('valid api:validate', () => {
 
     describe('with -c flag', () => {
 
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -255,7 +255,7 @@ describe('valid api:validate', () => {
     })
 
     describe('with --fail-on-critical flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
         .get(`/${apiPath}`)
         .reply(200, {
@@ -280,7 +280,7 @@ describe('valid api:validate', () => {
   })
 
   describe('when no standardization errors present', () => {
-    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${apiPath}`)
       .reply(200, {
@@ -300,7 +300,7 @@ describe('valid api:validate', () => {
       expect(ctx.stdout).to.contains('')
     })
 
-    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/apis', { reqheaders: { Accept: 'application/json' } }, api => api
       .get(`/${apiPath}`)
       .reply(200, {

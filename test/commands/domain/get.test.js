@@ -28,7 +28,7 @@ describe('invalid identifier on domain:get', () => {
 
 describe('valid identifier on domain:get', () => {
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/domains', { reqheaders: { Accept: 'application/json' } }, domain => domain
     .get(`/${validIdentifier}`)
     .reply(200, jsonResponse)
@@ -40,7 +40,7 @@ describe('valid identifier on domain:get', () => {
   })
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/domains', { reqheaders: { Accept: 'application/json' } }, domain => domain
     .get(`/${validIdentifier}`)
     .reply(200, jsonResponse)
@@ -52,7 +52,7 @@ describe('valid identifier on domain:get', () => {
   })
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/domains', { reqheaders: { Accept: 'application/yaml' } }, domain => domain
     .get(`/${validIdentifier}`)
     .reply(200, yaml.dump(jsonResponse))
@@ -64,7 +64,7 @@ describe('valid identifier on domain:get', () => {
   })
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/domains', domain => domain
     .get('/org1/domain2/settings/default')
     .reply(200, { version: '1.0.0' })
@@ -80,7 +80,7 @@ describe('valid identifier on domain:get', () => {
   })
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
   .nock('https://api.swaggerhub.com/domains', domain => domain
     .get('/org1/domain2/settings/default')
     .reply(200, { version: '1.0.0' })
@@ -98,7 +98,7 @@ describe('valid identifier on domain:get', () => {
 
 describe('swaggerhub errors on domain:get', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get(`/${validIdentifier}`)
       .reply(500, { message: 'Internal Server Error' })
@@ -108,7 +108,7 @@ describe('swaggerhub errors on domain:get', () => {
     .it('internal server error returned by SwaggerHub, command fails')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get(`/${validIdentifier}`)
       .reply(404, { message: 'Not found' })
@@ -118,7 +118,7 @@ describe('swaggerhub errors on domain:get', () => {
     .it('not found returned by SwaggerHub, command fails')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get(`/${validIdentifier}`)
       .reply(403, { message: 'Error: This private API is blocked because you have exceeded your current ' +
@@ -132,7 +132,7 @@ describe('swaggerhub errors on domain:get', () => {
     .it('not found returned by SwaggerHub, command fails')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/domains', api => api
       .get(`/${validIdentifier}`)
       .reply(200)
@@ -144,7 +144,7 @@ describe('swaggerhub errors on domain:get', () => {
     .it('no content returned from swaggerhub')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/domains', domain => domain
       .get('/org1/domain2/settings/default')
       .reply(404, { message: 'Unknown domain org1/domain2' })

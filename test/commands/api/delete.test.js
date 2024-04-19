@@ -7,7 +7,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid api:delete', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api/1.0.0')
       .reply(200)
@@ -19,8 +19,8 @@ describe('valid api:delete', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', () => Promise.resolve({ answer: true }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: true })))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api')
       .reply(200)
@@ -32,14 +32,14 @@ describe('valid api:delete', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', () => Promise.resolve({ answer: false }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: false })))
     .stdout()
     .command(['api:delete', apiId])
     .it('runs api:delete on API, enter \'No\' on confirmation')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api')
       .reply(200)
@@ -51,7 +51,7 @@ describe('valid api:delete', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api')
       .reply(200)
@@ -78,7 +78,7 @@ describe('invalid api:delete command issues', () => {
 
 describe('api:delete error responses', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api')
       .reply(404, `{ "code": 404, "message": "Unknown API ${apiId}"}`)

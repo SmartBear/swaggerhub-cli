@@ -34,19 +34,15 @@ describe('config ', () => {
     })
 
     test
-      .stub(fse, 'readJSONSync', () => {
-        throw new Error('Failed to read')
-      })
+      .stub(fse, 'readJSONSync', stub => stub.throws(new Error('Failed to read')))
       .do(setConfig)
       .catch(err => expect(err.message).to.match(/failed to read/i))
       .it('should throw an error if it fails to read the file.')
 
 
     test
-      .stub(fse, 'readJSONSync', () => ({}))
-      .stub(fse, 'writeJSONSync', () => {
-        throw new Error('Failed to write')
-      })
+      .stub(fse, 'readJSONSync', stub => stub.returns({}))
+      .stub(fse, 'writeJSONSync', stub => stub.throws(new Error('Failed to write')))
       .do(setConfig)
       .catch(err => expect(err.message).to.match(/failed to write/i))
       .it('should throw an error if it fails to write the file')

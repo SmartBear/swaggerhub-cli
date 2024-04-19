@@ -6,7 +6,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid integration:execute', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validPath}/execute`)
       .reply(200, 'ok')
@@ -32,7 +32,7 @@ describe('invalid integration:execute command issues', () => {
 
 describe('invalid integration:execute', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validPath}/execute`)
       .reply(404, { message: 'The specified API or integration ID was not found' })
@@ -44,7 +44,7 @@ describe('invalid integration:execute', () => {
     .it('runs integration:execute with an integration that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .post(`/${validPath}/execute`)
       .reply(404, { message: 'Unknown API org/api:1.0.0' })

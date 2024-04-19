@@ -61,7 +61,7 @@ describe('valid api:validate:local', () => {
     const severity = 'critical'
 
     describe('without -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .matchHeader('Content-Type', 'application/yaml')
@@ -82,7 +82,7 @@ describe('valid api:validate:local', () => {
     })
 
     describe('with -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .reply(200, {
@@ -102,7 +102,7 @@ describe('valid api:validate:local', () => {
     })
 
     describe('with --fail-on-critical flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .reply(200, {
@@ -126,7 +126,7 @@ describe('valid api:validate:local', () => {
     const severity = 'WARNING'
 
     describe('without -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .reply(200, {
@@ -144,7 +144,7 @@ describe('valid api:validate:local', () => {
     })
 
     describe('with -c flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .reply(200, {
@@ -162,7 +162,7 @@ describe('valid api:validate:local', () => {
     })
 
     describe('with --fail-on-critical flag', () => {
-      test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+      test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
       .nock('https://api.swaggerhub.com/standardization', api => api
         .post(`/${orgName}/scan`)
         .reply(200, {
@@ -183,7 +183,7 @@ describe('valid api:validate:local', () => {
   })
 
   describe('when no standardization errors present', () => {
-    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/standardization', api => api
       .post(`/${orgName}/scan`)
       .reply(200, {
@@ -201,7 +201,7 @@ describe('valid api:validate:local', () => {
   describe('when sending a JSON file', () => {
     const severity = 'WARNING'
 
-    test.stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    test.stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
     .nock('https://api.swaggerhub.com/standardization', api => api
       .post(`/${orgName}/scan`)
       .reply(200, {
