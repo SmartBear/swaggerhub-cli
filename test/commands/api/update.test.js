@@ -19,7 +19,7 @@ describe('invalid api:update command issues', () => {
   test
     .command(['api:update', 'org/api', '-f=test/resources/valid_api.json', '--visibility'])
     .catch(err => {
-      expect(err.message).to.equal('Flag --visibility expects a value')
+      expect(err.message).to.equal('Flag --visibility expects one of these values: public, private')
     })
     .it('runs api:update with no required --visibility flag')
 
@@ -70,7 +70,7 @@ describe('invalid api:update file issues', () => {
 
 describe('invalid api:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown API org/api/1.0.0"}')
@@ -80,7 +80,7 @@ describe('invalid api:update', () => {
     .it('runs api:update with API version not found')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(500, '{"code": 500, "message": "Error"}')
@@ -90,7 +90,7 @@ describe('invalid api:update', () => {
     .it('runs api:update with error retrieving API version')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
@@ -104,7 +104,7 @@ describe('invalid api:update', () => {
     .it('runs api:update with error on updating API')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown API org/api/1.0.0"}')
@@ -116,7 +116,7 @@ describe('invalid api:update', () => {
     .it('error shows as update failed and publish and setdefault are not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
@@ -136,7 +136,7 @@ describe('invalid api:update', () => {
     .it('error shows as publish failed and setdefault is not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
@@ -160,7 +160,7 @@ describe('invalid api:update', () => {
     .it('error shows as setdefault failed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .stdout()
     .command(['api:update', 'org/api/2.0.0'])
@@ -173,7 +173,7 @@ describe('invalid api:update', () => {
 
 describe('valid api:update', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/1.0.0')
       .reply(200)
@@ -190,7 +190,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -207,7 +207,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -224,7 +224,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -241,7 +241,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
@@ -259,7 +259,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
 
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
@@ -277,7 +277,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -299,7 +299,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -321,7 +321,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -343,7 +343,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -370,7 +370,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -397,7 +397,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -431,7 +431,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/2.0.0')
       .reply(200)
@@ -458,7 +458,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -475,7 +475,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })
@@ -492,7 +492,7 @@ describe('valid api:update', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '2.0.0' })

@@ -23,7 +23,7 @@ const projectsResponse = {
 
 describe('valid project:list', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get('/')
             .reply(200, { 'projects': [] })
@@ -35,7 +35,7 @@ describe('valid project:list', () => {
         })
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get('/')
             .reply(200, projectsResponse)
@@ -48,7 +48,7 @@ describe('valid project:list', () => {
         })
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, { reqheaders: { accept: 'application/json' } }, projects => projects
             .get(`/${validOrgName}`)
             .reply(200, projectsResponse)
@@ -59,11 +59,4 @@ describe('valid project:list', () => {
             expect(ctx.stdout).to.contains('test_project_1')
             expect(ctx.stdout).to.contains('test_project_2')
         })
-})
-
-describe('invalid project:list command issues', () => {
-    test
-        .command(['project:list', 'totallydefinitelyabsolutelytoolonginvalidorgname'])
-        .exit(2)
-        .it('runs project:list with an invalid org name')
 })

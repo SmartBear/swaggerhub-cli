@@ -1,4 +1,5 @@
 const { expect, test } = require('@oclif/test')
+const sinon = require('sinon')
 const inquirer = require('inquirer')
 const config = require('../../../src/config')
 const domainId = 'org/domain'
@@ -7,7 +8,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid domain:delete', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .delete('/org/domain/1.0.0')
       .query({ force: 'true' })
@@ -20,28 +21,7 @@ describe('valid domain:delete', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', () => Promise.resolve({ answer: true }))
-    .nock(`${shubUrl}/domains`, domain => domain
-      .delete('/org/domain')
-      .query({ force: 'true' })
-      .reply(200)
-    )
-    .stdout()
-    .command(['domain:delete', domainId])
-    .it('runs domain:delete on domain defintion', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted domain '${domainId}'`)
-    })
-
-  test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', () => Promise.resolve({ answer: false }))
-    .stdout()
-    .command(['domain:delete', domainId])
-    .it('runs domain:delete on domain, enter \'No\' on confirmation')
-
-  test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .delete('/org/domain')
       .query({ force: 'true' })
@@ -54,7 +34,7 @@ describe('valid domain:delete', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .delete('/org/domain')
       .query({ force: 'true' })
@@ -82,7 +62,7 @@ describe('invalid domain:delete command issues', () => {
 
 describe('domain:delete error responses', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .delete('/org/domain')
       .query({ force: 'true' })
@@ -93,4 +73,38 @@ describe('domain:delete error responses', () => {
       expect(ctx.message).to.contain(`Unknown domain ${domainId}`)
     })
     .it('runs domain:delete with domain that does not exist')
+})
+
+
+describe('inquirer prompts', () => {
+  let promptStub
+
+  beforeEach(() => {
+    promptStub = sinon.stub(inquirer, 'prompt')
+  })
+
+  afterEach(() => {
+    promptStub.restore()
+  })
+
+  test
+    .do(() => promptStub.returns(Promise.resolve({ answer: true })))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .delete('/org/domain')
+      .query({ force: 'true' })
+      .reply(200)
+    )
+    .stdout()
+    .command(['domain:delete', domainId])
+    .it('runs domain:delete on domain defintion', ctx => {
+      expect(ctx.stdout).to.contains(`Deleted domain '${domainId}'`)
+    })
+
+  test
+    .do(() => promptStub.returns(Promise.resolve({ answer: false })))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .stdout()
+    .command(['domain:delete', domainId])
+    .it('runs domain:delete on domain, enter \'No\' on confirmation')
 })

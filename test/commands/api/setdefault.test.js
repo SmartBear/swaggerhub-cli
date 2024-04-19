@@ -4,7 +4,7 @@ const shubUrl = 'https://test-api.swaggerhub.com'
 
 describe('valid api:setdefault', () => {
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
   .nock(`${shubUrl}/apis`, api => api
     .put('/org/api/settings/default', { version: '2.0.0' })
     .reply(200)
@@ -34,7 +34,7 @@ describe('invalid apis:setdefault', () => {
   .it('runs api:setdefault with unrecognised flag')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
   .nock(`${shubUrl}/apis`, api => api
     .put('/org/api/settings/default', { version: '1.2.3' })
     .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.2.3"}')

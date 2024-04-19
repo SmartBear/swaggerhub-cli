@@ -14,7 +14,7 @@ const integrationResponse = {
 
 describe('valid integration:get', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, { reqheaders: { Accept: 'application/json' } }, integration => integration
       .get(`/${validPath}`)
       .reply(200, integrationResponse)
@@ -40,7 +40,7 @@ describe('invalid integration:get command issues', () => {
 
 describe('invalid integration:get', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .get(`/${validPath}`)
       .reply(404, { message: 'The specified API or integration ID was not found' })
@@ -52,7 +52,7 @@ describe('invalid integration:get', () => {
     .it('runs integration:get with an integration that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .get(`/${validPath}`)
       .reply(404, { message: 'Unknown API org/api:1.0.0' })

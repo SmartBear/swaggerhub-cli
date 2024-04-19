@@ -2,13 +2,13 @@ const { exit } = require('@oclif/core')
 const { expect, test } = require('@oclif/test')
 const inquirer = require('inquirer')
 const config = require('../../../src/config')
-const shubUrl = 'https://test-api.swaggerhub.com'
+const shubUrl = 'https://api.swaggerhub.com'
 
 describe('valid api:publish', () => {
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.0.0/settings/lifecycle', { published: true })
     .reply(200)
   )
   .stdout()
@@ -18,14 +18,14 @@ describe('valid api:publish', () => {
   })
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.0.0/settings/lifecycle', { published: true })
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.0.0/settings/lifecycle', { published: true })
     .reply(424, '{ "code": 424, "message": "conflict detected"}')
   )
-  .stub(inquirer, 'prompt', () => Promise.resolve({ answer: true }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.0.0/settings/lifecycle?force=true', { published: true })
+  .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: true })))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.0.0/settings/lifecycle?force=true', { published: true })
     .reply(200)
   )
   .stdout()
@@ -33,9 +33,9 @@ describe('valid api:publish', () => {
   .it('runs api:publish with enter \'Yes\' on confirmation')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.0.0/settings/lifecycle?force=true', { published: true })
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.0.0/settings/lifecycle?force=true', { published: true })
     .reply(200)
   )
   .stdout()
@@ -62,9 +62,9 @@ describe('invalid apis:publish', () => {
   .it('runs api:publish with unrecognised flag')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.2.3/settings/lifecycle')
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.2.3/settings/lifecycle')
     .reply(404, '{ "code": 404, "message": "Unknown API org/api:1.2.3"}')
   )
   .command(['api:publish', 'org/api/1.2.3'])
@@ -72,12 +72,12 @@ describe('invalid apis:publish', () => {
   .it('runs api:publish with invalid API version')
 
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
-  .nock(`${shubUrl}/apis`, api => api
-    .put('/org/api/1.2.3/settings/lifecycle')
-    .reply(424, '{ "code": 424, "message": "conflict detected"}')
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+  .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: false })))
+  .nock(`${shubUrl}`, api => api
+    .put('/apis/org/api/1.2.3/settings/lifecycle')
+    .reply(424, '{ "code": 424, "message": "conflict detected" }')
   )
-  .stub(inquirer, 'prompt', () => Promise.resolve({ answer: false }))
   .command(['api:publish', 'org/api/1.2.3'])
   .it('runs api:publish with \'No\' on confirmation')
 })

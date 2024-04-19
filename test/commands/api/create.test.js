@@ -52,7 +52,7 @@ describe('invalid api:create file issues', () => {
 
 describe('invalid api:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
@@ -68,7 +68,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with API version already exists')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(500, '{ "code": 500, "message": "Error"}')
@@ -78,7 +78,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with error retrieving APIs')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
@@ -92,7 +92,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with error on retrieving API version')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/orgNotExist/api')
       .reply(404)
@@ -108,7 +108,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with org that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/overLimitApi')
       .reply(404)
@@ -124,7 +124,7 @@ describe('invalid api:create', () => {
     .it('runs api:create with org that doesn\'t exist')
   
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/orgNotExist/api')
       .reply(404)
@@ -146,7 +146,7 @@ describe('invalid api:create', () => {
     .it('error shows as create failed and publish and setdefault are not executed')
   
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -167,7 +167,7 @@ describe('invalid api:create', () => {
     .it('error shows as publish failed and setdefault is not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -194,7 +194,7 @@ describe('invalid api:create', () => {
 
 describe('valid api:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -211,7 +211,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -232,7 +232,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -253,7 +253,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -285,7 +285,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -313,7 +313,7 @@ describe('valid api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(404)
@@ -335,7 +335,7 @@ describe('valid api:create', () => {
     })
 
   test
-      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
       .nock(`${shubUrl}/apis`, api => api
           .get('/org/api')
           .reply(404)
@@ -356,7 +356,7 @@ describe('valid api:create', () => {
         expect(ctx.stdout).to.contains('Created API \'org/api\'')
       })
   test
-      .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
       .nock(`${shubUrl}/apis`, api => api
           .get('/org/api')
           .reply(404)
@@ -380,7 +380,7 @@ describe('valid api:create', () => {
 
 describe('valid create new version with api:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
@@ -401,7 +401,7 @@ describe('valid create new version with api:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api')
       .reply(200)
@@ -428,7 +428,7 @@ describe('valid create new version with api:create', () => {
 
 describe('valid create new version with api:create using invalid swaggerhub url', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: `${shubUrl}/v1` }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: `${shubUrl}/v1` }))
     .stdout()
     .command(['api:create', 'org/api', '--file=test/resources/valid_api.yaml'])
     .exit(2)

@@ -23,7 +23,7 @@ describe('invalid project:domain:add command issues', () => {
 describe('valid project:domain:add',
     () => {
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .put(`/${validIdentifier}/domains/testdomain`)
                 .matchHeader('Content-Type', 'application/json')
@@ -38,7 +38,7 @@ describe('valid project:domain:add',
 
 describe('invalid project:domain:add', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/domains/testdomain`)
             .matchHeader('Content-Type', 'application/json')
@@ -51,7 +51,7 @@ describe('invalid project:domain:add', () => {
         .it('runs project:domain:add with a project that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/domains/testdomain`)
             .reply(404, { message: 'Unknown owner \'testowner\'' })
@@ -63,7 +63,7 @@ describe('invalid project:domain:add', () => {
         .it('runs project:domain:add with an owner that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/domains/testdomain`)
             .reply(409, {

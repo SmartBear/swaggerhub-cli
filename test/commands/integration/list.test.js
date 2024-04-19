@@ -21,7 +21,7 @@ const integrationResponse = {
 
 describe('valid integration:list', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, { reqheaders: { Accept: 'application/json' } }, integrations => integrations
       .get(`/${validApi}/integrations`)
       .reply(200, integrationResponse)
@@ -34,7 +34,7 @@ describe('valid integration:list', () => {
     })
 
     test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(200, { version: '1.0.0' })
@@ -65,7 +65,7 @@ describe('invalid integration:list command issues', () => {
 
 describe('invalid integration:list', () => {
   test
-  .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+  .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
   .nock(`${shubUrl}/apis`, integrations => integrations
     .get(`/${validApi}/integrations`)
     .reply(404, { message: 'Unknown API org/api:1.0.0' })
@@ -77,7 +77,7 @@ describe('invalid integration:list', () => {
   .it('runs integration:list with an API version that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, api => api
       .get('/org/api/settings/default')
       .reply(404, { message: 'Unknown API org/api' })

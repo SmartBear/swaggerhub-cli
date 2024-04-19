@@ -14,7 +14,7 @@ const integrationResponse = {
 
 describe('valid integration:delete', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .delete(`/${validPath}`)
       .reply(200, 'ok')
@@ -40,7 +40,7 @@ describe('invalid integration:delete command issues', () => {
 
 describe('invalid integration:delete', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .delete(`/${validPath}`)
       .reply(404, { message: 'The specified API or integration ID was not found' })
@@ -52,7 +52,7 @@ describe('invalid integration:delete', () => {
     .it('runs integration:delete with an integration that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/apis`, integration => integration
       .delete(`/${validPath}`)
       .reply(404, { message: 'Unknown API org/api:1.0.0' })

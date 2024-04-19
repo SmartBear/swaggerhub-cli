@@ -24,7 +24,7 @@ describe('invalid project:create command issues', () => {
 describe('valid project:create',
     () => {
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -37,7 +37,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -50,7 +50,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -63,7 +63,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -76,7 +76,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -89,7 +89,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -102,7 +102,7 @@ describe('valid project:create',
             })
 
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .post(`/${validOwner}`)
                 .matchHeader('Content-Type', 'application/json')
@@ -123,7 +123,7 @@ describe('valid project:create',
 
 describe('invalid project:create', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .post(`/${validOwner}`)
             .matchHeader('Content-Type', 'application/json')
@@ -136,7 +136,7 @@ describe('invalid project:create', () => {
         .it('runs project:create with project name conflict')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .post(`/${validOwner}`)
             .reply(404, { message: 'Unknown owner \'testowner\'' })

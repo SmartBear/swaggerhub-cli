@@ -45,7 +45,7 @@ describe('invalid domain:create file issues', () => {
 
 describe('invalid domain:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(200)
@@ -61,7 +61,7 @@ describe('invalid domain:create', () => {
     .it('runs domain:create with domain version already exists')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(500, '{ "code": 500, "message": "Error"}')
@@ -71,7 +71,7 @@ describe('invalid domain:create', () => {
     .it('runs domain:create with error retrieving domains')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(200)
@@ -85,7 +85,7 @@ describe('invalid domain:create', () => {
     .it('runs domain:create with error on retrieving domain version')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/orgNotExist/domain')
       .reply(404)
@@ -101,7 +101,7 @@ describe('invalid domain:create', () => {
     .it('runs domain:create with org that doesn\'t exist')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/overLimit')
       .reply(404)
@@ -117,7 +117,7 @@ describe('invalid domain:create', () => {
     .it('runs domain:create with org that doesn\'t exist')
   
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/orgNotExist/domain')
       .reply(404)
@@ -134,7 +134,7 @@ describe('invalid domain:create', () => {
     .it('error shows as create failed and publish and setdefault are not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -155,7 +155,7 @@ describe('invalid domain:create', () => {
     .it('error shows as publish failed and setdefault is not executed')
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -182,7 +182,7 @@ describe('invalid domain:create', () => {
 
 describe('valid domain:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -199,7 +199,7 @@ describe('valid domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -220,7 +220,7 @@ describe('valid domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -241,7 +241,7 @@ describe('valid domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -258,7 +258,7 @@ describe('valid domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -286,7 +286,7 @@ describe('valid domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(404)
@@ -310,7 +310,7 @@ describe('valid domain:create', () => {
 
 describe('valid create new version with domain:create', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(200)
@@ -331,7 +331,7 @@ describe('valid create new version with domain:create', () => {
     })
 
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain')
       .reply(200)
@@ -358,7 +358,7 @@ describe('valid create new version with domain:create', () => {
 
 describe('valid create new version with domain:create using invalid swaggerhub url', () => {
   test
-    .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: `${shubUrl}/v1` }))
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: `${shubUrl}/v1` }))
     .stdout()
     .command(['domain:create', 'org/domain', '--file=test/resources/valid_domain.yaml'])
     .exit(2)

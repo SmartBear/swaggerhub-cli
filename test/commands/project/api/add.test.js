@@ -23,7 +23,7 @@ describe('invalid project:api:add command issues', () => {
 describe('valid project:api:add',
     () => {
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, integration => integration
                 .put(`/${validIdentifier}/apis/testapi`)
                 .matchHeader('Content-Type', 'application/json')
@@ -38,7 +38,7 @@ describe('valid project:api:add',
 
 describe('invalid project:api:add', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/apis/testapi`)
             .matchHeader('Content-Type', 'application/json')
@@ -51,7 +51,7 @@ describe('invalid project:api:add', () => {
         .it('runs project:api:add with a project that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/apis/testapi`)
             .reply(404, { message: 'Unknown owner \'testowner\'' })
@@ -63,7 +63,7 @@ describe('invalid project:api:add', () => {
         .it('runs project:api:add with an owner that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, integration => integration
             .put(`/${validIdentifier}/apis/testapi`)
             .reply(409, {

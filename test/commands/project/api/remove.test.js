@@ -32,7 +32,7 @@ describe('invalid project:api:remove command issues', () => {
 
 describe('valid project:api:remove', () => {
         test
-            .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+            .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
             .nock(`${shubUrl}/projects`, project => project
                 .get(`/${validIdentifier}`)
                 .reply(200, validProjectJson)
@@ -51,7 +51,7 @@ describe('valid project:api:remove', () => {
 
 describe('invalid project:api:remove', () => {
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, project => project
             .get(`/${validIdentifier}`)
             .reply(404, { message: 'Project \'testproject\' does not exist' })
@@ -63,7 +63,7 @@ describe('invalid project:api:remove', () => {
         .it('runs project:api:remove with a project that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, project => project
             .get(`/${validIdentifier}`)
             .reply(404, { message: 'Organization \'testowner\' does not exist' })
@@ -75,7 +75,7 @@ describe('invalid project:api:remove', () => {
         .it('runs project:api:remove with an organization that doesn\'t exist')
 
     test
-        .stub(config, 'getConfig', () => ({ SWAGGERHUB_URL: shubUrl }))
+        .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
         .nock(`${shubUrl}/projects`, project => project
             .get(`/${validIdentifier}`)
             .reply(200, validProjectJson)
