@@ -20,11 +20,11 @@
     "semver": "^7.6.0"
   },
   "devDependencies": {
-    "@oclif/test": "^3.2.10",
+    "@oclif/test": "^4.0.2",
     "chai": "^4.3.10",
-    "sinon": "^17.0.1",
+    "sinon": "^18.0.0",
     "eslint": "^9.0.0",
-    "eslint-plugin-chai-friendly": "^0.7.2",
+    "eslint-plugin-chai-friendly": "^0.8.0",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
