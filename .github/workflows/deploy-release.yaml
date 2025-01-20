@@ -1,0 +1,80 @@
+name: Deployment
+
+run-name: 'Release from ${{ github.ref_name }}'
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  version-and-tag:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract version from source branch name
+        id: extract_version
+        run: |
+          VERSION=${GITHUB_HEAD_REF#release/}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Source branch version: $VERSION"
+      # tag the commit with the version and push the tag
+      - name: Tag the commit with the version
+        run: git tag ${{ env.VERSION }}
+      - name: Push the tag to the repository
+        run: git push origin ${{ env.VERSION }}
+
+  publish-github:
+    runs-on: ubuntu-latest
+    needs: version-and-tag
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create GitHub Release
+        uses: octokit/request-action@v2.x
+        id: create_release
+        with:
+          route: POST /repos/{owner}/{repo}/releases
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          tag_name: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    needs: [version-and-tag, publish-github]
+    env:
+      VERSION: ${{ needs.version-and-tag.outputs.VERSION }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ env.VERSION }}
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
