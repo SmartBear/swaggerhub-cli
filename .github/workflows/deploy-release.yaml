@@ -5,7 +5,7 @@ run-name: 'Release from ${{ github.ref_name }}'
 on:
   pull_request:
     branches:
-      - main
+      - test
     types:
       - closed
 
@@ -27,8 +27,10 @@ jobs:
       # tag the commit with the version and push the tag
       - name: Tag the commit with the version
         run: git tag ${{ env.VERSION }}
-      - name: Push the tag to the repository
-        run: git push origin ${{ env.VERSION }}
+      - name: Push the ${{ env.VERSION }} tag to the repository
+        run: |
+          echo "Pushing tag $VERSION"
+#          git push origin ${{ env.VERSION }}
 
   publish-github:
     runs-on: ubuntu-latest
@@ -37,22 +39,26 @@ jobs:
     permissions:
       contents: write
 
+    env:
+      VERSION: ${{ needs.version-and-tag.outputs.VERSION }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create GitHub Release
-        uses: octokit/request-action@v2.x
-        id: create_release
-        with:
-          route: POST /repos/{owner}/{repo}/releases
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          tag_name: ${{ env.VERSION }}
-          name: ${{ env.VERSION }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Creating GitHub release for version $VERSION"
+#      - name: Create GitHub Release
+#        uses: octokit/request-action@v2.x
+#        id: create_release
+#        with:
+#          route: POST /repos/{owner}/{repo}/releases
+#          owner: ${{ github.repository_owner }}
+#          repo: ${{ github.event.repository.name }}
+#          tag_name: ${{ env.VERSION }}
+#          name: ${{ env.VERSION }}
+#          generate_release_notes: true
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
     runs-on: ubuntu-latest
@@ -75,6 +81,8 @@ jobs:
 
       - run: npm ci
 
-      - run: npm publish
+      - run: |
+          echo "Publishing version $VERSION to npm"
+#           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
