@@ -26,11 +26,11 @@ jobs:
           echo "Source branch version: $VERSION"
       # tag the commit with the version and push the tag
       - name: Tag the commit with the version
-        run: git tag ${{ env.VERSION }}
-      - name: Push the ${{ env.VERSION }} tag to the repository
+        run: git tag -a $VERSION -m "Release version $VERSION"
+      - name: Push the tag to the repository
         run: |
           echo "Pushing tag $VERSION"
-#          git push origin ${{ env.VERSION }}
+          git push origin $VERSION --follow-tags
 
   publish-github:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - run: echo "Creating GitHub release for version $VERSION"
+      - run: echo "Creating GitHub release for version ${{ env.VERSION }}"
 #      - name: Create GitHub Release
 #        uses: octokit/request-action@v2.x
 #        id: create_release
@@ -81,7 +81,8 @@ jobs:
 
       - run: npm ci
 
-      - run: |
+      - name: Publish swaggerhub-cli ${{ env.VERSION }} to npm
+        run: |
           echo "Publishing version $VERSION to npm"
 #           npm publish
         env:
