@@ -30,7 +30,7 @@ jobs:
       - name: Push the tag to the repository
         run: |
           echo "Pushing tag $VERSION"
-          git push origin $VERSION --follow-tags
+#          git push origin "$VERSION" --follow-tags
 
   publish-github:
     runs-on: ubuntu-latest
