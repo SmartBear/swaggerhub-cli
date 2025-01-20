@@ -37,7 +37,7 @@ jobs:
 
   publish-github:
     runs-on: ubuntu-latest
-    needs: version-and-tag
+    needs: [ version-and-tag ]
 
     permissions:
       contents: write
