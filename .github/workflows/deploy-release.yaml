@@ -13,6 +13,10 @@ jobs:
   version-and-tag:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
     runs-on: ubuntu-latest
+
+    outputs:
+      VERSION: ${{ steps.extract_version.outputs.VERSION }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
