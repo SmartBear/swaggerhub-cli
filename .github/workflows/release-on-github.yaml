@@ -42,11 +42,11 @@ jobs:
           npx oclif readme && node src/format-readme.js
           git checkout -b release/${VERSION}
           echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_OUTPUT
-          echo "Release version ${VERSION} PR created" >> $GITHUB_STEP_SUMMARY
 
       - name: Create release PR
         run: |
           git commit \
-           -am "Release of ${VERSION}" \
-           -m "[skip ci]"
-          git push origin --follow-tags
+           -am "Release of ${VERSION}"
+          git push --set-upstream origin
+          gh pr create --base main --head release/${VERSION} --title "Release v${VERSION}" --body "Release of CLI version ${VERSION}"
+          echo "Release version ${VERSION} PR created" >> $GITHUB_STEP_SUMMARY
