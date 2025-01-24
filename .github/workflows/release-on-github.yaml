@@ -16,7 +16,7 @@ on:
         default: minor
 jobs:
   bump-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     outputs:
       RELEASE_VERSION: ${{ steps.create_tags.outputs.RELEASE_VERSION }}
