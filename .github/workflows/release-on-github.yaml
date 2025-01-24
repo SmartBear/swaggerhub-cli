@@ -47,6 +47,6 @@ jobs:
         run: |
           git commit \
            -am "Release of ${VERSION}"
-          git push --set-upstream origin
-          gh pr create --base main --head release/${VERSION} --title "Release v${VERSION}" --body "Release of CLI version ${VERSION}"
+          git push --set-upstream origin release/${VERSION}
+          gh pr create --base main --head release/${VERSION} --title "Release ${VERSION}" --body "Release of CLI version ${VERSION}"
           echo "Release version ${VERSION} PR created" >> $GITHUB_STEP_SUMMARY
