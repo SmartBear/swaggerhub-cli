@@ -120,7 +120,7 @@ USAGE
 * [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainupdate)
-* [`swaggerhub help [COMMANDS]`](#swaggerhub-help)
+* [`swaggerhub help [COMMAND]`](#swaggerhub-help)
 * [`swaggerhub integration:create OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationcreate)
 * [`swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationdelete)
 * [`swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationexecute)
@@ -128,13 +128,14 @@ USAGE
 * [`swaggerhub integration:list OWNER/API_NAME/[VERSION]`](#swaggerhub-integrationlist)
 * [`swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID`](#swaggerhub-integrationupdate)
 * [`swaggerhub plugins`](#swaggerhub-plugins)
-* [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall)
+* [`swaggerhub plugins:add PLUGIN`](#swaggerhub-pluginsadd)
 * [`swaggerhub plugins:inspect PLUGIN...`](#swaggerhub-pluginsinspect)
-* [`swaggerhub plugins:install PLUGIN...`](#swaggerhub-pluginsinstall)
-* [`swaggerhub plugins:link PLUGIN`](#swaggerhub-pluginslink)
-* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall)
-* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall)
-* [`swaggerhub plugins:uninstall PLUGIN...`](#swaggerhub-pluginsuninstall)
+* [`swaggerhub plugins:install PLUGIN`](#swaggerhub-pluginsinstall)
+* [`swaggerhub plugins:link PATH`](#swaggerhub-pluginslink)
+* [`swaggerhub plugins:remove [PLUGIN]`](#swaggerhub-pluginsremove)
+* [`swaggerhub plugins:reset`](#swaggerhub-pluginsreset)
+* [`swaggerhub plugins:uninstall [PLUGIN]`](#swaggerhub-pluginsuninstall)
+* [`swaggerhub plugins:unlink [PLUGIN]`](#swaggerhub-pluginsunlink)
 * [`swaggerhub plugins:update`](#swaggerhub-pluginsupdate)
 * [`swaggerhub project:api:add OWNER/PROJECT_NAME API`](#swaggerhub-projectapiadd)
 * [`swaggerhub project:api:remove OWNER/PROJECT_NAME API`](#swaggerhub-projectapiremove)
@@ -159,13 +160,13 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to create on SwaggerHub
 
 FLAGS
-  -f, --file=<value>     (required) file location of API to create
-  -h, --help             Show CLI help.
-  --published=<option>   [default: unpublish] sets the lifecycle setting of the API version
-                         <options: publish|unpublish>
-  --setdefault           sets API version to be the default
-  --visibility=<option>  [default: private] visibility of API in SwaggerHub
-                         <options: public|private>
+  -f, --file=<value>         (required) file location of API to create
+  -h, --help                 Show CLI help.
+      --published=<option>   [default: unpublish] sets the lifecycle setting of the API version
+                             <options: publish|unpublish>
+      --setdefault           sets API version to be the default
+      --visibility=<option>  [default: private] visibility of API in SwaggerHub
+                             <options: public|private>
 
 DESCRIPTION
   creates a new API / API version from a YAML/JSON file
@@ -185,7 +186,7 @@ EXAMPLES
   $ swaggerhub api:create organization/api/1.0.0 --published=publish --setdefault --file api.json
 ```
 
-_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/create.js)_
+_See code: [src/commands/api/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/create.js)_
 
 ## `swaggerhub api:delete`
 
@@ -214,7 +215,7 @@ EXAMPLES
   $ swaggerhub api:delete organization/api --force
 ```
 
-_See code: [src/commands/api/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/delete.js)_
+_See code: [src/commands/api/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/delete.js)_
 
 ## `swaggerhub api:get`
 
@@ -244,7 +245,7 @@ EXAMPLES
   $ swaggerhub api:get organization/api/1.0.0 --json
 ```
 
-_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/get.js)_
+_See code: [src/commands/api/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/get.js)_
 
 ## `swaggerhub api:publish`
 
@@ -270,7 +271,7 @@ EXAMPLES
   $ swaggerhub api:publish organization/api/1.0.0 --force
 ```
 
-_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/publish.js)_
+_See code: [src/commands/api/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/publish.js)_
 
 ## `swaggerhub api:setdefault`
 
@@ -293,7 +294,7 @@ EXAMPLES
   $ swaggerhub api:setdefault organization/api/2.0.0
 ```
 
-_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/setdefault.js)_
+_See code: [src/commands/api/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/setdefault.js)_
 
 ## `swaggerhub api:unpublish`
 
@@ -316,7 +317,7 @@ EXAMPLES
   $ swaggerhub api:unpublish organization/api/1.0.0
 ```
 
-_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/unpublish.js)_
+_See code: [src/commands/api/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/unpublish.js)_
 
 ## `swaggerhub api:update`
 
@@ -331,13 +332,13 @@ ARGUMENTS
   OWNER/API_NAME/[VERSION]  API to update on SwaggerHub
 
 FLAGS
-  -f, --file=<value>     file location of API to update
-  -h, --help             Show CLI help.
-  --published=<option>   sets the lifecycle setting of the API version
-                         <options: publish|unpublish>
-  --setdefault           sets API version to be the default
-  --visibility=<option>  visibility of API in SwaggerHub
-                         <options: public|private>
+  -f, --file=<value>         file location of API to update
+  -h, --help                 Show CLI help.
+      --published=<option>   sets the lifecycle setting of the API version
+                             <options: publish|unpublish>
+      --setdefault           sets API version to be the default
+      --visibility=<option>  visibility of API in SwaggerHub
+                             <options: public|private>
 
 DESCRIPTION
   update an API
@@ -360,7 +361,7 @@ EXAMPLES
   $ swaggerhub api:update organization/api/1.0.0 --visibility=private
 ```
 
-_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/update.js)_
+_See code: [src/commands/api/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/update.js)_
 
 ## `swaggerhub api:validate`
 
@@ -394,7 +395,7 @@ EXAMPLES
   $ swaggerhub api:validate --fail-on-critical --json organization/api
 ```
 
-_See code: [src/commands/api/validate/index.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/validate/index.js)_
+_See code: [src/commands/api/validate/index.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/validate/index.js)_
 
 ## `swaggerhub api:validate:download-rules`
 
@@ -425,7 +426,7 @@ EXAMPLES
   $ swaggerhub api:validate:download-rules myOrg --include-disabled-rules -s
 ```
 
-_See code: [src/commands/api/validate/download-rules.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/validate/download-rules.js)_
+_See code: [src/commands/api/validate/download-rules.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/validate/download-rules.js)_
 
 ## `swaggerhub api:validate:local`
 
@@ -455,7 +456,7 @@ EXAMPLES
   $ swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json
 ```
 
-_See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/api/validate/local.js)_
+_See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/api/validate/local.js)_
 
 ## `swaggerhub configure`
 
@@ -478,7 +479,7 @@ DESCRIPTION
   settings.
 ```
 
-_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/configure.js)_
+_See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/configure.js)_
 
 ## `swaggerhub domain:create`
 
@@ -493,13 +494,13 @@ ARGUMENTS
   OWNER/DOMAIN_NAME/[VERSION]  Domain to create on SwaggerHub
 
 FLAGS
-  -f, --file=<value>     (required) file location of domain to create
-  -h, --help             Show CLI help.
-  --published=<option>   [default: unpublish] sets the lifecycle setting of the domain version
-                         <options: publish|unpublish>
-  --setdefault           sets domain version to be the default
-  --visibility=<option>  [default: private] visibility of domain in SwaggerHub
-                         <options: public|private>
+  -f, --file=<value>         (required) file location of domain to create
+  -h, --help                 Show CLI help.
+      --published=<option>   [default: unpublish] sets the lifecycle setting of the domain version
+                             <options: publish|unpublish>
+      --setdefault           sets domain version to be the default
+      --visibility=<option>  [default: private] visibility of domain in SwaggerHub
+                             <options: public|private>
 
 DESCRIPTION
   creates a new domain / domain version from a YAML/JSON file
@@ -519,7 +520,7 @@ EXAMPLES
   $ swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json
 ```
 
-_See code: [src/commands/domain/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/create.js)_
+_See code: [src/commands/domain/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/create.js)_
 
 ## `swaggerhub domain:delete`
 
@@ -548,7 +549,7 @@ EXAMPLES
   $ swaggerhub domain:delete organization/domain --force
 ```
 
-_See code: [src/commands/domain/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/delete.js)_
+_See code: [src/commands/domain/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/delete.js)_
 
 ## `swaggerhub domain:get`
 
@@ -577,7 +578,7 @@ EXAMPLES
   $ swaggerhub domain:get organization/domain/1.0.0 --json
 ```
 
-_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/get.js)_
+_See code: [src/commands/domain/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/get.js)_
 
 ## `swaggerhub domain:publish`
 
@@ -600,7 +601,7 @@ EXAMPLES
   $ swaggerhub domain:publish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/publish.js)_
+_See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/publish.js)_
 
 ## `swaggerhub domain:setdefault`
 
@@ -623,7 +624,7 @@ EXAMPLES
   $ swaggerhub domain:setdefault organization/domain/2.0.0
 ```
 
-_See code: [src/commands/domain/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/setdefault.js)_
+_See code: [src/commands/domain/setdefault.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/setdefault.js)_
 
 ## `swaggerhub domain:unpublish`
 
@@ -646,7 +647,7 @@ EXAMPLES
   $ swaggerhub domain:unpublish organization/domain/1.0.0
 ```
 
-_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/unpublish.js)_
+_See code: [src/commands/domain/unpublish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/unpublish.js)_
 
 ## `swaggerhub domain:update`
 
@@ -661,13 +662,13 @@ ARGUMENTS
   OWNER/DOMAIN_NAME/[VERSION]  Domain to update on SwaggerHub
 
 FLAGS
-  -f, --file=<value>     file location of domain to update
-  -h, --help             Show CLI help.
-  --published=<option>   sets the lifecycle setting of the domain version
-                         <options: publish|unpublish>
-  --setdefault           sets domain version to be the default
-  --visibility=<option>  visibility of domain in SwaggerHub
-                         <options: public|private>
+  -f, --file=<value>         file location of domain to update
+  -h, --help                 Show CLI help.
+      --published=<option>   sets the lifecycle setting of the domain version
+                             <options: publish|unpublish>
+      --setdefault           sets domain version to be the default
+      --visibility=<option>  visibility of domain in SwaggerHub
+                             <options: public|private>
 
 DESCRIPTION
   update a domain
@@ -690,7 +691,7 @@ EXAMPLES
   $ swaggerhub domain:update organization/domain/1.0.0 --visibility=private
 ```
 
-_See code: [src/commands/domain/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/domain/update.js)_
+_See code: [src/commands/domain/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/domain/update.js)_
 
 ## `swaggerhub help`
 
@@ -698,10 +699,10 @@ Display help for swaggerhub.
 
 ```
 USAGE
-  $ swaggerhub help [COMMANDS] [-n]
+  $ swaggerhub help [COMMAND...] [-n]
 
 ARGUMENTS
-  COMMANDS  Command to show help for.
+  COMMAND...  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -710,7 +711,7 @@ DESCRIPTION
   Display help for swaggerhub.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.22/src/commands/help.ts)_
 
 ## `swaggerhub integration:create`
 
@@ -738,7 +739,7 @@ EXAMPLES
   $ swaggerhub integration:create organization/api/1.0.0 --file config.json
 ```
 
-_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/create.js)_
+_See code: [src/commands/integration/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/create.js)_
 
 ## `swaggerhub integration:delete`
 
@@ -761,7 +762,7 @@ EXAMPLES
   $ swaggerhub integration:delete organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
 ```
 
-_See code: [src/commands/integration/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/delete.js)_
+_See code: [src/commands/integration/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/delete.js)_
 
 ## `swaggerhub integration:execute`
 
@@ -784,7 +785,7 @@ EXAMPLES
   $ swaggerhub integration:execute organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
 ```
 
-_See code: [src/commands/integration/execute.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/execute.js)_
+_See code: [src/commands/integration/execute.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/execute.js)_
 
 ## `swaggerhub integration:get`
 
@@ -807,7 +808,7 @@ EXAMPLES
   $ swaggerhub integration:get organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
 ```
 
-_See code: [src/commands/integration/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/get.js)_
+_See code: [src/commands/integration/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/get.js)_
 
 ## `swaggerhub integration:list`
 
@@ -830,7 +831,7 @@ EXAMPLES
   $ swaggerhub integration:list organization/api/1.0.0
 ```
 
-_See code: [src/commands/integration/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/list.js)_
+_See code: [src/commands/integration/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/list.js)_
 
 ## `swaggerhub integration:update`
 
@@ -854,7 +855,7 @@ EXAMPLES
   $ swaggerhub integration:update organization/api/1.0.0/503c2db6-448a-4678-abcd-0123456789abc --file config.json
 ```
 
-_See code: [src/commands/integration/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/integration/update.js)_
+_See code: [src/commands/integration/update.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/integration/update.js)_
 
 ## `swaggerhub plugins`
 
@@ -877,44 +878,53 @@ EXAMPLES
   $ swaggerhub plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/index.ts)_
 
-## `swaggerhub plugins:install`
+## `swaggerhub plugins:add`
 
-Installs a plugin into the CLI.
+Installs a plugin into swaggerhub.
 
 ```
 USAGE
-  $ swaggerhub plugins:install PLUGIN...
+  $ swaggerhub plugins:add PLUGIN... [--json] [-f] [-h] [-s | -v]
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  PLUGIN...  Plugin to install.
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
+  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
   -h, --help     Show CLI help.
-  -v, --verbose
+  -s, --silent   Silences npm output.
+  -v, --verbose  Show verbose npm output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
+  Installs a plugin into swaggerhub.
+
+  Uses npm to install plugins.
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
+  Use the SWAGGERHUB_NPM_LOG_LEVEL environment variable to set the npm loglevel.
+  Use the SWAGGERHUB_NPM_REGISTRY environment variable to set the npm registry.
 
 ALIASES
   $ swaggerhub plugins:add
 
 EXAMPLES
-  $ swaggerhub plugins:install myplugin 
+  Install a plugin from npm registry.
 
-  $ swaggerhub plugins:install https://github.com/someuser/someplugin
+    $ swaggerhub plugins:add myplugin
 
-  $ swaggerhub plugins:install someuser/someplugin
+  Install a plugin from a github url.
+
+    $ swaggerhub plugins:add https://github.com/someuser/someplugin
+
+  Install a plugin from a github slug.
+
+    $ swaggerhub plugins:add someuser/someplugin
 ```
 
 ## `swaggerhub plugins:inspect`
@@ -926,7 +936,7 @@ USAGE
   $ swaggerhub plugins:inspect PLUGIN...
 
 ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
+  PLUGIN...  [default: .] Plugin to inspect.
 
 FLAGS
   -h, --help     Show CLI help.
@@ -942,47 +952,56 @@ EXAMPLES
   $ swaggerhub plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/inspect.ts)_
 
 ## `swaggerhub plugins:install`
 
-Installs a plugin into the CLI.
+Installs a plugin into swaggerhub.
 
 ```
 USAGE
-  $ swaggerhub plugins:install PLUGIN...
+  $ swaggerhub plugins:install PLUGIN... [--json] [-f] [-h] [-s | -v]
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  PLUGIN...  Plugin to install.
 
 FLAGS
-  -f, --force    Run yarn install with force flag.
+  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
   -h, --help     Show CLI help.
-  -v, --verbose
+  -s, --silent   Silences npm output.
+  -v, --verbose  Show verbose npm output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-  Can be installed from npm or a git url.
+  Installs a plugin into swaggerhub.
+
+  Uses npm to install plugins.
 
   Installation of a user-installed plugin will override a core plugin.
 
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
+  Use the SWAGGERHUB_NPM_LOG_LEVEL environment variable to set the npm loglevel.
+  Use the SWAGGERHUB_NPM_REGISTRY environment variable to set the npm registry.
 
 ALIASES
   $ swaggerhub plugins:add
 
 EXAMPLES
-  $ swaggerhub plugins:install myplugin 
+  Install a plugin from npm registry.
 
-  $ swaggerhub plugins:install https://github.com/someuser/someplugin
+    $ swaggerhub plugins:install myplugin
 
-  $ swaggerhub plugins:install someuser/someplugin
+  Install a plugin from a github url.
+
+    $ swaggerhub plugins:install https://github.com/someuser/someplugin
+
+  Install a plugin from a github slug.
+
+    $ swaggerhub plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/install.ts)_
 
 ## `swaggerhub plugins:link`
 
@@ -990,18 +1009,19 @@ Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ swaggerhub plugins:link PLUGIN
+  $ swaggerhub plugins:link PATH [-h] [--install] [-v]
 
 ARGUMENTS
   PATH  [default: .] path to plugin
 
 FLAGS
-  -h, --help      Show CLI help.
+  -h, --help          Show CLI help.
   -v, --verbose
-  --[no-]install  Install dependencies after linking the plugin.
+      --[no-]install  Install dependencies after linking the plugin.
 
 DESCRIPTION
   Links a plugin into the CLI for development.
+
   Installation of a linked plugin will override a user-installed or core plugin.
 
   e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
@@ -1012,18 +1032,18 @@ EXAMPLES
   $ swaggerhub plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/link.ts)_
 
-## `swaggerhub plugins:uninstall`
+## `swaggerhub plugins:remove`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ swaggerhub plugins:uninstall PLUGIN...
+  $ swaggerhub plugins:remove [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -1035,7 +1055,25 @@ DESCRIPTION
 ALIASES
   $ swaggerhub plugins:unlink
   $ swaggerhub plugins:remove
+
+EXAMPLES
+  $ swaggerhub plugins:remove myplugin
 ```
+
+## `swaggerhub plugins:reset`
+
+Remove all user-installed and linked plugins.
+
+```
+USAGE
+  $ swaggerhub plugins:reset [--hard] [--reinstall]
+
+FLAGS
+  --hard       Delete node_modules and package manager related files in addition to uninstalling plugins.
+  --reinstall  Reinstall all plugins after uninstalling.
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/reset.ts)_
 
 ## `swaggerhub plugins:uninstall`
 
@@ -1043,10 +1081,10 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ swaggerhub plugins:uninstall PLUGIN...
+  $ swaggerhub plugins:uninstall [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -1058,20 +1096,23 @@ DESCRIPTION
 ALIASES
   $ swaggerhub plugins:unlink
   $ swaggerhub plugins:remove
+
+EXAMPLES
+  $ swaggerhub plugins:uninstall myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/uninstall.ts)_
 
-## `swaggerhub plugins:uninstall`
+## `swaggerhub plugins:unlink`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ swaggerhub plugins:uninstall PLUGIN...
+  $ swaggerhub plugins:unlink [PLUGIN...] [-h] [-v]
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -1083,6 +1124,9 @@ DESCRIPTION
 ALIASES
   $ swaggerhub plugins:unlink
   $ swaggerhub plugins:remove
+
+EXAMPLES
+  $ swaggerhub plugins:unlink myplugin
 ```
 
 ## `swaggerhub plugins:update`
@@ -1101,7 +1145,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.25/src/commands/plugins/update.ts)_
 
 ## `swaggerhub project:api:add`
 
@@ -1125,7 +1169,7 @@ EXAMPLES
   $ swaggerhub project:api:add organization/project_name my_api
 ```
 
-_See code: [src/commands/project/api/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/api/add.js)_
+_See code: [src/commands/project/api/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/api/add.js)_
 
 ## `swaggerhub project:api:remove`
 
@@ -1149,7 +1193,7 @@ EXAMPLES
   $ swaggerhub project:api:remove organization/project_name my_api
 ```
 
-_See code: [src/commands/project/api/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/api/remove.js)_
+_See code: [src/commands/project/api/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/api/remove.js)_
 
 ## `swaggerhub project:create`
 
@@ -1163,10 +1207,10 @@ ARGUMENTS
   OWNER/PROJECT_NAME  The new project to create on Swaggerhub
 
 FLAGS
-  -a, --apis=<value>     Comma separated list of api names to include in project
-  -d, --domains=<value>  Comma separated list of domain names to include in project
-  -h, --help             Show CLI help.
-  --description=<value>  Description of project
+  -a, --apis=<value>         Comma separated list of api names to include in project
+  -d, --domains=<value>      Comma separated list of domain names to include in project
+  -h, --help                 Show CLI help.
+      --description=<value>  Description of project
 
 DESCRIPTION
   Creates a new project in SwaggerHub.
@@ -1185,7 +1229,7 @@ EXAMPLES
   $ swaggerhub project:create organization/new_project_name -a "testapi1" -d "testdomain3" --description "description"
 ```
 
-_See code: [src/commands/project/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/create.js)_
+_See code: [src/commands/project/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/create.js)_
 
 ## `swaggerhub project:delete`
 
@@ -1208,7 +1252,7 @@ EXAMPLES
   $ swaggerhub project:delete organization/project_name
 ```
 
-_See code: [src/commands/project/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/delete.js)_
+_See code: [src/commands/project/delete.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/delete.js)_
 
 ## `swaggerhub project:domain:add`
 
@@ -1232,7 +1276,7 @@ EXAMPLES
   $ swaggerhub project:domain:add organization/project_name my_domain
 ```
 
-_See code: [src/commands/project/domain/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/domain/add.js)_
+_See code: [src/commands/project/domain/add.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/domain/add.js)_
 
 ## `swaggerhub project:domain:remove`
 
@@ -1256,7 +1300,7 @@ EXAMPLES
   $ swaggerhub project:domain:remove organization/project_name my_domain
 ```
 
-_See code: [src/commands/project/domain/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/domain/remove.js)_
+_See code: [src/commands/project/domain/remove.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/domain/remove.js)_
 
 ## `swaggerhub project:get`
 
@@ -1279,7 +1323,7 @@ EXAMPLES
   $ swaggerhub project:get organization/project_name
 ```
 
-_See code: [src/commands/project/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/get.js)_
+_See code: [src/commands/project/get.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/get.js)_
 
 ## `swaggerhub project:list`
 
@@ -1304,7 +1348,7 @@ EXAMPLES
   $ swaggerhub project:list organization
 ```
 
-_See code: [src/commands/project/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/list.js)_
+_See code: [src/commands/project/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/list.js)_
 
 ## `swaggerhub project:member:list`
 
@@ -1327,7 +1371,7 @@ EXAMPLES
   $ swaggerhub project:member:list organisation/project_name
 ```
 
-_See code: [src/commands/project/member/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.0/src/commands/project/member/list.js)_
+_See code: [src/commands/project/member/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/project/member/list.js)_
 <!-- commandsstop -->
 
 # Plugins
