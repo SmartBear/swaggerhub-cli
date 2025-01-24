@@ -10,9 +10,9 @@ on:
           Select the branch to release from above, then select the version level to bump below.
         type: choice
         options:
-        - major
-        - minor
-        - patch
+          - major
+          - minor
+          - patch
         default: minor
 jobs:
   bump-version:

@@ -70,7 +70,7 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
 
-    needs: [version-and-tag, publish-github]
+    needs: [ version-and-tag, publish-github ]
     env:
       VERSION: ${{ needs.version-and-tag.outputs.VERSION }}
 
