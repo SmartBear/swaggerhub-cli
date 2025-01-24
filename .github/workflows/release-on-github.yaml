@@ -41,7 +41,7 @@ jobs:
           VERSION=$(npm version ${{inputs.type}} --no-git-tag-version)
           npx oclif readme && node src/format-readme.js
           git checkout -b release/${VERSION}
-          echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_OUTPUT
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Create release PR
         run: |
