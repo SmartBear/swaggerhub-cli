@@ -5,7 +5,7 @@ run-name: 'Release from ${{ github.ref_name }}'
 on:
   pull_request:
     branches:
-      - test
+      - main
     types:
       - closed
 
