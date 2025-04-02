@@ -10,7 +10,9 @@ class ConfigureCommand extends BaseCommand {
     const { configDir } = this.config
     const configFilePath = [...configDir.split(path.sep), 'config.json'].join(path.sep)
     
-    return inquirer.prompt(prompts)
+    return import('inquirer')
+      .then(module => module.default)
+      .then(inquirer => inquirer.prompt(prompts))
       .then(setConfig)
       .then(this.logCommandSuccess({ configFilePath }))
       .catch(this.throwCommandError({ configFilePath }))
