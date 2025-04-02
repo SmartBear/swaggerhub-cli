@@ -24,16 +24,18 @@ class DeleteAPICommand extends BaseCommand {
     })
   }
 
-  async confirmDeletion(apiName) {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `Are you sure you want to delete '${apiName}' definition entirely?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+  confirmDeletion(apiName) {
+    return import('inquirer')
+        .then(module => module.default)
+        .then(inquirer => inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'answer',
+            message: `Are you sure you want to delete '${apiName}' definition entirely?`,
+            default: false
+          }
+        ]))
+        .then(confirm => confirm.answer)
   }
 }
 
