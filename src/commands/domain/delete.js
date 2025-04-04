@@ -2,7 +2,6 @@ const { Flags, Args } = require('@oclif/core')
 const { deleteDomain } = require('../../requests/domain')
 const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
-const inquirer = require('inquirer')
 
 class DeleteDomainCommand extends BaseCommand {
 
@@ -25,15 +24,17 @@ class DeleteDomainCommand extends BaseCommand {
   }
 
   async confirmDeletion(name) {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `Are you sure you want to delete '${name}' definition entirely?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+    return import('inquirer')
+        .then(module => module.default)
+        .then(inquirer => inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'answer',
+            message: `Are you sure you want to delete '${name}' definition entirely?`,
+            default: false
+          }
+        ]))
+        .then(c => c.answer)
   }
 }
 

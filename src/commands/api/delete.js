@@ -2,7 +2,6 @@ const { Flags, Args } = require('@oclif/core')
 const { deleteApi } = require('../../requests/api')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
-const inquirer = require('inquirer')
 
 class DeleteAPICommand extends BaseCommand {
 
