@@ -1,6 +1,5 @@
 const path = require('path')
 const BaseCommand = require('../support/command/base-command')
-const inquirer = require('inquirer')
 const { getPrompts } = require('../support/inquirer')
 const { setConfig, getConfig } = require('../config')
 

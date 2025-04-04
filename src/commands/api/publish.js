@@ -2,7 +2,6 @@ const { Flags, Args } = require('@oclif/core')
 const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const UpdateCommand = require('../../support/command/update-command')
-const inquirer = require('inquirer')
 
 class PublishCommand extends UpdateCommand {
   async run() {
@@ -14,17 +13,19 @@ class PublishCommand extends UpdateCommand {
   }
 
   async confirmPublish() {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `You are about to publish an API referencing unpublished Domains. 
+    return import('inquirer')
+        .then(module => module.default)
+        .then(inquirer => inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'answer',
+            message: `You are about to publish an API referencing unpublished Domains. 
         If those Domains change, it may affect your API definition. 
         Do you wish to continue?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+            default: false
+          }
+        ]))
+        .then(c => c.answer)
   }
 }
 
