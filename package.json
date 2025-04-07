@@ -22,7 +22,7 @@
   "devDependencies": {
     "@oclif/test": "^3.2.10",
     "chai": "^4.3.10",
-    "sinon": "^19.0.2",
+    "sinon": "^20.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-immutable": "^1.0.0",
