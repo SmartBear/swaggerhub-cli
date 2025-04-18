@@ -1,7 +1,0 @@
-{
-    "name": "IBM Integration",
-    "configType": "IBM_API_CONNECT",
-    "apiKey": "apiKey",
-    "orgId": "6ddbce351be3a82b921f1b77",
-    "apiId": "swagger-petstore"
-}
