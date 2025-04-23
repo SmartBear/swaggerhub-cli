@@ -18,7 +18,6 @@ Integrations are managed using the `integration` topic. The `create` and `update
 * [GitHub Enterprise Integration](#github-enterprise-integration)
 * [GitHub Integration](#github-integration)
 * [GitLab Integration](#gitlab-integration)
-* [IBM API Connect Integration](#ibm-api-connect-integration)
 * [Webhook Integration](#webhook-integration)
 
 ## Amazon API Gateway Integration
@@ -201,16 +200,6 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
 |outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
-|enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
-
-## IBM API Connect Integration
-|Property|Type|Required|Description|
-|-|-|-|-|
-|name|string|yes|Display name of the integration. Must be unique among all integrations configured for the given API version.|
-|configType|string|yes|"IBM_API_CONNECT" is used to create an IBM API Connect integration.|
-|apiKey|string|yes|IBM Cloud API Key, obtain a key [here.](https://console.bluemix.net/iam#/apikeys)| 
-|orgId|string|yes|The organization ID or name under your IBM Cloud account to which you want to deploy your API. Example value `680ee27a0cf28d61b4e9a462`.|
-|apiId|string|no|The name of the API to publish to. If left blank, a new API in IBM will be created when the integration is triggered. When specified, any existing API definition will be overwritten.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Webhook Integration
