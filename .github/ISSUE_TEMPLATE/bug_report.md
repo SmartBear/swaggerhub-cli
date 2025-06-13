@@ -16,7 +16,7 @@ assignees: ''
 ### Q&A (please complete the following information)
  - CLI version: [e.g. 1.0.0]
  - OS: [e.g. macOS Ventura]
- - Node.js version: [e.g. 18.15.0]
+ - Node.js version: [e.g. 20.15.0]
  - SwaggerHub version if On-Premise: [e.g. 2.3.0+111]
 
 ### Describe the bug you're encountering
