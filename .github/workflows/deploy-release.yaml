@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Extract version from source branch name
         id: extract_version
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - run: echo "Creating GitHub release for version ${{ env.VERSION }}"
       - name: Create GitHub Release
@@ -75,13 +75,13 @@ jobs:
       VERSION: ${{ needs.version-and-tag.outputs.VERSION }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ env.VERSION }}
 
       # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
