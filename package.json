@@ -20,20 +20,20 @@
     "semver": "^7.6.0"
   },
   "devDependencies": {
-    "@oclif/test": "^3.2.10",
+    "@oclif/test": "^4.1.13",
     "chai": "^4.3.10",
-    "sinon": "^19.0.2",
+    "sinon": "^21.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-mocha": "^11.1.0",
     "eslint-plugin-node": "^11.1.0",
     "globby": "^14.0.0",
     "husky": "^9.0.1",
     "mocha": "^11.1.0",
     "nock": "^14.0.1",
     "nyc": "^17.0.0",
-    "rewire": "^7.0.0",
+    "rewire": "^8.0.0",
     "tmp": "^0.2.1"
   },
   "engines": {
