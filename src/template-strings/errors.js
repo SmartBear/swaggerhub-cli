@@ -23,6 +23,8 @@ const errorMsg = {
 
   invalidConfig: 'Invalid configuration file. Please ensure that the file is in JSON format',
 
+  directoryExists: 'Directory already exists: \'{{directory}}\'',
+
   unknown: 'Unknown Error',
 }
 

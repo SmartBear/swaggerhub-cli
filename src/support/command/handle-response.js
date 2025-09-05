@@ -2,12 +2,21 @@ const { CLIError } = require('@oclif/core').Errors
 const { hasJsonStructure, isError } = require('../../utils/general')
 const { errorMsg } = require('../../template-strings')
 
-const parseResponse = response => new Promise(resolve => response.text()
-  .then(content => resolve({
+const parseResponse = response => new Promise(resolve => {
+
+  const resolveContent = content => resolve({
     status: response.status,
     ok: response.ok,
-    content: content,
-  })))
+    content,
+  });
+
+  const contentType = response.headers?.get('content-type') || '';
+  if (contentType.includes('application/zip')) {
+    response.buffer().then(resolveContent)
+  } else {
+    response.text().then(resolveContent)
+  }
+});
 
 const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
   if (resolveStatus.includes(response.status) || response.ok) {
