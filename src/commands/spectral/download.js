@@ -38,7 +38,11 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
       if (err.code === 'EEXIST') {
         throw new Errors.CLIError(errorMsg.directoryExists({ directory: outputDir }))
       }
-      throw err
+      if (err.message) {
+        throw new Errors.CLIError(err.message)
+      }
+      
+      throw new Errors.CLIError(errorMsg.unknown())
     }
   }
 }

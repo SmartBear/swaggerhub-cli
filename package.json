@@ -78,6 +78,9 @@
       },
       "projects": {
         "description": "this topic supports the management of Projects"
+      },
+      "spectral": {
+        "description": "this topic supports the management of Spectral rulesets"
       }
     },
     "helpClass": "./src/help"
