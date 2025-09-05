@@ -6,9 +6,9 @@ const BaseCommand = require('../../support/command/base-command')
 const unzipper = require('unzipper');
 const fs = require('fs');
 
-class UploadSpectralRulesetCommand extends BaseCommand {
+class DownloadSpectralRulesetCommand extends BaseCommand {
   async run() {
-    const { args } = await this.parse(UploadSpectralRulesetCommand)
+    const { args } = await this.parse(DownloadSpectralRulesetCommand)
     const rulesetPath = getSpectralIdentifierArg(args)
     const [owner, name, version = '1.0.0'] = splitPathParams(rulesetPath)
     const rulesetPathWithVersion = [owner, name, version].join('/')
@@ -43,14 +43,14 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   }
 }
 
-UploadSpectralRulesetCommand.description = `Fetch organization's spectral ruleset`
+DownloadSpectralRulesetCommand.description = `Fetch organization's spectral ruleset`
 
-UploadSpectralRulesetCommand.examples = [
+DownloadSpectralRulesetCommand.examples = [
   'swaggerhub spectral:download my_organization/my_api_ruleset/1.0.0 rules/',
   'swaggerhub spectral:download my_organization/my_api_ruleset rules/',
 ]
 
-UploadSpectralRulesetCommand.args = { 
+DownloadSpectralRulesetCommand.args = { 
   'OWNER/RULESET_NAME/[VERSION]': Args.string({
     required: true,
     description: 'Organization\'s Spectral ruleset to create or update on SwaggerHub'
@@ -61,8 +61,8 @@ UploadSpectralRulesetCommand.args = {
   })
 }
 
-UploadSpectralRulesetCommand.flags = {
+DownloadSpectralRulesetCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = UploadSpectralRulesetCommand
+module.exports = DownloadSpectralRulesetCommand
