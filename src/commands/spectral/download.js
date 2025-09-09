@@ -47,7 +47,7 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
   }
 }
 
-DownloadSpectralRulesetCommand.description = `Fetch organization's spectral ruleset`
+DownloadSpectralRulesetCommand.description = `Fetch organization's Spectral ruleset`
 
 DownloadSpectralRulesetCommand.examples = [
   'swaggerhub spectral:download my_organization/my_api_ruleset/1.0.0 rules/',

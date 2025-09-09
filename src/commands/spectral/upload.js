@@ -37,7 +37,7 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   }
 }
 
-UploadSpectralRulesetCommand.description = `Create or update organization's spectral ruleset`
+UploadSpectralRulesetCommand.description = `Create or update organization's Spectral ruleset`
 
 UploadSpectralRulesetCommand.examples = [
   'swaggerhub spectral:upload my_organization/my_api_ruleset/1.0.0 rules/',

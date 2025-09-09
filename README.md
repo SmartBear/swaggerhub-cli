@@ -1377,7 +1377,7 @@ _See code: [src/commands/project/member/list.js](https://github.com/SmartBear/sw
 
 ## `swaggerhub spectral:upload`
 
-Create or update organization's spectral ruleset
+Create or update organization's Spectral ruleset
 
 ```
 USAGE
@@ -1391,7 +1391,7 @@ FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  Create or update organization's spectral ruleset
+  Create or update organization's Spectral ruleset
 
 EXAMPLES
   $ swaggerhub spectral:upload my_organization/my_api_ruleset/1.0.0 rules
@@ -1402,7 +1402,7 @@ _See code: [src/commands/spectral/upload.js](https://github.com/SmartBear/swagge
 
 ## `swaggerhub spectral:download`
 
-Fetch organization's spectral ruleset
+Fetch organization's Spectral ruleset
 
 ```
 USAGE
@@ -1416,7 +1416,7 @@ FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  Fetch organization's spectral ruleset
+  Fetch organization's Spectral ruleset
 
 EXAMPLES
   $ swaggerhub spectral:download my_organization/my_api_ruleset/1.0.0 rules
