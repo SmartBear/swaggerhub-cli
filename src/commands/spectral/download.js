@@ -10,10 +10,8 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
   async run() {
     const { args } = await this.parse(DownloadSpectralRulesetCommand)
     const rulesetPath = getSpectralIdentifierArg(args)
-    const [owner, name, version = '1.0.0'] = splitPathParams(rulesetPath)
-    const rulesetPathWithVersion = [owner, name, version].join('/')
 
-    await this.getSpectralRuleset(rulesetPathWithVersion, args['directory'])
+    await this.getSpectralRuleset(rulesetPath, args['directory'])
   }
 
   getSpectralRuleset(pathParams, outputDir) {
@@ -50,12 +48,11 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
 DownloadSpectralRulesetCommand.description = `Fetch organization's Spectral ruleset`
 
 DownloadSpectralRulesetCommand.examples = [
-  'swaggerhub spectral:download my_organization/my_api_ruleset/1.0.0 rules/',
   'swaggerhub spectral:download my_organization/my_api_ruleset rules/',
 ]
 
 DownloadSpectralRulesetCommand.args = { 
-  'OWNER/RULESET_NAME/[VERSION]': Args.string({
+  'OWNER/RULESET_NAME': Args.string({
     required: true,
     description: 'Organization\'s Spectral ruleset to create or update on SwaggerHub'
   }),
