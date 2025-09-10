@@ -11,11 +11,9 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   async run() {
     const { args } = await this.parse(UploadSpectralRulesetCommand)
     const rulesetPath = getSpectralIdentifierArg(args)
-    const [owner, name, version = '1.0.0'] = splitPathParams(rulesetPath)
-    const rulesetPathWithVersion = [owner, name, version].join('/')
 
     const zippedDirectory = await this.zipTheDirectory(args.directory)
-    await this.saveSpectralRuleset(rulesetPathWithVersion, zippedDirectory)
+    await this.saveSpectralRuleset(rulesetPath, zippedDirectory)
   }
 
  async zipTheDirectory(directoryPath) {
@@ -40,12 +38,11 @@ class UploadSpectralRulesetCommand extends BaseCommand {
 UploadSpectralRulesetCommand.description = `Create or update organization's Spectral ruleset`
 
 UploadSpectralRulesetCommand.examples = [
-  'swaggerhub spectral:upload my_organization/my_api_ruleset/1.0.0 rules/',
   'swaggerhub spectral:upload my_organization/my_api_ruleset rules/',
 ]
 
 UploadSpectralRulesetCommand.args = { 
-  'OWNER/RULESET_NAME/[VERSION]': Args.string({
+  'OWNER/RULESET_NAME': Args.string({
     required: true,
     description: 'Organization\'s Spectral ruleset to create or update on SwaggerHub'
   }),

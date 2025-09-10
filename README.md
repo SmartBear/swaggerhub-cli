@@ -146,8 +146,8 @@ USAGE
 * [`swaggerhub project:get OWNER/PROJECT_NAME`](#swaggerhub-projectget)
 * [`swaggerhub project:list [OWNER]`](#swaggerhub-projectlist)
 * [`swaggerhub project:member:list OWNER/PROJECT_NAME`](#swaggerhub-projectmemberlist)
-* [`swaggerhub spectral:upload OWNER/RULESET_NAME/VERSION directory`](#swaggerhub-spectralupload)
-* [`swaggerhub spectral:download OWNER/RULESET_NAME/VERSION directory`](#swaggerhub-spectraldownload)
+* [`swaggerhub spectral:upload OWNER/RULESET_NAME directory`](#swaggerhub-spectralupload)
+* [`swaggerhub spectral:download OWNER/RULESET_NAME directory`](#swaggerhub-spectraldownload)
 
 ## `swaggerhub api:create`
 
@@ -1381,10 +1381,10 @@ Create or update organization's Spectral ruleset
 
 ```
 USAGE
-  $ swaggerhub spectral:upload OWNER/RULESET_NAME/VERSION directory [-h]
+  $ swaggerhub spectral:upload OWNER/RULESET_NAME directory [-h]
 
 ARGUMENTS
-  OWNER/RULESET_NAME/[VERSION]  The Spectral ruleset details for SwaggerHub organization
+  OWNER/RULESET_NAME            The Spectral ruleset details for SwaggerHub organization
   directory                     Relative path to directory with ruleset files
 
 FLAGS
@@ -1394,7 +1394,7 @@ DESCRIPTION
   Create or update organization's Spectral ruleset
 
 EXAMPLES
-  $ swaggerhub spectral:upload my_organization/my_api_ruleset/1.0.0 rules
+  $ swaggerhub spectral:upload my_organization/my_api_ruleset rules
 ```
 
 _See code: [src/commands/spectral/upload.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/spectral/upload.js)_
@@ -1406,10 +1406,10 @@ Fetch organization's Spectral ruleset
 
 ```
 USAGE
-  $ swaggerhub spectral:download OWNER/RULESET_NAME/VERSION directory [-h]
+  $ swaggerhub spectral:download OWNER/RULESET_NAME directory [-h]
 
 ARGUMENTS
-  OWNER/RULESET_NAME/[VERSION]  The Spectral ruleset details for SwaggerHub organization
+  OWNER/RULESET_NAME            The Spectral ruleset details for SwaggerHub organization
   directory                     Relative path to directory the ruleset files should be saved to
 
 FLAGS
@@ -1419,7 +1419,7 @@ DESCRIPTION
   Fetch organization's Spectral ruleset
 
 EXAMPLES
-  $ swaggerhub spectral:download my_organization/my_api_ruleset/1.0.0 rules
+  $ swaggerhub spectral:download my_organization/my_api_ruleset rules
 ```
 
 _See code: [src/commands/spectral/download.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.9.1/src/commands/spectral/download.js)_
