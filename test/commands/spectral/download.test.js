@@ -5,9 +5,7 @@ const unzipper = require('unzipper')
 
 const org = 'org1'
 const rulesetName = 'rulesetA'
-const version = '1.0.2'
-const rulesetPath = `${org}/${rulesetName}/${version}`
-const rulesetPathWithoutVersion = `${org}/${rulesetName}` 
+const rulesetPath = `${org}/${rulesetName}`
 const outputDir = 'rules'
 
 describe('invalid spectral:download', () => {
@@ -52,19 +50,6 @@ describe('valid spectral:download', () => {
       expect(ctx.stdout).to.be.undefined
     })
 
-  
-  test
-    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
-    .nock('https://api.swaggerhub.com/standardization', api => api
-      .get(`/spectral-rulesets/${rulesetPathWithoutVersion}/1.0.0/zip`)
-      .reply(200, zipBuffer, { 'Content-Type': 'application/zip' })
-    )
-    .stub(fs.promises, 'mkdir', stub => stub.resolves())
-    .stub(unzipper.Open, 'buffer', stub => stub.resolves({ extract: ({ path }) => Promise.resolve() }))
-    .command(['spectral:download', rulesetPathWithoutVersion, outputDir])
-    .it('runs spectral:download without version and extracts ruleset zip to directory', ctx => {
-      expect(ctx.stdout).to.be.undefined
-    })
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
