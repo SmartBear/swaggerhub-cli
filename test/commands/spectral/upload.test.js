@@ -4,7 +4,9 @@ const fs = require('fs')
 
 const org = 'org1'
 const rulesetName = 'rulesetA'
-const rulesetPath = `${org}/${rulesetName}`
+const version = '1.0.2'
+const rulesetPath = `${org}/${rulesetName}/${version}`
+const rulesetPathWithoutVersion = `${org}/${rulesetName}` 
 const inputDir = 'rules'
 
 describe('invalid spectral:upload', () => {
@@ -45,6 +47,18 @@ describe('valid spectral:upload', () => {
     .stub(fs, 'createReadStream', stub => stub.returns(zipBuffer))
     .command(['spectral:upload', rulesetPath, inputDir])
     .it('runs spectral:upload and uploads zipped ruleset directory', ctx => {
+      expect(ctx.stdout).to.be.undefined
+    })
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
+    .nock('https://api.swaggerhub.com/standardization', api => api
+      .put(`/spectral-rulesets/${rulesetPathWithoutVersion}/1.0.0/zip`)
+      .reply(200, '{"success":true}', { 'Content-Type': 'application/json' })
+    )
+    .stub(fs, 'createReadStream', stub => stub.returns(zipBuffer))
+    .command(['spectral:upload', rulesetPathWithoutVersion, inputDir])
+    .it('runs spectral:upload without version and uploads zipped ruleset directory', ctx => {
       expect(ctx.stdout).to.be.undefined
     })
 

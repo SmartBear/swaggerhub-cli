@@ -202,23 +202,42 @@ describe('getProjectIdentifierArg', () => {
 
 describe('getSpectralIdentifierArg', () => {
 
+  context('valid version identifier', () =>
+    it('should be returned', () =>
+      expect(getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/VERSION': 'owner/ruleset/1.2.3' })).to.equal('owner/ruleset/1.2.3')
+    )
+  )
+
   context('valid identifier', () =>
     it('should be returned', () =>
-      expect(getSpectralIdentifierArg({ 'OWNER/RULESET_NAME': 'owner/ruleset' })).to.equal('owner/ruleset')
+      expect(getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/[VERSION]': 'owner/ruleset' }, false)).to.equal('owner/ruleset')
     )
   )
 
   context('invalid identifier', () =>
     it('should throw an exception', () =>
-      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME': 'owner/ruleset/1.2.3' })})
+      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/VERSION': 'owner/ruleset/version/extra' })})
         .to.throw(CLIError)
     )
   )
 
   context('invalid identifier with space', () =>
     it('should throw an exception', () =>
-      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME': 'owner/ruleset name' })})
+      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/VERSION': 'owner/ruleset name/version' })})
         .to.throw(CLIError)
+    )
+  )
+
+  context('invalid identifier with space and no version', () => {
+    it('should throw an exception', () =>
+      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/[VERSION]': 'owner/ruleset name' }, false)})
+        .to.throw(CLIError)
+    )
+  })
+
+  context('invalid identifier with version required', () =>
+    it('should throw an exception', () =>
+      expect(() => { getSpectralIdentifierArg({ 'OWNER/RULESET_NAME/VERSION': 'owner/ruleset' })}).to.throw(CLIError)
     )
   )
 })
