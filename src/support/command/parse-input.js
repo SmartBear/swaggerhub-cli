@@ -7,7 +7,6 @@ const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?
 const requiredVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const integrationIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const projectIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+$/)
-const spectralIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+$/)
 
 const isValidIdentifier = (id, isVersionRequired) => isVersionRequired
   ? requiredVersionRegex.test(id)
@@ -54,12 +53,10 @@ const getProjectIdentifierArg = args => {
 }
 
 const getSpectralIdentifierArg = args => {
-  const format = 'OWNER/RULESET_NAME'
+  const isVersionRequired = !!args['OWNER/RULESET_NAME/VERSION']
+  const format = isVersionRequired ? 'OWNER/RULESET_NAME/VERSION' : 'OWNER/RULESET_NAME/[VERSION]'
   const identifier = args[format]
-  if (!spectralIdentifierRegex.test(identifier)) {
-    throw new CLIError(errorMsg.argsMustMatchFormat({ format }))
-  }
-  return identifier
+  return getIdentifierArg(isVersionRequired, format, identifier)
 }
 
 const readConfigFile = filename => {
