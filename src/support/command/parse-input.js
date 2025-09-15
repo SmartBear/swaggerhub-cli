@@ -52,6 +52,13 @@ const getProjectIdentifierArg = args => {
   return identifier
 }
 
+const getSpectralIdentifierArg = args => {
+  const isVersionRequired = !!args['OWNER/RULESET_NAME/VERSION']
+  const format = isVersionRequired ? 'OWNER/RULESET_NAME/VERSION' : 'OWNER/RULESET_NAME/[VERSION]'
+  const identifier = args[format]
+  return getIdentifierArg(isVersionRequired, format, identifier)
+}
+
 const readConfigFile = filename => {
   if (!existsSync(filename)) {
     throw new CLIError(errorMsg.fileNotFound({ filename }))
@@ -81,6 +88,7 @@ module.exports = {
   getDomainIdentifierArg,
   getIntegrationIdentifierArg,
   getProjectIdentifierArg,
+  getSpectralIdentifierArg,
   readConfigFile,
   splitPathParams,
   splitFlagParams,

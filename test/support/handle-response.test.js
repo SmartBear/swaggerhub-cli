@@ -1,5 +1,5 @@
 const { expect, test } = require('@oclif/test')
-const { checkForErrors, getResponseContent, handleErrors } = require('../../src/support/command/handle-response')
+const { checkForErrors, getResponseContent, handleErrors, parseResponse } = require('../../src/support/command/handle-response')
 
 describe('checkForErrors', () => {
     test.it('should return resolved promise', async () => {
@@ -46,4 +46,41 @@ describe('getResponseContent', () => {
             expect(err.message).to.equal('No content field provided')
         }
     })
+})
+
+
+describe('parseResponse', () => {
+  test.it('should parse application/zip response as buffer', async () => {
+    const mockBuffer = Buffer.from('PK\x03\x04', 'binary')
+    const response = {
+      status: 200,
+      ok: true,
+      headers: {
+        get: (header) => header === 'content-type' ? 'application/zip' : ''
+      },
+      buffer: () => Promise.resolve(mockBuffer)
+    }
+
+    const result = await parseResponse(response)
+    expect(result.status).to.equal(200)
+    expect(result.ok).to.equal(true)
+    expect(result.content).to.deep.equal(mockBuffer)
+  })
+
+  test.it('should parse application/json response as text', async () => {
+    const mockText = '{"key":"value"}'
+    const response = {
+      status: 200,
+      ok: true,
+      headers: {
+        get: (header) => header === 'content-type' ? 'application/json' : ''
+      },
+      text: () => Promise.resolve(mockText)
+    }
+
+    const result = await parseResponse(response)
+    expect(result.status).to.equal(200)
+    expect(result.ok).to.equal(true)
+    expect(result.content).to.equal(mockText)
+  })
 })
