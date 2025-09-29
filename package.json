@@ -22,20 +22,20 @@
     "unzipper": "^0.12.3"
   },
   "devDependencies": {
-    "@oclif/test": "^3.2.10",
-    "chai": "^4.3.10",
+    "@oclif/test": "^4.1.14",
+    "chai": "^6.2.0",
     "eslint": "^9.0.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-mocha": "^11.1.0",
     "eslint-plugin-node": "^11.1.0",
-    "globby": "^14.0.0",
+    "globby": "^15.0.0",
     "husky": "^9.0.1",
     "mocha": "^11.1.0",
     "nock": "^14.0.1",
     "nyc": "^17.0.0",
-    "rewire": "^7.0.0",
-    "sinon": "^19.0.2",
+    "rewire": "^9.0.1",
+    "sinon": "^21.0.0",
     "tmp": "^0.2.1"
   },
   "engines": {
