@@ -3,6 +3,7 @@ const { hasJsonStructure } = require('../../utils/general')
 const { CLIError } = require('@oclif/core').Errors
 const { errorMsg } = require('../../template-strings')
 
+const noVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/?)$/)
 const optionalVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+(\/[\w\-.]+)?(\/?)$/)
 const requiredVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
 const integrationIdentifierRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+\/[\w\-.]+\/[\w\-.]+(\/?)$/)
