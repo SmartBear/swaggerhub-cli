@@ -25,27 +25,27 @@ describe('invalid api:rename', () => {
       .catch(err  =>{
         expect(err.message).to.contain('Missing 2 required args')
       })
-      .it('does not run api:publish with no parameters')
+      .it('does not run api:rename with no parameters')
 
   test
       .command(['api:rename', 'api'])
       .catch(err  =>{
         expect(err.message).to.contain('Missing 1 required arg')
       })
-      .it('does not run api:publish with one parameter')
+      .it('does not run api:rename with one parameter')
 
   test
       .command(['api:rename', 'api', 'newname'])
       .catch(err  =>{
         expect(err.message).to.contain('Argument must match OWNER/API_NAME format')
       })
-      .it('does not run api:publish with wrong format api identifier')
+      .it('does not run api:rename with wrong format api identifier')
 
   test
       .command(['api:rename', 'org/api', 'invalid*name'])
       .catch(err  =>{
         expect(err.message).to.contain('Argument must match API_NEW_NAME format')
       })
-      .it('does not run api:publish with wrong new api name format',)
+      .it('does not run api:rename with wrong new api name format',)
 
 });
