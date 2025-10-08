@@ -9,6 +9,7 @@ const { CLIError } = require("@oclif/core/lib/errors");
 const { postApi } = require("../../requests/api");
 
 class RenameApiCommand extends BaseCommand {
+
   async run() {
     const { args } = await this.parse(RenameApiCommand)
 
