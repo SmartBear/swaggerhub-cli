@@ -5,6 +5,8 @@ const infoMsg = {
 
   ApiDelete: 'Deleted API \'{{owner}}/{{name}}\'',
 
+  ApiRename: 'Renamed API \'{{apiPath}}\' to \'{{newName}}\'',
+
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
 
   DomainDelete: 'Deleted domain \'{{owner}}/{{name}}\'',

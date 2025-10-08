@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --trace-warnings
 
 require('@oclif/core').run()
 .then(require('@oclif/core/flush'))

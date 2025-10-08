@@ -6,6 +6,7 @@ const {
 } = require("../../support/command/parse-input");
 const { errorMsg } = require('../../template-strings')
 const { CLIError } = require("@oclif/core/lib/errors");
+const { postApi } = require("../../requests/api");
 
 class RenameApiCommand extends BaseCommand {
   async run() {
@@ -13,10 +14,19 @@ class RenameApiCommand extends BaseCommand {
 
     const apiPath = getApiToRename(args)
     const newName = getApiNewName(args)
-    // Your command logic here
-    this.log(`Renaming API: ${apiPath} to ${newName}`)
 
-    // TODO: Implement actual rename logic
+    this.log(`Renaming API: '${apiPath}' to '${newName}'`)
+
+    await this.executeHttp({
+      execute: () => postApi(
+          {
+            pathParams: [apiPath, 'rename'],
+            queryParams: { 'newName': newName },
+            body: '{}'
+          }),
+      onResolve: this.logCommandSuccess({apiPath, newName}),
+      options: {}
+    })
   }
 }
 
