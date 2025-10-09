@@ -29,8 +29,8 @@ describe('valid integration:list', () => {
     .stdout()
     .command(['integration:list', validApi])
     .it('runs integration:list with valid API', ctx => {
-      expect(ctx.stdout).to.contains('12345678-c3d1-41f0-9425-ebdb52c8113c  GitHub Sync  GITHUB           true')
-      expect(ctx.stdout).to.contains('abcdef00-6925-47b9-be97-1d2ba3ddc69a  API Automock API_AUTO_MOCKING false')
+      expect(ctx.stdout).to.contain('12345678-c3d1-41f0-9425-ebdb52c8113c  GitHub Sync  GITHUB           true')
+      expect(ctx.stdout).to.contain('abcdef00-6925-47b9-be97-1d2ba3ddc69a  API Automock API_AUTO_MOCKING false')
     })
 
     test
@@ -46,8 +46,8 @@ describe('valid integration:list', () => {
     .stdout()
     .command(['integration:list', 'org/api'])
     .it('runs integration:list with default API version', ctx => {
-      expect(ctx.stdout).to.contains('12345678-c3d1-41f0-9425-ebdb52c8113c  GitHub Sync  GITHUB           true')
-      expect(ctx.stdout).to.contains('abcdef00-6925-47b9-be97-1d2ba3ddc69a  API Automock API_AUTO_MOCKING false')
+      expect(ctx.stdout).to.contain('12345678-c3d1-41f0-9425-ebdb52c8113c  GitHub Sync  GITHUB           true')
+      expect(ctx.stdout).to.contain('abcdef00-6925-47b9-be97-1d2ba3ddc69a  API Automock API_AUTO_MOCKING false')
     })
 })
 

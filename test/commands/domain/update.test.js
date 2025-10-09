@@ -12,7 +12,7 @@ describe('invalid domain:update command issues', () => {
   test
     .command(['domain:update', 'invalid'])
     .catch(err => {
-      expect(err.message).to.contains('No updates specified')
+      expect(err.message).to.contain('No updates specified')
     })
     .it('runs domain:update with no required --file flag')
 
@@ -111,7 +111,7 @@ describe('invalid domain:update', () => {
     )
     .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('Unknown domain org/domain/1.0.0')
+      expect(err.message).to.contain('Unknown domain org/domain/1.0.0')
     })
     .it('error shows as update failed and publish and setdefault are not executed')
 
@@ -131,7 +131,7 @@ describe('invalid domain:update', () => {
     )
     .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Publishing domain failed')
+      expect(err.message).to.contain('An error occurred. Publishing domain failed')
     })
     .it('error shows as publish failed and setdefault is not executed')
 
@@ -155,7 +155,7 @@ describe('invalid domain:update', () => {
     )
     .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Setting default version failed')
+      expect(err.message).to.contain('An error occurred. Setting default version failed')
     })
     .it('error shows as setdefault failed')
 
@@ -166,7 +166,7 @@ describe('invalid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0'])
 
     .catch(err => {
-      expect(err.message).to.contains('No updates specified')
+      expect(err.message).to.contain('No updates specified')
     })
     .it('error shows as no flag is provided')
 })
@@ -186,7 +186,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml'])
 
     .it('runs domain:update with YAML file', ctx => {
-      expect(ctx.stdout).to.contains(`Updated domain ${validIdentifier}`)
+      expect(ctx.stdout).to.contain(`Updated domain ${validIdentifier}`)
     })
 
   test
@@ -203,7 +203,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json'])
 
     .it('runs domain:update with JSON file, version read from file', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
     })
 
   test
@@ -220,7 +220,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--visibility=public'])
 
     .it('runs domain:update to set domain public', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
     })
 
   test
@@ -237,7 +237,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--visibility=private'])
 
     .it('runs domain:update to set domain private', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
     })
 
   test
@@ -255,7 +255,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '--visibility=public'])
 
     .it('runs domain:update to set domain public without a version arg', ctx => {
-      expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to public')
+      expect(ctx.stdout).to.contain('Updated visibility of org/domain/2.0.0 to public')
     })
 
   test
@@ -273,7 +273,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--visibility=private'])
 
     .it('runs domain:update to set domain private', ctx => {
-      expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to private')
+      expect(ctx.stdout).to.contain('Updated visibility of org/domain/2.0.0 to private')
     })
 
   test
@@ -294,8 +294,8 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--published=publish'])
 
     .it('runs domain:update to publish domain', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Published domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Published domain org/domain/1.2.3')
     })
 
   test
@@ -316,8 +316,8 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--published=unpublish'])
 
     .it('runs domain:update to unpublish domain', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Unpublished domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Unpublished domain org/domain/1.2.3')
     })
 
   test
@@ -338,8 +338,8 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain', '-f=test/resources/valid_domain.json', '--setdefault'])
 
     .it('runs domain:update to set default version', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 1.2.3')
     })
 
   test
@@ -364,9 +364,9 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--visibility=public', '--published=publish', '--setdefault'])
 
     .it('runs domain:update to set domain public, publish domain, and set the default version', ctx => {
-      expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to public')
-      expect(ctx.stdout).to.contains('Published domain org/domain/2.0.0')
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
+      expect(ctx.stdout).to.contain('Updated visibility of org/domain/2.0.0 to public')
+      expect(ctx.stdout).to.contain('Published domain org/domain/2.0.0')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 2.0.0')
     })
 
   test
@@ -391,9 +391,9 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--visibility=public', '--published=unpublish', '--setdefault'])
 
     .it('runs domain:update to set domain public, unpublish domain, and set the default version', ctx => {
-      expect(ctx.stdout).to.contains('Updated visibility of org/domain/2.0.0 to public')
-      expect(ctx.stdout).to.contains('Unpublished domain org/domain/2.0.0')
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
+      expect(ctx.stdout).to.contain('Updated visibility of org/domain/2.0.0 to public')
+      expect(ctx.stdout).to.contain('Unpublished domain org/domain/2.0.0')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 2.0.0')
     })
 
   test
@@ -425,9 +425,9 @@ describe('valid domain:update', () => {
     ])
 
     .it('runs domain:update to set domain public, publish domain, and set the default version with file flag', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3 and visibility is set to public')
-      expect(ctx.stdout).to.contains('Published domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3 and visibility is set to public')
+      expect(ctx.stdout).to.contain('Published domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 1.2.3')
     })
 
   test
@@ -458,9 +458,9 @@ describe('valid domain:update', () => {
     ])
 
     .it('runs domain:update to publish domain and set default version', ctx => {
-      expect(ctx.stdout).to.contains('Updated domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Published domain org/domain/1.2.3')
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 1.2.3')
+      expect(ctx.stdout).to.contain('Updated domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Published domain org/domain/1.2.3')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 1.2.3')
     })
 
   test
@@ -477,7 +477,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--published=publish'])
 
     .it('runs domain:update to publish domain', ctx => {
-      expect(ctx.stdout).to.contains('Published domain org/domain/2.0.0')
+      expect(ctx.stdout).to.contain('Published domain org/domain/2.0.0')
     })
 
   test
@@ -494,7 +494,7 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--published=unpublish'])
 
     .it('runs domain:update to unpublish domain', ctx => {
-      expect(ctx.stdout).to.contains('Unpublished domain org/domain/2.0.0')
+      expect(ctx.stdout).to.contain('Unpublished domain org/domain/2.0.0')
     })
 
   test
@@ -511,6 +511,6 @@ describe('valid domain:update', () => {
     .command(['domain:update', 'org/domain/2.0.0', '--setdefault'])
 
     .it('runs domain:update to set default version', ctx => {
-      expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
+      expect(ctx.stdout).to.contain('Default version of org/domain set to 2.0.0')
     })
 })

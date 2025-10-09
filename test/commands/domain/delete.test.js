@@ -17,7 +17,7 @@ describe('valid domain:delete', () => {
     .stdout()
     .command(['domain:delete', versionId])
     .it('runs domain:delete on domain version', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted version 1.0.0 of domain '${domainId}'`)
+      expect(ctx.stdout).to.contain(`Deleted version 1.0.0 of domain '${domainId}'`)
     })
 
   test
@@ -30,7 +30,7 @@ describe('valid domain:delete', () => {
     .stdout()
     .command(['domain:delete', domainId, '-f'])
     .it('runs domain:delete on domain defintion with -f flag', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted domain '${domainId}'`)
+      expect(ctx.stdout).to.contain(`Deleted domain '${domainId}'`)
     })
 
   test
@@ -43,7 +43,7 @@ describe('valid domain:delete', () => {
     .stdout()
     .command(['domain:delete', domainId, '--force'])
     .it('runs domain:delete on domain defintion with --force flag', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted domain '${domainId}'`)
+      expect(ctx.stdout).to.contain(`Deleted domain '${domainId}'`)
     })
 })
 
@@ -98,7 +98,7 @@ describe('inquirer prompts', () => {
     .stdout()
     .command(['domain:delete', domainId])
     .it('runs domain:delete on domain defintion', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted domain '${domainId}'`)
+      expect(ctx.stdout).to.contain(`Deleted domain '${domainId}'`)
     })
 
   test

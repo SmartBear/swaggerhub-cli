@@ -12,7 +12,7 @@ describe('valid domain:unpublish', () => {
   .stdout()
   .command(['domain:unpublish', 'org/domain/1.0.0'])
   .it('runs domain:unpublish with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Unpublished domain org/domain/1.0.0')
+    expect(ctx.stdout).to.contain('Unpublished domain org/domain/1.0.0')
   })
 })
 

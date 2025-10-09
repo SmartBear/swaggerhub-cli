@@ -45,7 +45,7 @@ describe('valid project:domain:remove', () => {
             .stdout()
             .command(['project:domain:remove', `${validIdentifier}`, 'testdomain'])
             .it('runs project:domain:remove with a valid project and domain', ctx => {
-                expect(ctx.stdout).to.contains('Removed domain \'testdomain\' from project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Removed domain \'testdomain\' from project \'testowner/testproject\'')
             })
     })
 
@@ -58,7 +58,7 @@ describe('invalid project:domain:remove', () => {
         )
         .command(['project:domain:remove', `${validIdentifier}`, 'testdomain'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Project \'testproject\' does not exist')
+            expect(ctx.message).to.contain('Project \'testproject\' does not exist')
         })
         .it('runs project:domain:remove with a project that doesn\'t exist')
 
@@ -70,7 +70,7 @@ describe('invalid project:domain:remove', () => {
         )
         .command(['project:domain:remove', `${validIdentifier}`, 'testdomain'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Organization \'testowner\' does not exist')
+            expect(ctx.message).to.contain('Organization \'testowner\' does not exist')
         })
         .it('runs project:domain:remove with an organization that doesn\'t exist')
 
@@ -83,7 +83,7 @@ describe('invalid project:domain:remove', () => {
         .stdout()
         .command(['project:domain:remove', `${validIdentifier}`, 'invalid'])
         .it('runs project:domain:remove with a domain that isn\'t in the project', ctx => {
-            expect(ctx.stdout).to.contains('Domain \'invalid\' does not exist in project \'testowner/testproject\'')
+            expect(ctx.stdout).to.contain('Domain \'invalid\' does not exist in project \'testowner/testproject\'')
         })
 
 })

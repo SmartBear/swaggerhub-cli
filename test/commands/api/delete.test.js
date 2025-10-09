@@ -15,7 +15,7 @@ describe('valid api:delete', () => {
     .stdout()
     .command(['api:delete', apiVersionId])
     .it('runs api:delete on API version', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted version 1.0.0 of API '${apiId}'`)
+      expect(ctx.stdout).to.contain(`Deleted version 1.0.0 of API '${apiId}'`)
     })
 
   test
@@ -28,7 +28,7 @@ describe('valid api:delete', () => {
     .stdout()
     .command(['api:delete', apiId])
     .it('runs api:delete on API defintion', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted API '${apiId}'`)
+      expect(ctx.stdout).to.contain(`Deleted API '${apiId}'`)
     })
 
   test
@@ -47,7 +47,7 @@ describe('valid api:delete', () => {
     .stdout()
     .command(['api:delete', apiId, '-f'])
     .it('runs api:delete on API defintion with -f flag', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted API '${apiId}'`)
+      expect(ctx.stdout).to.contain(`Deleted API '${apiId}'`)
     })
 
   test
@@ -59,7 +59,7 @@ describe('valid api:delete', () => {
     .stdout()
     .command(['api:delete', apiId, '--force'])
     .it('runs api:delete on API defintion with --force flag', ctx => {
-      expect(ctx.stdout).to.contains(`Deleted API '${apiId}'`)
+      expect(ctx.stdout).to.contain(`Deleted API '${apiId}'`)
     })
 })
 

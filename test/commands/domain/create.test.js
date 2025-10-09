@@ -129,7 +129,7 @@ describe('invalid domain:create', () => {
     .command(['domain:create', 'orgNotExist/domain/1.0.0', '-f=test/resources/valid_domain.yaml',
       '--published=publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('Object doesn\'t exist')
+      expect(err.message).to.contain('Object doesn\'t exist')
     })
     .it('error shows as create failed and publish and setdefault are not executed')
 
@@ -150,7 +150,7 @@ describe('invalid domain:create', () => {
     )
     .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Publishing domain failed')
+      expect(err.message).to.contain('An error occurred. Publishing domain failed')
     })
     .it('error shows as publish failed and setdefault is not executed')
 
@@ -175,7 +175,7 @@ describe('invalid domain:create', () => {
     )
     .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Setting default version failed')
+      expect(err.message).to.contain('An error occurred. Setting default version failed')
     })
     .it('error shows as setdefault failed')
 })
@@ -195,7 +195,7 @@ describe('valid domain:create', () => {
     .stdout()
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml'])
     .it('runs domain:create with yaml file', ctx => {
-      expect(ctx.stdout).to.contains('Created domain \'org/domain\'')
+      expect(ctx.stdout).to.contain('Created domain \'org/domain\'')
     })
 
   test
@@ -216,7 +216,7 @@ describe('valid domain:create', () => {
     .stdout()
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--setdefault'])
     .it('runs domain:create to set default version', ctx => {
-      expect(ctx.stdout).to.contains('Created domain \'org/domain\'\nDefault version of org/domain set to 1.0.0')
+      expect(ctx.stdout).to.contain('Created domain \'org/domain\'\nDefault version of org/domain set to 1.0.0')
     })
 
   test
@@ -237,7 +237,7 @@ describe('valid domain:create', () => {
     .stdout()
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--published=publish'])
     .it('runs domain:create to publish domain', ctx => {
-      expect(ctx.stdout).to.contains('Created domain \'org/domain\'\nPublished domain org/domain/1.0.0')
+      expect(ctx.stdout).to.contain('Created domain \'org/domain\'\nPublished domain org/domain/1.0.0')
     })
 
   test
@@ -254,7 +254,7 @@ describe('valid domain:create', () => {
     .stdout()
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.yaml', '--published=unpublish'])
     .it('runs domain:create with published=unpublish', ctx => {
-      expect(ctx.stdout).to.contains('Created domain \'org/domain\'')
+      expect(ctx.stdout).to.contain('Created domain \'org/domain\'')
     })
 
   test
@@ -304,7 +304,7 @@ describe('valid domain:create', () => {
       '--visibility=public'
     ])
     .it('runs domain:create with json file', ctx => {
-      expect(ctx.stdout).to.contains('Created domain \'org/domain\'')
+      expect(ctx.stdout).to.contain('Created domain \'org/domain\'')
     })
 })
 
@@ -327,7 +327,7 @@ describe('valid create new version with domain:create', () => {
     .stdout()
     .command(['domain:create', 'org/domain', '--file=test/resources/valid_domain.yaml'])
     .it('runs domain:create with yaml file reading version from file', ctx => {
-      expect(ctx.stdout).to.contains('Created version 1.2.3 of domain \'org/domain\'')
+      expect(ctx.stdout).to.contain('Created version 1.2.3 of domain \'org/domain\'')
     })
 
   test
@@ -352,7 +352,7 @@ describe('valid create new version with domain:create', () => {
       '--visibility=public'
     ])
     .it('runs domain:create with json file reading version from file', ctx => {
-      expect(ctx.stdout).to.contains('Created version 1.2.3 of domain \'org/domain\'')
+      expect(ctx.stdout).to.contain('Created version 1.2.3 of domain \'org/domain\'')
     })
 })
 

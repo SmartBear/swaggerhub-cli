@@ -12,7 +12,7 @@ describe('valid domain:setdefault', () => {
   .stdout()
   .command(['domain:setdefault', 'org/domain/2.0.0'])
   .it('runs domain:setdefault with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Default version of org/domain set to 2.0.0')
+    expect(ctx.stdout).to.contain('Default version of org/domain set to 2.0.0')
   })
 })
 

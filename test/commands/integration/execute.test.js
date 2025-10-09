@@ -14,7 +14,7 @@ describe('valid integration:execute', () => {
     .stdout()
     .command(['integration:execute', `${validApi}/integration-id`])
     .it('runs integration:execute with valid integration', ctx => {
-      expect(ctx.stdout).to.contains('Executed integration \'integration-id\' on API \'org/api/1.0.0\'')
+      expect(ctx.stdout).to.contain('Executed integration \'integration-id\' on API \'org/api/1.0.0\'')
     })
 })
 

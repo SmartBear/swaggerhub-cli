@@ -47,7 +47,7 @@ describe('valid api:validate:download-rules', () => {
         .stdout()
         .command(['api:validate:download-rules', 'org1'])
         .it('runs api:validate:download-rules and returns organization rules without system rules nor disabled rules', ctx => {
-            expect(ctx.stdout).to.contains(JSON.stringify(ruleset, null, 2))
+            expect(ctx.stdout).to.contain(JSON.stringify(ruleset, null, 2))
         })
 
     test
@@ -60,7 +60,7 @@ describe('valid api:validate:download-rules', () => {
         .stdout()
         .command(['api:validate:download-rules', 'org1', '-s'])
         .it('runs api:validate:download-rules and returns organization rules with system rules, but without disabled rules', ctx => {
-            expect(ctx.stdout).to.contains(JSON.stringify(rulesetWithSystemRule, null, 2))
+            expect(ctx.stdout).to.contain(JSON.stringify(rulesetWithSystemRule, null, 2))
         })
 
     test
@@ -73,7 +73,7 @@ describe('valid api:validate:download-rules', () => {
         .stdout()
         .command(['api:validate:download-rules', 'org1', '-d'])
         .it('runs api:validate:download-rules and returns organization rules without system rules, but with disabled rules', ctx => {
-            expect(ctx.stdout).to.contains(JSON.stringify(rulesetWithDisabledRule, null, 2))
+            expect(ctx.stdout).to.contain(JSON.stringify(rulesetWithDisabledRule, null, 2))
         })
 
 
@@ -87,6 +87,6 @@ describe('valid api:validate:download-rules', () => {
         .stdout()
         .command(['api:validate:download-rules', 'org1', '-s', '-d'])
         .it('runs api:validate:download-rules and returns organization rules with system rules and disabled rules', ctx => {
-            expect(ctx.stdout).to.contains(JSON.stringify(rulesetWithDisabledAndSystemRule, null, 2))
+            expect(ctx.stdout).to.contain(JSON.stringify(rulesetWithDisabledAndSystemRule, null, 2))
         })
 })

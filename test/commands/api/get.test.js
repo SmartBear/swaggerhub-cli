@@ -35,7 +35,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2/1.0.0', '--json'])
     .it('runs api:get --json and returns response in json format', ctx => {
-      expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+      expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
     })
 
   test
@@ -47,7 +47,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2/1.0.0', '-j'])
     .it('runs api:get -j and returns response in json format', ctx => {
-      expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+      expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
     })
 
   test
@@ -59,7 +59,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2/1.0.0'])
     .it('runs api:get and returns response in yaml format', ctx => {
-      expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+      expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
     })
 
   test
@@ -75,7 +75,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2'])
     .it('runs api:get to return default API version in yaml format', ctx => {
-      expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+      expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
     })
 
   test
@@ -91,7 +91,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2', '-j'])
     .it('runs api:get to return default API version in json format', ctx => {
-      expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+      expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
     })
 
   test
@@ -103,7 +103,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2/1.0.0', '--resolved'])
     .it('runs api:get --resolved to return resolved API definition in yaml format', ctx => {
-      expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+      expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
     })
 
   test
@@ -119,7 +119,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2', '-r'])
     .it('run api:get -r and returns resolved default API version', ctx => {
-      expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+      expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
     })
 
   test
@@ -131,7 +131,7 @@ describe('valid identifier on api:get', () => {
     .stdout()
     .command(['api:get', 'org1/api2/1.0.0', '-jr'])
     .it('runs api:get -jr to return resolved definition', ctx => {
-      expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+      expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
     })
 })
 

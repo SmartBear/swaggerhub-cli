@@ -22,7 +22,7 @@ describe('valid integration:get', () => {
     .stdout()
     .command(['integration:get', `${validApi}/integration-id`])
     .it('runs integration:get with valid integration', ctx => {
-      expect(ctx.stdout).to.contains(JSON.stringify(integrationResponse, null, 2))
+      expect(ctx.stdout).to.contain(JSON.stringify(integrationResponse, null, 2))
     })
 })
 

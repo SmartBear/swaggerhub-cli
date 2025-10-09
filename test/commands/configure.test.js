@@ -22,7 +22,7 @@ describe('configure command', () => {
       .command(['configure'])
       .it('runs sets up config and logs the location of the file', ctx => {
         const configFilePath = [...ctx.config.configDir.split(path.sep), 'config.json'].join(path.sep)
-        expect(ctx.stdout).to.contains(`Saved config to ${configFilePath}`)
+        expect(ctx.stdout).to.contain(`Saved config to ${configFilePath}`)
       })
   })
   

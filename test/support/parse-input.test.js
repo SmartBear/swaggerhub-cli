@@ -229,7 +229,7 @@ describe('readConfigFile', () => {
     it('should return config content', () => {
       const config = readConfigFile('test/resources/github.json')
       const configString = String.fromCharCode.apply(null, config)
-      expect(configString).to.contains('GitHub Integration Name')
+      expect(configString).to.contain('GitHub Integration Name')
     })
   )
 

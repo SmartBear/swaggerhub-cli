@@ -35,7 +35,7 @@ describe('valid identifier on project:get', () => {
         .stdout()
         .command(['project:get', 'testowner/testproject'])
         .it('runs project:get  returns response in json format', ctx => {
-            expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+            expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
         })
 })
 

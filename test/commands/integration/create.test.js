@@ -14,7 +14,7 @@ describe('valid integration:create', () => {
     .stdout()
     .command(['integration:create', `${validIdentifier}`, '--file=test/resources/github.json'])
     .it('runs integration:create with json config file', ctx => {
-      expect(ctx.stdout).to.contains('Created integration on API \'org/api/1.0.0\'')
+      expect(ctx.stdout).to.contain('Created integration on API \'org/api/1.0.0\'')
     })
 
   test
@@ -31,7 +31,7 @@ describe('valid integration:create', () => {
     .stdout()
     .command(['integration:create', 'org/api', '--file=test/resources/github.json'])
     .it('runs integration:create on default API version', ctx => {
-      expect(ctx.stdout).to.contains('Created integration on API \'org/api/1.0.0\'')
+      expect(ctx.stdout).to.contain('Created integration on API \'org/api/1.0.0\'')
     })
 })
 
@@ -61,7 +61,7 @@ describe('invalid integration:create', () => {
     )    
     .command(['integration:create', `${validIdentifier}`, '--file=test/resources/github.json'])
     .catch(ctx => {
-      expect(ctx.message).to.contains('Integration \'Integration Name\' already exists')
+      expect(ctx.message).to.contain('Integration \'Integration Name\' already exists')
     })
     .it('runs integration:create with integration name conflict')
 

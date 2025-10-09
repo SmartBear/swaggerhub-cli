@@ -22,7 +22,7 @@ describe('valid integration:delete', () => {
     .stdout()
     .command(['integration:delete', `${validApi}/integration-id`])
     .it('runs integration:delete with valid integration', ctx => {
-      expect(ctx.stdout).to.contains("Deleted integration 'integration-id' from API 'org/api/1.0.0'")
+      expect(ctx.stdout).to.contain("Deleted integration 'integration-id' from API 'org/api/1.0.0'")
     })
 })
 

@@ -14,7 +14,7 @@ describe('valid api:publish', () => {
   .stdout()
   .command(['api:publish', 'org/api/1.0.0'])
   .it('runs api:publish with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Published API org/api/1.0.0')
+    expect(ctx.stdout).to.contain('Published API org/api/1.0.0')
   })
 
   test
@@ -41,7 +41,7 @@ describe('valid api:publish', () => {
   .stdout()
   .command(['api:publish', 'org/api/1.0.0', '--force'])
   .it('runs api:publish with force argument', ctx => {
-    expect(ctx.stdout).to.contains('Published API org/api/1.0.0')
+    expect(ctx.stdout).to.contain('Published API org/api/1.0.0')
   })
 })
 

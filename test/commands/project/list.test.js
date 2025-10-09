@@ -31,7 +31,7 @@ describe('valid project:list', () => {
         .stdout()
         .command(['project:list'])
         .it('runs project:list with no arguments and finds no projects', ctx => {
-            expect(ctx.stdout).to.contains('No projects found.')
+            expect(ctx.stdout).to.contain('No projects found.')
         })
 
     test
@@ -43,8 +43,8 @@ describe('valid project:list', () => {
         .stdout()
         .command(['project:list'])
         .it('runs project:list with no arguments ands finds 2 projects', ctx => {
-            expect(ctx.stdout).to.contains('test_project_1')
-            expect(ctx.stdout).to.contains('test_project_2')
+            expect(ctx.stdout).to.contain('test_project_1')
+            expect(ctx.stdout).to.contain('test_project_2')
         })
 
     test
@@ -56,7 +56,7 @@ describe('valid project:list', () => {
         .stdout()
         .command(['project:list', validOrgName])
         .it('runs project:list with org name', ctx => {
-            expect(ctx.stdout).to.contains('test_project_1')
-            expect(ctx.stdout).to.contains('test_project_2')
+            expect(ctx.stdout).to.contain('test_project_1')
+            expect(ctx.stdout).to.contain('test_project_2')
         })
 })
