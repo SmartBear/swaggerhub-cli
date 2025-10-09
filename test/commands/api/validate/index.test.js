@@ -14,7 +14,6 @@ describe('invalid api:validate', () => {
         message: `SPEC ${apiPath} not found.`
     })
   )
-  .stdout()
   .command(['api:validate', apiPath])
   .exit(2)
   .it('not found returned when fetching validation result of a non existing API')
@@ -33,7 +32,6 @@ describe('invalid api:validate', () => {
         message: `Org Standardization not enabled for ${apiPath.split('/')[0]}`
      })
   )
-  .stdout()
   .command(['api:validate', apiPath])
   .exit(0)
   .it('not enabled returned when fetching validation result an existing')
@@ -51,7 +49,6 @@ describe('invalid api:validate', () => {
         code: 403
     })
   )
-  .stdout()
   .command(['api:validate', apiPath])
   .exit(0)
   .it('an error is returned when user has no permission to access API')
