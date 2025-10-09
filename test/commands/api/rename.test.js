@@ -1,21 +1,21 @@
-const { exit } = require('@oclif/core')
 const { expect, test } = require('@oclif/test')
-const inquirer = require('inquirer')
+const { faker } = require('@faker-js/faker')
 const config = require('../../../src/config')
 const shubUrl = 'https://api.swaggerhub.com'
 
 describe('valid api:rename', () => {
+  const newName = faker.lorem.word().toLowerCase()
   test
       .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
       .nock(`${shubUrl}`, api => api
           .post('/apis/org/api/rename', {})
-          .query({ newName: 'newname' })
+          .query({ newName: newName })
           .reply(200)
       )
       .stdout()
-      .command(['api:rename', 'org/api', 'newname'])
+      .command(['api:rename', 'org/api', newName])
       .it('runs api:rename with proper options', ctx => {
-        expect(ctx.stdout).to.contain("Renamed API \'org/api\' to \'newname\'")
+        expect(ctx.stdout).to.contain(`Renamed API 'org/api' to '${newName}'`)
       })
 });
 
@@ -28,21 +28,21 @@ describe('invalid api:rename', () => {
       .it('does not run api:rename with no parameters')
 
   test
-      .command(['api:rename', 'api'])
+      .command(['api:rename', faker.lorem.word()])
       .catch(err  =>{
         expect(err.message).to.contain('Missing 1 required arg')
       })
       .it('does not run api:rename with one parameter')
 
   test
-      .command(['api:rename', 'api', 'newname'])
+      .command(['api:rename', faker.lorem.word(), faker.lorem.word()])
       .catch(err  =>{
         expect(err.message).to.contain('Argument must match OWNER/API_NAME format')
       })
       .it('does not run api:rename with wrong format api identifier')
 
   test
-      .command(['api:rename', 'org/api', 'invalid*name'])
+      .command(['api:rename', 'org/api', `${faker.lorem.word()}*${faker.lorem.word()}`])
       .catch(err  =>{
         expect(err.message).to.contain('Argument must match API_NEW_NAME format')
       })
