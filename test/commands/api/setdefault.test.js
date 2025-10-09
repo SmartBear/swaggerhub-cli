@@ -12,7 +12,7 @@ describe('valid api:setdefault', () => {
   .stdout()
   .command(['api:setdefault', 'org/api/2.0.0'])
   .it('runs api:setdefault with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Default version of org/api set to 2.0.0')
+    expect(ctx.stdout).to.contain('Default version of org/api set to 2.0.0')
   })
 })
 

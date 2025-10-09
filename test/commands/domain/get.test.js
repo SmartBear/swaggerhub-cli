@@ -36,7 +36,7 @@ describe('valid identifier on domain:get', () => {
   .stdout()
   .command(['domain:get', 'org1/domain2/1.0.0', '--json'])
   .it('runs domain:get --json and returns response in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+    expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
   })
 
   test
@@ -48,7 +48,7 @@ describe('valid identifier on domain:get', () => {
   .stdout()
   .command(['domain:get', 'org1/domain2/1.0.0', '-j'])
   .it('runs domain:get -j and returns response in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+    expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
   })
 
   test
@@ -60,7 +60,7 @@ describe('valid identifier on domain:get', () => {
   .stdout()
   .command(['domain:get', 'org1/domain2/1.0.0'])
   .it('runs domain:get and returns response in yaml format', ctx => {
-    expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+    expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
   })
 
   test
@@ -76,7 +76,7 @@ describe('valid identifier on domain:get', () => {
   .stdout()
   .command(['domain:get', 'org1/domain2'])
   .it('runs domain:get to return default domain version in yaml format', ctx => {
-    expect(ctx.stdout).to.contains(yaml.dump(jsonResponse))
+    expect(ctx.stdout).to.contain(yaml.dump(jsonResponse))
   })
 
   test
@@ -92,7 +92,7 @@ describe('valid identifier on domain:get', () => {
   .stdout()
   .command(['domain:get', 'org1/domain2', '-j'])
   .it('runs domain:get to return default domain version in json format', ctx => {
-    expect(ctx.stdout).to.contains(JSON.stringify(jsonResponse, null, 2))
+    expect(ctx.stdout).to.contain(JSON.stringify(jsonResponse, null, 2))
   })
 })
 

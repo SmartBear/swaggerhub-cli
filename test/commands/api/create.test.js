@@ -141,7 +141,7 @@ describe('invalid api:create', () => {
       '--setdefault'
     ])
     .catch(err => {
-      expect(err.message).to.contains('Object doesn\'t exist')
+      expect(err.message).to.contain('Object doesn\'t exist')
     })
     .it('error shows as create failed and publish and setdefault are not executed')
   
@@ -162,7 +162,7 @@ describe('invalid api:create', () => {
     )
     .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--setdefault', '--published=publish'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Publishing API failed')
+      expect(err.message).to.contain('An error occurred. Publishing API failed')
     })
     .it('error shows as publish failed and setdefault is not executed')
 
@@ -187,7 +187,7 @@ describe('invalid api:create', () => {
     )
     .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml', '--published=publish', '--setdefault'])
     .catch(err => {
-      expect(err.message).to.contains('An error occurred. Setting default version failed')
+      expect(err.message).to.contain('An error occurred. Setting default version failed')
     })
     .it('error shows as setdefault failed')
 })
@@ -207,7 +207,7 @@ describe('valid api:create', () => {
     .stdout()
     .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file', ctx => {
-      expect(ctx.stdout).to.contains('Created API \'org/api\'')
+      expect(ctx.stdout).to.contain('Created API \'org/api\'')
     })
 
   test
@@ -228,7 +228,7 @@ describe('valid api:create', () => {
     .stdout()
     .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--setdefault'])
     .it('runs api:create to set default version', ctx => {
-      expect(ctx.stdout).to.contains('Created API \'org/api\'\nDefault version of org/api set to 1.0.0')
+      expect(ctx.stdout).to.contain('Created API \'org/api\'\nDefault version of org/api set to 1.0.0')
     })
 
   test
@@ -249,7 +249,7 @@ describe('valid api:create', () => {
     .stdout()
     .command(['api:create', validIdentifier, '--file=test/resources/valid_api.yaml', '--published=publish'])
     .it('runs api:create to publish API', ctx => {
-      expect(ctx.stdout).to.contains('Created API \'org/api\'\nPublished API org/api/1.0.0')
+      expect(ctx.stdout).to.contain('Created API \'org/api\'\nPublished API org/api/1.0.0')
     })
 
   test
@@ -331,7 +331,7 @@ describe('valid api:create', () => {
       '--visibility=public'
     ])
     .it('runs api:create with json file', ctx => {
-      expect(ctx.stdout).to.contains('Created API \'org/api\'')
+      expect(ctx.stdout).to.contain('Created API \'org/api\'')
     })
 
   test
@@ -353,7 +353,7 @@ describe('valid api:create', () => {
         '--visibility=public'
       ])
       .it('runs api:create with asyncapi json file', ctx => {
-        expect(ctx.stdout).to.contains('Created API \'org/api\'')
+        expect(ctx.stdout).to.contain('Created API \'org/api\'')
       })
   test
       .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
@@ -374,7 +374,7 @@ describe('valid api:create', () => {
         '--visibility=public'
       ])
       .it('runs api:create with asyncapi yaml file', ctx => {
-        expect(ctx.stdout).to.contains('Created API \'org/api\'')
+        expect(ctx.stdout).to.contain('Created API \'org/api\'')
       })
 })
 
@@ -397,7 +397,7 @@ describe('valid create new version with api:create', () => {
     .stdout()
     .command(['api:create', 'org/api', '--file=test/resources/valid_api.yaml'])
     .it('runs api:create with yaml file reading version from file', ctx => {
-      expect(ctx.stdout).to.contains('Created version 1.0.1 of API \'org/api\'')
+      expect(ctx.stdout).to.contain('Created version 1.0.1 of API \'org/api\'')
     })
 
   test
@@ -422,7 +422,7 @@ describe('valid create new version with api:create', () => {
       '--visibility=public'
     ])
     .it('runs api:create with json file reading version from file', ctx => {
-      expect(ctx.stdout).to.contains('Created version 2.0.0 of API \'org/api\'')
+      expect(ctx.stdout).to.contain('Created version 2.0.0 of API \'org/api\'')
     })
 })
 

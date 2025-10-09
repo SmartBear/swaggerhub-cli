@@ -77,7 +77,7 @@ describe('valid api:validate:local', () => {
       ])
       .exit(0)
       .it('should return validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity} ${description}`)
       })
     })
 
@@ -97,7 +97,7 @@ describe('valid api:validate:local', () => {
       ]) // swaggerhub api:validate o/a/v
       .exit(1)
       .it('should return validation errors, one per line, with exit code 1', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity} ${description}`)
       })
     })
 
@@ -117,7 +117,7 @@ describe('valid api:validate:local', () => {
       ]) // swaggerhub api:validate o/a/v
       .exit(1)
       .it('should return validation errors, one per line, with exit code 1', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity} ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity} ${description}`)
       })
     })
   })
@@ -139,7 +139,7 @@ describe('valid api:validate:local', () => {
       .command(['api:validate:local', '-o', orgName, '-f', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
 
@@ -157,7 +157,7 @@ describe('valid api:validate:local', () => {
       .command(['api:validate:local', '-c', '-o', orgName, '-f', apiPath]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
 
@@ -177,7 +177,7 @@ describe('valid api:validate:local', () => {
       ]) // swaggerhub api:validate o/a/v
       .exit(0)
       .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-        expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
+        expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity}  ${description}`)
       })
     })
   })
@@ -214,7 +214,7 @@ describe('valid api:validate:local', () => {
     .command(['api:validate:local', '-o', orgName, '-f', jsonApiPath])
     .exit(0)
     .it('should return warning validation errors, one per line, with exit code 0', ctx => {
-      expect(ctx.stdout).to.contains(`${heading} ${line}   ${severity}  ${description}`)
+      expect(ctx.stdout).to.contain(`${heading} ${line}   ${severity}  ${description}`)
     })
   })
 })

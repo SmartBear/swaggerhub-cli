@@ -32,7 +32,7 @@ describe('valid project:domain:add',
             .stdout()
             .command(['project:domain:add', `${validIdentifier}`, 'testdomain'])
             .it('runs project:domain:add', ctx => {
-                expect(ctx.stdout).to.contains('Added domain \'testdomain\' to project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Added domain \'testdomain\' to project \'testowner/testproject\'')
             })
     })
 
@@ -46,7 +46,7 @@ describe('invalid project:domain:add', () => {
         )
         .command(['project:domain:add', `${validIdentifier}`,'testdomain'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Project \'testproject\' does not exist')
+            expect(ctx.message).to.contain('Project \'testproject\' does not exist')
         })
         .it('runs project:domain:add with a project that doesn\'t exist')
 
@@ -73,7 +73,7 @@ describe('invalid project:domain:add', () => {
         )
         .command(['project:domain:add', `${validIdentifier}`, 'testdomain'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('The spec already exists in the project')
+            expect(ctx.message).to.contain('The spec already exists in the project')
         })
         .it('runs project:domain:add with a domain that already exists in the project')
 })

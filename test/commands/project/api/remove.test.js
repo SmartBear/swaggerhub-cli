@@ -45,7 +45,7 @@ describe('valid project:api:remove', () => {
             .stdout()
             .command(['project:api:remove', `${validIdentifier}`, 'testapi'])
             .it('runs project:api:remove with a valid project and api', ctx => {
-                expect(ctx.stdout).to.contains('Removed api \'testapi\' from project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Removed api \'testapi\' from project \'testowner/testproject\'')
             })
     })
 
@@ -58,7 +58,7 @@ describe('invalid project:api:remove', () => {
         )
         .command(['project:api:remove', `${validIdentifier}`, 'testapi'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Project \'testproject\' does not exist')
+            expect(ctx.message).to.contain('Project \'testproject\' does not exist')
         })
         .it('runs project:api:remove with a project that doesn\'t exist')
 
@@ -70,7 +70,7 @@ describe('invalid project:api:remove', () => {
         )
         .command(['project:api:remove', `${validIdentifier}`, 'testapi'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Organization \'testowner\' does not exist')
+            expect(ctx.message).to.contain('Organization \'testowner\' does not exist')
         })
         .it('runs project:api:remove with an organization that doesn\'t exist')
 
@@ -83,7 +83,7 @@ describe('invalid project:api:remove', () => {
         .stdout()
         .command(['project:api:remove', `${validIdentifier}`, 'invalid'])
         .it('runs project:api:remove with an api that isn\'t in the project', ctx => {
-            expect(ctx.stdout).to.contains('Api \'invalid\' does not exist in project \'testowner/testproject\'')
+            expect(ctx.stdout).to.contain('Api \'invalid\' does not exist in project \'testowner/testproject\'')
         })
 
 })

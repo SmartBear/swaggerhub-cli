@@ -12,7 +12,7 @@ describe('valid api:unpublish', () => {
   .stdout()
   .command(['api:unpublish', 'org/api/1.0.0'])
   .it('runs api:unpublish with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Unpublished API org/api/1.0.0')
+    expect(ctx.stdout).to.contain('Unpublished API org/api/1.0.0')
   })
 })
 

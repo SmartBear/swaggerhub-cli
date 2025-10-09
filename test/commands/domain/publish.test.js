@@ -12,7 +12,7 @@ describe('valid domain:publish', () => {
   .stdout()
   .command(['domain:publish', 'org/domain/1.0.0'])
   .it('runs domain:publish with identifier', ctx => {
-    expect(ctx.stdout).to.contains('Published domain org/domain/1.0.0')
+    expect(ctx.stdout).to.contain('Published domain org/domain/1.0.0')
   })
 })
 

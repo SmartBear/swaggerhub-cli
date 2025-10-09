@@ -13,7 +13,7 @@ describe('valid project:delete', () => {
         .stdout()
         .command(['project:delete', 'testowner/testproject'])
         .it('runs project:delete and returns success response', ctx => {
-            expect(ctx.stdout).to.contains(`Deleted project \'${validIdentifier}\'`)
+            expect(ctx.stdout).to.contain(`Deleted project \'${validIdentifier}\'`)
         })
 })
 

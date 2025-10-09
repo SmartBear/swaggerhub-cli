@@ -32,7 +32,7 @@ describe('valid project:api:add',
             .stdout()
             .command(['project:api:add', `${validIdentifier}`,'testapi'])
             .it('runs project:api:add with \'apis\' spec type', ctx => {
-                expect(ctx.stdout).to.contains('Added api \'testapi\' to project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Added api \'testapi\' to project \'testowner/testproject\'')
             })
     })
 
@@ -46,7 +46,7 @@ describe('invalid project:api:add', () => {
         )
         .command(['project:api:add', `${validIdentifier}`, 'testapi'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('Project \'testproject\' does not exist')
+            expect(ctx.message).to.contain('Project \'testproject\' does not exist')
         })
         .it('runs project:api:add with a project that doesn\'t exist')
 
@@ -73,7 +73,7 @@ describe('invalid project:api:add', () => {
         )
         .command(['project:api:add', `${validIdentifier}`, 'testapi'])
         .catch(ctx => {
-            expect(ctx.message).to.contains('The spec already exists in the project')
+            expect(ctx.message).to.contain('The spec already exists in the project')
         })
         .it('runs project:api:add with an api that already exists in the project')
 })
