@@ -19,7 +19,24 @@ describe('valid api:rename', () => {
       })
 });
 
-describe('invalid api:rename', () => {
+describe('failing api:rename', () => {
+  const newName = faker.lorem.word().toLowerCase()
+  test
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}`, api => api
+          .post('/apis/org/api/rename', {})
+          .query({ newName: newName })
+          .reply(403, { error: 'Forbidden', message: 'Access denied' })
+      )
+      .stdout()
+      .command(['api:rename', 'org/api', newName])
+      .exit(2)
+      .it('Handles api:rename error status code', ctx => {
+        expect(ctx.stdout).to.contain('Renaming API:')
+      })
+});
+
+describe('invalid api:rename command', () => {
   test
       .command(['api:rename'])
       .catch(err  =>{
@@ -63,5 +80,4 @@ describe('invalid api:rename', () => {
       .command(['api:rename', 'org/api', `${faker.lorem.word()}*${faker.lorem.word()}`])
       .exit(2)
       .it('does not run api:rename with wrong new api name format exit code 2')
-
 });
