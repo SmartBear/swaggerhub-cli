@@ -2,8 +2,6 @@
 
 Integrations are managed using the `integration` topic. The `create` and `update` commands take a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
-**Note for SwaggerHub On-Premise customers:** Most of the `integration` commands require SwaggerHub v. 1.27 or later, except for `integration:create` which can create source control integrations in v. 1.26 as well.
-
 # Integrations
 
 * [Amazon API Gateway Integration](#amazon-api-gateway-integration)
