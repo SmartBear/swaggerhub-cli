@@ -2,15 +2,12 @@
 
 Integrations are managed using the `integration` topic. The `create` and `update` commands take a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
-**Note for SwaggerHub On-Premise customers:** Most of the `integration` commands require SwaggerHub v. 1.27 or later, except for `integration:create` which can create source control integrations in v. 1.26 as well.
-
 # Integrations
 
 * [Amazon API Gateway Integration](#amazon-api-gateway-integration)
 * [Amazon API Gateway Lambda Integration](#amazon-api-gateway-lambda-integration)
 * [API Auto Mocking Integration](#api-auto-mocking-integration)
 * [Apigee Edge Integration](#apigee-edge-integration)
-* [Azure API Management Integration](#azure-api-management-integration)
 * [Azure DevOps Server Integration](#azure-devops-server-integration)
 * [Azure DevOps Services Integration](#azure-devops-services-integration)
 * [Bitbucket Cloud Integration](#bitbucket-cloud-integration)
@@ -74,17 +71,6 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |apiName|string|yes|Name for the API that is going to be saved on your apigee account.|
 |targetUrl|string|yes|Target endpoint for proxy.|
 |host|string|no|Apigee Edge Management instance URL. If using an On-Premise deployment, enter the URL to your Edge instance. Default value is `https://api.enterprise.apigee.com/v1` for the cloud version of Apigee Edge.|
-|enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
-
-## Azure API Management Integration
-|Property|Type|Required|Description|
-|-|-|-|-|
-|name|string|yes|Display name of the integration. Must be unique among all integrations configured for the given API version.|
-|configType|string|yes|"AZURE_API_MANAGEMENT" is used to create an Azure API Management integration.|
-|serviceInstance|string|yes|The name of the Azure API Management service instance as it appears in the "All resources" list in the Azure portal.|
-|token|string|yes|A personal access token for the Azure API Management service. Documentation for generating tokens is [here.](https://docs.microsoft.com/en-us/rest/api/apimanagement/apimanagementrest/azure-api-management-rest-api-authentication)|
-|urlSuffix|string|no|API URL suffix in Azure API Management.|
-|apiId|string|no|A unique identifier that allows you to connect your definition to an existing API. If left blank, a unique identifier will be added using an extension, x-azure-api-id. This value will be ignored if a value exists in the definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Azure DevOps Server Integration
