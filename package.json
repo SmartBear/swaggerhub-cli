@@ -14,7 +14,7 @@
     "archiver": "^7.0.1",
     "deep-extend": "^0.6.0",
     "fs-extra": "^11.1.1",
-    "inquirer": "^8.2.5",
+    "inquirer": "^13.2.2",
     "js-yaml": "^4.1.0",
     "json-templates": "^5.0.0",
     "node-fetch": "^2.6.12",
