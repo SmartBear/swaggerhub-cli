@@ -16,7 +16,7 @@ The SwaggerHub CLI enables teams to build automation and workflows around Swagge
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Requirements
-Node.js "^20.17.0 || >=22.9.0"
+Node.js 20.17 or later.
 
 # Installation
 ```sh-session
