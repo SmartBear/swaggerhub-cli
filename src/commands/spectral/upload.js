@@ -21,7 +21,7 @@ class UploadSpectralRulesetCommand extends BaseCommand {
     const passthrough = new PassThrough();
 
     archive.directory(directoryPath, false);
-    archive.finalize();
+    await archive.finalize();
     archive.pipe(passthrough);
     return passthrough;
   }
