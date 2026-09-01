@@ -1,5 +1,6 @@
 const { expect, test } = require('@oclif/test')
 const config = require('../../../src/config')
+const fsExtra = require('fs-extra')
 const validIdentifier = 'org/api/1.0.0'
 const shubUrl = 'https://test-api.swaggerhub.com'
 
@@ -48,6 +49,14 @@ describe('invalid api:create file issues', () => {
       expect(ctx.message).to.contain('Cannot determine version from file')
     })
     .it('runs api:create with file missing version')
+
+  test
+    .stub(fsExtra, 'statSync', stub => stub.returns({ size: 11 * 1024 * 1024 }))
+    .command(['api:create', validIdentifier, '--file=test/resources/valid_api.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.contain('File \'test/resources/valid_api.json\' exceeds the maximum allowed size of 10MB.')
+    })
+    .it('runs api:create with file exceeding 10MB size limit')
 })
 
 describe('invalid api:create', () => {
