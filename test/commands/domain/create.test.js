@@ -124,6 +124,38 @@ describe('invalid domain:create', () => {
       expect(ctx.message).to.equal('You have reached the limit of domains')
     })
     .it('runs domain:create with org that doesn\'t exist')
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.0.0&isPrivate=true')
+      .reply(401, '{"code":401,"message":"Invalid API key"}')
+    )
+    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Invalid API key')
+    })
+    .it('runs domain:create with invalid API key returns 401')
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain')
+      .reply(404)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.0.0&isPrivate=true')
+      .reply(415, '{"code":415,"message":"Unsupported Media Type"}')
+    )
+    .command(['domain:create', `${validIdentifier}`, '--file=test/resources/valid_domain.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Unsupported Media Type')
+    })
+    .it('runs domain:create with unsupported content type returns 415')
   
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
