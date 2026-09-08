@@ -21,8 +21,6 @@ const errorMsg = {
 
   fileNotFound: 'File \'{{filename}}\' not found',
 
-  fileTooLarge: 'File \'{{filename}}\' exceeds the maximum allowed size of {{maxSizeMB}}MB.',
-
   invalidConfig: 'Invalid configuration file. Please ensure that the file is in JSON format',
 
   directoryExists: 'Directory already exists: \'{{directory}}\'',

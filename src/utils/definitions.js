@@ -1,10 +1,7 @@
 const { CLIError } = require('@oclif/core').Errors
 const { hasJsonStructure } = require('./general')
 const yaml = require('js-yaml')
-const fsExtra = require('fs-extra')
-const { existsSync, readFileSync } = fsExtra
-
-const MAX_SPEC_SIZE_BYTES = 10 * 1024 * 1024
+const { existsSync, readFileSync } = require('fs-extra')
 const { errorMsg } = require('../template-strings')
 
 const specVersionToSpecification = specVersion => {
@@ -35,10 +32,6 @@ const getVersion = definition => {
 const parseDefinition = filename => {
   if (!existsSync(filename)) {
     throw new CLIError(errorMsg.fileNotFound({ filename }))
-  }
-  const { size } = fsExtra.statSync(filename)
-  if (size > MAX_SPEC_SIZE_BYTES) {
-    throw new CLIError(errorMsg.fileTooLarge({ filename, maxSizeMB: 10 }))
   }
   const file = readFileSync(filename)
   if (file.length === 0) {
