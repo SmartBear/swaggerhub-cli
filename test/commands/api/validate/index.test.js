@@ -1,5 +1,5 @@
 const config = require('../../../../src/config')
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../../oclif')
 
 const apiPath = 'example-org/example-api/example-ver'
 const heading = ' Line Severity Description        \n ──── ──────── ────────────────── \n'

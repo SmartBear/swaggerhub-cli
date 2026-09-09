@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../oclif')
 const sinon = require('sinon')
 const inquirer = require('inquirer')
 const config = require('../../../src/config')

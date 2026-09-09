@@ -1,4 +1,4 @@
-const { test, expect } = require('@oclif/test')
+const { test, expect } = require('../../../oclif')
 const config = require('../../../../src/config')
 
 const orgName = 'example-org'

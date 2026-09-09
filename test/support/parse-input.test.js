@@ -1,4 +1,4 @@
-const { expect } = require('@oclif/test')
+const { expect } = require('../oclif')
 const { CLIError } = require('@oclif/core').Errors 
 const { parseDefinition } = require('../../src/utils/definitions')
 const { 

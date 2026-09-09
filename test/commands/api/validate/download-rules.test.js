@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../../oclif')
 const config = require('../../../../src/config')
 const {
     ruleset,

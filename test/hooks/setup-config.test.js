@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const path = require('path')
 const { existsSync, unlinkSync } = require('fs-extra')
 const setupConfig = require('../../src/hooks/setup-config')

@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../oclif')
 const yaml = require('js-yaml')
 const config = require('../../../src/config')
 

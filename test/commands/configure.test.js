@@ -1,5 +1,5 @@
 const path = require('path')
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const inquirer = require('inquirer')
 const sinon = require('sinon')
 const { setConfig } = require('../../src/config')

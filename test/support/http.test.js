@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const http = require('../../src/support/http')
 
 const mockUrl = 'https://test.http.com'

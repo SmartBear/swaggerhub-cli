@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const { wrapTemplates } = require('../../src/utils/general')
 const { isEqual } = require('../../src/utils/general')
 const rewire = require('rewire')

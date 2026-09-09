@@ -23,16 +23,16 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
-    "@oclif/test": "^3.2.15",
+    "@oclif/test": "^4.2.0",
     "chai": "^6.2.2",
     "eslint": "^10.10.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-mocha": "^11.3.0",
+    "eslint-plugin-mocha": "^12.0.2",
     "eslint-plugin-n": "^18.3.0",
     "globby": "^16.2.0",
     "husky": "^9.0.1",
-    "mocha": "^11.7.6",
+    "mocha": "^12.0.0",
     "nock": "^14.0.1",
     "nyc": "^18.0.0",
     "rewire": "^9.0.1",
@@ -97,7 +97,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "npx oclif manifest",
     "prepare": "husky",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "test": "nyc mocha --forbid-only",
     "lint": "eslint ./src ./test",
     "postinstall": "node ./src/check-node-version"
   }

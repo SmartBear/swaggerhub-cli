@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const { hasJsonStructure, pipe, prettyPrintJSON, pick, omit, isEqual } = require('../../src/utils/general')
 
 describe('compositions ', () => {

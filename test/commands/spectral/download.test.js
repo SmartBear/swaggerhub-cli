@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../oclif')
 const config = require('../../../src/config')
 const fs = require('fs')
 const unzipper = require('unzipper')

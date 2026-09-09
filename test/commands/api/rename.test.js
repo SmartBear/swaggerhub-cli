@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../oclif')
 const { faker } = require('@faker-js/faker')
 const config = require('../../../src/config')
 const shubUrl = 'https://api.swaggerhub.com'

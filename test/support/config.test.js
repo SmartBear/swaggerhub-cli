@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const { readJSONSync, removeSync, writeJSONSync } = require('fs-extra')
 const fse = require('fs-extra')
 const mock = require('../resources/config')

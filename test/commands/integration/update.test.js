@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../../oclif')
 const config = require('../../../src/config')
 const apiIdentifier = 'org/api/1.0.0'
 const integrationId = 'integration_id'

@@ -1,4 +1,4 @@
-const { expect, test } = require('@oclif/test')
+const { expect, test } = require('../oclif')
 const {
   checkForErrors, getResponseContent, handleErrors, parseResponse
 } = require('../../src/support/command/handle-response')
