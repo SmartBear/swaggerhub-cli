@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
 
       - name: Extract version from source branch name
         id: extract_version
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
 
       - run: echo "Creating GitHub release for version ${{ env.VERSION }}"
       - name: Create GitHub Release
@@ -75,7 +75,7 @@ jobs:
       VERSION: ${{ needs.version-and-tag.outputs.VERSION }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           ref: ${{ env.VERSION }}
