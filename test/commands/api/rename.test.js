@@ -17,7 +17,7 @@ describe('valid api:rename', () => {
       .it('runs api:rename with proper options', ctx => {
         expect(ctx.stdout).to.contain(`Renamed API 'org/api' to '${newName}'`)
       })
-});
+})
 
 describe('failing api:rename', () => {
   const newName = faker.lorem.word().toLowerCase()
@@ -34,12 +34,12 @@ describe('failing api:rename', () => {
       .it('Handles api:rename error status code', ctx => {
         expect(ctx.stdout).to.contain('Renaming API:')
       })
-});
+})
 
 describe('invalid api:rename command', () => {
   test
       .command(['api:rename'])
-      .catch(err  =>{
+      .catch(err => {
         expect(err.message).to.contain('Missing 2 required args')
       })
       .it('does not run api:rename with no parameters')
@@ -50,7 +50,7 @@ describe('invalid api:rename command', () => {
 
   test
       .command(['api:rename', faker.lorem.word()])
-      .catch(err  =>{
+      .catch(err => {
         expect(err.message).to.contain('Missing 1 required arg')
       })
       .it('does not run api:rename with one parameter')
@@ -61,7 +61,7 @@ describe('invalid api:rename command', () => {
 
   test
       .command(['api:rename', faker.lorem.word(), faker.lorem.word()])
-      .catch(err  =>{
+      .catch(err => {
         expect(err.message).to.contain('Argument must match OWNER/API_NAME format')
       })
       .it('does not run api:rename with wrong format api identifier')
@@ -72,7 +72,7 @@ describe('invalid api:rename command', () => {
 
   test
       .command(['api:rename', 'org/api', `${faker.lorem.word()}*${faker.lorem.word()}`])
-      .catch(err  =>{
+      .catch(err => {
         expect(err.message).to.contain('Argument must match API_NEW_NAME format')
       })
       .it('does not run api:rename with wrong new api name format')
@@ -80,4 +80,4 @@ describe('invalid api:rename command', () => {
       .command(['api:rename', 'org/api', `${faker.lorem.word()}*${faker.lorem.word()}`])
       .exit(2)
       .it('does not run api:rename with wrong new api name format exit code 2')
-});
+})

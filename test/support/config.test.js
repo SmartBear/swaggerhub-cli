@@ -14,7 +14,9 @@ const createConfigFileWithConfig = config => writeJSONSync(mock.configFilePath, 
 
 describe('config ', () => {
   before(() => global.configFilePath = mock.configFilePath)
+
   after(() => delete global.configFilePath)
+
   afterEach(() => {
     removeSync(mock.configFilePath) // Will fail silently if file doesn't exist.
   })

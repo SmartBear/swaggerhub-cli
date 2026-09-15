@@ -3,8 +3,8 @@ const { getSpectralRuleset } = require('../../requests/spectral')
 const { getSpectralIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const { errorMsg } = require('../../template-strings')
 const BaseCommand = require('../../support/command/base-command')
-const unzipper = require('unzipper');
-const fs = require('fs');
+const unzipper = require('unzipper')
+const fs = require('fs')
 
 class DownloadSpectralRulesetCommand extends BaseCommand {
   async run() {
@@ -23,10 +23,10 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
   }
 
   async extractZipResponse(response, outputDir) {
-    const buffer = Buffer.from(response.content, 'binary');
+    const buffer = Buffer.from(response.content, 'binary')
     await this.createDirectory(outputDir)
-    const directory = await unzipper.Open.buffer(buffer);
-    await directory.extract({ path: outputDir });
+    const directory = await unzipper.Open.buffer(buffer)
+    await directory.extract({ path: outputDir })
   }
 
   async createDirectory(outputDir) {
@@ -45,7 +45,7 @@ class DownloadSpectralRulesetCommand extends BaseCommand {
   }
 }
 
-DownloadSpectralRulesetCommand.description = `Fetch organization's Spectral ruleset`
+DownloadSpectralRulesetCommand.description = 'Fetch organization\'s Spectral ruleset'
 
 DownloadSpectralRulesetCommand.examples = [
   'swaggerhub spectral:download my_organization/my_api_ruleset rules/',

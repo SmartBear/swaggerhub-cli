@@ -8,15 +8,15 @@ const parseResponse = response => new Promise(resolve => {
     status: response.status,
     ok: response.ok,
     content,
-  });
+  })
 
-  const contentType = response.headers?.get('content-type') || '';
+  const contentType = response.headers?.get('content-type') || ''
   if (contentType.includes('application/zip')) {
     response.buffer().then(resolveContent)
   } else {
     response.text().then(resolveContent)
   }
-});
+})
 
 const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
   if (resolveStatus.includes(response.status) || response.ok) {

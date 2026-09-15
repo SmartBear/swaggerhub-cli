@@ -12,7 +12,9 @@ class ValidateDownloadRulesCommand extends BaseCommand {
         const includeDisabledRules = flags['include-disabled-rules'] ?? false
         const organization = args['OWNER']
 
-        const organizationRuleset = await this.getExportedOrganizationRuleset(organization, {includeSystemRules, includeDisabledRules})
+        const organizationRuleset = await this.getExportedOrganizationRuleset(
+          organization, { includeSystemRules, includeDisabledRules }
+        )
         this.log(JSON.stringify(organizationRuleset, null, 2))
     }
 

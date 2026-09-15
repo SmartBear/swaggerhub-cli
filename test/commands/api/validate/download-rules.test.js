@@ -9,6 +9,7 @@ const {
 } = require('../../../resources/rulesets')
 
 const orgName = 'org1'
+
 describe('invalid api:validate:download-rules', () => {
     test
         .stdout()

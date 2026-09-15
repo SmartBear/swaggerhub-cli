@@ -1,5 +1,7 @@
 const { expect, test } = require('@oclif/test')
-const { checkForErrors, getResponseContent, handleErrors, parseResponse } = require('../../src/support/command/handle-response')
+const {
+  checkForErrors, getResponseContent, handleErrors, parseResponse
+} = require('../../src/support/command/handle-response')
 
 describe('checkForErrors', () => {
     test.it('should return resolved promise', async () => {
@@ -56,7 +58,7 @@ describe('parseResponse', () => {
       status: 200,
       ok: true,
       headers: {
-        get: (header) => header === 'content-type' ? 'application/zip' : ''
+        get: header => header === 'content-type' ? 'application/zip' : ''
       },
       buffer: () => Promise.resolve(mockBuffer)
     }
@@ -73,7 +75,7 @@ describe('parseResponse', () => {
       status: 200,
       ok: true,
       headers: {
-        get: (header) => header === 'content-type' ? 'application/json' : ''
+        get: header => header === 'content-type' ? 'application/json' : ''
       },
       text: () => Promise.resolve(mockText)
     }

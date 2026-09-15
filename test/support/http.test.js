@@ -9,7 +9,9 @@ const mockUserAgent = 'mockUserAgent'
 
 describe('http', () => {
   before(() => global.shUserAgent = mockUserAgent)
+
   after(() => delete global.shUserAgent)
+
   describe('default function', () => {
     test
       .nock(mockUrl, api => api
@@ -52,6 +54,7 @@ describe('http', () => {
         })
       )
   })
+
   describe('deafult header behaviour', () => {
     test
       .nock(mockUrl, api => api
