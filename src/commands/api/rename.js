@@ -3,10 +3,26 @@ const { Args } = require('@oclif/core')
 const {
   noVersionRegex,
   apiNameRegex
-} = require("../../support/command/parse-input");
+} = require('../../support/command/parse-input')
 const { errorMsg } = require('../../template-strings')
-const { CLIError } = require("@oclif/core/lib/errors");
-const { postApi } = require("../../requests/api");
+const { CLIError } = require('@oclif/core/lib/errors')
+const { postApi } = require('../../requests/api')
+
+const getApiToRename = args => {
+  const newName = args['OWNER/API_NAME']
+  if (!noVersionRegex.test(newName)) {
+    throw new CLIError(errorMsg.argsMustMatchFormat({ format: 'OWNER/API_NAME' }))
+  }
+  return newName
+}
+
+const getApiNewName = args => {
+  const newName = args['API_NEW_NAME']
+  if (!apiNameRegex.test(newName)) {
+    throw new CLIError(errorMsg.argsMustMatchFormat({ format: 'API_NEW_NAME' }))
+  }
+  return newName
+}
 
 class RenameApiCommand extends BaseCommand {
 
@@ -25,32 +41,16 @@ class RenameApiCommand extends BaseCommand {
             queryParams: { 'newName': newName },
             body: '{}'
           }),
-      onResolve: this.logCommandSuccess({apiPath, newName}),
+      onResolve: this.logCommandSuccess({ apiPath, newName }),
       options: {}
     })
   }
 }
 
-const getApiToRename = args => {
-  const newName = args['OWNER/API_NAME']
-  if (!noVersionRegex.test(newName)) {
-    throw new CLIError(errorMsg.argsMustMatchFormat({format: 'OWNER/API_NAME'}))
-  }
-  return newName
-}
-
-const getApiNewName = args => {
-  const newName = args['API_NEW_NAME']
-  if (!apiNameRegex.test(newName)) {
-    throw new CLIError(errorMsg.argsMustMatchFormat({format: 'API_NEW_NAME'}))
-  }
-  return newName
-}
-
-RenameApiCommand.description = "rename an API"
+RenameApiCommand.description = 'rename an API'
 
 RenameApiCommand.examples = [
-  "swaggerhub api:rename organization/apiOldName apiNewName"
+  'swaggerhub api:rename organization/apiOldName apiNewName'
 ]
 
 RenameApiCommand.args = {

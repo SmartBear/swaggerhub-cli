@@ -1,5 +1,5 @@
 const { Args } = require('@oclif/core')
-const {saveSpectralRuleset} = require('../../requests/spectral')
+const { saveSpectralRuleset } = require('../../requests/spectral')
 const { getSpectralIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
 const BaseCommand = require('../../support/command/base-command')
 const { PassThrough } = require('stream')
@@ -17,13 +17,13 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   }
 
  async zipTheDirectory(directoryPath) {
-    const archive = archiver('zip', { zlib: { level: 9 } });
-    const passthrough = new PassThrough();
+    const archive = archiver('zip', { zlib: { level: 9 } })
+    const passthrough = new PassThrough()
 
-    archive.directory(directoryPath, false);
-    await archive.finalize();
-    archive.pipe(passthrough);
-    return passthrough;
+    archive.directory(directoryPath, false)
+    await archive.finalize()
+    archive.pipe(passthrough)
+    return passthrough
   }
 
   saveSpectralRuleset(pathParams, zippedDirectory) {
@@ -35,7 +35,7 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   }
 }
 
-UploadSpectralRulesetCommand.description = `Create or update organization's Spectral ruleset`
+UploadSpectralRulesetCommand.description = 'Create or update organization\'s Spectral ruleset'
 
 UploadSpectralRulesetCommand.examples = [
   'swaggerhub spectral:upload my_organization/my_api_ruleset rules/',

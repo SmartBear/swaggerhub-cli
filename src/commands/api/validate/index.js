@@ -12,7 +12,7 @@ class ValidateCommand extends BaseValidateCommand {
     const apiPath = getApiIdentifierArg(args)
     const validPath = await this.ensureVersion(apiPath)
     await this.checkApiExists(validPath)
-    // eslint-disable-next-line immutable/no-let
+     
     let validationResult = await this.getValidationResult(validPath)
     // Required to support On-Prem 2.4.1
     if (validationResult.validation.length === 0 && isOnPrem()) {

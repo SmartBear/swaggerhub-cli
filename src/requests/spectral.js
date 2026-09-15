@@ -13,7 +13,7 @@ const saveSpectralRuleset = (pathParams, body) => {
     })
 }
 
-const getSpectralRuleset = (pathParams) => {
+const getSpectralRuleset = pathParams => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
 
     return http({

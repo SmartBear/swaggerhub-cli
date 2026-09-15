@@ -73,7 +73,7 @@ describe('valid spectral:download', () => {
     .stub(fs.promises, 'mkdir', stub => stub.rejects({ code: 'UNEXPECTED_ERROR', message: 'Custom error' }))
     .command(['spectral:download', rulesetPath, outputDir])
     .catch(ctx =>
-      expect(ctx.message).to.include(`Custom error`)
+      expect(ctx.message).to.include('Custom error')
     )
     .it('throws unexpected error')
 
@@ -86,7 +86,7 @@ describe('valid spectral:download', () => {
     .stub(fs.promises, 'mkdir', stub => stub.rejects({ code: 'UNEXPECTED_ERROR' }))
     .command(['spectral:download', rulesetPath, outputDir])
     .catch(ctx =>
-      expect(ctx.message).to.include(`Unknown Error`)
+      expect(ctx.message).to.include('Unknown Error')
     )
     .it('throws unexpected error')
 })
