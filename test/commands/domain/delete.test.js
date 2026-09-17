@@ -73,6 +73,19 @@ describe('domain:delete error responses', () => {
       expect(ctx.message).to.contain(`Unknown domain ${domainId}`)
     })
     .it('runs domain:delete with domain that does not exist')
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .delete('/org/domain/1.0.0')
+      .query({ force: 'true' })
+      .reply(401, '{"code":401,"message":"Invalid API key"}')
+    )
+    .command(['domain:delete', versionId])
+    .catch(ctx => {
+      expect(ctx.message).to.contain('Invalid API key')
+    })
+    .it('runs domain:delete with invalid API key returns 401')
 })
 
 
