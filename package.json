@@ -24,7 +24,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
     "@oclif/test": "^3.2.15",
-    "chai": "^6.2.2",
+    "chai": "^6.3.0",
     "eslint": "^10.10.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-immutable": "^1.0.0",
