@@ -2,6 +2,7 @@ const fetch = require('node-fetch')
 const qs = require('querystring')
 const headerTemplates = require('./header-templates')
 const defaultHeaders = require('./default-headers')
+const { agentFor } = require('./proxy-agent')
 
 const { pipe, pick, omit } = require('../../utils/general')
 
@@ -34,7 +35,7 @@ const parseHeaders = options => {
   }
 }
 
-const request = ({ url, ...options }) => fetch(url, options)
+const request = ({ url, ...options }) => fetch(url, { agent: agentFor, ...options })
 
 module.exports = options => (
   pipe(parseQuery, parseUrl, parseHeaders, request)(options)
