@@ -27,7 +27,7 @@ const checkForErrors = ({ resolveStatus = [] } = {}) => response => {
 }
 
 const filterResponseMessaging = response => {
-  if (response.status === 403) {
+  if (response.status === 401 || response.status === 403) {
     return Promise.reject(response)
   }
 
