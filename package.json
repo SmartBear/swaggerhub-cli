@@ -14,10 +14,13 @@
     "archiver": "^7.0.1",
     "deep-extend": "^0.6.0",
     "fs-extra": "^11.1.1",
+    "http-proxy-agent": "^9.1.0",
+    "https-proxy-agent": "^9.1.0",
     "inquirer": "^8.2.5",
     "js-yaml": "^5.2.2",
     "json-templates": "^5.0.0",
     "node-fetch": "^2.6.12",
+    "proxy-from-env": "^2.1.0",
     "semver": "^7.6.0",
     "unzipper": "^0.12.3"
   },

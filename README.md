@@ -38,6 +38,20 @@ $ swaggerhub configure
 
 Environment variables take precedence over the configuration file created by this command.
 
+# Using a proxy
+
+The CLI honors the standard proxy environment variables (lowercase variants also work):
+
+```
+export HTTPS_PROXY=http://proxy.example.com:8080   # used for https:// URLs, including the default https://api.swaggerhub.com
+export HTTP_PROXY=http://proxy.example.com:8080    # used for http:// URLs, e.g. an on-premise instance served over HTTP
+export NO_PROXY=localhost,.internal.example.com    # hosts that should bypass the proxy
+```
+
+Proxy credentials can be included in the URL: `http://user:password@proxy.example.com:8080`. Always include the scheme (`http://` or `https://`) in the proxy URL.
+
+HTTPS requests are tunnelled through the proxy using `CONNECT`. If your proxy intercepts TLS, see `NODE_EXTRA_CA_CERTS` below. SOCKS proxies are not supported.
+
 # Additional configuration for SwaggerHub On-Premise
 
 If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
