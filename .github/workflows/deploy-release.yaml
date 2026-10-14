@@ -55,7 +55,7 @@ jobs:
 
       - run: echo "Creating GitHub release for version ${{ env.VERSION }}"
       - name: Create GitHub Release
-        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.4.0
+        uses: octokit/request-action@b91aabaa861c777dcdb14e2387e30eddf04619ae # v3.0.0
         id: create_release
         with:
           route: POST /repos/{owner}/{repo}/releases
@@ -81,7 +81,7 @@ jobs:
           ref: ${{ env.VERSION }}
 
       # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
