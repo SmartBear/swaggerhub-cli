@@ -107,6 +107,38 @@ describe('invalid domain:update', () => {
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .get('/org/domain/1.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.0.0')
+      .reply(401, '{"code":401,"message":"Invalid API key"}')
+    )
+    .command(['domain:update', `${validIdentifier}`, '--file=test/resources/valid_domain.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Invalid API key')
+    })
+    .it('runs domain:update with invalid API key returns 401')
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain/1.0.0')
+      .reply(200)
+    )
+    .nock(`${shubUrl}/domains`, domain => domain
+      .post('/org/domain?version=1.0.0')
+      .reply(415, '{"code":415,"message":"Unsupported Media Type"}')
+    )
+    .command(['domain:update', `${validIdentifier}`, '--file=test/resources/valid_domain.json'])
+    .catch(ctx => {
+      expect(ctx.message).to.equal('Unsupported Media Type')
+    })
+    .it('runs domain:update with unsupported content type returns 415')
+
+  test
+    .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+    .nock(`${shubUrl}/domains`, domain => domain
+      .get('/org/domain/1.0.0')
       .reply(404, '{"code": 404, "message": "Unknown domain org/domain/1.0.0"}')
     )
     .command(['domain:update', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml', '--published=publish', '--setdefault'])
