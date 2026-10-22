@@ -1372,13 +1372,18 @@ list projects
 
 ```
 USAGE
-  $ swaggerhub project:list [OWNER] [-h]
+  $ swaggerhub project:list [OWNER] [-h] [-l <value>] [--page <value>]
+    [--order ASC|DESC]
 
 ARGUMENTS
   OWNER  The organization to list projects for on Swaggerhub
 
 FLAGS
-  -h, --help  Show CLI help.
+  -h, --help            Show CLI help.
+  -l, --limit=<value>   number of projects per page (1-100)
+      --order=<option>  sort order of the projects
+                        <options: ASC|DESC>
+      --page=<value>    zero-based page of projects to return
 
 DESCRIPTION
   list projects
@@ -1387,6 +1392,10 @@ EXAMPLES
   $ swaggerhub project:list
 
   $ swaggerhub project:list organization
+
+  $ swaggerhub project:list organization --limit 20 --order DESC
+
+  $ swaggerhub project:list organization --page 2 --limit 20
 ```
 
 _See code: [src/commands/project/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.12.1/src/commands/project/list.js)_
