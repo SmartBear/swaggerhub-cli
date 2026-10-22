@@ -627,19 +627,22 @@ publish a domain version
 
 ```
 USAGE
-  $ swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION [-h]
+  $ swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION [-f] [-h]
 
 ARGUMENTS
   OWNER/DOMAIN_NAME/VERSION  Domain to publish on SwaggerHub
 
 FLAGS
-  -h, --help  Show CLI help.
+  -f, --force  publish domain without prompting for confirmation
+  -h, --help   Show CLI help.
 
 DESCRIPTION
   publish a domain version
 
 EXAMPLES
   $ swaggerhub domain:publish organization/domain/1.0.0
+
+  $ swaggerhub domain:publish organization/domain/1.0.0 --force
 ```
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.12.1/src/commands/domain/publish.js)_

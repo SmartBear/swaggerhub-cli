@@ -1,6 +1,7 @@
 const BaseCommand = require('./base-command')
 const { putSpec } = require('../../requests/spec')
 const { handleErrors } = require('./handle-response')
+const inquirer = require('inquirer')
 
 class UpdateCommand extends BaseCommand {
 
@@ -8,20 +9,21 @@ class UpdateCommand extends BaseCommand {
     const pathParams = [owner, name, version, 'settings', 'lifecycle']
     const body = JSON.stringify({ published: isPublished })
     const successMessage = isPublished ? 'published' : 'unpublished'
+    const typeLabel = type === 'apis' ? 'API' : 'domain'
 
     await this.executeHttp({
       execute: () => flags.force ? putSpec(type, pathParams, body, flags) : putSpec(type, pathParams, body),
       onResolve: this.setSuccessMessage(successMessage)({
-        type: type === 'apis' ? 'API' : 'domain',
+        type: typeLabel,
         path: `${owner}/${name}/${version}`
       }),
       onReject: async err => {
-        if (err.status === 424 && type === 'apis') {
+        if (err.status === 424) {
           if (await this.confirmPublish() === true) {
-            this.executeHttp({
+            await this.executeHttp({
               execute: () => putSpec(type, pathParams, body, { 'force': 'true' }),
               onResolve: this.setSuccessMessage(successMessage)({
-                type: 'API',
+                type: typeLabel,
                 path: `${owner}/${name}/${version}`
               }),
               options: { resolveStatus: [403] }
@@ -33,6 +35,20 @@ class UpdateCommand extends BaseCommand {
       },
       options: { resolveStatus: [403] }
     })
+  }
+
+  async confirmPublish() {
+    const confirm = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'answer',
+        message: `A conflict was detected with other resources referencing or referenced by this definition. 
+        Forcing the change may affect them. 
+        Do you wish to continue?`,
+        default: false
+      }
+    ])
+    return confirm.answer
   }
 
   async updateDefault(type, owner, name, version) {
