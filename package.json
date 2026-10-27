@@ -16,7 +16,7 @@
     "fs-extra": "^11.1.1",
     "http-proxy-agent": "^9.1.0",
     "https-proxy-agent": "^9.1.0",
-    "inquirer": "^8.2.5",
+    "inquirer": "^14.2.4",
     "js-yaml": "^5.2.2",
     "json-templates": "^5.0.0",
     "node-fetch": "^2.6.12",
