@@ -7,6 +7,8 @@ const infoMsg = {
 
   ApiRename: 'Renamed API \'{{apiPath}}\' to \'{{newName}}\'',
 
+  DomainRename: 'Renamed domain \'{{domainPath}}\' to \'{{newName}}\'',
+
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
 
   DomainDelete: 'Deleted domain \'{{owner}}/{{name}}\'',
