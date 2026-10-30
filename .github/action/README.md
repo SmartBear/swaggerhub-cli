@@ -37,7 +37,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Call CLI
-      uses: smartbear/swaggerhub-cli@pr_demo
+      uses: smartbear/swaggerhub-cli@v0.13.0
       with:
         args: api:update MyOrg/SimpleApi -f ./docs/api.yml
 
@@ -59,7 +59,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Call CLI
-      uses: smartbear/swaggerhub-cli@pr_demo
+      uses: smartbear/swaggerhub-cli@v0.13.0
       with:
         args: api:publish MyOrg/SimpleApi -f ./docs/api.yml
 
