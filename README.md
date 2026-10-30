@@ -133,6 +133,7 @@ USAGE
 * [`swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaindelete)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
+* [`swaggerhub domain:rename OWNER/DOMAIN_NAME DOMAIN_NEW_NAME`](#swaggerhub-domainrename)
 * [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainupdate)
@@ -647,6 +648,33 @@ EXAMPLES
 ```
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/publish.js)_
+
+## `swaggerhub domain:rename`
+
+rename a domain
+
+```
+USAGE
+  $ swaggerhub domain:rename OWNER/DOMAIN_NAME DOMAIN_NEW_NAME [-f] [-h]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME  Domain to be renamed
+  DOMAIN_NEW_NAME    New name for the domain
+
+FLAGS
+  -f, --force  rename the domain even if it is referenced by APIs or other domains
+  -h, --help   Show CLI help.
+
+DESCRIPTION
+  rename a domain
+
+EXAMPLES
+  $ swaggerhub domain:rename organization/domainOldName domainNewName
+
+  $ swaggerhub domain:rename organization/domainOldName domainNewName --force
+```
+
+_See code: [src/commands/domain/rename.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/rename.js)_
 
 ## `swaggerhub domain:setdefault`
 
