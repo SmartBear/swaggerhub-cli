@@ -1,11 +1,11 @@
-const { Args } = require('@oclif/core')
-const { saveSpectralRuleset } = require('../../requests/spectral')
-const { getSpectralIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const { PassThrough } = require('stream')
-const { pipeAsync } = require('../../utils/general')
-const archiver = require('archiver')
-const { getResponseContent } = require('../../support/command/handle-response')
+import { Args } from '@oclif/core'
+import { saveSpectralRuleset } from '../../requests/spectral.js'
+import { getSpectralIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import { PassThrough } from 'stream'
+import { pipeAsync } from '../../utils/general.js'
+import archiver from 'archiver'
+import { getResponseContent } from '../../support/command/handle-response.js'
 
 class UploadSpectralRulesetCommand extends BaseCommand {
   async run() {
@@ -56,4 +56,4 @@ UploadSpectralRulesetCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = UploadSpectralRulesetCommand
+export default UploadSpectralRulesetCommand

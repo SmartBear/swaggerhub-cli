@@ -1,7 +1,7 @@
-const { expect } = require('@oclif/test')
-const { HttpsProxyAgent } = require('https-proxy-agent')
-const { HttpProxyAgent } = require('http-proxy-agent')
-const { agentFor } = require('../../src/support/http/proxy-agent')
+import { expect } from '@oclif/test'
+import { HttpsProxyAgent } from 'https-proxy-agent'
+import { HttpProxyAgent } from 'http-proxy-agent'
+import { agentFor } from '../../src/support/http/proxy-agent.js'
 
 const proxyKeys = ['HTTP_PROXY', 'http_proxy', 'HTTPS_PROXY', 'https_proxy', 'NO_PROXY', 'no_proxy']
 

@@ -1,5 +1,5 @@
-const { expect, test } = require('@oclif/test')
-const config = require('../../../src/config')
+import { expect, test } from '@oclif/test'
+import config from '../../../src/config/index.js'
 const validApi = 'org/api/1.0.0'
 const validPath = 'org/api/1.0.0/integrations/integration-id'
 const shubUrl = 'https://test-api.swaggerhub.com'

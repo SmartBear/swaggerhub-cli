@@ -1,7 +1,7 @@
-const { ux, Args, Flags } = require('@oclif/core')
-const { getProject } = require('../../requests/project')
-const { getResponseContent } = require('../../support/command/handle-response')
-const BaseCommand = require('../../support/command/base-command')
+import { ux, Args, Flags } from '@oclif/core'
+import { getProject } from '../../requests/project.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class ListProjectCommand extends BaseCommand {
     constructor(...props) {
@@ -79,4 +79,4 @@ ListProjectCommand.flags = {
     })
 }
 
-module.exports = ListProjectCommand
+export default ListProjectCommand

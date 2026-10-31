@@ -1,5 +1,5 @@
-const { Flags, ux } = require('@oclif/core')
-const BaseCommand = require('../../support/command/base-command')
+import { Flags, ux } from '@oclif/core'
+import BaseCommand from '../../support/command/base-command.js'
 
 class BaseValidateCommand extends BaseCommand {
 
@@ -37,4 +37,4 @@ BaseValidateCommand.flags = {
     }),
     ...BaseCommand.flags
 }
-module.exports = BaseValidateCommand
+export default BaseValidateCommand

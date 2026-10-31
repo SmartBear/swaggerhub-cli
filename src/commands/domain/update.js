@@ -1,10 +1,10 @@
-const { Flags, Args } = require('@oclif/core')
-const { readFileSync } = require('fs-extra')
-const { getDomain, postDomain } = require('../../requests/domain')
-const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getVersion, parseDefinition } = require('../../utils/definitions')
-const BaseCommand = require('../../support/command/base-command')
-const UpdateCommand = require('../../support/command/update-command')
+import { Flags, Args } from '@oclif/core'
+import { readFileSync } from 'node:fs'
+import { getDomain, postDomain } from '../../requests/domain.js'
+import { getDomainIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import { getVersion, parseDefinition } from '../../utils/definitions.js'
+import BaseCommand from '../../support/command/base-command.js'
+import UpdateCommand from '../../support/command/update-command.js'
 
 class UpdateDomainCommand extends UpdateCommand {
 
@@ -107,4 +107,4 @@ UpdateDomainCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = UpdateDomainCommand
+export default UpdateDomainCommand

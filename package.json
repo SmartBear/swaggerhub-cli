@@ -63,10 +63,11 @@
   ],
   "license": "Apache-2.0",
   "main": "src/index.js",
+  "type": "module",
   "oclif": {
     "commands": "./src/commands",
     "hooks": {
-      "init": "./src/hooks/setup-config"
+      "init": "./src/hooks/setup-config.js"
     },
     "bin": "swaggerhub",
     "plugins": [
@@ -93,7 +94,7 @@
         "description": "this topic supports the management of Spectral rulesets"
       }
     },
-    "helpClass": "./src/help"
+    "helpClass": "./src/help.js"
   },
   "repository": "SmartBear/swaggerhub-cli",
   "scripts": {

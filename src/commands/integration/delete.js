@@ -1,7 +1,7 @@
-const { Args } = require('@oclif/core')
-const { deleteApi } = require('../../requests/api')
-const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { deleteApi } from '../../requests/api.js'
+import { getIntegrationIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class DeleteIntegrationCommand extends BaseCommand {
 
@@ -39,4 +39,4 @@ DeleteIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = DeleteIntegrationCommand
+export default DeleteIntegrationCommand

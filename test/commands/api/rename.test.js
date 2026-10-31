@@ -1,6 +1,6 @@
-const { expect, test } = require('@oclif/test')
-const { faker } = require('@faker-js/faker')
-const config = require('../../../src/config')
+import { expect, test } from '@oclif/test'
+import { faker } from '@faker-js/faker'
+import config from '../../../src/config/index.js'
 const shubUrl = 'https://api.swaggerhub.com'
 
 describe('valid api:rename', () => {

@@ -1,7 +1,7 @@
-const { Flags, Args } = require('@oclif/core')
-const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const UpdateCommand = require('../../support/command/update-command')
+import { Flags, Args } from '@oclif/core'
+import { getDomainIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import UpdateCommand from '../../support/command/update-command.js'
 
 class PublishCommand extends UpdateCommand {
   
@@ -36,4 +36,4 @@ PublishCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = PublishCommand
+export default PublishCommand

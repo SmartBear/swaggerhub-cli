@@ -1,8 +1,8 @@
-const { Flags, Args } = require('@oclif/core')
-const BaseCommand = require('../../../support/command/base-command')
-const { pipeAsync } = require('../../../utils/general')
-const { getResponseContent } = require('../../../support/command/handle-response')
-const { getStandardization } = require('../../../requests/standardization')
+import { Flags, Args } from '@oclif/core'
+import BaseCommand from '../../../support/command/base-command.js'
+import { pipeAsync } from '../../../utils/general.js'
+import { getResponseContent } from '../../../support/command/handle-response.js'
+import { getStandardization } from '../../../requests/standardization.js'
 
 class ValidateDownloadRulesCommand extends BaseCommand {
     async run() {
@@ -57,4 +57,4 @@ ValidateDownloadRulesCommand.flags = {
     }),
     ...BaseCommand.flags
 }
-module.exports = ValidateDownloadRulesCommand
+export default ValidateDownloadRulesCommand

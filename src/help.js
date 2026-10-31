@@ -1,6 +1,6 @@
-const { Help } = require('@oclif/core')
+import { Help } from '@oclif/core'
 
-module.exports = class CustomHelp extends Help {
+export default class CustomHelp extends Help {
 
   constructor(config, opts) {
     super(config, opts)
