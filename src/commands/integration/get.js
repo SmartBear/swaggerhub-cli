@@ -33,7 +33,7 @@ class GetIntegrationCommand extends BaseCommand {
   }  
 }
 
-GetIntegrationCommand.description = 'retieves an integration for the given API.'
+GetIntegrationCommand.description = 'retrieves an integration for the given API.'
 
 GetIntegrationCommand.examples = [
   'swaggerhub integration:get organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704'
@@ -42,7 +42,7 @@ GetIntegrationCommand.examples = [
 GetIntegrationCommand.args = { 
   'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
     required: true,
-    description: 'Integration to fetch for given API on Swaggerhub'
+    description: 'Integration to fetch for given API on Swagger'
   })
 }
 

@@ -2,7 +2,7 @@ const { wrapTemplates } = require('../../utils/general')
 
 const swaggerHubUrl = {
   name: 'SWAGGERHUB_URL',
-  message: 'SwaggerHub URL:',
+  message: 'Swagger URL:',
   default: '{{SWAGGERHUB_URL}}'
 }
 

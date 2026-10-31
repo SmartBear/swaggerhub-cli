@@ -8,6 +8,6 @@
         "API_PUBLISHED"
     ],
     "additionalHeaders": [
-        "User-Agent: SwaggerHub-Webhook"
+        "User-Agent: Swagger-Webhook"
     ]
 }

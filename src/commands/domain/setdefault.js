@@ -23,7 +23,7 @@ SetDefaultDomainCommand.examples = [
 SetDefaultDomainCommand.args = {
   'OWNER/DOMAIN_NAME/VERSION': Args.string({
     required: true,
-    description: 'Domain to set as default on SwaggerHub'
+    description: 'Domain to set as default on Swagger'
   })
 }
 

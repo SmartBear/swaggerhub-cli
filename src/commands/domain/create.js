@@ -62,8 +62,8 @@ class CreateDomainCommand extends UpdateCommand {
     const { args, flags } = await this.parse(CreateDomainCommand)
     const definition = parseDefinition(flags.file)
     const domainVersion = getVersion(definition)
-    const doaminPath = getDomainIdentifierArg(args)
-    const [owner, name, version = domainVersion] = splitPathParams(doaminPath)
+    const domainPath = getDomainIdentifierArg(args)
+    const [owner, name, version = domainVersion] = splitPathParams(domainPath)
     const type = 'domains'
 
     const argsObj = {
@@ -96,15 +96,15 @@ An error will occur if the domain version already exists.
 CreateDomainCommand.examples = [
   'swaggerhub domain:create organization/domain/1.0.0 --file domain.yaml --visibility public',
   'swaggerhub domain:create organization/domain --file domain.yaml',
-  'swaggerhub domain:create organization/domain/1.0.0 --publish --file domain.json',
+  'swaggerhub domain:create organization/domain/1.0.0 --published=publish --file domain.json',
   'swaggerhub domain:create organization/domain/1.0.0 --setdefault --file domain.json',
-  'swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json'
+  'swaggerhub domain:create organization/domain/1.0.0 --published=publish --setdefault --file domain.json'
 ]
 
 CreateDomainCommand.args = {
   'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'Domain to create on SwaggerHub'
+    description: 'Domain to create on Swagger'
   })
 }
 
@@ -115,7 +115,7 @@ CreateDomainCommand.flags = {
     required: true
   }),
   visibility: Flags.string({
-    description: 'visibility of domain in SwaggerHub',
+    description: 'visibility of domain in Swagger',
     options: ['public', 'private'],
     default: 'private'
   }),

@@ -48,7 +48,7 @@ class ProjectApiRemoveCommand extends BaseCommand {
     }
 }
 
-ProjectApiRemoveCommand.description = 'Removes an API from a project in SwaggerHub.'
+ProjectApiRemoveCommand.description = 'Removes an API from a project in Swagger.'
 
 ProjectApiRemoveCommand.examples = [
     'swaggerhub project:api:remove organization/project_name my_api',
@@ -57,11 +57,11 @@ ProjectApiRemoveCommand.examples = [
 ProjectApiRemoveCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to remove the API from on Swaggerhub'
+        description: 'The project to remove the API from on Swagger'
     }),
     'API': Args.string({
         required: true,
-        description: 'The name of the API on Swaggerhub to remove'
+        description: 'The name of the API on Swagger to remove'
     })
 }
 

@@ -38,7 +38,7 @@ PublishCommand.examples = [
 PublishCommand.args = {
   'OWNER/API_NAME/VERSION': Args.string({
     required: true,
-    description: 'API to publish on Swaggerhub'
+    description: 'API to publish on Swagger'
   })
 }
 

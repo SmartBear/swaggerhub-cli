@@ -42,7 +42,7 @@ GetProjectCommand.examples = [
 GetProjectCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to get details for on Swaggerhub'
+        description: 'The project to get details for on Swagger'
     })
 }
 

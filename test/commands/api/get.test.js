@@ -144,7 +144,7 @@ describe('swaggerhub errors on api:get', () => {
     )
     .command(['api:get', 'org1/api2/1.0.0'])
     .exit(2)
-    .it('internal server error returned by SwaggerHub, command fails')
+    .it('internal server error returned by Swagger, command fails')
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
@@ -154,7 +154,7 @@ describe('swaggerhub errors on api:get', () => {
     )
     .command(['api:get', 'org1/api2/1.0.0'])
     .exit(2)
-    .it('not found returned by SwaggerHub, command fails')
+    .it('not found returned by Swagger, command fails')
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
@@ -182,7 +182,7 @@ describe('swaggerhub errors on api:get', () => {
     .stub(config, 'isURLValid', stub => stub.returns(false))
     .command(['api:get', 'org1/api2/1.0.0'])
     .catch(ctx =>
-      expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
+      expect(ctx.message).to.equal('Please verify that the configured Swagger URL is correct.')
     )
-    .it('invalid SwaggerHub URL')
+    .it('invalid Swagger URL')
 })

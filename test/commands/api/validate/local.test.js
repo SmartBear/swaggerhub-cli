@@ -34,7 +34,7 @@ describe('invalid api:validate:local file issues', () => {
   test
   .command(['api:validate:local', '-o', orgName, '-f', 'test/resources/invalid_format.yaml'])
   .catch(ctx => {
-    expect(ctx.message).to.contain('There was a problem with parsing test/resources/invalid_format.yaml.')
+    expect(ctx.message).to.contain('There was a problem parsing test/resources/invalid_format.yaml.')
   })
   .it('runs api:create with incorrectly formatted file')
 

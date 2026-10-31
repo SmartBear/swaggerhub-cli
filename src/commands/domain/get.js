@@ -54,7 +54,7 @@ GetDomainCommand.examples = [
 GetDomainCommand.args = {
   'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'Domain to fetch from SwaggerHub'
+    description: 'Domain to fetch from Swagger'
   })
 }
 

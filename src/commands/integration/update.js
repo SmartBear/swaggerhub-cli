@@ -36,7 +36,7 @@ UpdateIntegrationCommand.examples = [
 UpdateIntegrationCommand.args = { 
   'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
     required: true,
-    description: 'Integration to update for given API on Swaggerhub'
+    description: 'Integration to update for given API on Swagger'
   })
 }
 

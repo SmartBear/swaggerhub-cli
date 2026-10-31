@@ -23,7 +23,7 @@ UnpublishCommand.examples = [
 UnpublishCommand.args = {
   'OWNER/DOMAIN_NAME/VERSION': Args.string({
     required: true,
-    description: 'Domain to unpublish on SwaggerHub'
+    description: 'Domain to unpublish on Swagger'
   })
 }
 
