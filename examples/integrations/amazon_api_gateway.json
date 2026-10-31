@@ -1,5 +1,5 @@
 {
-    "name": "Amazon API Gateway Integraton",
+    "name": "Amazon API Gateway Integration",
     "configType": "AMAZON_API_GATEWAY",
     "region": "us-east-1",
     "publishMode": "merge",

@@ -54,7 +54,7 @@ DownloadSpectralRulesetCommand.examples = [
 DownloadSpectralRulesetCommand.args = { 
   'OWNER/RULESET_NAME': Args.string({
     required: true,
-    description: 'Organization\'s Spectral ruleset to create or update on SwaggerHub'
+    description: 'Organization\'s Spectral ruleset to create or update on Swagger'
   }),
   'directory': Args.string({
     required: true,

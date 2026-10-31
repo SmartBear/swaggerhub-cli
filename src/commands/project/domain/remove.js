@@ -48,7 +48,7 @@ class ProjectDomainRemoveCommand extends BaseCommand {
     }
 }
 
-ProjectDomainRemoveCommand.description = 'Removes a domain from a project in SwaggerHub.'
+ProjectDomainRemoveCommand.description = 'Removes a domain from a project in Swagger.'
 
 ProjectDomainRemoveCommand.examples = [
     'swaggerhub project:domain:remove organization/project_name my_domain',
@@ -57,11 +57,11 @@ ProjectDomainRemoveCommand.examples = [
 ProjectDomainRemoveCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to remove the domain from on Swaggerhub'
+        description: 'The project to remove the domain from on Swagger'
     }),
     'DOMAIN': Args.string({
         required: true,
-        description: 'The name of the domain on Swaggerhub to remove'
+        description: 'The name of the domain on Swagger to remove'
     })
 }
 

@@ -48,7 +48,7 @@ describe('swaggerhub errors on project:get', () => {
         )
         .command(['project:get', 'testowner/testproject'])
         .exit(2)
-        .it('internal server error returned by SwaggerHub, command fails')
+        .it('internal server error returned by Swagger, command fails')
 
     test
         .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
@@ -58,7 +58,7 @@ describe('swaggerhub errors on project:get', () => {
         )
         .command(['project:get', 'testowner/testproject'])
         .exit(2)
-        .it('not found returned by SwaggerHub, command fails')
+        .it('not found returned by Swagger, command fails')
 
     test
         .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://test.api.swaggerhub.com' }))
@@ -86,7 +86,7 @@ describe('swaggerhub errors on project:get', () => {
         .stub(config, 'isURLValid', stub => stub.returns(false))
         .command(['project:get', 'testowner/testproject'])
         .catch(ctx =>
-            expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
+            expect(ctx.message).to.equal('Please verify that the configured Swagger URL is correct.')
         )
-        .it('invalid SwaggerHub URL')
+        .it('invalid Swagger URL')
 })

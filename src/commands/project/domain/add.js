@@ -35,11 +35,11 @@ ProjectDomainAddCommand.examples = [
 ProjectDomainAddCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to add the domain to on Swaggerhub'
+        description: 'The project to add the domain to on Swagger'
     }),
     'DOMAIN': Args.string({
         required: true,
-        description: 'The name of the domain on Swaggerhub to add'
+        description: 'The name of the domain on Swagger to add'
     })
 }
 

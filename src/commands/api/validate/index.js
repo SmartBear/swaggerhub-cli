@@ -52,7 +52,7 @@ class ValidateCommand extends BaseValidateCommand {
 ValidateCommand.description = `Get validation result for an API version
 When VERSION is not included in the argument, the default version will be validated.
 An error will occur if the API version does not exist.
-If the flag \`-c\` or \`--failOnCritical\` is used and there are standardization
+If the flag \`-c\` or \`--fail-on-critical\` is used and there are standardization
 errors with \`Critical\` severity present, the command will exit with error code \`1\`.
 `
 
@@ -65,7 +65,7 @@ ValidateCommand.examples = [
 ValidateCommand.args = {
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to fetch validation errors for from Swaggerhub'
+    description: 'API to fetch validation errors for'
   })
 }
 

@@ -23,7 +23,7 @@ SetDefaultCommand.examples = [
 SetDefaultCommand.args = { 
   'OWNER/API_NAME/VERSION': Args.string({
     required: true,
-    description: 'API to set as default on Swaggerhub'
+    description: 'API to set as default on Swagger'
   })
 }
 

@@ -39,7 +39,7 @@ class CreateProjectCommand extends BaseCommand {
     }
 }
 
-CreateProjectCommand.description = 'Creates a new project in SwaggerHub.'
+CreateProjectCommand.description = 'Creates a new project in Swagger.'
 
 CreateProjectCommand.examples = [
     'swaggerhub project:create organization/new_project_name --description "project description"',
@@ -53,7 +53,7 @@ CreateProjectCommand.examples = [
 CreateProjectCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The new project to create on Swaggerhub'
+        description: 'The new project to create on Swagger'
     })
 }
 
@@ -64,12 +64,12 @@ CreateProjectCommand.flags = {
     }),
     apis: Flags.string({
         char: 'a',
-        description: 'Comma separated list of api names to include in project',
+        description: 'Comma-separated list of API names to include in project',
         required: false
     }),
     domains: Flags.string({
         char: 'd',
-        description: 'Comma separated list of domain names to include in project',
+        description: 'Comma-separated list of domain names to include in project',
         required: false
     }),
     ...BaseCommand.flags

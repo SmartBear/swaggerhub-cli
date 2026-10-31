@@ -106,7 +106,7 @@ CreateAPICommand.examples = [
 CreateAPICommand.args = {
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to create on SwaggerHub'
+    description: 'API to create on Swagger'
   })
 }
 
@@ -117,7 +117,7 @@ CreateAPICommand.flags = {
     required: true
   }),
   visibility: Flags.string({
-    description: 'visibility of API in SwaggerHub',
+    description: 'visibility of API in Swagger',
     options: ['public', 'private'],
     default: 'private'
   }),

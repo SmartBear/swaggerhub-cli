@@ -29,9 +29,9 @@ describe('invalid spectral:download', () => {
     .stub(config, 'isURLValid', stub => stub.returns(false))
     .command(['spectral:download', rulesetPath, outputDir])
     .catch(ctx =>
-      expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
+      expect(ctx.message).to.equal('Please verify that the configured Swagger URL is correct.')
     )
-    .it('invalid SwaggerHub URL provided in the config')
+    .it('invalid Swagger URL provided in the config')
 })
 
 describe('valid spectral:download', () => {
@@ -86,7 +86,7 @@ describe('valid spectral:download', () => {
     .stub(fs.promises, 'mkdir', stub => stub.rejects({ code: 'UNEXPECTED_ERROR' }))
     .command(['spectral:download', rulesetPath, outputDir])
     .catch(ctx =>
-      expect(ctx.message).to.include('Unknown Error')
+      expect(ctx.message).to.include('Unknown error')
     )
     .it('throws unexpected error')
 })

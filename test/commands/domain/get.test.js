@@ -105,7 +105,7 @@ describe('swaggerhub errors on domain:get', () => {
     )
     .command(['domain:get', 'org1/domain2/1.0.0'])
     .exit(2)
-    .it('internal server error returned by SwaggerHub, command fails')
+    .it('internal server error returned by Swagger, command fails')
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
@@ -115,7 +115,7 @@ describe('swaggerhub errors on domain:get', () => {
     )
     .command(['domain:get', 'org1/domain2/1.0.0'])
     .exit(2)
-    .it('not found returned by SwaggerHub, command fails')
+    .it('not found returned by Swagger, command fails')
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
@@ -129,7 +129,7 @@ describe('swaggerhub errors on domain:get', () => {
       expect(ctx.message).to.equal('Error: This private API is blocked because you have exceeded your current ' +
         'plan\'s limits')
     })
-    .it('not found returned by SwaggerHub, command fails')
+    .it('not found returned by Swagger, command fails')
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))

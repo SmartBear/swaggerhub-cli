@@ -52,7 +52,7 @@ ListIntegrationCommand.examples = [
 ListIntegrationCommand.args = { 
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to list integrations for on Swaggerhub'
+    description: 'API to list integrations for'
   })
 }
 

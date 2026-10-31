@@ -35,11 +35,11 @@ ProjectApiAddCommand.examples = [
 ProjectApiAddCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to add the API to on Swaggerhub'
+        description: 'The project to add the API to on Swagger'
     }),
     'API': Args.string({
         required: true,
-        description: 'The name of the API on Swaggerhub to add'
+        description: 'The name of the API on Swagger to add'
     })
 }
 

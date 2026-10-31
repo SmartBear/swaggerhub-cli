@@ -45,7 +45,7 @@ describe('valid project:api:remove', () => {
             .stdout()
             .command(['project:api:remove', `${validIdentifier}`, 'testapi'])
             .it('runs project:api:remove with a valid project and api', ctx => {
-                expect(ctx.stdout).to.contain('Removed api \'testapi\' from project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Removed API \'testapi\' from project \'testowner/testproject\'')
             })
     })
 

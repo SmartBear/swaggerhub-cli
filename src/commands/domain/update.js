@@ -65,7 +65,7 @@ class UpdateDomainCommand extends UpdateCommand {
 UpdateDomainCommand.description = `update a domain
 The domain version from the file will be used unless the version is specified in the command argument.
 When no file is specified then the default domain version will be updated.
-The domain visibility can be changed by using visibility flag.
+The domain visibility can be changed by using the --visibility flag.
 `
 
 UpdateDomainCommand.examples = [
@@ -80,7 +80,7 @@ UpdateDomainCommand.examples = [
 UpdateDomainCommand.args = {
   'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'Domain to update on SwaggerHub'
+    description: 'Domain to update on Swagger'
   })
 }
 
@@ -92,7 +92,7 @@ UpdateDomainCommand.flags = {
     multiple: false
   }),
   visibility: Flags.string({
-    description: 'visibility of domain in SwaggerHub',
+    description: 'visibility of domain in Swagger',
     options: ['public', 'private']
   }),
   published: Flags.string({

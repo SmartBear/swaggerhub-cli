@@ -32,7 +32,7 @@ describe('valid project:api:add',
             .stdout()
             .command(['project:api:add', `${validIdentifier}`,'testapi'])
             .it('runs project:api:add with \'apis\' spec type', ctx => {
-                expect(ctx.stdout).to.contain('Added api \'testapi\' to project \'testowner/testproject\'')
+                expect(ctx.stdout).to.contain('Added API \'testapi\' to project \'testowner/testproject\'')
             })
     })
 

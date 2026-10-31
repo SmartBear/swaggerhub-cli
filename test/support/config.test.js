@@ -60,14 +60,14 @@ describe('config ', () => {
     test
     .do(createEmptyConfigFile)
     .env({ SWAGGERHUB_URL: envShubUrl })
-    .it('should return the configured SwaggerHub URL from environmental variable', () => {
+    .it('should return the configured Swagger URL from environmental variable', () => {
       expect(getConfig().SWAGGERHUB_URL).to.equal(envShubUrl)
     })
 
     test
     .do(createConfigFile)
     .env({ SWAGGERHUB_URL: envShubUrl })
-    .it('should prioritise environmental variable SwaggerHub URL', () => {
+    .it('should prioritise environmental variable Swagger URL', () => {
       setConfig({ SWAGGERHUB_API_KEY: 'https://file.swaggerhub.com' })
       expect(getConfig().SWAGGERHUB_URL).to.equal(envShubUrl)
     })
@@ -127,7 +127,7 @@ describe('config ', () => {
 
     test
     .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'http://localhost:8088' }))
-    .it('it should return true when using SwaggerHub on localhost', () => {
+    .it('it should return true when using Swagger on localhost', () => {
       expect(isURLValid()).to.equal(true)
     })
   })

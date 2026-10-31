@@ -49,7 +49,7 @@ DeleteDomainCommand.examples = [
 DeleteDomainCommand.args = {
   'OWNER/DOMAIN_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'Domain to delete on SwaggerHub'
+    description: 'Domain to delete on Swagger'
   })
 }
 

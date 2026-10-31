@@ -57,7 +57,7 @@ ListProjectCommand.examples = [
 ListProjectCommand.args = {
     'OWNER': Args.string({
         required: false,
-        description: 'The organization to list projects for on Swaggerhub'
+        description: 'The organization to list projects for on Swagger'
     })
 }
 

@@ -1,39 +1,40 @@
-SwaggerHub CLI
+Swagger CLI
 ==============
 
 [![NPM](https://img.shields.io/npm/v/swaggerhub-cli.svg)](https://www.npmjs.com/package/swaggerhub-cli)
 
-The SwaggerHub CLI enables teams to build automation and workflows around SwaggerHub. Teams can use it in places like their CI/CD pipeline to create new APIs, create and update API versions, and mark API versions as published and default among other features. Every team has their own workflow, and the SwaggerHub CLI can help teams build the workflow that fits their needs.
+The Swagger CLI enables teams to build automation and workflows around Swagger. Teams can use it in places like their CI/CD pipeline to create new APIs, create and update API versions, and mark API versions as published and default among other features. Every team has their own workflow, and the Swagger CLI can help teams build the workflow that fits their needs.
 
 <!-- toc -->
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Setup](#setup)
 * [Using a proxy](#using-a-proxy)
-* [Additional configuration for SwaggerHub On-Premise](#additional-configuration-for-swaggerhub-on-premise)
+* [Additional configuration for Swagger Studio On-Premise](#additional-configuration-for-swagger-studio-on-premise)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Plugins](#plugins)
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Requirements
-Node.js 22.9 or later.
+* Node.js 22.9 or later.
+* Swagger SaaS, or Swagger Studio On-Premise 2.x. On-Premise 1.x is not supported.
 
 # Installation
 ```sh-session
 $ npm i -g swaggerhub-cli
 ```
 # Setup
-The SwaggerHub CLI can be configured through environment variables or through the [`swaggerhub configure`](#swaggerhub-configure) command. The CLI will look for the following environment variables.
+The Swagger CLI can be configured through environment variables or through the [`swaggerhub configure`](#swaggerhub-configure) command. The CLI will look for the following environment variables.
 
-* `SWAGGERHUB_API_KEY` (required) – **Important: keep this key secure.** This is the SwaggerHub API key the CLI will use for authentication. You can find your API key on the [user settings page](https://app.swaggerhub.com/settings/apiKey) in SwaggerHub.
-* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com`) – Customers with on-premise installations need to point this to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a backslash).
+* `SWAGGERHUB_API_KEY` (required) – **Important: keep this key secure.** This is the Swagger API key the CLI will use for authentication. You can find your API key on the [user settings page](https://app.swaggerhub.com/settings/apiKey) in Swagger.
+* `SWAGGERHUB_URL` (optional, default is `https://api.swaggerhub.com`) – Customers with on-premise installations (version 2.x) need to point this to their on-premise API, which is `http(s)://{swaggerhub-host}/v1` (do not append a trailing slash).
 
-Alernatively, you can use the `swaggerhub configure` command to create a configuration file for the CLI to use. This command will walk you through the steps to set up the necessary configurations.
+Alternatively, you can use the `swaggerhub configure` command to create a configuration file for the CLI to use. This command will walk you through the steps to set up the necessary configurations.
 
 ```sh-session
 $ swaggerhub configure
-? SwaggerHub URL: https://api.swaggerhub.com
+? Swagger URL: https://api.swaggerhub.com
 ? API Key: <your-api-key>
 ```
 
@@ -53,9 +54,9 @@ Proxy credentials can be included in the URL: `http://user:password@proxy.exampl
 
 HTTPS requests are tunnelled through the proxy using `CONNECT`. If your proxy intercepts TLS, see `NODE_EXTRA_CA_CERTS` below. SOCKS proxies are not supported.
 
-# Additional configuration for SwaggerHub On-Premise
+# Additional configuration for Swagger Studio On-Premise
 
-If your SwaggerHub On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the SwaggerHub CLI trust this certificate.
+If your Swagger Studio On-Premise instance uses a **self-signed or privately signed SSL certificate**, there are additional steps required to make the Swagger CLI trust this certificate.
 
 By default, Node.js rejects self-signed or privately signed SSL certificates because their root CA is not known. You will see an error like this in the CLI output:
 
@@ -108,8 +109,8 @@ set NODE_EXTRA_CA_CERTS=%USERPROFILE%\extra-ca-certs.pem
 ```sh-session
 $ swaggerhub COMMAND
 running command...
-$ swaggerhub (-v|--version|version)
-swaggerhub/0.1.2 darwin-x64 node-v12.13.0
+$ swaggerhub --version
+swaggerhub-cli/0.13.0 linux-x64 node-v22.9.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
@@ -175,7 +176,7 @@ USAGE
     -f <value>) [--setdefault ] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to create on SwaggerHub
+  OWNER/API_NAME/[VERSION]  API to create on Swagger
 
 FLAGS
   -f, --file=<value>         (required) file location of API to create
@@ -183,7 +184,7 @@ FLAGS
       --published=<option>   [default: unpublish] sets the lifecycle setting of the API version
                              <options: publish|unpublish>
       --setdefault           sets API version to be the default
-      --visibility=<option>  [default: private] visibility of API in SwaggerHub
+      --visibility=<option>  [default: private] visibility of API in Swagger
                              <options: public|private>
 
 DESCRIPTION
@@ -215,7 +216,7 @@ USAGE
   $ swaggerhub api:delete OWNER/API_NAME/[VERSION] [-f] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to delete on SwaggerHub
+  OWNER/API_NAME/[VERSION]  API to delete on Swagger
 
 FLAGS
   -f, --force  delete API without prompting for confirmation
@@ -244,12 +245,12 @@ USAGE
   $ swaggerhub api:get OWNER/API_NAME/[VERSION] [-j] [-r] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to fetch from Swaggerhub
+  OWNER/API_NAME/[VERSION]  API to fetch from Swagger
 
 FLAGS
   -h, --help      Show CLI help.
   -j, --json      returns the API in JSON format.
-  -r, --resolved  gets the resolved API definition (supported in v1.25+).
+  -r, --resolved  gets the resolved API definition
 
 DESCRIPTION
   fetches an API definition
@@ -274,7 +275,7 @@ USAGE
   $ swaggerhub api:publish OWNER/API_NAME/VERSION [-f] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to publish on Swaggerhub
+  OWNER/API_NAME/VERSION  API to publish on Swagger
 
 FLAGS
   -f, --force  publish API without prompting for confirmation
@@ -324,7 +325,7 @@ USAGE
   $ swaggerhub api:setdefault OWNER/API_NAME/VERSION [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION  API to set as default on Swaggerhub
+  OWNER/API_NAME/VERSION  API to set as default on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -371,7 +372,7 @@ USAGE
     publish|unpublish] [--setdefault] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to update on SwaggerHub
+  OWNER/API_NAME/[VERSION]  API to update on Swagger
 
 FLAGS
   -f, --file=<value>         file location of API to update
@@ -379,14 +380,14 @@ FLAGS
       --published=<option>   sets the lifecycle setting of the API version
                              <options: publish|unpublish>
       --setdefault           sets API version to be the default
-      --visibility=<option>  visibility of API in SwaggerHub
+      --visibility=<option>  visibility of API in Swagger
                              <options: public|private>
 
 DESCRIPTION
   update an API
   The API version from the file will be used unless the version is specified in the command argument.
   When no file is specified then the default API version will be updated.
-  The API visibility can be changed by using visibility flag.
+  The API visibility can be changed by using the --visibility flag.
 
 
 EXAMPLES
@@ -414,7 +415,7 @@ USAGE
   $ swaggerhub api:validate OWNER/API_NAME/[VERSION] [-c] [-j] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to fetch validation errors for from Swaggerhub
+  OWNER/API_NAME/[VERSION]  API to fetch validation errors for
 
 FLAGS
   -c, --fail-on-critical  Exit with error code 1 if there are critical standardization errors present
@@ -425,7 +426,7 @@ DESCRIPTION
   Get validation result for an API version
   When VERSION is not included in the argument, the default version will be validated.
   An error will occur if the API version does not exist.
-  If the flag `-c` or `--failOnCritical` is used and there are standardization
+  If the flag `-c` or `--fail-on-critical` is used and there are standardization
   errors with `Critical` severity present, the command will exit with error code `1`.
 
 
@@ -441,14 +442,14 @@ _See code: [src/commands/api/validate/index.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub api:validate:download-rules`
 
-Get existing SwaggerHub's organization standardization ruleset.
+Get an organization's existing standardization ruleset from Swagger.
 
 ```
 USAGE
   $ swaggerhub api:validate:download-rules OWNER [-s] [-d] [-h]
 
 ARGUMENTS
-  OWNER  Which organization standardization rules to fetch from SwaggerHub
+  OWNER  Which organization standardization rules to fetch from Swagger
 
 FLAGS
   -d, --include-disabled-rules  Includes disabled rules in fetched organization's ruleset
@@ -456,11 +457,11 @@ FLAGS
   -s, --include-system-rules    Includes system rules in fetched organization's ruleset
 
 DESCRIPTION
-  Get existing SwaggerHub's organization standardization ruleset.
-  Requires organization name argument. An error will occur if provided organization doesn't exist
+  Get an organization's existing standardization ruleset from Swagger.
+  Requires organization name argument. An error will occur if the provided organization doesn't exist
   or your account is not permitted to access that organization's settings.
-  If the flag `-s` or `--include-system-rules` is used, the returned ruleset will also include SwaggerHub system rules.
-  If the flag `-d` or `--include-disabled-rules` is used, the returned ruleset will also include disabled custom rules
+  If the flag `-s` or `--include-system-rules` is used, the returned ruleset will also include Swagger system rules.
+  If the flag `-d` or `--include-disabled-rules` is used, the returned ruleset will also include disabled custom rules.
 
 EXAMPLES
   $ swaggerhub api:validate:download-rules myOrg -s
@@ -472,7 +473,7 @@ _See code: [src/commands/api/validate/download-rules.js](https://github.com/Smar
 
 ## `swaggerhub api:validate:local`
 
-Runs a scan against a local API definition using the organization's standardization configuration on SwaggerHub.
+Runs a scan against a local API definition using the organization's standardization configuration on Swagger.
 
 ```
 USAGE
@@ -487,15 +488,15 @@ FLAGS
                               definition
 
 DESCRIPTION
-  Runs a scan against a local API definition using the organization's standardization configuration on SwaggerHub.
-  If the flag `-c` or `--failOnCritical` is used and there are standardization
+  Runs a scan against a local API definition using the organization's standardization configuration on Swagger.
+  If the flag `-c` or `--fail-on-critical` is used and there are standardization
   errors with `Critical` severity present, the command will exit with error code `1`.
 
 
 EXAMPLES
   $ swaggerhub api:validate:local -o myOrg -f ./my-api.yaml -c -j 
 
-  $ swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json
+  $ swaggerhub api:validate:local --organization myOrg --file ./my-api.json --fail-on-critical --json
 ```
 
 _See code: [src/commands/api/validate/local.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/api/validate/local.js)_
@@ -513,8 +514,8 @@ FLAGS
 
 DESCRIPTION
   configure application settings
-  Enter the SwaggerHub URL - default is https://api.swaggerhub.com
-  Customers with on-premise installations need to point this to their on-premise API, which is
+  Enter the Swagger URL - default is https://api.swaggerhub.com
+  Customers with on-premise installations (version 2.x) need to point this to their on-premise API, which is
   http(s)://{swaggerhub-host}/v1
   Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settings/apiKey
   You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config
@@ -533,7 +534,7 @@ USAGE
     publish|unpublish -f <value>) [--setdefault ] [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/[VERSION]  Domain to create on SwaggerHub
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to create on Swagger
 
 FLAGS
   -f, --file=<value>         (required) file location of domain to create
@@ -541,7 +542,7 @@ FLAGS
       --published=<option>   [default: unpublish] sets the lifecycle setting of the domain version
                              <options: publish|unpublish>
       --setdefault           sets domain version to be the default
-      --visibility=<option>  [default: private] visibility of domain in SwaggerHub
+      --visibility=<option>  [default: private] visibility of domain in Swagger
                              <options: public|private>
 
 DESCRIPTION
@@ -555,11 +556,11 @@ EXAMPLES
 
   $ swaggerhub domain:create organization/domain --file domain.yaml
 
-  $ swaggerhub domain:create organization/domain/1.0.0 --publish --file domain.json
+  $ swaggerhub domain:create organization/domain/1.0.0 --published=publish --file domain.json
 
   $ swaggerhub domain:create organization/domain/1.0.0 --setdefault --file domain.json
 
-  $ swaggerhub domain:create organization/domain/1.0.0 --publish --setdefault --file domain.json
+  $ swaggerhub domain:create organization/domain/1.0.0 --published=publish --setdefault --file domain.json
 ```
 
 _See code: [src/commands/domain/create.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/create.js)_
@@ -573,7 +574,7 @@ USAGE
   $ swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION] [-f] [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/[VERSION]  Domain to delete on SwaggerHub
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to delete on Swagger
 
 FLAGS
   -f, --force  delete domain without prompting for confirmation
@@ -602,7 +603,7 @@ USAGE
   $ swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION] [-j] [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/[VERSION]  Domain to fetch from SwaggerHub
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to fetch from Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -631,7 +632,7 @@ USAGE
   $ swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION [-f] [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/VERSION  Domain to publish on SwaggerHub
+  OWNER/DOMAIN_NAME/VERSION  Domain to publish on Swagger
 
 FLAGS
   -f, --force  publish domain without prompting for confirmation
@@ -657,7 +658,7 @@ USAGE
   $ swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/VERSION  Domain to set as default on SwaggerHub
+  OWNER/DOMAIN_NAME/VERSION  Domain to set as default on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -680,7 +681,7 @@ USAGE
   $ swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/VERSION  Domain to unpublish on SwaggerHub
+  OWNER/DOMAIN_NAME/VERSION  Domain to unpublish on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -704,7 +705,7 @@ USAGE
     publish|unpublish] [--setdefault] [-h]
 
 ARGUMENTS
-  OWNER/DOMAIN_NAME/[VERSION]  Domain to update on SwaggerHub
+  OWNER/DOMAIN_NAME/[VERSION]  Domain to update on Swagger
 
 FLAGS
   -f, --file=<value>         file location of domain to update
@@ -712,14 +713,14 @@ FLAGS
       --published=<option>   sets the lifecycle setting of the domain version
                              <options: publish|unpublish>
       --setdefault           sets domain version to be the default
-      --visibility=<option>  visibility of domain in SwaggerHub
+      --visibility=<option>  visibility of domain in Swagger
                              <options: public|private>
 
 DESCRIPTION
   update a domain
   The domain version from the file will be used unless the version is specified in the command argument.
   When no file is specified then the default domain version will be updated.
-  The domain visibility can be changed by using visibility flag.
+  The domain visibility can be changed by using the --visibility flag.
 
 
 EXAMPLES
@@ -767,7 +768,7 @@ USAGE
   $ swaggerhub integration:create OWNER/API_NAME/[VERSION] -f <value> [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to add integration to on SwaggerHub
+  OWNER/API_NAME/[VERSION]  API to add integration to on Swagger
 
 FLAGS
   -f, --file=<value>  (required) location of integration configuration file
@@ -777,7 +778,7 @@ DESCRIPTION
   creates a new API integration from a JSON configuration file.
   See the documentation for configuration files:
   https://github.com/SmartBear/swaggerhub-cli/tree/main/examples/integrations
-  When VERSION is not included in the argument, the integration will be added to be default API version.
+  When VERSION is not included in the argument, the integration will be added to the default API version.
 
 
 EXAMPLES
@@ -795,7 +796,7 @@ USAGE
   $ swaggerhub integration:delete OWNER/API_NAME/VERSION/INTEGRATION_ID [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to delete for given API on Swaggerhub
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to delete for given API on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -818,7 +819,7 @@ USAGE
   $ swaggerhub integration:execute OWNER/API_NAME/VERSION/INTEGRATION_ID [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to execute for given API on Swaggerhub
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to execute for given API on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -834,20 +835,20 @@ _See code: [src/commands/integration/execute.js](https://github.com/SmartBear/sw
 
 ## `swaggerhub integration:get`
 
-retieves an integration for the given API.
+retrieves an integration for the given API.
 
 ```
 USAGE
   $ swaggerhub integration:get OWNER/API_NAME/VERSION/INTEGRATION_ID [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to fetch for given API on Swaggerhub
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to fetch for given API on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  retieves an integration for the given API.
+  retrieves an integration for the given API.
 
 EXAMPLES
   $ swaggerhub integration:get organization/api/1.0.0/503c2db6-448a-4678-a310-f465429e9704
@@ -864,7 +865,7 @@ USAGE
   $ swaggerhub integration:list OWNER/API_NAME/[VERSION] [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/[VERSION]  API to list integrations for on Swaggerhub
+  OWNER/API_NAME/[VERSION]  API to list integrations for
 
 FLAGS
   -h, --help  Show CLI help.
@@ -887,7 +888,7 @@ USAGE
   $ swaggerhub integration:update OWNER/API_NAME/VERSION/INTEGRATION_ID -f <value> [-h]
 
 ARGUMENTS
-  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to update for given API on Swaggerhub
+  OWNER/API_NAME/VERSION/INTEGRATION_ID  Integration to update for given API on Swagger
 
 FLAGS
   -f, --file=<value>  (required) location of integration configuration file
@@ -1201,8 +1202,8 @@ USAGE
   $ swaggerhub project:api:add OWNER/PROJECT_NAME API [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to add the API to on Swaggerhub
-  API                 The name of the API on Swaggerhub to add
+  OWNER/PROJECT_NAME  The project to add the API to on Swagger
+  API                 The name of the API on Swagger to add
 
 FLAGS
   -h, --help  Show CLI help.
@@ -1218,21 +1219,21 @@ _See code: [src/commands/project/api/add.js](https://github.com/SmartBear/swagge
 
 ## `swaggerhub project:api:remove`
 
-Removes an API from a project in SwaggerHub.
+Removes an API from a project in Swagger.
 
 ```
 USAGE
   $ swaggerhub project:api:remove OWNER/PROJECT_NAME API [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to remove the API from on Swaggerhub
-  API                 The name of the API on Swaggerhub to remove
+  OWNER/PROJECT_NAME  The project to remove the API from on Swagger
+  API                 The name of the API on Swagger to remove
 
 FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  Removes an API from a project in SwaggerHub.
+  Removes an API from a project in Swagger.
 
 EXAMPLES
   $ swaggerhub project:api:remove organization/project_name my_api
@@ -1242,23 +1243,23 @@ _See code: [src/commands/project/api/remove.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub project:create`
 
-Creates a new project in SwaggerHub.
+Creates a new project in Swagger.
 
 ```
 USAGE
   $ swaggerhub project:create OWNER/PROJECT_NAME [--description <value>] [-a <value>] [-d <value>] [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The new project to create on Swaggerhub
+  OWNER/PROJECT_NAME  The new project to create on Swagger
 
 FLAGS
-  -a, --apis=<value>         Comma separated list of api names to include in project
-  -d, --domains=<value>      Comma separated list of domain names to include in project
+  -a, --apis=<value>         Comma-separated list of API names to include in project
+  -d, --domains=<value>      Comma-separated list of domain names to include in project
   -h, --help                 Show CLI help.
       --description=<value>  Description of project
 
 DESCRIPTION
-  Creates a new project in SwaggerHub.
+  Creates a new project in Swagger.
 
 EXAMPLES
   $ swaggerhub project:create organization/new_project_name --description "project description"
@@ -1278,20 +1279,20 @@ _See code: [src/commands/project/create.js](https://github.com/SmartBear/swagger
 
 ## `swaggerhub project:delete`
 
-Deletes a project from SwaggerHub.
+Deletes a project from Swagger.
 
 ```
 USAGE
   $ swaggerhub project:delete OWNER/PROJECT_NAME [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to delete on Swaggerhub
+  OWNER/PROJECT_NAME  The project to delete on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  Deletes a project from SwaggerHub.
+  Deletes a project from Swagger.
 
 EXAMPLES
   $ swaggerhub project:delete organization/project_name
@@ -1308,8 +1309,8 @@ USAGE
   $ swaggerhub project:domain:add OWNER/PROJECT_NAME DOMAIN [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to add the domain to on Swaggerhub
-  DOMAIN              The name of the domain on Swaggerhub to add
+  OWNER/PROJECT_NAME  The project to add the domain to on Swagger
+  DOMAIN              The name of the domain on Swagger to add
 
 FLAGS
   -h, --help  Show CLI help.
@@ -1325,21 +1326,21 @@ _See code: [src/commands/project/domain/add.js](https://github.com/SmartBear/swa
 
 ## `swaggerhub project:domain:remove`
 
-Removes a domain from a project in SwaggerHub.
+Removes a domain from a project in Swagger.
 
 ```
 USAGE
   $ swaggerhub project:domain:remove OWNER/PROJECT_NAME DOMAIN [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to remove the domain from on Swaggerhub
-  DOMAIN              The name of the domain on Swaggerhub to remove
+  OWNER/PROJECT_NAME  The project to remove the domain from on Swagger
+  DOMAIN              The name of the domain on Swagger to remove
 
 FLAGS
   -h, --help  Show CLI help.
 
 DESCRIPTION
-  Removes a domain from a project in SwaggerHub.
+  Removes a domain from a project in Swagger.
 
 EXAMPLES
   $ swaggerhub project:domain:remove organization/project_name my_domain
@@ -1356,7 +1357,7 @@ USAGE
   $ swaggerhub project:get OWNER/PROJECT_NAME [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  The project to get details for on Swaggerhub
+  OWNER/PROJECT_NAME  The project to get details for on Swagger
 
 FLAGS
   -h, --help  Show CLI help.
@@ -1379,7 +1380,7 @@ USAGE
   $ swaggerhub project:list [OWNER] [-h] [-l <value>] [--page <value>] [--order ASC|DESC]
 
 ARGUMENTS
-  OWNER  The organization to list projects for on Swaggerhub
+  OWNER  The organization to list projects for on Swagger
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1412,7 +1413,7 @@ USAGE
   $ swaggerhub project:member:list OWNER/PROJECT_NAME [-h]
 
 ARGUMENTS
-  OWNER/PROJECT_NAME  Project to list members of on Swaggerhub
+  OWNER/PROJECT_NAME  Project to list members of
 
 FLAGS
   -h, --help  Show CLI help.
@@ -1421,7 +1422,7 @@ DESCRIPTION
   list members of a project
 
 EXAMPLES
-  $ swaggerhub project:member:list organisation/project_name
+  $ swaggerhub project:member:list organization/project_name
 ```
 
 _See code: [src/commands/project/member/list.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/project/member/list.js)_
@@ -1435,7 +1436,7 @@ USAGE
   $ swaggerhub spectral:download OWNER/RULESET_NAME DIRECTORY [-h]
 
 ARGUMENTS
-  OWNER/RULESET_NAME  Organization's Spectral ruleset to create or update on SwaggerHub
+  OWNER/RULESET_NAME  Organization's Spectral ruleset to create or update on Swagger
   DIRECTORY           Relative path to directory the ruleset files should be saved to
 
 FLAGS
@@ -1459,7 +1460,7 @@ USAGE
   $ swaggerhub spectral:upload OWNER/RULESET_NAME DIRECTORY [-h]
 
 ARGUMENTS
-  OWNER/RULESET_NAME  Organization's Spectral ruleset to create or update on SwaggerHub
+  OWNER/RULESET_NAME  Organization's Spectral ruleset to create or update on Swagger
   DIRECTORY           Relative path to directory with ruleset files
 
 FLAGS
@@ -1477,7 +1478,7 @@ _See code: [src/commands/spectral/upload.js](https://github.com/SmartBear/swagge
 
 # Plugins
 
-The SwaggerHub CLI supports plugins via the [oclif plugin](https://oclif.io/docs/plugins) infrastructure.
+The Swagger CLI supports plugins via the [oclif plugin](https://oclif.io/docs/plugins) infrastructure.
 
 To install a plugin
 
@@ -1514,5 +1515,5 @@ $ swaggerhub schema:get ansible
 
 # Contributing
 <!-- contributing -->
-The SwaggerHub CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have a feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues) and let us know.
+Contributions are welcome. If you’ve found a bug or a typo, or have a feature request or general feedback, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues). Pull requests are welcome too; for larger changes, please open an issue first so we can discuss the approach.
 <!-- contributingstop -->
