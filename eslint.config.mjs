@@ -51,6 +51,7 @@ export default [
       'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true }],
       'prefer-template': 'error',
       'no-var': 'error',
+      'no-duplicate-imports': 'error',
       'prefer-const': ['error', { 'destructuring': 'all', 'ignoreReadBeforeAssign': false }],
       'arrow-body-style': ['error', 'as-needed'],
       'arrow-parens': ['error', 'as-needed'],

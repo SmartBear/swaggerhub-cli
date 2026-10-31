@@ -3,10 +3,14 @@ import { capitalise, pipeAsync } from '../../utils/general.js'
 import { infoMsg, errorMsg } from '../../template-strings/index.js'
 import { getApi } from '../../requests/api.js'
 import { getDomain } from '../../requests/domain.js'
-import { getResponseContent } from './handle-response.js'
-
+import {
+  getResponseContent,
+  parseResponse,
+  checkForErrors,
+  handleErrors,
+  filterResponseMessaging
+} from './handle-response.js'
 import config from '../../config/index.js'
-import { parseResponse, checkForErrors, handleErrors, filterResponseMessaging } from './handle-response.js'
 
 const versionResponse = content => JSON.parse(content).version
 

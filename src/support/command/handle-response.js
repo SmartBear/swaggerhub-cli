@@ -1,7 +1,8 @@
 import { Errors } from '@oclif/core'
-const { CLIError } = Errors
 import { hasJsonStructure, isError } from '../../utils/general.js'
 import { errorMsg } from '../../template-strings/index.js'
+
+const { CLIError } = Errors
 
 const parseResponse = response => new Promise(resolve => {
 

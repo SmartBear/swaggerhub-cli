@@ -1,10 +1,11 @@
 import path from 'path'
 import { existsSync } from 'node:fs'
 import fse from 'fs-extra'
-const { outputJsonSync } = fse
-import packagePkg from '../../package.json' with { type: 'json' }
-const { configDefaults } = packagePkg.oclif
+import packageJson from '../../package.json' with { type: 'json' }
 import { pipe } from '../utils/general.js'
+
+const { outputJsonSync } = fse
+const { configDefaults } = packageJson.oclif
 
 const createConfigFile = (filePath, config) => outputJsonSync(filePath, config, { mode: 0o600 })
 

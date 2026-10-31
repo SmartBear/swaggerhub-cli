@@ -1,6 +1,6 @@
 import semver from 'semver'
-import packagePkg from '../package.json' with { type: 'json' }
-const { engines } = packagePkg
+import packageJson from '../package.json' with { type: 'json' }
+const { engines } = packageJson
 
 const version = engines.node
 

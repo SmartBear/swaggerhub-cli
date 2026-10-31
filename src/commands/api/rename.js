@@ -1,10 +1,10 @@
 import BaseCommand from '../../support/command/base-command.js'
-import { Args } from '@oclif/core'
+import { Args, Errors } from '@oclif/core'
 import { noVersionRegex, apiNameRegex } from '../../support/command/parse-input.js'
 import { errorMsg } from '../../template-strings/index.js'
-import { Errors } from '@oclif/core'
-const { CLIError } = Errors
 import { postApi } from '../../requests/api.js'
+
+const { CLIError } = Errors
 
 const getApiToRename = args => {
   const newName = args['OWNER/API_NAME']
