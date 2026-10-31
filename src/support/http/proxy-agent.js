@@ -1,6 +1,6 @@
-const { getProxyForUrl } = require('proxy-from-env')
-const { HttpsProxyAgent } = require('https-proxy-agent')
-const { HttpProxyAgent } = require('http-proxy-agent')
+import { getProxyForUrl } from 'proxy-from-env'
+import { HttpsProxyAgent } from 'https-proxy-agent'
+import { HttpProxyAgent } from 'http-proxy-agent'
 
 const normalizeProxy = proxy => {
   try {
@@ -22,4 +22,4 @@ const agentFor = parsedUrl => {
     new HttpProxyAgent(proxyUrl)
 }
 
-module.exports = { agentFor }
+export { agentFor }

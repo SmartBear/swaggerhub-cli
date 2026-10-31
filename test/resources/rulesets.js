@@ -60,7 +60,7 @@ const rulesetWithDisabledAndSystemRule = {
   rules: { ...basicRules, ...disabledRule, ...systemRule }
 }
 
-module.exports = {
+export {
     ruleset,
     rulesetWithSystemRule,
     rulesetWithDisabledRule,

@@ -1,8 +1,8 @@
-const { ux, Args } = require('@oclif/core')
-const { getApi } = require('../../requests/api')
-const { getResponseContent } = require('../../support/command/handle-response')
-const { getApiIdentifierArg } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { ux, Args } from '@oclif/core'
+import { getApi } from '../../requests/api.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import { getApiIdentifierArg } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class ListIntegrationCommand extends BaseCommand {
   constructor(...props) {
@@ -60,4 +60,4 @@ ListIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = ListIntegrationCommand
+export default ListIntegrationCommand

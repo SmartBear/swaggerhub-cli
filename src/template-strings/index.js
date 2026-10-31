@@ -1,7 +1,7 @@
-const errorMsg = require('./errors')
-const infoMsg = require('./info')
+import errorMsg from './errors.js'
+import infoMsg from './info.js'
 
-module.exports = {
+export {
   errorMsg,
   infoMsg
 }

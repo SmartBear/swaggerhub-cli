@@ -1,6 +1,8 @@
-const { CLIError } = require('@oclif/core').Errors
-const { hasJsonStructure, isError } = require('../../utils/general')
-const { errorMsg } = require('../../template-strings')
+import { Errors } from '@oclif/core'
+import { hasJsonStructure, isError } from '../../utils/general.js'
+import { errorMsg } from '../../template-strings/index.js'
+
+const { CLIError } = Errors
 
 const parseResponse = response => new Promise(resolve => {
 
@@ -60,7 +62,7 @@ const handleErrors = error => {
   throw new CLIError(cliError)
 }
 
-module.exports = {
+export {
   parseResponse,
   checkForErrors,
   getResponseContent,

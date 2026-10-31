@@ -1,7 +1,7 @@
-const { expect, test } = require('@oclif/test')
-const path = require('path')
-const { existsSync, unlinkSync } = require('fs-extra')
-const setupConfig = require('../../src/hooks/setup-config')
+import { expect, test } from '@oclif/test'
+import path from 'path'
+import { existsSync, unlinkSync } from 'node:fs'
+import setupConfig from '../../src/hooks/setup-config.js'
 
 const mockHookOptions = {
   config: {

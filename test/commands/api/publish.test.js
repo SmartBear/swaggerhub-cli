@@ -1,7 +1,6 @@
-const { exit } = require('@oclif/core')
-const { expect, test } = require('@oclif/test')
-const inquirer = require('inquirer')
-const config = require('../../../src/config')
+import { expect, test } from '@oclif/test'
+import inquirer from 'inquirer'
+import config from '../../../src/config/index.js'
 const shubUrl = 'https://api.swaggerhub.com'
 
 describe('valid api:publish', () => {

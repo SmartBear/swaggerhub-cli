@@ -1,6 +1,6 @@
-const { expect, test } = require('@oclif/test')
-const yaml = require('js-yaml')
-const config = require('../../../src/config')
+import { expect, test } from '@oclif/test'
+import * as yaml from 'js-yaml'
+import config from '../../../src/config/index.js'
 const validIdentifier = 'org1/api2/1.0.0'
 const jsonResponse = {
   openapi: '3.0.0',

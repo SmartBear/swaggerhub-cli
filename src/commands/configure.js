@@ -1,8 +1,8 @@
-const path = require('path')
-const BaseCommand = require('../support/command/base-command')
-const inquirer = require('inquirer')
-const { getPrompts } = require('../support/inquirer')
-const { setConfig, getConfig } = require('../config')
+import path from 'path'
+import BaseCommand from '../support/command/base-command.js'
+import inquirer from 'inquirer'
+import { getPrompts } from '../support/inquirer/index.js'
+import { setConfig, getConfig } from '../config/index.js'
 
 class ConfigureCommand extends BaseCommand {
   async run() {
@@ -23,5 +23,5 @@ Customers with on-premise installations need to point this to their on-premise A
 Enter the API Key - this can be retrieved from https://app.swaggerhub.com/settings/apiKey
 You can set these as environment variables: SWAGGERHUB_URL, SWAGGERHUB_API_KEY. These take priority over config settings.
 `
-module.exports = ConfigureCommand
+export default ConfigureCommand
 

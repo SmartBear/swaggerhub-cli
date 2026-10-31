@@ -1,10 +1,10 @@
-const { Flags, Args } = require('@oclif/core')
-const { readFileSync } = require('fs-extra')
-const { getApi, postApi } = require('../../requests/api')
-const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getVersion, parseDefinition, getSpecification } = require('../../utils/definitions')
-const BaseCommand = require('../../support/command/base-command')
-const UpdateCommand = require('../../support/command/update-command')
+import { Flags, Args } from '@oclif/core'
+import { readFileSync } from 'node:fs'
+import { getApi, postApi } from '../../requests/api.js'
+import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import { getVersion, parseDefinition, getSpecification } from '../../utils/definitions.js'
+import BaseCommand from '../../support/command/base-command.js'
+import UpdateCommand from '../../support/command/update-command.js'
 
 const isApiNameAvailable = response => response.status === 404
 
@@ -137,4 +137,4 @@ CreateAPICommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = CreateAPICommand
+export default CreateAPICommand

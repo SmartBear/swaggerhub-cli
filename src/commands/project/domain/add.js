@@ -1,9 +1,7 @@
-const { Args } = require('@oclif/core')
-const { putProject } = require('../../../requests/project')
-const {
-    getProjectIdentifierArg
-} = require('../../../support/command/parse-input')
-const BaseCommand = require('../../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { putProject } from '../../../requests/project.js'
+import { getProjectIdentifierArg } from '../../../support/command/parse-input.js'
+import BaseCommand from '../../../support/command/base-command.js'
 
 class ProjectDomainAddCommand extends BaseCommand {
 
@@ -43,4 +41,4 @@ ProjectDomainAddCommand.args = {
     })
 }
 
-module.exports = ProjectDomainAddCommand
+export default ProjectDomainAddCommand

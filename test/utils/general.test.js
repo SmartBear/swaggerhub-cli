@@ -1,5 +1,5 @@
-const { expect, test } = require('@oclif/test')
-const { hasJsonStructure, pipe, prettyPrintJSON, pick, omit, isEqual } = require('../../src/utils/general')
+import { expect, test } from '@oclif/test'
+import { hasJsonStructure, pipe, prettyPrintJSON, pick, omit, isEqual } from '../../src/utils/general.js'
 
 describe('compositions ', () => {
   describe('pipe', () => {

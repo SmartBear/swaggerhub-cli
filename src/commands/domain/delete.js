@@ -1,8 +1,8 @@
-const { Flags, Args } = require('@oclif/core')
-const { deleteDomain } = require('../../requests/domain')
-const { getDomainIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const inquirer = require('inquirer')
+import { Flags, Args } from '@oclif/core'
+import { deleteDomain } from '../../requests/domain.js'
+import { getDomainIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import inquirer from 'inquirer'
 
 class DeleteDomainCommand extends BaseCommand {
 
@@ -61,4 +61,4 @@ DeleteDomainCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = DeleteDomainCommand
+export default DeleteDomainCommand

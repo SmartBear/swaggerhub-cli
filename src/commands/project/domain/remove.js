@@ -1,12 +1,9 @@
-const { Args } = require('@oclif/core')
-const { putProject, getProject } = require('../../../requests/project')
-const {
-    getProjectIdentifierArg,
-    splitPathParams,
-} = require('../../../support/command/parse-input')
-const BaseCommand = require('../../../support/command/base-command')
-const { getResponseContent } = require('../../../support/command/handle-response')
-const { pipeAsync } = require('../../../utils/general')
+import { Args } from '@oclif/core'
+import { putProject, getProject } from '../../../requests/project.js'
+import { getProjectIdentifierArg, splitPathParams } from '../../../support/command/parse-input.js'
+import BaseCommand from '../../../support/command/base-command.js'
+import { getResponseContent } from '../../../support/command/handle-response.js'
+import { pipeAsync } from '../../../utils/general.js'
 
 class ProjectDomainRemoveCommand extends BaseCommand {
 
@@ -65,4 +62,4 @@ ProjectDomainRemoveCommand.args = {
     })
 }
 
-module.exports = ProjectDomainRemoveCommand
+export default ProjectDomainRemoveCommand

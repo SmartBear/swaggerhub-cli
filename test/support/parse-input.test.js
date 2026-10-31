@@ -1,16 +1,18 @@
-const { expect } = require('@oclif/test')
-const { CLIError } = require('@oclif/core').Errors 
-const { parseDefinition } = require('../../src/utils/definitions')
-const { 
-  isValidIdentifier, 
-  getApiIdentifierArg, 
+import { expect } from '@oclif/test'
+import { Errors } from '@oclif/core'
+import { parseDefinition } from '../../src/utils/definitions.js'
+import {
+  isValidIdentifier,
+  getApiIdentifierArg,
   getDomainIdentifierArg,
   getProjectIdentifierArg,
   getSpectralIdentifierArg,
   readConfigFile,
   reqType,
   splitFlagParams
-} = require('../../src/support/command/parse-input')
+} from '../../src/support/command/parse-input.js'
+
+const { CLIError } = Errors
 
 describe('reqType returns correct type', () => {
 

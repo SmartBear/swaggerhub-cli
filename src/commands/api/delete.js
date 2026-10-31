@@ -1,8 +1,8 @@
-const { Flags, Args } = require('@oclif/core')
-const { deleteApi } = require('../../requests/api')
-const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const inquirer = require('inquirer')
+import { Flags, Args } from '@oclif/core'
+import { deleteApi } from '../../requests/api.js'
+import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import inquirer from 'inquirer'
 
 class DeleteAPICommand extends BaseCommand {
 
@@ -61,4 +61,4 @@ DeleteAPICommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = DeleteAPICommand
+export default DeleteAPICommand

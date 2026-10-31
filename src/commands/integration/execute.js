@@ -1,7 +1,7 @@
-const { Args } = require('@oclif/core')
-const { postApi } = require('../../requests/api')
-const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { postApi } from '../../requests/api.js'
+import { getIntegrationIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class ExecuteIntegrationCommand extends BaseCommand {
 
@@ -39,4 +39,4 @@ ExecuteIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = ExecuteIntegrationCommand
+export default ExecuteIntegrationCommand

@@ -1,7 +1,7 @@
-const { Args } = require('@oclif/core')
-const { deleteProject } = require('../../requests/project')
-const { getProjectIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { deleteProject } from '../../requests/project.js'
+import { getProjectIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class DeleteProjectCommand extends BaseCommand {
     constructor(...props) {
@@ -43,4 +43,4 @@ DeleteProjectCommand.flags = {
     ...BaseCommand.flags
 }
 
-module.exports = DeleteProjectCommand
+export default DeleteProjectCommand

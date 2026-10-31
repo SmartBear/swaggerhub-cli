@@ -1,7 +1,7 @@
-const { expect, test } = require('@oclif/test')
-const sinon = require('sinon')
-const inquirer = require('inquirer')
-const config = require('../../../src/config')
+import { expect, test } from '@oclif/test'
+import sinon from 'sinon'
+import inquirer from 'inquirer'
+import config from '../../../src/config/index.js'
 const domainId = 'org/domain'
 const versionId = 'org/domain/1.0.0'
 const shubUrl = 'https://test-api.swaggerhub.com'

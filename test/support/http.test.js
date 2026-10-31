@@ -1,5 +1,5 @@
-const { expect, test } = require('@oclif/test')
-const http = require('../../src/support/http')
+import { expect, test } from '@oclif/test'
+import http from '../../src/support/http/index.js'
 
 const mockUrl = 'https://test.http.com'
 const mockApiKey = 'mock-api-key-1234'

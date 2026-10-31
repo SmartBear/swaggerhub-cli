@@ -1,17 +1,16 @@
-const { Command, Flags } = require('@oclif/core')
-const { capitalise, pipeAsync } = require('../../utils/general')
-const { infoMsg, errorMsg } = require('../../template-strings')
-const { getApi } = require('../../requests/api')
-const { getDomain } = require('../../requests/domain')
-const { getResponseContent } = require('./handle-response')
-
-const config = require('../../config')
-const {
+import { Command, Flags } from '@oclif/core'
+import { capitalise, pipeAsync } from '../../utils/general.js'
+import { infoMsg, errorMsg } from '../../template-strings/index.js'
+import { getApi } from '../../requests/api.js'
+import { getDomain } from '../../requests/domain.js'
+import {
+  getResponseContent,
   parseResponse,
   checkForErrors,
   handleErrors,
   filterResponseMessaging
-} = require('./handle-response')
+} from './handle-response.js'
+import config from '../../config/index.js'
 
 const versionResponse = content => JSON.parse(content).version
 
@@ -88,4 +87,4 @@ BaseCommand.flags = {
   help: Flags.help({ char: 'h' })
 }
 
-module.exports = BaseCommand
+export default BaseCommand

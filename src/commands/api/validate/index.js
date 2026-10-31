@@ -1,10 +1,10 @@
-const { Args } = require('@oclif/core')
-const BaseValidateCommand = require('../../../support/command/base-validate-command')
-const { getApiIdentifierArg } = require('../../../support/command/parse-input')
-const { getApi } = require('../../../requests/api')
-const { pipeAsync } = require('../../../utils/general')
-const { getResponseContent } = require('../../../support/command/handle-response')
-const { isOnPrem } = require('../../../support/isOnPrem')
+import { Args } from '@oclif/core'
+import BaseValidateCommand from '../../../support/command/base-validate-command.js'
+import { getApiIdentifierArg } from '../../../support/command/parse-input.js'
+import { getApi } from '../../../requests/api.js'
+import { pipeAsync } from '../../../utils/general.js'
+import { getResponseContent } from '../../../support/command/handle-response.js'
+import { isOnPrem } from '../../../support/isOnPrem.js'
 
 class ValidateCommand extends BaseValidateCommand {
   async run() {
@@ -72,4 +72,4 @@ ValidateCommand.args = {
 ValidateCommand.flags = {
   ...BaseValidateCommand.flags
 }
-module.exports = ValidateCommand
+export default ValidateCommand
