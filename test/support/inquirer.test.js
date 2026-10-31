@@ -1,6 +1,5 @@
 import { expect, test } from '@oclif/test'
-import { wrapTemplates } from '../../src/utils/general.js'
-import { isEqual } from '../../src/utils/general.js'
+import { wrapTemplates, isEqual } from '../../src/utils/general.js'
 import { getPrompts } from '../../src/support/inquirer/index.js'
 
 const mockTemplates = wrapTemplates({

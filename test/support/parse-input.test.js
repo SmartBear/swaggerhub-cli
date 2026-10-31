@@ -1,6 +1,5 @@
 import { expect } from '@oclif/test'
 import { Errors } from '@oclif/core'
-const { CLIError } = Errors
 import { parseDefinition } from '../../src/utils/definitions.js'
 import {
   isValidIdentifier,
@@ -12,6 +11,8 @@ import {
   reqType,
   splitFlagParams
 } from '../../src/support/command/parse-input.js'
+
+const { CLIError } = Errors
 
 describe('reqType returns correct type', () => {
 
