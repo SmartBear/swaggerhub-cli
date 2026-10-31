@@ -1515,5 +1515,5 @@ $ swaggerhub schema:get ansible
 
 # Contributing
 <!-- contributing -->
-The Swagger CLI is currently in an active development phase—we will not be accepting Pull Requests at this time. If you’ve found any bugs or typos, or have feature requests or general feedback you’d like to share, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues) and let us know.
+Contributions are welcome. If you’ve found a bug or a typo, or have a feature request or general feedback, please open an [issue](https://github.com/SmartBear/swaggerhub-cli/issues). Pull requests are welcome too; for larger changes, please open an issue first so we can discuss the approach.
 <!-- contributingstop -->
