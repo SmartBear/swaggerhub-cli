@@ -1,9 +1,10 @@
 import { expect, test } from '@oclif/test'
 import fse from 'fs-extra'
-const { readJSONSync, removeSync, writeJSONSync } = fse
 import * as mock from '../resources/config.js'
 import { isEqual } from '../../src/utils/general.js'
 import { setConfig, getConfig, isURLValid } from '../../src/config/index.js'
+
+const { readJSONSync, removeSync, writeJSONSync } = fse
 
 const envShubUrl = 'https://environmental.var'
 const envApiKey = 'api-key-from-env-variable'

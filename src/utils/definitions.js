@@ -1,9 +1,10 @@
 import { Errors } from '@oclif/core'
-const { CLIError } = Errors
 import { hasJsonStructure } from './general.js'
 import * as yaml from 'js-yaml'
 import { existsSync, readFileSync } from 'node:fs'
 import { errorMsg } from '../template-strings/index.js'
+
+const { CLIError } = Errors
 
 const specVersionToSpecification = specVersion => {
   if (/2.0$/.test(specVersion))
