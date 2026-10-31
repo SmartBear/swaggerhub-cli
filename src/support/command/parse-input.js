@@ -1,7 +1,8 @@
-const { existsSync, readFileSync } = require('fs-extra')
-const { hasJsonStructure } = require('../../utils/general')
-const { CLIError } = require('@oclif/core').Errors
-const { errorMsg } = require('../../template-strings')
+import { existsSync, readFileSync } from 'node:fs'
+import { hasJsonStructure } from '../../utils/general.js'
+import { Errors } from '@oclif/core'
+const { CLIError } = Errors
+import { errorMsg } from '../../template-strings/index.js'
 
 const noVersionRegex = new RegExp(/^\/?[\w\-.]+\/[\w\-.]+$/)
 const apiNameRegex = new RegExp(/^[\w\-.]+$/)
@@ -88,7 +89,7 @@ const reqType = ({ json }) => json ? 'json' : 'yaml'
 
 const resolvedParam = ({ resolved }) => resolved ? { resolved: true } : null
 
-module.exports = {
+export {
   getApiIdentifierArg,
   apiNameRegex,
   noVersionRegex,

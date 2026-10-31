@@ -1,5 +1,5 @@
-const config = require('../config')
-const http = require('../support/http')
+import config from '../config/index.js'
+import http from '../support/http/index.js'
 
 const saveSpectralRuleset = (pathParams, body) => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
@@ -24,7 +24,7 @@ const getSpectralRuleset = pathParams => {
     })
 }
 
-module.exports = {
+export {
     saveSpectralRuleset,
     getSpectralRuleset
 }

@@ -1,9 +1,9 @@
-const { Flags, Args } = require('@oclif/core')
-const { getApiIdentifierArg, reqType, resolvedParam } = require('../../support/command/parse-input')
-const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
-const { getApi } = require('../../requests/api')
-const { getResponseContent } = require('../../support/command/handle-response')
-const BaseCommand = require('../../support/command/base-command')
+import { Flags, Args } from '@oclif/core'
+import { getApiIdentifierArg, reqType, resolvedParam } from '../../support/command/parse-input.js'
+import { hasJsonStructure, prettyPrintJSON } from '../../utils/general.js'
+import { getApi } from '../../requests/api.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class GetAPICommand extends BaseCommand {
   constructor(...props) {
@@ -64,4 +64,4 @@ GetAPICommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = GetAPICommand
+export default GetAPICommand

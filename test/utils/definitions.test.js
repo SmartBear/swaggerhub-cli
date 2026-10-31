@@ -1,5 +1,5 @@
-const { expect, test } = require('@oclif/test')
-const { getSpecification } = require('../../src/utils/definitions')
+import { expect, test } from '@oclif/test'
+import { getSpecification } from '../../src/utils/definitions.js'
 
 describe('getSpecification', () => {
   describe('should return `openapi-2.0`', () => {

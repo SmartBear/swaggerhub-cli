@@ -1,9 +1,9 @@
-const { Flags, Args } = require('@oclif/core')
-const { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } = require('../../support/command/parse-input')
-const { hasJsonStructure, prettyPrintJSON } = require('../../utils/general')
-const { getDomain } = require('../../requests/domain')
-const { getResponseContent } = require('../../support/command/handle-response')
-const BaseCommand = require('../../support/command/base-command')
+import { Flags, Args } from '@oclif/core'
+import { getDomainIdentifierArg, reqType, resolvedParam, splitPathParams } from '../../support/command/parse-input.js'
+import { hasJsonStructure, prettyPrintJSON } from '../../utils/general.js'
+import { getDomain } from '../../requests/domain.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class GetDomainCommand extends BaseCommand {
   constructor(...props) {
@@ -66,4 +66,4 @@ GetDomainCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = GetDomainCommand
+export default GetDomainCommand

@@ -1,9 +1,9 @@
-const { Args } = require('@oclif/core')
-const { getProject } = require('../../requests/project')
-const { getProjectIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getResponseContent } = require('../../support/command/handle-response')
-const { prettyPrintJSON } = require('../../utils/general')
-const BaseCommand = require('../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { getProject } from '../../requests/project.js'
+import { getProjectIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import { prettyPrintJSON } from '../../utils/general.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class GetProjectCommand extends BaseCommand {
     constructor(...props) {
@@ -50,4 +50,4 @@ GetProjectCommand.flags = {
     ...BaseCommand.flags
 }
 
-module.exports = GetProjectCommand
+export default GetProjectCommand

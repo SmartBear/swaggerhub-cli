@@ -1,7 +1,7 @@
-const { Flags, Args } = require('@oclif/core')
-const { postApi } = require('../../requests/api')
-const { getApiIdentifierArg, readConfigFile } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { Flags, Args } from '@oclif/core'
+import { postApi } from '../../requests/api.js'
+import { getApiIdentifierArg, readConfigFile } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class CreateIntegrationCommand extends BaseCommand {
 
@@ -53,4 +53,4 @@ CreateIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = CreateIntegrationCommand
+export default CreateIntegrationCommand

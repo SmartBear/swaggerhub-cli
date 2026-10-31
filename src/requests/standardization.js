@@ -1,6 +1,6 @@
-const config = require('../config')
-const http = require('../support/http')
-const { hasJsonStructure } = require('../utils/general')
+import config from '../config/index.js'
+import http from '../support/http/index.js'
+import { hasJsonStructure } from '../utils/general.js'
 
 const postStandardization = (pathParams, body) => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
@@ -27,7 +27,7 @@ const getStandardization = (pathParams, queryParams) => {
     })
 }
 
-module.exports = {
+export {
     postStandardization,
     getStandardization
 }

@@ -1,8 +1,9 @@
-const { CLIError } = require('@oclif/core').Errors
-const { hasJsonStructure } = require('./general')
-const yaml = require('js-yaml')
-const { existsSync, readFileSync } = require('fs-extra')
-const { errorMsg } = require('../template-strings')
+import { Errors } from '@oclif/core'
+const { CLIError } = Errors
+import { hasJsonStructure } from './general.js'
+import * as yaml from 'js-yaml'
+import { existsSync, readFileSync } from 'node:fs'
+import { errorMsg } from '../template-strings/index.js'
 
 const specVersionToSpecification = specVersion => {
   if (/2.0$/.test(specVersion))
@@ -44,7 +45,7 @@ const parseDefinition = filename => {
   }
 }
 
-module.exports = {
+export {
   getSpecification,
   getVersion,
   parseDefinition,

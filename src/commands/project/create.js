@@ -1,11 +1,7 @@
-const { Flags, Args } = require('@oclif/core')
-const { postProject } = require('../../requests/project')
-const {
-    getProjectIdentifierArg,
-    splitPathParams,
-    splitFlagParams
-} = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
+import { Flags, Args } from '@oclif/core'
+import { postProject } from '../../requests/project.js'
+import { getProjectIdentifierArg, splitPathParams, splitFlagParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class CreateProjectCommand extends BaseCommand {
 
@@ -75,4 +71,4 @@ CreateProjectCommand.flags = {
     ...BaseCommand.flags
 }
 
-module.exports = CreateProjectCommand
+export default CreateProjectCommand

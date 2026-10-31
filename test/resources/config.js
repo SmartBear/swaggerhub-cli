@@ -5,7 +5,7 @@ const config = {
 
 const configFilePath = './config.json'
 
-module.exports = {
+export {
   config,
   configFilePath
 }

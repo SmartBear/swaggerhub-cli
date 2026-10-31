@@ -1,9 +1,9 @@
-const promptTemplates = require('./prompt-templates')
+import promptTemplates from './prompt-templates.js'
 
-const getPrompts = prompts => (
-  (options = {}) => prompts.map(p => promptTemplates[p](options))
+const getPrompts = (prompts, templates = promptTemplates) => (
+  (options = {}) => prompts.map(p => templates[p](options))
 )
 
-module.exports = {
+export {
   getPrompts
 }

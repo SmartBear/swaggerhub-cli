@@ -1,12 +1,7 @@
 /* eslint-disable max-len */
-const { expect, test } = require('@oclif/test')
-const config = require('../../../../src/config')
-const {
-    ruleset,
-    rulesetWithDisabledRule,
-    rulesetWithSystemRule,
-    rulesetWithDisabledAndSystemRule
-} = require('../../../resources/rulesets')
+import { expect, test } from '@oclif/test'
+import config from '../../../../src/config/index.js'
+import { ruleset, rulesetWithDisabledRule, rulesetWithSystemRule, rulesetWithDisabledAndSystemRule } from '../../../resources/rulesets.js'
 
 const orgName = 'org1'
 

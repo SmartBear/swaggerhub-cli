@@ -1,6 +1,6 @@
-const { expect, test } = require('@oclif/test')
-const config = require('../../../src/config')
-const fs = require('fs')
+import { expect, test } from '@oclif/test'
+import config from '../../../src/config/index.js'
+import fs from 'fs'
 
 const org = 'org1'
 const rulesetName = 'rulesetA'

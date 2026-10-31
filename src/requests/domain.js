@@ -1,4 +1,4 @@
-const { getSpec, postSpec, deleteSpec } = require('./spec')
+import { getSpec, postSpec, deleteSpec } from './spec.js'
 
 const getDomain = (pathParams, queryParams, accept = 'json') =>
   getSpec('domains', pathParams, queryParams, accept)
@@ -9,7 +9,7 @@ const deleteDomain = (pathParams, queryParams) =>
 const postDomain = ({ pathParams, queryParams, body }) =>
   postSpec('domains', pathParams, queryParams, body)
 
-module.exports = {
+export {
   getDomain,
   deleteDomain,
   postDomain
