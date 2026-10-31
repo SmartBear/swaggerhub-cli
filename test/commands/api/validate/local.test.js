@@ -1,5 +1,5 @@
-const { test, expect } = require('@oclif/test')
-const config = require('../../../../src/config')
+import { test, expect } from '@oclif/test'
+import config from '../../../../src/config/index.js'
 
 const orgName = 'example-org'
 const apiPath = './test/resources/valid_api.yaml'

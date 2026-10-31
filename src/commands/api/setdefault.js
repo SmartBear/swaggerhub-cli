@@ -1,7 +1,7 @@
-const { Args } = require('@oclif/core')
-const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const UpdateCommand = require('../../support/command/update-command')
+import { Args } from '@oclif/core'
+import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import UpdateCommand from '../../support/command/update-command.js'
 
 class SetDefaultCommand extends UpdateCommand {
 
@@ -29,4 +29,4 @@ SetDefaultCommand.args = {
 
 SetDefaultCommand.flags = BaseCommand.flags
 
-module.exports = SetDefaultCommand
+export default SetDefaultCommand

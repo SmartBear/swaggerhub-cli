@@ -1,7 +1,7 @@
-const BaseCommand = require('./base-command')
-const { putSpec } = require('../../requests/spec')
-const { handleErrors } = require('./handle-response')
-const inquirer = require('inquirer')
+import BaseCommand from './base-command.js'
+import { putSpec } from '../../requests/spec.js'
+import { handleErrors } from './handle-response.js'
+import inquirer from 'inquirer'
 
 class UpdateCommand extends BaseCommand {
 
@@ -84,4 +84,4 @@ class UpdateCommand extends BaseCommand {
   }
 }
 
-module.exports = UpdateCommand
+export default UpdateCommand

@@ -1,8 +1,8 @@
-const { Flags, Args } = require('@oclif/core')
-const { getApiIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const BaseCommand = require('../../support/command/base-command')
-const UpdateCommand = require('../../support/command/update-command')
-const inquirer = require('inquirer')
+import { Flags, Args } from '@oclif/core'
+import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import BaseCommand from '../../support/command/base-command.js'
+import UpdateCommand from '../../support/command/update-command.js'
+import inquirer from 'inquirer'
 
 class PublishCommand extends UpdateCommand {
   async run() {
@@ -50,4 +50,4 @@ PublishCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = PublishCommand
+export default PublishCommand

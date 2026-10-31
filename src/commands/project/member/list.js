@@ -1,8 +1,8 @@
-const { ux, Args } = require('@oclif/core')
-const { getProject } = require('../../../requests/project')
-const { getResponseContent } = require('../../../support/command/handle-response')
-const BaseCommand = require('../../../support/command/base-command')
-const { getProjectIdentifierArg } = require('../../../support/command/parse-input')
+import { ux, Args } from '@oclif/core'
+import { getProject } from '../../../requests/project.js'
+import { getResponseContent } from '../../../support/command/handle-response.js'
+import BaseCommand from '../../../support/command/base-command.js'
+import { getProjectIdentifierArg } from '../../../support/command/parse-input.js'
 
 class ListProjectMembersCommand extends BaseCommand {
     constructor(...props) {
@@ -58,4 +58,4 @@ ListProjectMembersCommand.flags = {
     ...BaseCommand.flags
 }
 
-module.exports = ListProjectMembersCommand
+export default ListProjectMembersCommand

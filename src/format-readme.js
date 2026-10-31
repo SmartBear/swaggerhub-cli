@@ -1,4 +1,5 @@
-const fs = require('fs')
+import fs from 'fs'
+import { fileURLToPath } from 'url'
 
 const removeArgsFromHeaders = line => {
     const words = line.split(' ')
@@ -33,6 +34,6 @@ const main = () => {
     }
 }
 
-if (require.main === module) {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
     main()
 }

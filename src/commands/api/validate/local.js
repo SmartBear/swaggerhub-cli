@@ -1,10 +1,10 @@
-const { Flags } = require('@oclif/core')
-const BaseValidateCommand = require('../../../support/command/base-validate-command')
-const { pipeAsync } = require('../../../utils/general')
-const { getResponseContent } = require('../../../support/command/handle-response')
-const { postStandardization } = require('../../../requests/standardization')
-const { parseDefinition, getSpecification, getVersion } = require('../../../utils/definitions')
-const { readFileSync } = require('fs-extra')
+import { Flags } from '@oclif/core'
+import BaseValidateCommand from '../../../support/command/base-validate-command.js'
+import { pipeAsync } from '../../../utils/general.js'
+import { getResponseContent } from '../../../support/command/handle-response.js'
+import { postStandardization } from '../../../requests/standardization.js'
+import { parseDefinition, getSpecification, getVersion } from '../../../utils/definitions.js'
+import { readFileSync } from 'node:fs'
 
 class ValidateLocalCommand extends BaseValidateCommand {
   async run() {
@@ -57,4 +57,4 @@ ValidateLocalCommand.flags = {
   }),
   ...BaseValidateCommand.flags
 }
-module.exports = ValidateLocalCommand
+export default ValidateLocalCommand

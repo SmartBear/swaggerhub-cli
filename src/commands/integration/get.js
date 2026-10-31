@@ -1,9 +1,9 @@
-const { Args } = require('@oclif/core')
-const { getApi } = require('../../requests/api')
-const { getIntegrationIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { getResponseContent } = require('../../support/command/handle-response')
-const { prettyPrintJSON } = require('../../utils/general')
-const BaseCommand = require('../../support/command/base-command')
+import { Args } from '@oclif/core'
+import { getApi } from '../../requests/api.js'
+import { getIntegrationIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import { getResponseContent } from '../../support/command/handle-response.js'
+import { prettyPrintJSON } from '../../utils/general.js'
+import BaseCommand from '../../support/command/base-command.js'
 
 class GetIntegrationCommand extends BaseCommand {
   constructor(...props) {
@@ -50,4 +50,4 @@ GetIntegrationCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = GetIntegrationCommand
+export default GetIntegrationCommand

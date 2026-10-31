@@ -1,4 +1,4 @@
-const { wrapTemplates } = require('../utils/general')
+import { wrapTemplates } from '../utils/general.js'
 
 const errorMsg = {
   ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in Swagger',
@@ -28,6 +28,6 @@ const errorMsg = {
   unknown: 'Unknown error',
 }
 
-module.exports = wrapTemplates({
+export default wrapTemplates({
   ...errorMsg
 })

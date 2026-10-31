@@ -1,8 +1,8 @@
-const path = require('path')
-const { expect, test } = require('@oclif/test')
-const inquirer = require('inquirer')
-const sinon = require('sinon')
-const { setConfig } = require('../../src/config')
+import path from 'path'
+import { expect, test } from '@oclif/test'
+import inquirer from 'inquirer'
+import sinon from 'sinon'
+import { setConfig } from '../../src/config/index.js'
 
 describe('configure command', () => {
   let promptStub
