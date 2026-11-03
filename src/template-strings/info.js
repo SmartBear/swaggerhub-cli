@@ -51,9 +51,9 @@ const infoMsg = {
 
   ProjectUpdate: 'Updated project \'{{owner}}/{{projectName}}\'',
 
-  ProjectApiAdd: 'Added api \'{{apiName}}\' to project \'{{projectPath}}\'',
+  ProjectApiAdd: 'Added API \'{{apiName}}\' to project \'{{projectPath}}\'',
 
-  ProjectApiRemove: 'Removed api \'{{apiName}}\' from project \'{{projectPath}}\'',
+  ProjectApiRemove: 'Removed API \'{{apiName}}\' from project \'{{projectPath}}\'',
 
   ProjectDomainAdd: 'Added domain \'{{domainName}}\' to project \'{{projectPath}}\'',
 

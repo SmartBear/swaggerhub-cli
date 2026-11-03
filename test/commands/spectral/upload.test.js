@@ -28,9 +28,9 @@ describe('invalid spectral:upload', () => {
     .stub(config, 'isURLValid', stub => stub.returns(false))
     .command(['spectral:upload', rulesetPath, inputDir])
     .catch(ctx =>
-      expect(ctx.message).to.equal('Please verify that the configured SwaggerHub URL is correct.')
+      expect(ctx.message).to.equal('Please verify that the configured Swagger URL is correct.')
     )
-    .it('invalid SwaggerHub URL provided in the config')
+    .it('invalid Swagger URL provided in the config')
 })
 
 describe('valid spectral:upload', () => {

@@ -1,15 +1,15 @@
 const { wrapTemplates } = require('../utils/general')
 
 const errorMsg = {
-  ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
+  ApiCreate: 'API version \'{{owner}}/{{name}}/{{version}}\' already exists in Swagger',
 
-  DomainCreate: 'Domain version \'{{owner}}/{{name}}/{{version}}\' already exists in SwaggerHub',
+  DomainCreate: 'Domain version \'{{owner}}/{{name}}/{{version}}\' already exists in Swagger',
 
   Configure: 'Failed to write config to {{configFilePath}}',
 
   argsMustMatchFormat: 'Argument must match {{format}} format',
 
-  cannotParseDefinition: 'There was a problem with parsing {{filename}}. \nReason: {{e}}',
+  cannotParseDefinition: 'There was a problem parsing {{filename}}. \nReason: {{e}}',
 
   cannotParseSpecification: 'Cannot determine specification from file',
 
@@ -25,7 +25,7 @@ const errorMsg = {
 
   directoryExists: 'Directory already exists: \'{{directory}}\'',
 
-  unknown: 'Unknown Error',
+  unknown: 'Unknown error',
 }
 
 module.exports = wrapTemplates({

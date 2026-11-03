@@ -26,7 +26,7 @@ class DeleteProjectCommand extends BaseCommand {
     }
 }
 
-DeleteProjectCommand.description = 'Deletes a project from SwaggerHub.'
+DeleteProjectCommand.description = 'Deletes a project from Swagger.'
 
 DeleteProjectCommand.examples = [
     'swaggerhub project:delete organization/project_name'
@@ -35,7 +35,7 @@ DeleteProjectCommand.examples = [
 DeleteProjectCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'The project to delete on Swaggerhub'
+        description: 'The project to delete on Swagger'
     })
 }
 

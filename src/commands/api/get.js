@@ -48,7 +48,7 @@ GetAPICommand.examples = [
 GetAPICommand.args = {
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to fetch from Swaggerhub'
+    description: 'API to fetch from Swagger'
   })
 }
 
@@ -59,7 +59,7 @@ GetAPICommand.flags = {
   }),
   resolved: Flags.boolean({
     char: 'r',
-    description: 'gets the resolved API definition (supported in v1.25+). '
+    description: 'gets the resolved API definition'
   }),
   ...BaseCommand.flags
 }

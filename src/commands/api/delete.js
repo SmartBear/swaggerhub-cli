@@ -49,7 +49,7 @@ DeleteAPICommand.examples = [
 DeleteAPICommand.args = { 
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to delete on SwaggerHub'
+    description: 'API to delete on Swagger'
   })
 }
 

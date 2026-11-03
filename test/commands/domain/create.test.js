@@ -31,7 +31,7 @@ describe('invalid domain:create file issues', () => {
   test
     .command(['domain:create', `${validIdentifier}`, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('There was a problem with parsing test/resources/invalid_format.yaml.')
+      expect(ctx.message).to.contain('There was a problem parsing test/resources/invalid_format.yaml.')
     })
     .it('runs domain:create with incorrectly formatted file')
 
@@ -56,7 +56,7 @@ describe('invalid domain:create', () => {
     )
     .command(['domain:create', `${validIdentifier}`, '-f=test/resources/valid_domain.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain(`Domain version '${validIdentifier}' already exists in SwaggerHub`)
+      expect(ctx.message).to.contain(`Domain version '${validIdentifier}' already exists in Swagger`)
     })
     .it('runs domain:create with domain version already exists')
 

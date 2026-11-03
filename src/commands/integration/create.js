@@ -30,7 +30,7 @@ class CreateIntegrationCommand extends BaseCommand {
 
 CreateIntegrationCommand.description = `creates a new API integration from a JSON configuration file.
 See the documentation for configuration files: https://github.com/SmartBear/swaggerhub-cli/tree/main/examples/integrations
-When VERSION is not included in the argument, the integration will be added to be default API version.
+When VERSION is not included in the argument, the integration will be added to the default API version.
 `
 
 CreateIntegrationCommand.examples = [
@@ -40,7 +40,7 @@ CreateIntegrationCommand.examples = [
 CreateIntegrationCommand.args = {
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to add integration to on SwaggerHub'
+    description: 'API to add integration to on Swagger'
   })
 }
 

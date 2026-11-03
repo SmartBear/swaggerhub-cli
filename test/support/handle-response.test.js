@@ -35,7 +35,7 @@ describe('handleErrors', () => {
         try {
             handleErrors({ content: 'Not json format' })
         } catch (err) {
-            expect(err.message).to.equal('Unknown Error')
+            expect(err.message).to.equal('Unknown error')
         }
     })
 })

@@ -24,7 +24,7 @@ PublishCommand.examples = [
 PublishCommand.args = {
   'OWNER/DOMAIN_NAME/VERSION': Args.string({
     required: true,
-    description: 'Domain to publish on SwaggerHub'
+    description: 'Domain to publish on Swagger'
   })
 }
 

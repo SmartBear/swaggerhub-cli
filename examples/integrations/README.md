@@ -1,4 +1,4 @@
-# SwaggerHub CLI Integrations
+# Swagger CLI Integrations
 
 Integrations are managed using the `integration` topic. The `create` and `update` commands take a configuration file for the integration settings. Each integration has a different set of properties that can be configured.
 
@@ -75,7 +75,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 
 ## Azure DevOps Server Integration
 
-**Note:** This integration is available in SwaggerHub On-Premise only.
+**Note:** This integration is available in Swagger Studio On-Premise only.
 |Property|Type|Required|Description|
 |-|-|-|-|
 |name|string|yes|Display name of the integration. Must be unique among all integrations configured for the given API version.|
@@ -89,7 +89,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Azure DevOps Services Integration
@@ -105,7 +105,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Bitbucket Cloud Integration
@@ -121,7 +121,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Bitbucket Server Integration
@@ -138,7 +138,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## GitHub Enterprise Integration
@@ -154,7 +154,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## GitHub Integration
@@ -169,7 +169,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## GitLab Integration
@@ -185,7 +185,7 @@ Integrations are managed using the `integration` topic. The `create` and `update
 |syncMethod|string|yes|"Basic Sync" or "Advanced Sync". See [*Property: `syncMethod`*](#property-syncmethod) for details.|
 |target|string|yes|The type of code to generate and push to the repository. See [*Property: `target`*](#property-target) for details.|
 |outputFolder|string|yes|The output folder for the generated code or definition.|
-|outputFile|string|no|If target is the YAML/JSON definiton, this is the filename for the generated definition.|
+|outputFile|string|no|If target is the YAML/JSON definition, this is the filename for the generated definition.|
 |enabled|boolean|no|Enables the integration, if set to `false` the integration will be saved but will not execute. Default value is `true`.|
 
 ## Webhook Integration
@@ -222,10 +222,10 @@ In the case of source control management (SCM) integrations, it is possible to g
 ### Basic Sync
 Basic Sync will manage files and folders in the output folder. New and edited files will be updated in the repository, existing files will not be modified.
 ### Advanced Sync
-Allows you to define which files and folders will be managed by SwaggerHub.\
+Allows you to define which files and folders will be managed by Swagger.\
 When Advanced Sync is used the following properties can be set
   * **providedPaths**: Partially Managed Paths - files in these locations will be created if they do not exist. Existing files will not be modified.
-  * **managedPaths**: Fully Managed Paths - files in these locations will be fully managed by SwaggerHub. All files will be overwritten and existing files may be deleted if not needed.
+  * **managedPaths**: Fully Managed Paths - files in these locations will be fully managed by Swagger. All files will be overwritten and existing files may be deleted if not needed.
   * **ignoredPaths**: Ignored Paths - these files will not be changed.
   
  Paths are relative to the `outputFolder`. Here is an example of an Advanced Sync configuration:

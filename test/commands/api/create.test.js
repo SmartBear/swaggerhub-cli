@@ -31,7 +31,7 @@ describe('invalid api:create file issues', () => {
   test
     .command(['api:create', validIdentifier, '--file=test/resources/invalid_format.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain('There was a problem with parsing test/resources/invalid_format.yaml.')
+      expect(ctx.message).to.contain('There was a problem parsing test/resources/invalid_format.yaml.')
     })
     .it('runs api:create with incorrectly formatted file')
 
@@ -63,7 +63,7 @@ describe('invalid api:create', () => {
     )
     .command(['api:create', validIdentifier, '-f=test/resources/valid_api.yaml'])
     .catch(ctx => {
-      expect(ctx.message).to.contain(`API version '${validIdentifier}' already exists in SwaggerHub`)
+      expect(ctx.message).to.contain(`API version '${validIdentifier}' already exists in Swagger`)
     })
     .it('runs api:create with API version already exists')
 

@@ -34,14 +34,14 @@ class ValidateLocalCommand extends BaseValidateCommand {
   }
 }
 
-ValidateLocalCommand.description = `Runs a scan against a local API definition using the organization's standardization configuration on SwaggerHub.
-If the flag \`-c\` or \`--failOnCritical\` is used and there are standardization
+ValidateLocalCommand.description = `Runs a scan against a local API definition using the organization's standardization configuration on Swagger.
+If the flag \`-c\` or \`--fail-on-critical\` is used and there are standardization
 errors with \`Critical\` severity present, the command will exit with error code \`1\`.
 `
 
 ValidateLocalCommand.examples = [
   'swaggerhub api:validate:local -o myOrg -f ./my-api.yaml -c -j ',
-  'swaggerhub api:validate:local --organization myOrg --file ./my-api/json --fail-on-critical --json',
+  'swaggerhub api:validate:local --organization myOrg --file ./my-api.json --fail-on-critical --json',
 ]
 
 ValidateLocalCommand.flags = {

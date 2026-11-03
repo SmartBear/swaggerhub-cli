@@ -65,7 +65,7 @@ class UpdateAPICommand extends UpdateCommand {
 UpdateAPICommand.description = `update an API
 The API version from the file will be used unless the version is specified in the command argument.
 When no file is specified then the default API version will be updated.
-The API visibility can be changed by using visibility flag.
+The API visibility can be changed by using the --visibility flag.
 `
 
 UpdateAPICommand.examples = [
@@ -80,7 +80,7 @@ UpdateAPICommand.examples = [
 UpdateAPICommand.args = { 
   'OWNER/API_NAME/[VERSION]': Args.string({
     required: true,
-    description: 'API to update on SwaggerHub'
+    description: 'API to update on Swagger'
   })
 }
 
@@ -92,7 +92,7 @@ UpdateAPICommand.flags = {
     multiple: false
   }),
   visibility: Flags.string({
-    description: 'visibility of API in SwaggerHub',
+    description: 'visibility of API in Swagger',
     options: ['public', 'private']
   }),
   published: Flags.string({

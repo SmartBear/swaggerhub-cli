@@ -31,7 +31,7 @@ ExecuteIntegrationCommand.examples = [
 ExecuteIntegrationCommand.args = { 
   'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
     required: true,
-    description: 'Integration to execute for given API on Swaggerhub'
+    description: 'Integration to execute for given API on Swagger'
   })
 }
 

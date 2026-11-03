@@ -31,7 +31,7 @@ DeleteIntegrationCommand.examples = [
 DeleteIntegrationCommand.args = { 
   'OWNER/API_NAME/VERSION/INTEGRATION_ID': Args.string({
     required: true,
-  description: 'Integration to delete for given API on Swaggerhub'
+  description: 'Integration to delete for given API on Swagger'
   })
 }
 

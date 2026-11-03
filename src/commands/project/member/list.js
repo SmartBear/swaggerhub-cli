@@ -44,13 +44,13 @@ class ListProjectMembersCommand extends BaseCommand {
 ListProjectMembersCommand.description = 'list members of a project'
 
 ListProjectMembersCommand.examples = [
-    'swaggerhub project:member:list organisation/project_name',
+    'swaggerhub project:member:list organization/project_name',
 ]
 
 ListProjectMembersCommand.args = {
     'OWNER/PROJECT_NAME': Args.string({
         required: true,
-        description: 'Project to list members of on Swaggerhub'
+        description: 'Project to list members of'
     })
 }
 
