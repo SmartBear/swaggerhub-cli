@@ -118,6 +118,7 @@ USAGE
 ```
 # Commands
 <!-- commands -->
+* [`swaggerhub api:clone OWNER/API_NAME/VERSION NEW_VERSION`](#swaggerhub-apiclone)
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate)
 * [`swaggerhub api:delete OWNER/API_NAME/[VERSION]`](#swaggerhub-apidelete)
 * [`swaggerhub api:get OWNER/API_NAME/[VERSION]`](#swaggerhub-apiget)
@@ -130,10 +131,12 @@ USAGE
 * [`swaggerhub api:validate:download-rules OWNER`](#swaggerhub-apivalidatedownload)
 * [`swaggerhub api:validate:local`](#swaggerhub-apivalidatelocal)
 * [`swaggerhub configure`](#swaggerhub-configure)
+* [`swaggerhub domain:clone OWNER/DOMAIN_NAME/VERSION NEW_VERSION`](#swaggerhub-domainclone)
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
 * [`swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaindelete)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
 * [`swaggerhub domain:publish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainpublish)
+* [`swaggerhub domain:rename OWNER/DOMAIN_NAME DOMAIN_NEW_NAME`](#swaggerhub-domainrename)
 * [`swaggerhub domain:setdefault OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainsetdefault)
 * [`swaggerhub domain:unpublish OWNER/DOMAIN_NAME/VERSION`](#swaggerhub-domainunpublish)
 * [`swaggerhub domain:update OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainupdate)
@@ -165,6 +168,34 @@ USAGE
 * [`swaggerhub project:member:list OWNER/PROJECT_NAME`](#swaggerhub-projectmemberlist)
 * [`swaggerhub spectral:download OWNER/RULESET_NAME DIRECTORY`](#swaggerhub-spectraldownload)
 * [`swaggerhub spectral:upload OWNER/RULESET_NAME DIRECTORY`](#swaggerhub-spectralupload)
+
+## `swaggerhub api:clone`
+
+clone an API version as a new version
+
+```
+USAGE
+  $ swaggerhub api:clone OWNER/API_NAME/VERSION NEW_VERSION [--visibility public|private] [-h]
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION  Api version to clone
+  NEW_VERSION             Version identifier of the new API version
+
+FLAGS
+  -h, --help                 Show CLI help.
+      --visibility=<option>  visibility of the new version (defaults to the server setting)
+                             <options: public|private>
+
+DESCRIPTION
+  clone an API version as a new version
+
+EXAMPLES
+  $ swaggerhub api:clone organization/API/1.0.0 1.0.1
+
+  $ swaggerhub api:clone organization/API/1.0.0 1.0.1 --visibility public
+```
+
+_See code: [src/commands/api/clone.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/api/clone.js)_
 
 ## `swaggerhub api:create`
 
@@ -524,6 +555,34 @@ DESCRIPTION
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/configure.js)_
 
+## `swaggerhub domain:clone`
+
+clone a domain version as a new version
+
+```
+USAGE
+  $ swaggerhub domain:clone OWNER/DOMAIN_NAME/VERSION NEW_VERSION [--visibility public|private] [-h]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/VERSION  Domain version to clone
+  NEW_VERSION                Version identifier of the new domain version
+
+FLAGS
+  -h, --help                 Show CLI help.
+      --visibility=<option>  visibility of the new version (defaults to the server setting)
+                             <options: public|private>
+
+DESCRIPTION
+  clone a domain version as a new version
+
+EXAMPLES
+  $ swaggerhub domain:clone organization/domain/1.0.0 1.0.1
+
+  $ swaggerhub domain:clone organization/domain/1.0.0 1.0.1 --visibility public
+```
+
+_See code: [src/commands/domain/clone.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/clone.js)_
+
 ## `swaggerhub domain:create`
 
 creates a new domain / domain version from a YAML/JSON file
@@ -648,6 +707,33 @@ EXAMPLES
 ```
 
 _See code: [src/commands/domain/publish.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/publish.js)_
+
+## `swaggerhub domain:rename`
+
+rename a domain
+
+```
+USAGE
+  $ swaggerhub domain:rename OWNER/DOMAIN_NAME DOMAIN_NEW_NAME [-f] [-h]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME  Domain to be renamed
+  DOMAIN_NEW_NAME    New name for the domain
+
+FLAGS
+  -f, --force  rename the domain even if it is referenced by APIs or other domains
+  -h, --help   Show CLI help.
+
+DESCRIPTION
+  rename a domain
+
+EXAMPLES
+  $ swaggerhub domain:rename organization/domainOldName domainNewName
+
+  $ swaggerhub domain:rename organization/domainOldName domainNewName --force
+```
+
+_See code: [src/commands/domain/rename.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/rename.js)_
 
 ## `swaggerhub domain:setdefault`
 

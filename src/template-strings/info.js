@@ -7,6 +7,12 @@ const infoMsg = {
 
   ApiRename: 'Renamed API \'{{apiPath}}\' to \'{{newName}}\'',
 
+  ApiClone: 'Cloned API \'{{apiPath}}\' as version {{newVersion}}',
+
+  DomainClone: 'Cloned domain \'{{domainPath}}\' as version {{newVersion}}',
+
+  DomainRename: 'Renamed domain \'{{domainPath}}\' to \'{{newName}}\'',
+
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
 
   DomainDelete: 'Deleted domain \'{{owner}}/{{name}}\'',
