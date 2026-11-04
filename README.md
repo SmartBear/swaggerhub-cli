@@ -117,6 +117,7 @@ USAGE
 ```
 # Commands
 <!-- commands -->
+* [`swaggerhub api:clone OWNER/API_NAME/VERSION NEW_VERSION`](#swaggerhub-apiclone)
 * [`swaggerhub api:create OWNER/API_NAME/[VERSION]`](#swaggerhub-apicreate)
 * [`swaggerhub api:delete OWNER/API_NAME/[VERSION]`](#swaggerhub-apidelete)
 * [`swaggerhub api:get OWNER/API_NAME/[VERSION]`](#swaggerhub-apiget)
@@ -129,6 +130,7 @@ USAGE
 * [`swaggerhub api:validate:download-rules OWNER`](#swaggerhub-apivalidatedownload)
 * [`swaggerhub api:validate:local`](#swaggerhub-apivalidatelocal)
 * [`swaggerhub configure`](#swaggerhub-configure)
+* [`swaggerhub domain:clone OWNER/DOMAIN_NAME/VERSION NEW_VERSION`](#swaggerhub-domainclone)
 * [`swaggerhub domain:create OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaincreate)
 * [`swaggerhub domain:delete OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domaindelete)
 * [`swaggerhub domain:get OWNER/DOMAIN_NAME/[VERSION]`](#swaggerhub-domainget)
@@ -165,6 +167,34 @@ USAGE
 * [`swaggerhub project:member:list OWNER/PROJECT_NAME`](#swaggerhub-projectmemberlist)
 * [`swaggerhub spectral:download OWNER/RULESET_NAME DIRECTORY`](#swaggerhub-spectraldownload)
 * [`swaggerhub spectral:upload OWNER/RULESET_NAME DIRECTORY`](#swaggerhub-spectralupload)
+
+## `swaggerhub api:clone`
+
+clone an API version as a new version
+
+```
+USAGE
+  $ swaggerhub api:clone OWNER/API_NAME/VERSION NEW_VERSION [--visibility public|private] [-h]
+
+ARGUMENTS
+  OWNER/API_NAME/VERSION  Api version to clone
+  NEW_VERSION             Version identifier of the new API version
+
+FLAGS
+  -h, --help                 Show CLI help.
+      --visibility=<option>  visibility of the new version (defaults to the server setting)
+                             <options: public|private>
+
+DESCRIPTION
+  clone an API version as a new version
+
+EXAMPLES
+  $ swaggerhub api:clone organization/API/1.0.0 1.0.1
+
+  $ swaggerhub api:clone organization/API/1.0.0 1.0.1 --visibility public
+```
+
+_See code: [src/commands/api/clone.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/api/clone.js)_
 
 ## `swaggerhub api:create`
 
@@ -523,6 +553,34 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/configure.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/configure.js)_
+
+## `swaggerhub domain:clone`
+
+clone a domain version as a new version
+
+```
+USAGE
+  $ swaggerhub domain:clone OWNER/DOMAIN_NAME/VERSION NEW_VERSION [--visibility public|private] [-h]
+
+ARGUMENTS
+  OWNER/DOMAIN_NAME/VERSION  Domain version to clone
+  NEW_VERSION                Version identifier of the new domain version
+
+FLAGS
+  -h, --help                 Show CLI help.
+      --visibility=<option>  visibility of the new version (defaults to the server setting)
+                             <options: public|private>
+
+DESCRIPTION
+  clone a domain version as a new version
+
+EXAMPLES
+  $ swaggerhub domain:clone organization/domain/1.0.0 1.0.1
+
+  $ swaggerhub domain:clone organization/domain/1.0.0 1.0.1 --visibility public
+```
+
+_See code: [src/commands/domain/clone.js](https://github.com/SmartBear/swaggerhub-cli/blob/v0.13.0/src/commands/domain/clone.js)_
 
 ## `swaggerhub domain:create`
 
