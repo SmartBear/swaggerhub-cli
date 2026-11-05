@@ -1,5 +1,5 @@
-const deepExtend = require('deep-extend')
-const jsonTemplate = require('json-templates')
+import deepExtend from 'deep-extend'
+import jsonTemplate from 'json-templates'
 
 const pick = (object, keys) => {
   const newObject = {}
@@ -64,7 +64,7 @@ const prettyPrintJSON = str => {
   return JSON.stringify(result, null, 2)
 }
 
-module.exports = {
+export {
   hasJsonStructure,
   prettyPrintJSON,
   isError,

@@ -1,10 +1,10 @@
-const fetch = require('node-fetch')
-const qs = require('querystring')
-const headerTemplates = require('./header-templates')
-const defaultHeaders = require('./default-headers')
-const { agentFor } = require('./proxy-agent')
+import fetch from 'node-fetch'
+import qs from 'querystring'
+import headerTemplates from './header-templates.js'
+import defaultHeaders from './default-headers.js'
+import { agentFor } from './proxy-agent.js'
 
-const { pipe, pick, omit } = require('../../utils/general')
+import { pipe, pick, omit } from '../../utils/general.js'
 
 const buildHeaders = options => Object.keys(options)
   .reduce((obj, key) => ({
@@ -37,6 +37,6 @@ const parseHeaders = options => {
 
 const request = ({ url, ...options }) => fetch(url, { agent: agentFor, ...options })
 
-module.exports = options => (
+export default options => (
   pipe(parseQuery, parseUrl, parseHeaders, request)(options)
 )

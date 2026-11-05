@@ -22,8 +22,8 @@ export default [
       immutable: pluginImmutable,
     },
     languageOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'commonjs',
+      ecmaVersion: 2025,
+      sourceType: 'module',
     },
     rules: {
       'semi': [2, 'never'],
@@ -51,6 +51,7 @@ export default [
       'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true }],
       'prefer-template': 'error',
       'no-var': 'error',
+      'no-duplicate-imports': 'error',
       'prefer-const': ['error', { 'destructuring': 'all', 'ignoreReadBeforeAssign': false }],
       'arrow-body-style': ['error', 'as-needed'],
       'arrow-parens': ['error', 'as-needed'],
@@ -58,6 +59,7 @@ export default [
       'max-len': ['error', { 'code': 120, 'ignoreTemplateLiterals': true }],
       'mocha/no-mocha-arrows': 0,
       'mocha/no-setup-in-describe': 0,
+      'mocha/max-top-level-suites': 0,
     },
   },
 

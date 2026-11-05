@@ -1,7 +1,11 @@
-const path = require('path')
-const { existsSync, outputJsonSync } = require('fs-extra')
-const { configDefaults } = require('../../package.json').oclif
-const { pipe } = require('../utils/general')
+import path from 'path'
+import { existsSync } from 'node:fs'
+import fse from 'fs-extra'
+import packageJson from '../../package.json' with { type: 'json' }
+import { pipe } from '../utils/general.js'
+
+const { outputJsonSync } = fse
+const { configDefaults } = packageJson.oclif
 
 const createConfigFile = (filePath, config) => outputJsonSync(filePath, config, { mode: 0o600 })
 
@@ -20,4 +24,4 @@ const SetupConfig = async ({ config: defaults }) => (
   pipe(setAsGlobalUserAgent, createConfigPath, setAsGlobalPath, initConfig)(defaults)
 )
 
-module.exports = SetupConfig
+export default SetupConfig

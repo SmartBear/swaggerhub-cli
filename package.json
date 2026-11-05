@@ -27,6 +27,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
     "@oclif/test": "^3.2.15",
+    "c8": "^12.0.0",
     "chai": "^6.3.0",
     "eslint": "^10.13.0",
     "eslint-plugin-chai-friendly": "^1.0.0",
@@ -37,13 +38,12 @@
     "husky": "^9.0.1",
     "mocha": "^11.7.6",
     "nock": "^14.0.1",
-    "nyc": "^18.0.0",
     "rewire": "^9.0.1",
     "sinon": "^22.0.0",
     "tmp": "^0.2.7"
   },
   "engines": {
-    "node": ">=22.9.0",
+    "node": ">=22.12.0",
     "npm": ">=11.9.0"
   },
   "overrides": {
@@ -63,10 +63,15 @@
   ],
   "license": "Apache-2.0",
   "main": "src/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
   "oclif": {
     "commands": "./src/commands",
     "hooks": {
-      "init": "./src/hooks/setup-config"
+      "init": "./src/hooks/setup-config.js"
     },
     "bin": "swaggerhub",
     "plugins": [
@@ -93,14 +98,14 @@
         "description": "this topic supports the management of Spectral rulesets"
       }
     },
-    "helpClass": "./src/help"
+    "helpClass": "./src/help.js"
   },
   "repository": "SmartBear/swaggerhub-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "npx oclif manifest",
     "prepare": "husky",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "test": "c8 mocha --forbid-only \"test/**/*.test.js\"",
     "lint": "eslint ./src ./test",
     "postinstall": "node ./src/check-node-version"
   }

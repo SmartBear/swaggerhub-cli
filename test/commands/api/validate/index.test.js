@@ -1,5 +1,5 @@
-const config = require('../../../../src/config')
-const { expect, test } = require('@oclif/test')
+import config from '../../../../src/config/index.js'
+import { expect, test } from '@oclif/test'
 
 const apiPath = 'example-org/example-api/example-ver'
 const heading = ' Line Severity Description        \n ──── ──────── ────────────────── \n'

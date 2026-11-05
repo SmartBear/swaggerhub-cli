@@ -1,7 +1,10 @@
-const { expect, test } = require('@oclif/test')
-const {
-  checkForErrors, getResponseContent, handleErrors, parseResponse
-} = require('../../src/support/command/handle-response')
+import { expect, test } from '@oclif/test'
+import {
+  checkForErrors,
+  getResponseContent,
+  handleErrors,
+  parseResponse
+} from '../../src/support/command/handle-response.js'
 
 describe('checkForErrors', () => {
     test.it('should return resolved promise', async () => {

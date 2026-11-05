@@ -2,8 +2,9 @@
 
 // Suppress the deprecated punycode module warning
 // https://nodejs.org/api/deprecations.html#deprecations_dep0040_the_punycode_module_is_deprecated
-process.noDeprecation = true;
+process.noDeprecation = true
 
-require('@oclif/core').run()
-.then(require('@oclif/core/flush'))
-.catch(require('@oclif/core/handle'))
+// Dynamic import: static imports are hoisted and would load before the line above.
+const { execute } = await import('@oclif/core')
+
+await execute({ dir: import.meta.url })

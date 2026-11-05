@@ -17,7 +17,7 @@ The Swagger CLI enables teams to build automation and workflows around Swagger. 
 * [Contributing](#contributing)
 <!-- tocstop -->
 # Requirements
-* Node.js 22.9 or later.
+* Node.js 22.12 or later.
 * Swagger SaaS, or Swagger Studio On-Premise 2.x. On-Premise 1.x is not supported.
 
 # Installation
