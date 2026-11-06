@@ -26,6 +26,18 @@ describe('valid api:clone', () => {
       .it('sends private=false for public visibility', ctx => {
         expect(ctx.stdout).to.contain('as version 1.0.1')
       })
+
+  test
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}`, api => api
+          .post('/apis/org/name/1.0.0/clone', { version: '1.0.1', private: true })
+          .reply(201)
+      )
+      .stdout()
+      .command(['api:clone', 'org/name/1.0.0', '1.0.1', '--visibility', 'private'])
+      .it('sends private=true for private visibility', ctx => {
+        expect(ctx.stdout).to.contain('as version 1.0.1')
+      })
 })
 
 describe('failing api:clone', () => {
