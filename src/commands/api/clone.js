@@ -1,9 +1,10 @@
-const BaseCommand = require('../../support/command/base-command')
-const { Args, Flags } = require('@oclif/core')
-const { getApiIdentifierArg, apiNameRegex } = require('../../support/command/parse-input')
-const { errorMsg } = require('../../template-strings')
-const { CLIError } = require('@oclif/core/lib/errors')
-const { postApi } = require('../../requests/api')
+import BaseCommand from '../../support/command/base-command.js'
+import { Args, Flags, Errors } from '@oclif/core'
+import { getApiIdentifierArg, apiNameRegex } from '../../support/command/parse-input.js'
+import { errorMsg } from '../../template-strings/index.js'
+import { postApi } from '../../requests/api.js'
+
+const { CLIError } = Errors
 
 const getNewVersion = args => {
   const newVersion = args['NEW_VERSION']
@@ -62,4 +63,4 @@ CloneApiCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = CloneApiCommand
+export default CloneApiCommand
