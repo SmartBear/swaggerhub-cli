@@ -110,7 +110,7 @@ set NODE_EXTRA_CA_CERTS=%USERPROFILE%\extra-ca-certs.pem
 $ swaggerhub COMMAND
 running command...
 $ swaggerhub --version
-swaggerhub-cli/0.13.0 linux-x64 node-v22.9.0
+swaggerhub-cli/0.14.0 linux-x64 node-v22.9.0
 $ swaggerhub --help [COMMAND]
 USAGE
   $ swaggerhub COMMAND
