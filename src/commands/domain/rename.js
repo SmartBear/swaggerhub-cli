@@ -1,12 +1,13 @@
-const BaseCommand = require('../../support/command/base-command')
-const { Args, Flags } = require('@oclif/core')
-const {
+import BaseCommand from '../../support/command/base-command.js'
+import { Args, Flags, Errors } from '@oclif/core'
+import {
   noVersionRegex,
   apiNameRegex
-} = require('../../support/command/parse-input')
-const { errorMsg } = require('../../template-strings')
-const { CLIError } = require('@oclif/core/lib/errors')
-const { postDomain } = require('../../requests/domain')
+} from '../../support/command/parse-input.js'
+import { errorMsg } from '../../template-strings/index.js'
+import { postDomain } from '../../requests/domain.js'
+
+const { CLIError } = Errors
 
 const getDomainToRename = args => {
   const domainPath = args['OWNER/DOMAIN_NAME']
@@ -74,4 +75,4 @@ RenameDomainCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = RenameDomainCommand
+export default RenameDomainCommand

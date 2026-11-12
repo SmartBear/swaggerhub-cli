@@ -1,10 +1,10 @@
-const { Args , Errors } = require('@oclif/core')
-const { getSpectralRuleset } = require('../../requests/spectral')
-const { getSpectralIdentifierArg, splitPathParams } = require('../../support/command/parse-input')
-const { errorMsg } = require('../../template-strings')
-const BaseCommand = require('../../support/command/base-command')
-const unzipper = require('unzipper')
-const fs = require('fs')
+import { Args, Errors } from '@oclif/core'
+import { getSpectralRuleset } from '../../requests/spectral.js'
+import { getSpectralIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
+import { errorMsg } from '../../template-strings/index.js'
+import BaseCommand from '../../support/command/base-command.js'
+import unzipper from 'unzipper'
+import fs from 'fs'
 
 class DownloadSpectralRulesetCommand extends BaseCommand {
   async run() {
@@ -66,4 +66,4 @@ DownloadSpectralRulesetCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = DownloadSpectralRulesetCommand
+export default DownloadSpectralRulesetCommand

@@ -1,5 +1,6 @@
-const semver = require('semver')
-const { engines } = require('../package.json')
+import semver from 'semver'
+import packageJson from '../package.json' with { type: 'json' }
+const { engines } = packageJson
 
 const version = engines.node
 

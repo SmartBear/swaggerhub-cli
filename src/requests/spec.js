@@ -1,6 +1,6 @@
-const config = require('../config')
-const http = require('../support/http')
-const { hasJsonStructure } = require('../utils/general')
+import config from '../config/index.js'
+import http from '../support/http/index.js'
+import { hasJsonStructure } from '../utils/general.js'
 
 const getSpec = (specType, pathParams, queryParams, accept) => {
     const { SWAGGERHUB_URL, SWAGGERHUB_API_KEY } = config.getConfig()
@@ -49,7 +49,7 @@ const postSpec = (specType, pathParams, queryParams, body) => {
   })
 }
 
-module.exports = {
+export {
     getSpec,
     deleteSpec,
     putSpec,

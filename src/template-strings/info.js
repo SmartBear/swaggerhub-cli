@@ -1,4 +1,4 @@
-const { wrapTemplates } = require('../utils/general')
+import { wrapTemplates } from '../utils/general.js'
 
 const infoMsg = {
   ApiCreate: 'Created API \'{{owner}}/{{name}}\'',
@@ -69,6 +69,6 @@ const infoMsg = {
 
 }
 
-module.exports = wrapTemplates({
+export default wrapTemplates({
   ...infoMsg
 })

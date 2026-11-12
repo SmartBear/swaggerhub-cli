@@ -1,4 +1,4 @@
-const { wrapTemplates } = require('../../utils/general')
+import { wrapTemplates } from '../../utils/general.js'
 
 const swaggerHubUrl = {
   name: 'SWAGGERHUB_URL',
@@ -12,7 +12,7 @@ const apiKey = {
   default: '{{SWAGGERHUB_API_KEY}}'
 }
 
-module.exports = wrapTemplates({
+export default wrapTemplates({
   swaggerHubUrl,
   apiKey
 })

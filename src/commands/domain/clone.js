@@ -1,9 +1,10 @@
-const BaseCommand = require('../../support/command/base-command')
-const { Args, Flags } = require('@oclif/core')
-const { getDomainIdentifierArg, apiNameRegex } = require('../../support/command/parse-input')
-const { errorMsg } = require('../../template-strings')
-const { CLIError } = require('@oclif/core/lib/errors')
-const { postDomain } = require('../../requests/domain')
+import BaseCommand from '../../support/command/base-command.js'
+import { Args, Flags, Errors } from '@oclif/core'
+import { getDomainIdentifierArg, apiNameRegex } from '../../support/command/parse-input.js'
+import { errorMsg } from '../../template-strings/index.js'
+import { postDomain } from '../../requests/domain.js'
+
+const { CLIError } = Errors
 
 const getNewVersion = args => {
   const newVersion = args['NEW_VERSION']
@@ -62,4 +63,4 @@ CloneDomainCommand.flags = {
   ...BaseCommand.flags
 }
 
-module.exports = CloneDomainCommand
+export default CloneDomainCommand

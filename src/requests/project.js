@@ -1,4 +1,4 @@
-const { getSpec, postSpec, deleteSpec, putSpec } = require('./spec')
+import { getSpec, postSpec, deleteSpec, putSpec } from './spec.js'
 
 const getProject = (pathParams, queryParams, accept = 'json') =>
     getSpec('projects', pathParams, queryParams, accept)
@@ -12,7 +12,7 @@ const putProject = ({ pathParams, body }) =>
 const deleteProject = pathParams =>
     deleteSpec('projects', pathParams)
 
-module.exports = {
+export {
     getProject,
     postProject,
     putProject,
