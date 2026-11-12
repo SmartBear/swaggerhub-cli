@@ -9,9 +9,15 @@ const checkEnvOverrides = config => ({
   ...pick(process.env, environmentalKeys)
 })
 
+const stripTrailingSlashes = config => (
+  typeof config.SWAGGERHUB_URL === 'string'
+    ? { ...config, SWAGGERHUB_URL: config.SWAGGERHUB_URL.replace(/\/+$/, '') }
+    : config
+)
+
 const getConfig = () => {
   const { configFilePath } = global
-  return checkEnvOverrides(fse.readJSONSync(configFilePath))
+  return stripTrailingSlashes(checkEnvOverrides(fse.readJSONSync(configFilePath)))
 }
 
 const setConfig = update => {

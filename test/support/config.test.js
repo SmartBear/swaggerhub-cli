@@ -89,6 +89,27 @@ describe('config ', () => {
     })
   })
 
+  describe('trailing slashes in SWAGGERHUB_URL', () => {
+    test
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://myorg.swaggerhub.com/v1/' }))
+    .it('should be removed from the configured url', () => {
+      expect(getConfig().SWAGGERHUB_URL).to.equal('https://myorg.swaggerhub.com/v1')
+    })
+
+    test
+    .do(createEmptyConfigFile)
+    .env({ SWAGGERHUB_URL: 'https://myorg.swaggerhub.com/v1//' })
+    .it('should be removed from the environmental variable url', () => {
+      expect(getConfig().SWAGGERHUB_URL).to.equal('https://myorg.swaggerhub.com/v1')
+    })
+
+    test
+    .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://myorg.swaggerhub.com/v1/' }))
+    .it('should not make an on-premise url invalid', () => {
+      expect(isURLValid()).to.equal(true)
+    })
+  })
+
   describe('isURLValid', () => {
     test
     .do(() => createConfigFileWithConfig({ SWAGGERHUB_URL: 'https://api.swaggerhub.com' }))
