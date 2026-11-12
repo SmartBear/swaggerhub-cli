@@ -47,7 +47,6 @@
     "npm": ">=11.9.0"
   },
   "overrides": {
-    "npm": "^11.9.0",
     "glob": "^10.5.0",
     "serialize-javascript": "^7.1.4"
   },
