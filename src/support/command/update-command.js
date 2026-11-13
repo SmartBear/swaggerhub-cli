@@ -1,7 +1,7 @@
 import BaseCommand from './base-command.js'
 import { putSpec } from '../../requests/spec.js'
 import { handleErrors } from './handle-response.js'
-import inquirer from 'inquirer'
+import prompts from '../inquirer/prompts.js'
 
 class UpdateCommand extends BaseCommand {
 
@@ -38,17 +38,11 @@ class UpdateCommand extends BaseCommand {
   }
 
   async confirmPublish() {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `A conflict was detected with other resources referencing or referenced by this definition. 
+    return prompts.confirm(
+      `A conflict was detected with other resources referencing or referenced by this definition. 
         Forcing the change may affect them. 
-        Do you wish to continue?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+        Do you wish to continue?`
+    )
   }
 
   async updateDefault(type, owner, name, version) {

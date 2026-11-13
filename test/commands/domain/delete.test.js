@@ -1,6 +1,6 @@
 import { expect, test } from '@oclif/test'
 import sinon from 'sinon'
-import inquirer from 'inquirer'
+import prompts from '../../../src/support/inquirer/prompts.js'
 import config from '../../../src/config/index.js'
 const domainId = 'org/domain'
 const versionId = 'org/domain/1.0.0'
@@ -80,7 +80,7 @@ describe('inquirer prompts', () => {
   let promptStub
 
   beforeEach(() => {
-    promptStub = sinon.stub(inquirer, 'prompt')
+    promptStub = sinon.stub(prompts, 'confirm')
   })
 
   afterEach(() => {
@@ -88,7 +88,7 @@ describe('inquirer prompts', () => {
   })
 
   test
-    .do(() => promptStub.returns(Promise.resolve({ answer: true })))
+    .do(() => promptStub.returns(Promise.resolve(true)))
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .nock(`${shubUrl}/domains`, domain => domain
       .delete('/org/domain')
@@ -102,7 +102,7 @@ describe('inquirer prompts', () => {
     })
 
   test
-    .do(() => promptStub.returns(Promise.resolve({ answer: false })))
+    .do(() => promptStub.returns(Promise.resolve(false)))
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
     .stdout()
     .command(['domain:delete', domainId])

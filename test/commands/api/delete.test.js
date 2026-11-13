@@ -1,5 +1,5 @@
 import { expect, test } from '@oclif/test'
-import inquirer from 'inquirer'
+import prompts from '../../../src/support/inquirer/prompts.js'
 import config from '../../../src/config/index.js'
 const apiId = 'org/api'
 const apiVersionId = 'org/api/1.0.0'
@@ -20,7 +20,7 @@ describe('valid api:delete', () => {
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: true })))
+    .stub(prompts, 'confirm', stub => stub.returns(Promise.resolve(true)))
     .nock(`${shubUrl}/apis`, api => api
       .delete('/org/api')
       .reply(200)
@@ -33,7 +33,7 @@ describe('valid api:delete', () => {
 
   test
     .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
-    .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: false })))
+    .stub(prompts, 'confirm', stub => stub.returns(Promise.resolve(false)))
     .stdout()
     .command(['api:delete', apiId])
     .it('runs api:delete on API, enter \'No\' on confirmation')
