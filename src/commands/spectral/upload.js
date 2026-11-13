@@ -4,7 +4,7 @@ import { getSpectralIdentifierArg, splitPathParams } from '../../support/command
 import BaseCommand from '../../support/command/base-command.js'
 import { PassThrough } from 'stream'
 import { pipeAsync } from '../../utils/general.js'
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 import { getResponseContent } from '../../support/command/handle-response.js'
 
 class UploadSpectralRulesetCommand extends BaseCommand {
@@ -17,7 +17,7 @@ class UploadSpectralRulesetCommand extends BaseCommand {
   }
 
  async zipTheDirectory(directoryPath) {
-    const archive = archiver('zip', { zlib: { level: 9 } })
+    const archive = new ZipArchive({ zlib: { level: 9 } })
     const passthrough = new PassThrough()
 
     archive.directory(directoryPath, false)
