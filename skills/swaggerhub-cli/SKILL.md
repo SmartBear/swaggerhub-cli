@@ -1,6 +1,6 @@
 ---
 name: swaggerhub-cli
-description: Use the Swagger CLI (`swaggerhub`) to manage APIs, domains, projects, integrations and Spectral rulesets in Swagger (SwaggerHub) from the terminal or CI. Use when asked to fetch, create, update, clone, publish, validate or delete an API or domain definition on Swagger.
+description: Use the Swagger CLI (`swaggerhub`) to manage APIs, domains, projects, integrations and Spectral rulesets in Swagger (SwaggerHub) from the terminal or CI. Use when asked to fetch, create, update, clone, fork, publish, validate or delete an API or domain definition on Swagger.
 ---
 
 # Swagger CLI (`swaggerhub`)
@@ -24,13 +24,14 @@ swaggerhub api:get org/api/1.0.0 --json            # YAML by default; -r for res
 swaggerhub api:create org/api/1.0.0 -f api.yaml    # errors if the version already exists
 swaggerhub api:update org/api/1.0.0 -f api.yaml    # --published=publish|unpublish, --setdefault, --visibility
 swaggerhub api:clone org/api/1.0.0 1.0.1
+swaggerhub api:fork org/api/1.0.0 myorg/api-fork/1.0.0   # --project, --visibility
 swaggerhub api:publish org/api/1.0.0 --force       # --force skips the confirmation prompt
 swaggerhub api:validate org/api/1.0.0 -c -j        # -c exits 1 on critical errors, -j prints JSON
 swaggerhub api:validate:local -o org -f api.yaml -c
 swaggerhub project:list org
 ```
 
-The `domain:*` commands mirror `api:*` (get, create, update, clone, publish, unpublish, setdefault, rename, delete). Other groups: `project:*` (create, get, list, delete, api/domain add/remove, member:list), `integration:*` (create, get, list, update, delete, execute), `spectral:download|upload`. Use `swaggerhub help` to list everything.
+The `domain:*` commands mirror `api:*` (get, create, update, clone, fork, publish, unpublish, setdefault, rename, delete). Other groups: `project:*` (create, get, list, delete, api/domain add/remove, member:list), `integration:*` (create, get, list, update, delete, execute), `spectral:download|upload`. Use `swaggerhub help` to list everything.
 
 ## Guidance for agents
 
