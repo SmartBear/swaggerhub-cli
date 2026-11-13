@@ -1,4 +1,4 @@
-import fse from 'fs-extra' // We're not using {readSyncJSON, ...} expansion, since we want to mock it.
+import fs from 'node:fs'
 import { mergeDeep, pick } from '../utils/general.js'
 
 const swaggerhubUrlRegex = new RegExp(/^https?:\/\/api\..*swaggerhub\.com$/)
@@ -15,14 +15,20 @@ const stripTrailingSlashes = config => (
     : config
 )
 
+// A mutable object keeps file access stubbable in tests (ES module namespaces are frozen).
+const fileIO = {
+  readJSON: filePath => JSON.parse(fs.readFileSync(filePath, 'utf8')),
+  writeJSON: (filePath, data) => fs.writeFileSync(filePath, `${JSON.stringify(data)}\n`)
+}
+
 const getConfig = () => {
   const { configFilePath } = global
-  return stripTrailingSlashes(checkEnvOverrides(fse.readJSONSync(configFilePath)))
+  return stripTrailingSlashes(checkEnvOverrides(fileIO.readJSON(configFilePath)))
 }
 
 const setConfig = update => {
   const { configFilePath } = global
-  return fse.writeJSONSync(configFilePath, mergeDeep(fse.readJSONSync(configFilePath), update))
+  return fileIO.writeJSON(configFilePath, mergeDeep(fileIO.readJSON(configFilePath), update))
 }
 
 const isURLValid = () => {
@@ -35,6 +41,7 @@ const isURLValid = () => {
 
 // A mutable default export keeps these functions stubbable (ES module namespaces are frozen).
 const config = {
+  fileIO,
   setConfig,
   getConfig,
   isURLValid
@@ -42,6 +49,7 @@ const config = {
 
 export default config
 export {
+  fileIO,
   setConfig,
   getConfig,
   isURLValid
