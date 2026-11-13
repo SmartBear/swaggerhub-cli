@@ -1,6 +1,6 @@
 import path from 'path'
 import { expect, test } from '@oclif/test'
-import inquirer from 'inquirer'
+import prompts from '../../src/support/inquirer/prompts.js'
 import sinon from 'sinon'
 import { setConfig } from '../../src/config/index.js'
 
@@ -8,7 +8,7 @@ describe('configure command', () => {
   let promptStub
 
   beforeEach(() => {
-    promptStub = sinon.stub(inquirer, 'prompt')
+    promptStub = sinon.stub(prompts, 'ask')
   })
 
   afterEach(() => {

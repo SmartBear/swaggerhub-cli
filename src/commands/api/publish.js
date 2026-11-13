@@ -2,7 +2,7 @@ import { Flags, Args } from '@oclif/core'
 import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
 import BaseCommand from '../../support/command/base-command.js'
 import UpdateCommand from '../../support/command/update-command.js'
-import inquirer from 'inquirer'
+import prompts from '../../support/inquirer/prompts.js'
 
 class PublishCommand extends UpdateCommand {
   async run() {
@@ -14,17 +14,11 @@ class PublishCommand extends UpdateCommand {
   }
 
   async confirmPublish() {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `You are about to publish an API referencing unpublished Domains. 
+    return prompts.confirm(
+      `You are about to publish an API referencing unpublished Domains. 
         If those Domains change, it may affect your API definition. 
-        Do you wish to continue?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+        Do you wish to continue?`
+    )
   }
 }
 

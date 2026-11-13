@@ -1,5 +1,5 @@
 import { expect, test } from '@oclif/test'
-import inquirer from 'inquirer'
+import prompts from '../../../src/support/inquirer/prompts.js'
 import config from '../../../src/config/index.js'
 const shubUrl = 'https://api.swaggerhub.com'
 
@@ -22,7 +22,7 @@ describe('valid api:publish', () => {
     .put('/apis/org/api/1.0.0/settings/lifecycle', { published: true })
     .reply(424, '{ "code": 424, "message": "conflict detected"}')
   )
-  .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: true })))
+  .stub(prompts, 'confirm', stub => stub.returns(Promise.resolve(true)))
   .nock(`${shubUrl}`, api => api
     .put('/apis/org/api/1.0.0/settings/lifecycle?force=true', { published: true })
     .reply(200)
@@ -72,7 +72,7 @@ describe('invalid apis:publish', () => {
 
   test
   .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
-  .stub(inquirer, 'prompt', stub => stub.returns(Promise.resolve({ answer: false })))
+  .stub(prompts, 'confirm', stub => stub.returns(Promise.resolve(false)))
   .nock(`${shubUrl}`, api => api
     .put('/apis/org/api/1.2.3/settings/lifecycle')
     .reply(424, '{ "code": 424, "message": "conflict detected" }')

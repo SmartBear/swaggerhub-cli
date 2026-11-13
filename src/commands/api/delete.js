@@ -2,7 +2,7 @@ import { Flags, Args } from '@oclif/core'
 import { deleteApi } from '../../requests/api.js'
 import { getApiIdentifierArg, splitPathParams } from '../../support/command/parse-input.js'
 import BaseCommand from '../../support/command/base-command.js'
-import inquirer from 'inquirer'
+import prompts from '../../support/inquirer/prompts.js'
 
 class DeleteAPICommand extends BaseCommand {
 
@@ -25,15 +25,9 @@ class DeleteAPICommand extends BaseCommand {
   }
 
   async confirmDeletion(apiName) {
-    const confirm = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'answer',
-        message: `Are you sure you want to delete '${apiName}' definition entirely?`,
-        default: false
-      }
-    ])
-    return confirm.answer
+    return prompts.confirm(
+      `Are you sure you want to delete '${apiName}' definition entirely?`
+    )
   }
 }
 
