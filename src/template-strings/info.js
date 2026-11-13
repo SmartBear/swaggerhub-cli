@@ -11,6 +11,8 @@ const infoMsg = {
 
   DomainClone: 'Cloned domain \'{{domainPath}}\' as version {{newVersion}}',
 
+  DomainFork: 'Forked domain \'{{domainPath}}\' as \'{{forkPath}}\'',
+
   DomainRename: 'Renamed domain \'{{domainPath}}\' to \'{{newName}}\'',
 
   DomainCreate: 'Created domain \'{{owner}}/{{name}}\'',
