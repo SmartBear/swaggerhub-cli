@@ -1,13 +1,14 @@
 import path from 'path'
-import { existsSync } from 'node:fs'
-import fse from 'fs-extra'
+import fs, { existsSync } from 'node:fs'
 import packageJson from '../../package.json' with { type: 'json' }
 import { pipe } from '../utils/general.js'
 
-const { outputJsonSync } = fse
 const { configDefaults } = packageJson.oclif
 
-const createConfigFile = (filePath, config) => outputJsonSync(filePath, config, { mode: 0o600 })
+const createConfigFile = (filePath, config) => {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true })
+  fs.writeFileSync(filePath, `${JSON.stringify(config)}\n`, { mode: 0o600 })
+}
 
 const createConfigPath = ({ configDir }) => path.join(configDir, 'config.json')
 

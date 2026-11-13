@@ -1,10 +1,12 @@
 import { expect, test } from '@oclif/test'
-import fse from 'fs-extra'
+import fs from 'node:fs'
 import * as mock from '../resources/config.js'
 import { isEqual } from '../../src/utils/general.js'
-import { setConfig, getConfig, isURLValid } from '../../src/config/index.js'
+import { fileIO, setConfig, getConfig, isURLValid } from '../../src/config/index.js'
 
-const { readJSONSync, removeSync, writeJSONSync } = fse
+const readJSONSync = path => JSON.parse(fs.readFileSync(path, 'utf8'))
+const writeJSONSync = (path, data) => fs.writeFileSync(path, JSON.stringify(data))
+const removeSync = path => fs.rmSync(path, { force: true })
 
 const envShubUrl = 'https://environmental.var'
 const envApiKey = 'api-key-from-env-variable'
@@ -37,15 +39,15 @@ describe('config ', () => {
     })
 
     test
-      .stub(fse, 'readJSONSync', stub => stub.throws(new Error('Failed to read')))
+      .stub(fileIO, 'readJSON', stub => stub.throws(new Error('Failed to read')))
       .do(setConfig)
       .catch(err => expect(err.message).to.match(/failed to read/i))
       .it('should throw an error if it fails to read the file.')
 
 
     test
-      .stub(fse, 'readJSONSync', stub => stub.returns({}))
-      .stub(fse, 'writeJSONSync', stub => stub.throws(new Error('Failed to write')))
+      .stub(fileIO, 'readJSON', stub => stub.returns({}))
+      .stub(fileIO, 'writeJSON', stub => stub.throws(new Error('Failed to write')))
       .do(setConfig)
       .catch(err => expect(err.message).to.match(/failed to write/i))
       .it('should throw an error if it fails to write the file')
