@@ -1,16 +1,16 @@
 import path from 'path'
 import BaseCommand from '../support/command/base-command.js'
-import inquirer from 'inquirer'
+import prompts from '../support/inquirer/prompts.js'
 import { getPrompts } from '../support/inquirer/index.js'
 import { setConfig, getConfig } from '../config/index.js'
 
 class ConfigureCommand extends BaseCommand {
   async run() {
-    const prompts = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
+    const questions = getPrompts(['swaggerHubUrl','apiKey'])(getConfig())
     const { configDir } = this.config
     const configFilePath = [...configDir.split(path.sep), 'config.json'].join(path.sep)
     
-    return inquirer.prompt(prompts)
+    return prompts.ask(questions)
       .then(setConfig)
       .then(this.logCommandSuccess({ configFilePath }))
       .catch(this.throwCommandError({ configFilePath }))
