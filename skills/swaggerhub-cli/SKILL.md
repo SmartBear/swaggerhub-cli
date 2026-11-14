@@ -1,6 +1,6 @@
 ---
 name: swaggerhub-cli
-description: Use the Swagger CLI (`swaggerhub`) to manage APIs, domains, projects, integrations and Spectral rulesets in Swagger (SwaggerHub) from the terminal or CI. Use when asked to fetch, create, update, clone, publish, validate or delete an API or domain definition on Swagger.
+description: Use the Swagger CLI (`swaggerhub`) to manage APIs, domains, projects, integrations and Spectral rulesets in Swagger (SwaggerHub) from the terminal or CI. Use when asked to fetch, create, update, clone, fork, publish, validate or delete an API or domain definition on Swagger.
 ---
 
 # Swagger CLI (`swaggerhub`)
@@ -30,7 +30,7 @@ swaggerhub api:validate:local -o org -f api.yaml -c
 swaggerhub project:list org
 ```
 
-The `domain:*` commands mirror `api:*` (get, create, update, clone, publish, unpublish, setdefault, rename, delete). Other groups: `project:*` (create, get, list, delete, api/domain add/remove, member:list), `integration:*` (create, get, list, update, delete, execute), `spectral:download|upload`. Use `swaggerhub help` to list everything.
+The `domain:*` commands mirror `api:*` (get, create, update, clone, fork, publish, unpublish, setdefault, rename, delete). Other groups: `project:*` (create, get, list, delete, api/domain add/remove, member:list), `integration:*` (create, get, list, update, delete, execute), `spectral:download|upload`. Use `swaggerhub help` to list everything.
 
 ## Guidance for agents
 
