@@ -9,6 +9,8 @@ const infoMsg = {
 
   ApiClone: 'Cloned API \'{{apiPath}}\' as version {{newVersion}}',
 
+  ApiFork: 'Forked API \'{{apiPath}}\' as \'{{forkPath}}\'',
+
   DomainClone: 'Cloned domain \'{{domainPath}}\' as version {{newVersion}}',
 
   DomainRename: 'Renamed domain \'{{domainPath}}\' to \'{{newName}}\'',
