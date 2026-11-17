@@ -2,7 +2,6 @@ import { Args, Flags, ux } from '@oclif/core'
 import { getApiIdentifierArg } from '../../../support/command/parse-input.js'
 import { hasJsonStructure, prettyPrintJSON } from '../../../utils/general.js'
 import { getApi } from '../../../requests/api.js'
-import { getResponseContent } from '../../../support/command/handle-response.js'
 import BaseCommand from '../../../support/command/base-command.js'
 
 const toRow = comment => ({
@@ -22,7 +21,8 @@ class ListApiCommentsCommand extends BaseCommand {
   }
 
   async logComments(response) {
-    const content = await getResponseContent(response)
+    // the server answers 204 with an empty body when a version has no comments
+    const content = (await response.content) || '[]'
 
     if (this.jsonOutput || !hasJsonStructure(content)) {
       this.log(hasJsonStructure(content) ? prettyPrintJSON(content) : content)

@@ -49,6 +49,30 @@ describe('valid api:comment:list', () => {
       .it('reports when there are no comments', ctx => {
         expect(ctx.stdout).to.contain('No comments found.')
       })
+
+  test
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}`, api => api
+          .get('/apis/org/name/1.0.0/comments')
+          .reply(204)
+      )
+      .stdout()
+      .command(['api:comment:list', 'org/name/1.0.0'])
+      .it('reports no comments when the server answers 204 with an empty body', ctx => {
+        expect(ctx.stdout).to.contain('No comments found.')
+      })
+
+  test
+      .stub(config, 'getConfig', stub => stub.returns({ SWAGGERHUB_URL: shubUrl }))
+      .nock(`${shubUrl}`, api => api
+          .get('/apis/org/name/1.0.0/comments')
+          .reply(204)
+      )
+      .stdout()
+      .command(['api:comment:list', 'org/name/1.0.0', '--json'])
+      .it('prints an empty JSON list with --json when the server answers 204', ctx => {
+        expect(JSON.parse(ctx.stdout)).to.deep.equal([])
+      })
 })
 
 describe('failing api:comment:list', () => {
