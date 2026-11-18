@@ -1,8 +1,13 @@
 import { confirm, input } from '@inquirer/prompts'
 
+// Only plain text questions are supported: just `name`, `message` and `default` are forwarded to `input`.
+// Other question types (e.g. `password`) need their own prompt function, so fail instead of ignoring them.
 const ask = async questions => {
   const answers = {}
-  for (const { name, message, default: defaultValue } of questions) {
+  for (const { type = 'input', name, message, default: defaultValue } of questions) {
+    if (type !== 'input') {
+      throw new Error(`Unsupported prompt type '${type}' for question '${name}'`)
+    }
     answers[name] = await input({ message, default: defaultValue })
   }
   return answers
