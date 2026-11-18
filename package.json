@@ -1,6 +1,6 @@
 {
   "name": "swaggerhub-cli",
-  "description": "SwaggerHub CLI",
+  "description": "SwaggerHub CLI. Includes an agent skill",
   "version": "0.15.0",
   "author": "SmartBear",
   "bin": {
@@ -55,7 +55,10 @@
   ],
   "homepage": "https://github.com/SmartBear/swaggerhub-cli",
   "keywords": [
-    "oclif"
+    "oclif",
+    "agent-skill",
+    "claude-code",
+    "swagger"
   ],
   "license": "Apache-2.0",
   "main": "src/index.js",
