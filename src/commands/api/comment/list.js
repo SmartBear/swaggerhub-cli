@@ -11,7 +11,7 @@ const toRow = comment => ({
   line: comment.range?.startLine ?? '',
   replies: (comment.replies ?? []).length,
   created: comment.created,
-  body: comment.body.replaceAll(/\s+/g, ' ')
+  body: (comment.body ?? '').replaceAll(/\s+/g, ' ')
 })
 
 class ListApiCommentsCommand extends BaseCommand {
@@ -30,6 +30,11 @@ class ListApiCommentsCommand extends BaseCommand {
     }
 
     const comments = JSON.parse(content)
+    if (!Array.isArray(comments)) {
+      this.log(prettyPrintJSON(content))
+      return
+    }
+
     if (comments.length === 0) {
       this.log('No comments found.')
       return
