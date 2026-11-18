@@ -51,7 +51,8 @@
     "/bin",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
-    "/src"
+    "/src",
+    "/skills"
   ],
   "homepage": "https://github.com/SmartBear/swaggerhub-cli",
   "keywords": [
