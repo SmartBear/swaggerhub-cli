@@ -25,6 +25,7 @@ swaggerhub api:create org/api/1.0.0 -f api.yaml    # errors if the version alrea
 swaggerhub api:update org/api/1.0.0 -f api.yaml    # --published=publish|unpublish, --setdefault, --visibility
 swaggerhub api:clone org/api/1.0.0 1.0.1
 swaggerhub api:fork org/api/1.0.0 myorg/api-fork/1.0.0   # --project, --visibility
+swaggerhub api:comment:list org/api/1.0.0        # table of comments; --json for full detail
 swaggerhub api:publish org/api/1.0.0 --force       # --force skips the confirmation prompt
 swaggerhub api:validate org/api/1.0.0 -c -j        # -c exits 1 on critical errors, -j prints JSON
 swaggerhub api:validate:local -o org -f api.yaml -c
