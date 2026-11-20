@@ -12,10 +12,6 @@ The Swagger CLI enables teams to build automation and workflows around Swagger. 
 * [Using a proxy](#using-a-proxy)
 * [Additional configuration for Swagger Studio On-Premise](#additional-configuration-for-swagger-studio-on-premise)
 * [Using with AI agents](#using-with-ai-agents)
-* [list the skills available in this repository without installing](#list-the-skills-available-in-this-repository-without-installing)
-* [install into the current project](#install-into-the-current-project)
-* [install only this skill, globally, for a specific agent](#install-only-this-skill-globally-for-a-specific-agent)
-* [see what is installed, check for updates, update, remove](#see-what-is-installed-check-for-updates-update-remove)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Plugins](#plugins)
@@ -116,22 +112,10 @@ The repository ships an [agent skill](skills/swaggerhub-cli/SKILL.md) that teach
 
 The skill only provides instructions. The agent still needs the CLI installed (see [Installation](#installation)) and `SWAGGERHUB_API_KEY` set (see [Setup](#setup)).
 
-```sh-session
-# list the skills available in this repository without installing
-$ npx skills add SmartBear/swaggerhub-cli --list
-
-# install into the current project
-$ npx skills add SmartBear/swaggerhub-cli
-
-# install only this skill, globally, for a specific agent
-$ npx skills add SmartBear/swaggerhub-cli --skill swaggerhub-cli -g -a claude-code
-
-# see what is installed, check for updates, update, remove
-$ npx skills list
-$ npx skills check
-$ npx skills update
-$ npx skills remove swaggerhub-cli
-```
+- List the skills available in this repository without installing: `npx skills add SmartBear/swaggerhub-cli --list`
+- Install into the current project: `npx skills add SmartBear/swaggerhub-cli`
+- Install only this skill, globally, for a specific agent: `npx skills add SmartBear/swaggerhub-cli --skill swaggerhub-cli -g -a claude-code`
+- See what is installed, check for updates, update, remove: `npx skills list`, `npx skills check`, `npx skills update`, `npx skills remove swaggerhub-cli`
 
 Once installed, the agent loads the skill automatically when a task matches its description, for example "fetch the definition of my API from Swagger" or "publish this API version". You can also ask for it by name, e.g. "use the swaggerhub-cli skill to ...". In Claude Code it is also available as `/swaggerhub-cli`.
 
