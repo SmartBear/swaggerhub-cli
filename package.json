@@ -18,7 +18,7 @@
     "https-proxy-agent": "^9.1.0",
     "js-yaml": "^5.2.2",
     "json-templates": "^5.0.0",
-    "node-fetch": "^2.6.12",
+    "node-fetch": "^2.7.0",
     "proxy-from-env": "^2.1.0",
     "semver": "^7.6.0",
     "unzipper": "^0.12.3"
