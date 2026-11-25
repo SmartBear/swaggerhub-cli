@@ -6,8 +6,8 @@ import setupConfig from '../../src/hooks/setup-config.js'
 const mockHookOptions = {
   config: {
     configDir: './',
-    userAgent: 'swaggerhub/1.2.3 darwin-x64 node-v13.8.0',
-    name: 'swaggerhub'
+    userAgent: 'swaggerhub-cli/1.2.3 darwin-x64 node-v13.8.0',
+    name: 'swaggerhub-cli'
   }
 }
 
