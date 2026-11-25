@@ -16,8 +16,8 @@ const initConfig = filePath => !existsSync(filePath) && createConfigFile(filePat
 
 const setAsGlobalPath = filePath => global.configFilePath = filePath
 
-const setAsGlobalUserAgent = ({ userAgent, name, ...rest }) => {
-  global.shUserAgent = userAgent.replace(name, `${name}-cli`)
+const setAsGlobalUserAgent = ({ userAgent, ...rest }) => {
+  global.shUserAgent = userAgent
   return rest
 }
 
