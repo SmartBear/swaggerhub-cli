@@ -14,11 +14,15 @@ class PublishCommand extends UpdateCommand {
   }
 
   async confirmPublish() {
-    return prompts.confirm(
+    const confirmed = await prompts.confirm(
       `You are about to publish an API referencing unpublished Domains. 
         If those Domains change, it may affect your API definition. 
         Do you wish to continue?`
     )
+    if (!confirmed) {
+      this.log('Publish cancelled. The API was not published.');
+      process.exit(1);
+    }
   }
 }
 
